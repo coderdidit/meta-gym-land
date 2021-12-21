@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Account from "components/Account/Account";
 import Chains from "components/Chains";
 import NFTBalance from "components/NFTBalance";
-import { Layout } from "antd";
+import { Layout, Divider } from "antd";
 import "antd/dist/antd.css";
 import NativeBalance from "components/NativeBalance";
 import "./style.css";
@@ -62,7 +62,7 @@ const App = ({ isServerInfo }) => {
     <Layout style={{ height: "100vh", overflow: "auto" }}>
       <Router>
         <Header style={styles.header}>
-          <Logo />
+          <MoralisLogo />
           <Link to="/" style={styles.homeLink}>MetaGymLand</Link>
           <MenuItems />
           <div style={styles.headerRight}>
@@ -99,8 +99,8 @@ const App = ({ isServerInfo }) => {
           >
             Moralis
           </a>
-          {" "}
         </Text>
+        <Divider type="vertical" />
         <Text>
           Powered by {" "}
           <a
@@ -110,8 +110,8 @@ const App = ({ isServerInfo }) => {
           >
             Avalanche
           </a>
-          {" "}
         </Text>
+        <Divider type="vertical" />
         <Text>
           Powered by {" "}
           <a
@@ -121,14 +121,13 @@ const App = ({ isServerInfo }) => {
           >
             TensorFlowJS
           </a>
-          {" "}
         </Text>
       </Footer>
     </Layout>
   );
 };
 
-export const Logo = () => (
+export const MoralisLogo = () => (
   <div style={{ display: "flex" }}>
     <svg width="60" height="38" viewBox="0 0 50 38" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
