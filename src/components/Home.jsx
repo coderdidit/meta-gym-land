@@ -1,6 +1,6 @@
 import { Card, Typography } from "antd";
 import React from "react";
-
+import { Button } from 'antd';
 const { Text } = Typography;
 
 const styles = {
@@ -27,6 +27,17 @@ export default function Home() {
         }
       >
         Have fun and get fit!
+        <br /><br />
+        <Button onClick={() => alert('will play')}
+          type="primary">
+          Play now
+        </Button>
+        <Button
+          href="https://moralis.io"
+          target="_blank"
+        >
+          Whitepaper
+        </Button>
       </Card>
       <div>
         <Card style={styles.card}>
