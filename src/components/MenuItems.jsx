@@ -16,16 +16,13 @@ function MenuItems() {
         width: "100%",
         justifyContent: "center",
       }}
-      defaultSelectedKeys={[pathname]}
+      selectedKeys={[pathname]}
     >
-      <Menu.Item key="/">
-        <NavLink to="/">Home</NavLink>
-      </Menu.Item>
       <Menu.Item key="/avatars">
-        <NavLink to="/avatars">🖼 Your Avatars</NavLink>
+        <NavLink to="/avatars">🖼{" "}Your Avatars</NavLink>
       </Menu.Item>
       <Menu.Item key="/contract">
-        <NavLink to="/contract">📄 Contract</NavLink>
+        <NavLink to="/contract">📄 Contract(to delete)</NavLink>
       </Menu.Item>
     </Menu>
   );

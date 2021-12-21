@@ -3,10 +3,8 @@ import { useMoralis } from "react-moralis";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Account from "components/Account/Account";
 import Chains from "components/Chains";
-import InchDex from "components/InchDex";
 import NFTBalance from "components/NFTBalance";
-import Wallet from "components/Wallet";
-import { Layout, Tabs } from "antd";
+import { Layout } from "antd";
 import "antd/dist/antd.css";
 import NativeBalance from "components/NativeBalance";
 import "./style.css";
@@ -14,9 +12,15 @@ import QuickStart from "components/QuickStart";
 import Contract from "components/Contract/Contract";
 import Text from "antd/lib/typography/Text";
 import MenuItems from "./components/MenuItems";
+import { Link } from "react-router-dom";
 const { Header, Footer } = Layout;
 
 const styles = {
+  homeLink: {
+    color: "inherit",
+    fontSize: "17px",
+    fontWeight: "500",
+  },
   content: {
     display: "flex",
     justifyContent: "center",
@@ -58,7 +62,8 @@ const App = ({ isServerInfo }) => {
     <Layout style={{ height: "100vh", overflow: "auto" }}>
       <Router>
         <Header style={styles.header}>
-          <Logo /> MetaGymLand
+          <Logo />
+          <Link to="/" style={styles.homeLink}>MetaGymLand</Link>
           <MenuItems />
           <div style={styles.headerRight}>
             <NativeBalance />
@@ -69,7 +74,7 @@ const App = ({ isServerInfo }) => {
 
         <div style={styles.content}>
           <Switch>
-            <Route exact path="/">
+            <Route exact path="/" onEnter={() => console.log('home')}>
               <QuickStart isServerInfo={isServerInfo} />
             </Route>
             <Route path="/avatars">
@@ -85,38 +90,38 @@ const App = ({ isServerInfo }) => {
         </div>
       </Router>
       <Footer style={{ textAlign: "center" }}>
-        <Text style={{ display: "block" }}>
-          ⭐️ Please star this{" "}
-          <a
-            href="https://github.com/ethereum-boilerplate/ethereum-boilerplate/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            boilerplate
-          </a>
-          , every star makes us very happy!
-        </Text>
-
-        <Text style={{ display: "block" }}>
-          🙋 You have questions? Ask them on the {""}
+        <Text>
+          Built with {" "}
           <a
             target="_blank"
             rel="noopener noreferrer"
-            href="https://forum.moralis.io/t/ethereum-boilerplate-questions/3951/29"
-          >
-            Moralis forum
-          </a>
-        </Text>
-
-        <Text style={{ display: "block" }}>
-          📖 Read more about{" "}
-          <a
-            target="_blank"
-            rel="noopener noreferrer"
-            href="https://moralis.io?utm_source=boilerplatehosted&utm_medium=todo&utm_campaign=ethereum-boilerplat"
+            href="https://moralis.io"
           >
             Moralis
           </a>
+          {" "}
+        </Text>
+        <Text>
+          Powered by {" "}
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href="https://www.avax.network"
+          >
+            Avalanche
+          </a>
+          {" "}
+        </Text>
+        <Text>
+          Powered by {" "}
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href="https://www.tensorflow.org/js"
+          >
+            TensorFlowJS
+          </a>
+          {" "}
         </Text>
       </Footer>
     </Layout>
