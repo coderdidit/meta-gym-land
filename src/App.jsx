@@ -8,11 +8,12 @@ import { Layout, Divider } from "antd";
 import "antd/dist/antd.css";
 import NativeBalance from "components/NativeBalance";
 import "./style.css";
-import QuickStart from "components/QuickStart";
+import Home from "components/Home";
 import Contract from "components/Contract/Contract";
 import Text from "antd/lib/typography/Text";
 import MenuItems from "./components/MenuItems";
 import { Link } from "react-router-dom";
+import { Row, Col } from 'antd';
 const { Header, Footer } = Layout;
 
 const styles = {
@@ -75,7 +76,7 @@ const App = ({ isServerInfo }) => {
         <div style={styles.content}>
           <Switch>
             <Route exact path="/" onEnter={() => console.log('home')}>
-              <QuickStart isServerInfo={isServerInfo} />
+              <Home />
             </Route>
             <Route path="/avatars">
               <NFTBalance />
@@ -90,38 +91,45 @@ const App = ({ isServerInfo }) => {
         </div>
       </Router>
       <Footer style={{ textAlign: "center" }}>
-        <Text>
-          Built with {" "}
-          <a
-            target="_blank"
-            rel="noopener noreferrer"
-            href="https://moralis.io"
-          >
-            Moralis
-          </a>
-        </Text>
-        <Divider type="vertical" />
-        <Text>
-          Powered by {" "}
-          <a
-            target="_blank"
-            rel="noopener noreferrer"
-            href="https://www.avax.network"
-          >
-            Avalanche
-          </a>
-        </Text>
-        <Divider type="vertical" />
-        <Text>
-          Powered by {" "}
-          <a
-            target="_blank"
-            rel="noopener noreferrer"
-            href="https://www.tensorflow.org/js"
-          >
-            TensorFlowJS
-          </a>
-        </Text>
+        <Row>
+          <Col span={24}>META GYM LAND</Col>
+        </Row>
+        <Row>
+          <Col span={24}>
+            <Text>
+              Built with {" "}
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://moralis.io"
+              >
+                Moralis
+              </a>
+            </Text>
+            <Divider type="vertical" />
+            <Text>
+              Powered by {" "}
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://www.avax.network"
+              >
+                Avalanche
+              </a>
+            </Text>
+            <Divider type="vertical" />
+            <Text>
+              Powered by {" "}
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://www.tensorflow.org/js"
+              >
+                TensorFlowJS
+              </a>
+            </Text>
+          </Col>
+        </Row>
       </Footer>
     </Layout>
   );
