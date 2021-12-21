@@ -62,24 +62,18 @@ const App = ({ isServerInfo }) => {
     <Layout style={{ height: "100vh", overflow: "auto" }}>
       <Router>
         <Header style={styles.header}>
-          <Logo />
+          <Logo /> MetaGymLand
           <MenuItems />
           <div style={styles.headerRight}>
-            <Chains />
-            <TokenPrice
-              address="0x1f9840a85d5af5bf1d1762f925bdaddc4201f984"
-              chain="eth"
-              image="https://cloudflare-ipfs.com/ipfs/QmXttGpZrECX5qCyXbBQiqgQNytVGeZW5Anewvh2jc4psg/"
-              size="40px"
-            />
             <NativeBalance />
             <Account />
+            <Chains />
           </div>
         </Header>
 
         <div style={styles.content}>
           <Switch>
-            <Route exact path="/quickstart">
+            <Route exact path="/">
               <QuickStart isServerInfo={isServerInfo} />
             </Route>
             <Route path="/wallet">
@@ -112,12 +106,6 @@ const App = ({ isServerInfo }) => {
             </Route>
             <Route path="/contract">
               <Contract />
-            </Route>
-            <Route path="/">
-              <Redirect to="/quickstart" />
-            </Route>
-            <Route path="/ethereum-boilerplate">
-              <Redirect to="/quickstart" />
             </Route>
             <Route path="/nonauthenticated">
               <>Please login using the "Authenticate" button</>
