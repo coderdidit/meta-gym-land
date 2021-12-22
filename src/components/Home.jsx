@@ -40,7 +40,14 @@ export default function Home() {
         </Button>
       </Card>
       <div>
-        <Card style={styles.card}>
+        <Card
+          style={styles.card}
+          title={
+            <>
+              Example of Gamifying Stretches:
+            </>
+          }
+        >
           <div>
             <iframe
               width="560"
