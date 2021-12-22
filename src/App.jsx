@@ -98,6 +98,7 @@ const App = ({ isServerInfo }) => {
         </div>
       </Router>
       <Footer style={{ textAlign: "center" }}>
+        <Divider />
         <Row>
           <Col span={24}><b>META GYM LAND</b> version: {packageJson.version}</Col>
         </Row>
