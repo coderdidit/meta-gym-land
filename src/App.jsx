@@ -9,6 +9,7 @@ import "antd/dist/antd.css";
 import NativeBalance from "components/NativeBalance";
 import "./style.css";
 import Home from "components/Home";
+import Marketplace from "components/Marketplace"
 import Contract from "components/Contract/Contract";
 import Text from "antd/lib/typography/Text";
 import MenuItems from "./components/MenuItems";
@@ -81,6 +82,9 @@ const App = ({ isServerInfo }) => {
             </Route>
             <Route path="/avatars">
               <NFTBalance />
+            </Route>
+            <Route path="/marketplace">
+              <Marketplace />
             </Route>
             <Route path="/contract">
               <Contract />
