@@ -100,7 +100,9 @@ const App = ({ isServerInfo }) => {
       <Footer style={{ textAlign: "center" }}>
         <Divider />
         <Row>
-          <Col span={24}><b>META GYM LAND</b> version: {packageJson.version}</Col>
+          <Col span={100}>
+            <b>META GYM LAND</b> version: {packageJson.version}
+          </Col>
         </Row>
         <Row>
           <Col span={24}>
