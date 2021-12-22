@@ -19,13 +19,10 @@ function MenuItems() {
       selectedKeys={[pathname]}
     >
       <Menu.Item key="/avatars">
-        <NavLink to="/avatars">🖼{" "}Your MGL NFTs</NavLink>
+        <NavLink to="/avatars">🖼 Your MGL NFTs</NavLink>
       </Menu.Item>
       <Menu.Item key="/marketplace">
-        <NavLink to="/marketplace">💹 marketplace</NavLink>
-      </Menu.Item>
-      <Menu.Item key="/contract">
-        <NavLink to="/contract">📄 Contract(to delete)</NavLink>
+        <NavLink to="/marketplace">💹 Marketplace</NavLink>
       </Menu.Item>
     </Menu>
   );
