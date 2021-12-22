@@ -15,6 +15,8 @@ import Text from "antd/lib/typography/Text";
 import MenuItems from "./components/MenuItems";
 import { Link } from "react-router-dom";
 import { Row, Col } from 'antd';
+import packageJson from '../package.json';
+
 const { Header, Footer } = Layout;
 
 const styles = {
@@ -97,7 +99,7 @@ const App = ({ isServerInfo }) => {
       </Router>
       <Footer style={{ textAlign: "center" }}>
         <Row>
-          <Col span={24}>META GYM LAND</Col>
+          <Col span={24}><b>META GYM LAND</b> version: {packageJson.version}</Col>
         </Row>
         <Row>
           <Col span={24}>
