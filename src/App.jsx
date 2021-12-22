@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useMoralis } from "react-moralis";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { HashRouter as Router, Switch, Route } from "react-router-dom";
 import Account from "components/Account/Account";
 import Chains from "components/Chains";
 import NFTBalance from "components/NFTBalance";
