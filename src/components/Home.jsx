@@ -4,19 +4,25 @@ import { Button } from 'antd';
 import { Row, Col } from 'antd';
 const { Text } = Typography;
 
+const mainBackgroundCol = "#012E51"
+const brightFontCol = "#fff"
+
 const styles = {
   titleText: {
     fontSize: "36px",
     justifyContent: "center",
+    color: brightFontCol,
   },
   text: {
     fontSize: "18px",
     justifyContent: "center",
+    color: brightFontCol,
   },
   card: {
-    boxShadow: "0 0.5rem 1.2rem rgb(189 197 209 / 20%)",
-    border: "1px solid #e7eaf3",
-    borderRadius: "0.5rem",
+    border: "none",
+    borderBottom: "none",
+    background: mainBackgroundCol,
+    color: brightFontCol,
   },
   btn: {
     height: "fit-content",
@@ -26,6 +32,7 @@ const styles = {
     borderRadius: "0.6rem",
     fontWeight: "500",
     fontSize: "18px",
+    fontFamily: "Roboto, sans-serif",
   }
 };
 
@@ -33,7 +40,12 @@ export default function Home() {
   return (
     <Row>
       <Col span={24}>
-        <div style={{ display: "flex", gap: "10px" }}>
+        <div style={
+          { 
+            display: "flex", 
+            gap: "10px" 
+          }
+          }>
           <Card
             style={styles.card}
             title={

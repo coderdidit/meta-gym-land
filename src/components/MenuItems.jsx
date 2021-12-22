@@ -12,9 +12,9 @@ function MenuItems() {
       style={{
         display: "flex",
         fontSize: "17px",
-        fontWeight: "500",
+        fontWeight: "400",
         width: "100%",
-        justifyContent: "center",
+        justifyContent: "left",
       }}
       selectedKeys={[pathname]}
     >
