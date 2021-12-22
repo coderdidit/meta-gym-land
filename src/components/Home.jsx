@@ -41,11 +41,11 @@ export default function Home() {
     <Row>
       <Col span={24}>
         <div style={
-          { 
-            display: "flex", 
-            gap: "10px" 
+          {
+            display: "flex",
+            gap: "10px"
           }
-          }>
+        }>
           <Card
             style={styles.card}
             title={
