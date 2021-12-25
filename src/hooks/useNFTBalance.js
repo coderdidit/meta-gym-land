@@ -1,31 +1,24 @@
-import { ContactsOutlined } from "@ant-design/icons";
 import { useMoralisDapp } from "providers/MoralisDappProvider/MoralisDappProvider";
 import { useEffect, useState } from "react";
 import { useMoralisWeb3Api, useMoralisWeb3ApiCall } from "react-moralis";
 import { useIPFS } from "./useIPFS";
 
-export const useNFTTokenIds = (addr) => {
-  const { token } = useMoralisWeb3Api();
+export const useNFTBalances = (options) => {
+  const { account } = useMoralisWeb3Api();
   const { chainId } = useMoralisDapp();
   const { resolveLink } = useIPFS();
-  const [NFTTokenIds, setNFTTokenIds] = useState([]);
-  const [totalNFTs, setTotalNFTs] = useState();
-  const [fetchSuccess, setFetchSuccess] = useState(true);
+  const [NFTBalance, setNFTBalance] = useState([]);
   const {
-    fetch: getNFTTokenIds,
+    fetch: getNFTBalance,
     data,
     error,
     isLoading,
-  } = useMoralisWeb3ApiCall(token.getAllTokenIds, {
-    chain: chainId,
-    address: addr,
-    limit: 10,
-  });
+  } = useMoralisWeb3ApiCall(account.getNFTs, { chain: chainId, ...options });
+  const [fetchSuccess, setFetchSuccess] = useState(true);
 
   useEffect(async () => {
     if (data?.result) {
       const NFTs = data.result;
-      setTotalNFTs(data.total);
       setFetchSuccess(true);
       for (let NFT of NFTs) {
         if (NFT?.metadata) {
@@ -40,7 +33,7 @@ export const useNFTTokenIds = (addr) => {
               });
           } catch (error) {
             setFetchSuccess(false);
-              
+
 /*          !!Temporary work around to avoid CORS issues when retrieving NFT images!!
             Create a proxy server as per https://dev.to/terieyenike/how-to-create-a-proxy-server-on-heroku-5b5c
             Replace <your url here> with your proxy server_url below
@@ -60,16 +53,10 @@ export const useNFTTokenIds = (addr) => {
           }
         }
       }
-      setNFTTokenIds(NFTs);
+      setNFTBalance(NFTs);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
-  return {
-    getNFTTokenIds,
-    NFTTokenIds,
-    totalNFTs,
-    fetchSuccess,
-    error,
-    isLoading,
-  };
+  return { getNFTBalance, NFTBalance, fetchSuccess, error, isLoading };
 };

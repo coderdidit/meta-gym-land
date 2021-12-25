@@ -1,5 +1,6 @@
 import React from "react";
-import { useMoralis, useNFTBalances } from "react-moralis";
+import { useMoralis } from "react-moralis";
+import { useNFTBalances } from "hooks/useNFTBalance";
 import { Card, Image, Tooltip, Skeleton } from "antd";
 import { FileSearchOutlined, ShoppingCartOutlined } from "@ant-design/icons";
 import { getExplorer } from "helpers/networks";
