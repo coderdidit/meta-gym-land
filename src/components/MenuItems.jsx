@@ -2,7 +2,7 @@ import { useLocation } from "react-router";
 import { Menu } from "antd";
 import { NavLink } from "react-router-dom";
 
-function MenuItems({setInputValue}) {
+function MenuItems() {
   const { pathname } = useLocation();
 
   return (
@@ -21,7 +21,7 @@ function MenuItems({setInputValue}) {
       <Menu.Item key="/avatars">
         <NavLink to="/avatars">🖼&nbsp;&nbsp;Your (MGL) NFTs</NavLink>
       </Menu.Item>
-      <Menu.Item key="/marketplace" onClick={() => setInputValue("explore")}>
+      <Menu.Item key="/marketplace">
         <NavLink to="/marketplace">🛒&nbsp;&nbsp;Marketplace</NavLink>
       </Menu.Item>
     </Menu>
