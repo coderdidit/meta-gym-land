@@ -1,7 +1,8 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useMoralis } from "react-moralis";
 import { HashRouter as Router, Switch, Route } from "react-router-dom";
 import Account from "components/Account/Account";
+import SearchCollections from "components/SearchCollections";
 import Chains from "components/Chains";
 import NFTBalance from "components/NFTBalance";
 import { Layout, Divider } from "antd";
@@ -56,6 +57,7 @@ const styles = {
 
 const App = ({ isServerInfo }) => {
   const { isWeb3Enabled, enableWeb3, isAuthenticated, isWeb3EnableLoading } = useMoralis();
+  const [inputValue, setInputValue] = useState("explore");
 
   useEffect(() => {
     const connectorId = window.localStorage.getItem("connectorId");
@@ -76,7 +78,8 @@ const App = ({ isServerInfo }) => {
           <MoralisLogo />
           &nbsp;
           <Link to="/" style={styles.homeLink}>MetaGymLand</Link>
-          <MenuItems />
+          <SearchCollections setInputValue={setInputValue}/>
+          <MenuItems setInputValue={setInputValue} />
           <div style={styles.headerRight}>
             <NativeBalance />
             <Account />
@@ -93,7 +96,7 @@ const App = ({ isServerInfo }) => {
               <NFTBalance />
             </Route>
             <Route path="/marketplace">
-              <Marketplace />
+              <Marketplace inputValue={inputValue} setInputValue={setInputValue}/>
             </Route>
             <Route path="/contract">
               <Contract />

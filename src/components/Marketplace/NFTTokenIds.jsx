@@ -12,7 +12,7 @@ import {
   RightCircleOutlined,
   ShoppingCartOutlined,
 } from "@ant-design/icons";
-import { useMoralisDapp } from "../../providers/MoralisDappProvider/MoralisDappProvider";
+import { useMoralisDapp } from "providers/MoralisDappProvider/MoralisDappProvider";
 import { useWeb3ExecuteFunction } from "react-moralis";
 const { Meta } = Card;
 
