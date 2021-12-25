@@ -16,10 +16,10 @@ import MenuItems from "./components/MenuItems";
 import { Link } from "react-router-dom";
 import { Row, Col } from 'antd';
 import packageJson from '../package.json';
+import { mainBackgroundCol, brightFontCol } from "GlobalStyles";
 
 const { Header, Footer } = Layout;
-const mainBackgroundCol = "#012E51"
-const brightFontCol = "#fff"
+
 const styles = {
   homeLink: {
     color: "inherit",
