@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useMoralis } from "react-moralis";
 import { HashRouter as Router, Switch, Route } from "react-router-dom";
 import Account from "components/Account/Account";
