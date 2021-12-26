@@ -206,10 +206,11 @@ function NFTTokenIds() {
                 <div style={{ marginBottom: "10px" }}></div>
               </>
             )}
+            {/* NFTs Collection descritption */}
             <div style={styles.banner}>
               <Image
                 preview={false}
-                src={NFTTokenIds?.result[0]?.image || "error"}
+                src={NFTCollections?.find(c => c?.addrs === nftAddress)?.image || "error"}
                 fallback={fallbackImg}
                 alt=""
                 style={styles.logo}
@@ -240,6 +241,7 @@ function NFTTokenIds() {
                 hoverable
                 onClick={() => {
                   console.log('display nft collection', nft?.addrs)
+                  const collectionHover = nft?.image;
                   setNftAddress(nft?.addrs)
                 }}
                 style={{ width: 240, border: "2px solid #e7eaf3" }}
