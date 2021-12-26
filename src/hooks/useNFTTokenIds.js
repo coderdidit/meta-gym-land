@@ -6,8 +6,8 @@ import { useMoralisWeb3Api, useMoralisWeb3ApiCall } from "react-moralis";
 import { useIPFS } from "./useIPFS";
 
 export const useNFTTokenIds2 = (addr) => {
-    const { token, getAllTokenIds } = useMoralisWeb3Api();
-    const { chainId, account } = useMoralis();
+    const { token } = useMoralisWeb3Api();
+    const { chainId } = useMoralis();
     const { resolveLink } = useIPFS();
     const getAllTokenIdsOpts = {
         chain: chainId,
@@ -24,12 +24,17 @@ export const useNFTTokenIds2 = (addr) => {
         error,
         isLoading,
         isFetching,
-    } = useMoralisWeb3ApiCall(token.getAllTokenIds, getAllTokenIdsOpts);
+    } = useMoralisWeb3ApiCall(
+        token.getAllTokenIds,
+        getAllTokenIdsOpts,
+        { autoFetch: !!token },
+    );
 
     const NFTTokenIds = useMemo(() => {
         console.log('useNFTTokenIds2 useMemo', data)
         if (!data?.result || !data?.result.length) {
-            getNFTTokenIds();
+            // console.log('call getNFTTokenIds')
+            // getNFTTokenIds();
             return data;
         }
         setTotalNFTs(data.total);
@@ -48,7 +53,7 @@ export const useNFTTokenIds2 = (addr) => {
         });
 
         return { ...data, result: formattedResult };
-    }, [data, addr]);
+    }, [data]);
 
     return { getNFTTokenIds, data: NFTTokenIds, totalNFTs, fetchSuccess };
 }
