@@ -22,10 +22,11 @@ export const useNFTTokenIds = (addr) => {
     } = useMoralisWeb3ApiCall(
         token.getAllTokenIds,
         getAllTokenIdsOpts,
-        { autoFetch: !!token },
+        { autoFetch: !!token && addr !== "explore" },
     );
 
     const NFTTokenIds = useMemo(() => {
+        console.log('fetching tokenIds data')
         if (!data?.result || !data?.result.length) {
             return data;
         }
@@ -47,4 +48,3 @@ export const useNFTTokenIds = (addr) => {
 
     return { getNFTTokenIds, data: NFTTokenIds, error, isLoading, isFetching };
 };
-
