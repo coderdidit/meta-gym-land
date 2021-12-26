@@ -9,7 +9,6 @@ import { Card, Image, Tooltip, Modal, Badge, Alert, Spin } from "antd";
 import { useNFTTokenIds } from "hooks/useNFTTokenIds";
 import {
   FileSearchOutlined,
-  RightCircleOutlined,
   ShoppingCartOutlined,
 } from "@ant-design/icons";
 import { useMoralisDapp } from "providers/MoralisDappProvider/MoralisDappProvider";
@@ -196,7 +195,7 @@ function NFTTokenIds() {
             <div style={{ marginBottom: "10px" }}></div>
           </>
         )}
-        {nftAddress !== "explore" && totalNFTs !== undefined && (
+        {nftAddress !== "explore" && (
           <>
             {NFTsFetchError && (
               <>
