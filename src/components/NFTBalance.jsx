@@ -48,7 +48,7 @@ function NFTBalance() {
         Then you will be albe to 🎮{" "}{" "}Play in MetaGymLand Metaverse
       </p>
       <p>
-        by clicking <b style={{color: "#1990FF"}}>[play with me]</b> button{" "}🔘
+        by clicking <b style={{ color: "#1990FF" }}>[play with me]</b> button{" "}🔘
       </p>
       <p>
         If you don't have your awesome Avatar yet, get one in our
