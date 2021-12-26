@@ -234,20 +234,15 @@ function NFTTokenIds() {
         )}
 
         <div style={styles.NFTs}>
+          {/* Collections view */}
           {nftAddress === "explore" &&
             NFTCollections?.map((nft, index) => (
               <Card
                 hoverable
-                actions={[
-                  <Tooltip title="View Collection">
-                    <RightCircleOutlined
-                      onClick={() => {
-                        console.log('display nft collection', nft?.addrs)
-                        setNftAddress(nft?.addrs)
-                      }}
-                    />
-                  </Tooltip>,
-                ]}
+                onClick={() => {
+                  console.log('display nft collection', nft?.addrs)
+                  setNftAddress(nft?.addrs)
+                }}
                 style={{ width: 240, border: "2px solid #e7eaf3" }}
                 cover={
                   <Image
@@ -264,7 +259,8 @@ function NFTTokenIds() {
               </Card>
             ))}
 
-          {nftAddress !== "explore" && NFTTokenIds &&
+          {/* Collection NFTs view */}
+          {nftAddress !== "explore" &&
             NFTTokenIds?.result.map((nft, index) => (
               <Card
                 hoverable
