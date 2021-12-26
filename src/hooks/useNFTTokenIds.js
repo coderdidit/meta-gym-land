@@ -6,7 +6,7 @@ import { useMoralisWeb3Api, useMoralisWeb3ApiCall } from "react-moralis";
 import { useIPFS } from "./useIPFS";
 
 export const useNFTTokenIds2 = (addr) => {
-    const { token } = useMoralisWeb3Api();
+    const { token, getAllTokenIds } = useMoralisWeb3Api();
     const { chainId, account } = useMoralis();
     const { resolveLink } = useIPFS();
     const getAllTokenIdsOpts = {
@@ -24,31 +24,33 @@ export const useNFTTokenIds2 = (addr) => {
         error,
         isLoading,
         isFetching,
-      } = useMoralisWeb3ApiCall(token.getAllTokenIds, getAllTokenIdsOpts);
+    } = useMoralisWeb3ApiCall(token.getAllTokenIds, getAllTokenIdsOpts);
 
-      const NFTTokenIds = useMemo(() => {
+    const NFTTokenIds = useMemo(() => {
+        console.log('useNFTTokenIds2 useMemo', data)
         if (!data?.result || !data?.result.length) {
-          return data;
+            getNFTTokenIds();
+            return data;
         }
         setTotalNFTs(data.total);
         const formattedResult = data.result.map((nft) => {
-          try {
-            if (nft.metadata) {
-              const metadata = JSON.parse(nft.metadata);
-              const image = resolveLink(metadata?.image);
-              return { ...nft, image, metadata };
+            try {
+                if (nft.metadata) {
+                    const metadata = JSON.parse(nft.metadata);
+                    const image = resolveLink(metadata?.image);
+                    return { ...nft, image, metadata };
+                }
+            } catch (error) {
+                setFetchSuccess(false);
+                return nft;
             }
-          } catch (error) {
-            setFetchSuccess(false);
             return nft;
-          }
-          return nft;
         });
-    
+
         return { ...data, result: formattedResult };
-      }, [data]);
-    
-      return { getNFTTokenIds, data: NFTTokenIds, totalNFTs, fetchSuccess };
+    }, [data, addr]);
+
+    return { getNFTTokenIds, data: NFTTokenIds, totalNFTs, fetchSuccess };
 }
 
 export const useNFTTokenIds = (addr) => {
