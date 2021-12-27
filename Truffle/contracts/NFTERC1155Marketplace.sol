@@ -2,11 +2,12 @@
 pragma solidity ^0.8.4;
 
 import "github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/utils/Counters.sol";
-import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC1155/ERC1155.sol";
+import "github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC1155/ERC1155.sol";
+import "github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC1155/utils/ERC1155Receiver.sol";
 import "github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/security/ReentrancyGuard.sol";
-import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/access/Ownable.sol";
+import "github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/access/Ownable.sol";
 
-contract MarketPlace is ReentrancyGuard, Ownable {
+contract MarketPlace is ERC1155Receiver, ReentrancyGuard, Ownable {
     using Counters for Counters.Counter;
     Counters.Counter private _itemIds;
     Counters.Counter private _itemsSold;
@@ -18,6 +19,26 @@ contract MarketPlace is ReentrancyGuard, Ownable {
 
     constructor() {
         _owner = msg.sender;
+    }
+
+    function onERC1155Received(
+        address operator,
+        address from,
+        uint256 id,
+        uint256 value,
+        bytes calldata data
+    ) external override returns (bytes4) {
+        this.onERC1155BatchReceived.selector;
+    }
+
+    function onERC1155BatchReceived(
+        address operator,
+        address from,
+        uint256[] calldata ids,
+        uint256[] calldata values,
+        bytes calldata data
+    ) external override returns (bytes4) {
+        this.onERC1155BatchReceived.selector;
     }
 
     struct MarketItem {
