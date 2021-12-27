@@ -4,19 +4,20 @@ pragma solidity ^0.8.4;
 import "github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/utils/Counters.sol";
 import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC1155/ERC1155.sol";
 import "github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/security/ReentrancyGuard.sol";
+import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/access/Ownable.sol";
 
-contract MarketPlace is ReentrancyGuard {
+contract MarketPlace is ReentrancyGuard, Ownable {
     using Counters for Counters.Counter;
     Counters.Counter private _itemIds;
     Counters.Counter private _itemsSold;
 
-    address public owner;
+    address public _owner;
 
     // fee
     // uint256 listingPrice = 0.025 ether;
 
     constructor() {
-        owner = msg.sender;
+        _owner = msg.sender;
     }
 
     struct MarketItem {
@@ -48,6 +49,43 @@ contract MarketPlace is ReentrancyGuard {
     );
 
     event MarketItemSold(uint256 indexed itemId, address owner);
+
+    // list items in batch
+    // like a NFT drop done by the marketplace
+    function createBatchMarketItems(
+        address nftContract,
+        uint256[] memory tokenIds,
+        uint256 price
+    ) public onlyOwner {
+        require(price > 0, "Price must be greater than 0");
+
+        uint256[] memory amounts = new uint256[](tokenIds.length);
+
+        for (uint256 i = 0; i < tokenIds.length; i++) {
+            _itemIds.increment();
+            uint256 itemId = _itemIds.current();
+
+            idToMarketItem[itemId] = MarketItem(
+                itemId,
+                nftContract,
+                tokenIds[i],
+                payable(msg.sender),
+                payable(address(0)),
+                price,
+                false
+            );
+
+            amounts[i] = 1;
+        }
+
+        IERC1155(nftContract).safeBatchTransferFrom(
+            msg.sender,
+            address(this),
+            tokenIds,
+            amounts, // amount
+            ""
+        );
+    }
 
     function createMarketItem(
         address nftContract,
@@ -118,7 +156,7 @@ contract MarketPlace is ReentrancyGuard {
         // payable(owner).transfer(listingPrice);
     }
 
-    // return unsold items 
+    // return unsold items
     function fetchMarketItems() public view returns (MarketItem[] memory) {
         uint256 itemCount = _itemIds.current();
         uint256 unsoldItemCount = _itemIds.current() - _itemsSold.current();
