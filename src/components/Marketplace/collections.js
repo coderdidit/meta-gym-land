@@ -82,6 +82,11 @@ export const networkCollections = {
       image: "",
       name: "test MGL 2",
       addrs: "0x6d996636c3917d8D0B99Dc1D877Fbf7fC189c8f1"
+    },
+    {
+      image: "",
+      name: "test MGL 3",
+      addrs: "0x7650D3448F8044d8732528148c2A2d6B1D17BA88"
     }
   ]
 };
