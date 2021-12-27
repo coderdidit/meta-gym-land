@@ -23,6 +23,12 @@ contract MarketPlace is ReentrancyGuard {
         address payable seller;
         address payable owner;
         uint256 price;
+        /**
+         * for ERC1155
+         bool soldOut;
+         uint256 left;
+         uint256 sold;
+         */
         bool sold;
     }
 
@@ -128,4 +134,3 @@ contract MarketPlace is ReentrancyGuard {
 /// Thanks for inspiration: https://github.com/dabit3/polygon-ethereum-nextjs-marketplace/
 
 // last deployment on rinkeby testnet: 0x38132Af11613795d87343F87d6f43AA0d97fb8a2
-
