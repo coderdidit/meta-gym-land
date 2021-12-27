@@ -61,12 +61,20 @@ function NFTBalance() {
       abi: contractABIJson,
       params: {
         nftContract: nftToList.token_address,
-        itemId: nftToList.token_id,
+        tokenId: nftToList.token_id,
         price: String(p)
       }
     };
-
-    console.log('listNft', listingPrice, ops.params);
+    console.log('listNft', listingPrice, ops.params, ops.contractAddress);
+    await contractProcessor.fetch({
+      params: ops,
+      onSuccess: () => {
+        alert("item listed");
+      },
+      onError: (err) => {
+        alert(err);
+      }
+    });
   };
 
   console.log("NFTBalances", NFTBalances);

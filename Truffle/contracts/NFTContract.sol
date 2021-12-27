@@ -11,6 +11,8 @@ contract NFTContract is ERC1155, Ownable {
     constructor() ERC1155("https://inzloc1b6zrv.usemoralis.com/{id}.json") {
         _mint(msg.sender, ARTWORK, 1, "");
         _mint(msg.sender, PHOTO, 2, "");
+        // marketplace can oprate on token
+        setApprovalForAll(address(0x38132Af11613795d87343F87d6f43AA0d97fb8a2), true);
     }
 
     function mint(
