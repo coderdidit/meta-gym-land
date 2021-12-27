@@ -12,6 +12,9 @@ contract MarketPlace is ReentrancyGuard {
 
     address public owner;
 
+    // fee
+    // uint256 listingPrice = 0.025 ether;
+
     constructor() {
         owner = msg.sender;
     }
@@ -70,7 +73,7 @@ contract MarketPlace is ReentrancyGuard {
             msg.sender,
             address(this),
             tokenId,
-            1,
+            1, // amount
             ""
         );
 
@@ -105,14 +108,17 @@ contract MarketPlace is ReentrancyGuard {
             address(this),
             msg.sender,
             tokenId,
-            1,
+            1, // amount
             ""
         );
         idToMarketItem[itemId].owner = payable(msg.sender);
-        _itemsSold.increment();
         idToMarketItem[itemId].sold = true;
+        _itemsSold.increment();
+        // fee
+        // payable(owner).transfer(listingPrice);
     }
 
+    // return unsold items 
     function fetchMarketItems() public view returns (MarketItem[] memory) {
         uint256 itemCount = _itemIds.current();
         uint256 unsoldItemCount = _itemIds.current() - _itemsSold.current();
