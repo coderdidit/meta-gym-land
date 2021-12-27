@@ -4,7 +4,7 @@ import { HashRouter as Router, Switch, Route } from "react-router-dom";
 import Account from "components/Account/Account";
 import Chains from "components/Chains";
 import NFTBalance from "components/NFTBalance";
-import { Layout } from "antd";
+import { Layout, Divider } from "antd";
 import "antd/dist/antd.css";
 import NativeBalance from "components/NativeBalance";
 import "./style.css";
@@ -18,7 +18,7 @@ import { mainBackgroundCol, brightFontCol } from "GlobalStyles";
 import { MGLLogo } from "Logos";
 import { AppFooter } from "AppFooter"
 
-const { Header, Footer } = Layout;
+const { Header } = Layout;
 
 const styles = {
   homeLink: {
@@ -50,7 +50,7 @@ const styles = {
     display: "flex",
     gap: "20px",
     alignItems: "center",
-    fontSize: "15px",
+    fontSize: "17px",
     fontWeight: "600",
   },
 };
@@ -82,6 +82,13 @@ const App = ({ isServerInfo }) => {
           </div>
           <MenuItems />
           <div style={styles.headerRight}>
+            <Divider
+              type="vertical"
+              style={{ 
+                height: "1.8em",
+                backgroundColor: brightFontCol 
+              }}
+            />
             <NativeBalance />
             <Account />
             <Chains />
