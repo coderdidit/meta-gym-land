@@ -34,3 +34,8 @@ contract NFTContract is ERC1155, Ownable {
 }
 
 // last deployment on rinkeby testnet: 0x1904b52B2768E4DD72bf300202B4194E05dd0AFa
+
+// check https://github.com/ProjectOpenSea/opensea-creatures/blob/master/contracts/ERC721Tradable.sol
+// https://ethereum.stackexchange.com/questions/103625/how-to-approve-contract-to-transfer-tokens
+// https://programtheblockchain.com/posts/2018/02/27/writing-a-token-market-contract/
+// https://medium.com/coinmonks/developing-a-marketplace-contract-with-token-payment-d865323ea88c
