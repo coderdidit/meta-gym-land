@@ -69,6 +69,7 @@ function Marketplace() {
   const { data: NFTTokenIds, error: NFTsFetchError } = useNFTTokenIds(nftAddress);
   const totalNFTs = NFTTokenIds?.total
 
+  console.log("NFTTokenIds", NFTTokenIds);
   const [visible, setVisibility] = useState(false);
   const [nftToBuy, setNftToBuy] = useState(null);
 
