@@ -78,7 +78,9 @@ function Marketplace() {
   const contractProcessor = useWeb3ExecuteFunction();
   const nativeName = getNativeByChain(chainId);
   const contractABIJson = JSON.parse(contractABI);
-  const queryMarketItems = useMoralisQuery("MarketItems");
+
+  const createdMarketItemsTable = "CreatedMarketItemsNeww";
+  const queryMarketItems = useMoralisQuery(createdMarketItemsTable);
   const fetchMarketItems = JSON.parse(
     JSON.stringify(queryMarketItems.data, [
       "objectId",
@@ -166,6 +168,17 @@ function Marketplace() {
     });
   }
 
+  
+  /**
+   * TODO maybe create mapping here
+   * (token_address, token_id) => amount for sale
+   * 
+   * alternatively that data can be fetched from smart contract
+   * 
+   * but for now just followint the tutorial
+   * 
+  */
+
   const getMarketItem = (nft) => {
     const result = fetchMarketItems?.find(
       (e) =>
@@ -218,7 +231,7 @@ function Marketplace() {
                 <div style={{ marginBottom: "10px" }}></div>
               </>
             )}
-            {/* NFTs Collection descritption */}
+            {/* NFTs Collection description */}
             <div style={styles.banner}>
               <Image
                 preview={false}

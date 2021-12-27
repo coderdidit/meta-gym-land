@@ -48,6 +48,13 @@ contract MarketPlace is ERC1155Receiver, ReentrancyGuard, Ownable {
         address payable seller;
         address payable owner;
         uint256 price;
+
+        /**
+         unitPrice
+         amount
+         */
+
+
         /**
          * for ERC1155
          bool soldOut;
