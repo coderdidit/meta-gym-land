@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { useMoralis, useNFTBalances } from "react-moralis";
+import { useMoralis, useNFTBalances, useWeb3ExecuteFunction } from "react-moralis";
 import { Modal, Alert, Button, Card, Image, Tooltip, Skeleton } from "antd";
 import { FileSearchOutlined, ShoppingCartOutlined } from "@ant-design/icons";
 import { getExplorer } from "helpers/networks";
 import { useVerifyMetadata } from "hooks/useVerifyMetadata";
 import { getEllipsisTxt } from "../helpers/formatters";
 import { mainBackgroundCol, brightFontCol } from "GlobalStyles";
-import { Divider } from "antd";
+import { Input, Divider } from "antd";
 import { Link } from "react-router-dom";
 
 const { Meta } = Card;
@@ -32,6 +32,7 @@ function NFTBalance() {
 
   const [visible, setVisibility] = useState(false);
   const [nftToList, setNftToList] = useState(null);
+  const [listingPrice, setListingPrice] = useState(0);
 
   // const notDeployedABI = '{"noContractDeployed": true}'
   const deployedABI = '[{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"uint256","name":"itemId","type":"uint256"},{"indexed":true,"internalType":"address","name":"nftContract","type":"address"},{"indexed":true,"internalType":"uint256","name":"tokenId","type":"uint256"},{"indexed":false,"internalType":"address","name":"seller","type":"address"},{"indexed":false,"internalType":"address","name":"owner","type":"address"},{"indexed":false,"internalType":"uint256","name":"price","type":"uint256"},{"indexed":false,"internalType":"bool","name":"sold","type":"bool"}],"name":"MarketItemCreated","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"uint256","name":"itemId","type":"uint256"},{"indexed":false,"internalType":"address","name":"owner","type":"address"}],"name":"MarketItemSold","type":"event"},{"inputs":[{"internalType":"address","name":"nftContract","type":"address"},{"internalType":"uint256","name":"tokenId","type":"uint256"},{"internalType":"uint256","name":"price","type":"uint256"}],"name":"createMarketItem","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[{"internalType":"address","name":"nftContract","type":"address"},{"internalType":"uint256","name":"itemId","type":"uint256"}],"name":"createMarketSale","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[],"name":"fetchMarketItems","outputs":[{"components":[{"internalType":"uint256","name":"itemId","type":"uint256"},{"internalType":"address","name":"nftContract","type":"address"},{"internalType":"uint256","name":"tokenId","type":"uint256"},{"internalType":"address payable","name":"seller","type":"address"},{"internalType":"address payable","name":"owner","type":"address"},{"internalType":"uint256","name":"price","type":"uint256"},{"internalType":"bool","name":"sold","type":"bool"}],"internalType":"struct MarketPlace.MarketItem[]","name":"","type":"tuple[]"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"}]'
@@ -39,10 +40,33 @@ function NFTBalance() {
   const mainMarketAddress = "0x38132af11613795d87343f87d6f43aa0d97fb8a2"
   const [marketAddress, setMarketAddress] = useState(mainMarketAddress)
 
+  const contractABIJson = JSON.parse(contractABI)
+  const contractProcessor = useWeb3ExecuteFunction();
+  const listItemFunction = "createMarketItem";
+
   const handleListForSaleClick = (nft) => {
     setNftToList(nft);
     console.log(nft.image);
     setVisibility(true);
+  };
+
+  const listNft = async () => {
+    if (listingPrice <= 0) {
+      alert("price must be greater then 0");
+    }
+    const p = listingPrice * ("1e" + 18);
+    const ops = {
+      contractAddress: marketAddress,
+      functionName: listItemFunction,
+      abi: contractABIJson,
+      params: {
+        nftContract: nftToList.token_address,
+        itemId: nftToList.token_id,
+        price: String(p)
+      }
+    };
+
+    console.log('listNft', listingPrice, ops.params);
   };
 
   console.log("NFTBalances", NFTBalances);
@@ -129,7 +153,10 @@ function NFTBalance() {
                       title={`List ${nftToList?.name} #${nftToList?.token_id}`}
                       visible={visible}
                       onCancel={() => setVisibility(false)}
-                      onOk={() => setVisibility(false)}
+                      onOk={() => {
+                        listNft()
+                        if (listingPrice > 0) setVisibility(false);
+                      }}
                       okText="List for Sale"
                     >
                       <img
@@ -142,9 +169,15 @@ function NFTBalance() {
                           marginBottom: "15px",
                         }}
                       />
-                      <Alert
+                      {/* <Alert
                         message="This NFT is currently not for sale"
                         type="warning"
+                      /> */}
+                      <Input
+                        autoFocus
+                        required
+                        placeholder="set price"
+                        onChange={e => setListingPrice(e.target.value)}
                       />
                     </Modal>
                   </>
