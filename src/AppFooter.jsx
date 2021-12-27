@@ -6,7 +6,7 @@ import { mainBackgroundCol, brightFontCol } from "GlobalStyles";
 import { MGLLogo, MoralisLogo, AvaxLogo, CoderDitiLogo, TfJSLogo } from "Logos";
 const { Footer } = Layout;
 
-const topFooterSpan = 8;
+const topFooterSpan = 2;
 const secFooterSpan = 2;
 
 export const AppFooter = () => {
@@ -17,12 +17,12 @@ export const AppFooter = () => {
         }}>
             <Divider style={{ backgroundColor: brightFontCol }} />
             <Row style={{
-                textAlign: "center",
+                textAlign: "right",
             }}>
                 <Col span={topFooterSpan} >
                     <MGLLogo />
                 </Col>
-                <Col span={topFooterSpan} offset={topFooterSpan} >
+                <Col span={topFooterSpan} offset={20} >
                     <div style={{
                         marginTop: "0.7rem",
                     }}>
