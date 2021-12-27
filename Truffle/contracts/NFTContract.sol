@@ -7,12 +7,14 @@ import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contr
 contract NFTContract is ERC1155, Ownable {
     uint256 public constant ARTWORK = 0;
     uint256 public constant PHOTO = 1;
+    address marketplaceAddress;
 
-    constructor() ERC1155("https://inzloc1b6zrv.usemoralis.com/{id}.json") {
+    constructor(address _marketplaceAddress)
+        ERC1155("https://inzloc1b6zrv.usemoralis.com/{id}.json")
+    {
+        marketplaceAddress = _marketplaceAddress;
         _mint(msg.sender, ARTWORK, 1, "");
         _mint(msg.sender, PHOTO, 2, "");
-        // marketplace can oprate on token
-        setApprovalForAll(address(0x38132Af11613795d87343F87d6f43AA0d97fb8a2), true);
     }
 
     function mint(
@@ -21,13 +23,15 @@ contract NFTContract is ERC1155, Ownable {
         uint256 amount
     ) public onlyOwner {
         _mint(account, id, amount, "");
+        // marketplace can oprate on token
+        setApprovalForAll(marketplaceAddress, true);
     }
 
     function burn(
         address account,
         uint256 id,
         uint256 amount
-    ) public {
+    ) public onlyOwner {
         require(msg.sender == account);
         _burn(account, id, amount);
     }
