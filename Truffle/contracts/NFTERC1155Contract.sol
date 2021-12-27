@@ -14,8 +14,8 @@ contract NFTContract is ERC1155, Ownable {
     {
         marketplaceAddress = _marketplaceAddress;
         // autmoatically mint tokens to the sender
-        _mint(msg.sender, ARTWORK, 1, "");
-        _mint(msg.sender, PHOTO, 2, "");
+        _mint(msg.sender, ARTWORK, 5, "");
+        _mint(msg.sender, PHOTO, 5, "");
     }
 
     function mint(
@@ -46,3 +46,5 @@ contract NFTContract is ERC1155, Ownable {
 // https://medium.com/coinmonks/developing-a-marketplace-contract-with-token-payment-d865323ea88c
 
 // last deployment on rinkeby testnet: 0x6d996636c3917d8D0B99Dc1D877Fbf7fC189c8f1
+
+// last deployment on rinkeby testnet: 0x7650D3448F8044d8732528148c2A2d6B1D17BA88
