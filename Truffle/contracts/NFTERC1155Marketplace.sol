@@ -22,23 +22,23 @@ contract MarketPlace is ERC1155Receiver, ReentrancyGuard, Ownable {
     }
 
     function onERC1155Received(
-        address operator,
-        address from,
-        uint256 id,
-        uint256 value,
-        bytes calldata data
-    ) external override returns (bytes4) {
-        this.onERC1155BatchReceived.selector;
+        address, /* operator */
+        address, /* from */
+        uint256, /* id */
+        uint256, /* value */
+        bytes calldata /* data */
+    ) pure external override returns (bytes4) {
+        return this.onERC1155Received.selector;
     }
 
     function onERC1155BatchReceived(
-        address operator,
-        address from,
-        uint256[] calldata ids,
-        uint256[] calldata values,
-        bytes calldata data
-    ) external override returns (bytes4) {
-        this.onERC1155BatchReceived.selector;
+        address, /* operator */
+        address, /* from */
+        uint256[] calldata, /* ids */
+        uint256[] calldata, /* values */
+        bytes calldata /* data */
+    ) pure external override returns (bytes4) {
+        return this.onERC1155BatchReceived.selector;
     }
 
     struct MarketItem {
