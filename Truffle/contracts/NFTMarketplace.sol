@@ -178,3 +178,5 @@ contract MarketPlace is ReentrancyGuard, Ownable {
 /// Thanks for inspiration: https://github.com/dabit3/polygon-ethereum-nextjs-marketplace/
 
 // last deployment on rinkeby testnet: 0x38132Af11613795d87343F87d6f43AA0d97fb8a2
+
+// last deployment on rinkeby testnet: 0xee8a8722ab74aaa445e26f9e220d10b92f895522
