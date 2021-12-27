@@ -115,9 +115,12 @@ const App = ({ isServerInfo }) => {
       </Router>
       <Footer style={{ textAlign: "center", background: mainBackgroundCol, color: brightFontCol }}>
         <Divider style={{ backgroundColor: brightFontCol }} />
-        <Row>
-          <Col span={100} style={{ color: brightFontCol }}>
-            <b>META GYM LAND</b> version: {packageJson.version}
+        <Row gutter={16}>
+          <Col className="gutter-row" span={12} style={{ color: brightFontCol }}>
+            <MGLLogo />
+          </Col>
+          <Col className="gutter-row" span={12} style={{ color: brightFontCol }}>
+            <b>v{packageJson.version}</b>
           </Col>
         </Row>
         <Row>
