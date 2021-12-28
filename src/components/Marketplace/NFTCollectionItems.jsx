@@ -157,21 +157,22 @@ function NFTCollectionItems({ nftAddress, colName, colImg }) {
         const items = getMarketItems(nft);
         console.log('getMarketWithLowestPrice', items)
         if (items.length == 1) return items[0];
-        if (items.length > 1){
+        if (items.length > 1) {
             return items.sort((a, b) => a.price - b.price)[0]
         }
         return items;
     };
 
     const getMarketItems = (nft) => {
-        console.log('getMarketItems fetchMarketItems', fetchMarketItems)
-        const result = fetchMarketItems?.filter(
+        console.log('fetchMarketItems', fetchMarketItems)
+        const result = fetchMarketItems.filter(
             (e) =>
                 e.nftContract === nft?.token_address &&
                 e.tokenId === nft?.token_id &&
                 e.sold === false &&
                 e.confirmed === true
         );
+        console.log('getMarketItems nft, result', nft?.token_address, result)
         const key = `${nft?.token_address}:${nft?.token_id}`
         listings.set(key, result.length);
         return result;
@@ -277,7 +278,7 @@ function NFTCollectionItems({ nftAddress, colName, colImg }) {
                                         <Badge.Ribbon
                                             text="Buy Now"
                                             color="green"
-                                            
+
                                         />
                                     </div>
                                 )}
@@ -299,6 +300,22 @@ function NFTCollectionItems({ nftAddress, colName, colImg }) {
                                                     &nbsp;<b style={{ color: "cadetblue" }}>/</b>&nbsp;
                                                     <b style={{ color: "crimson" }}>{getAmountForSale(nft)}</b>
                                                 </h1>
+                                                <div>
+                                                    {hasMarketItems(nft) && (
+                                                        <h1 style={{
+                                                            backgroundColor: "cadetblue",
+                                                            borderRadius: "1rem",
+                                                        }}>
+                                                            <b style={{ color: "darkblue" }}>
+                                                                {
+                                                                    getMarketWithLowestPrice(nft).price / ("1e" + 18)
+                                                                }
+                                                            </b>
+                                                            &nbsp;
+                                                            <b style={{ color: "darkblue" }}>{nativeName}</b>
+                                                        </h1>
+                                                    )}
+                                                </div>
                                             </div>
                                         </>
                                     }
