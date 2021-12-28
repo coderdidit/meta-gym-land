@@ -22,7 +22,7 @@ const styles = {
         WebkitBoxPack: "start",
         justifyContent: "flex-start",
         margin: "0 auto",
-        maxWidth: "1000px",
+        maxWidth: "500px",
         gap: "10px",
     },
     banner: {
@@ -31,14 +31,14 @@ const styles = {
         alignItems: "center",
         margin: "0 auto",
         width: "600px",
-        height: "150px",
+        height: "80px",
         marginBottom: "40px",
         paddingBottom: "20px",
         borderBottom: "solid 1px #e3e3e3",
     },
     logo: {
-        height: "115px",
-        width: "115px",
+        height: "70px",
+        width: "70px",
         borderRadius: "50%",
         border: "solid 4px white",
     },
@@ -201,6 +201,17 @@ function NFTCollectionItems({ nftAddress, colName, colImg }) {
 
     return (
         <>
+            {/* Smart Contract Alert */}
+            {contractABIJson.noContractDeployed && (
+                <>
+                    <br /><br />
+                    <Alert
+                        message="No Smart Contract Details Provided. Please deploy smart contract and provide address + ABI in the MoralisDappProvider.js file"
+                        type="error"
+                    />
+                    <div style={{ marginBottom: "10px" }}></div>
+                </>
+            )}
             {(
                 <>
                     {NFTsFetchError && (
