@@ -81,7 +81,7 @@ function NFTCollectionItems({ nftAddress, colName, colImg }) {
 
     async function purchase() {
         setLoading(true);
-        const tokenDetails = getMarketItem(nftToBuy);
+        const tokenDetails = getMarketWithLowestPrice(nftToBuy);
         const itemID = tokenDetails.itemId;
         const tokenPrice = tokenDetails.price;
         const ops = {
@@ -101,7 +101,7 @@ function NFTCollectionItems({ nftAddress, colName, colImg }) {
                 console.log("success");
                 setLoading(false);
                 setVisibility(false);
-                updateSoldMarketItem();
+                updateSoldMarketItem(tokenDetails);
                 succPurchase();
             },
             onError: (error) => {
@@ -139,8 +139,8 @@ function NFTCollectionItems({ nftAddress, colName, colImg }) {
         // }, secondsToGo * 1000);
     }
 
-    async function updateSoldMarketItem() {
-        const id = getMarketItem(nftToBuy).objectId;
+    async function updateSoldMarketItem(tokenDetails) {
+        const id = tokenDetails.objectId;
         console.log('updateSoldMarketItem id', id);
         const marketList = Moralis.Object.extend(createdMarketItemsTable);
         const query = new Moralis.Query(marketList);
@@ -151,24 +151,16 @@ function NFTCollectionItems({ nftAddress, colName, colImg }) {
         });
     }
 
-    /**
-     * TODO maybe create mapping here
-     * (token_address, token_id) => amount for sale
-     * 
-     * alternatively that data can be fetched from smart contract
-     * 
-     * but for now just followint the tutorial
-     * 
-    */
-    const getMarketItem = (nft) => {
-        const result = fetchMarketItems?.find(
-            (e) =>
-                e.nftContract === nft?.token_address &&
-                e.tokenId === nft?.token_id &&
-                e.sold === false &&
-                e.confirmed === true
-        );
-        return result;
+    // TODO workaround for now
+    // MGL nft drops will have same price
+    const getMarketWithLowestPrice = (nft) => {
+        const items = getMarketItems(nft);
+        console.log('getMarketWithLowestPrice', items)
+        if (items.length == 1) return items[0];
+        if (items.length > 1){
+            return items.sort((a, b) => a.price - b.price)[0]
+        }
+        return items;
     };
 
     const getMarketItems = (nft) => {
@@ -182,6 +174,11 @@ function NFTCollectionItems({ nftAddress, colName, colImg }) {
         );
         const key = `${nft?.token_address}:${nft?.token_id}`
         listings.set(key, result.length);
+        return result;
+    };
+
+    const hasMarketItems = (nft) => {
+        const result = getMarketItems(nft);
         return result.length > 0;
     };
 
@@ -275,7 +272,7 @@ function NFTCollectionItems({ nftAddress, colName, colImg }) {
                                 }
                                 key={index}
                             >
-                                {getMarketItems(nft) && (
+                                {hasMarketItems(nft) && (
                                     <div onClick={() => handleBuyClick(nft)}>
                                         <Badge.Ribbon
                                             text="Buy Now"
@@ -312,7 +309,7 @@ function NFTCollectionItems({ nftAddress, colName, colImg }) {
 
                 {/* TODO get the one with lowest price */}
                 {/* modal boxes to be able to buy */}
-                {getMarketItem(nftToBuy) ? (
+                {hasMarketItems(nftToBuy) ? (
                     <Modal
                         title={`Buy ${nftToBuy?.name} #${nftToBuy?.token_id}`}
                         visible={visible}
@@ -329,7 +326,7 @@ function NFTCollectionItems({ nftAddress, colName, colImg }) {
                             >
                                 <Badge.Ribbon
                                     color="green"
-                                    text={`${getMarketItem(nftToBuy).price / ("1e" + 18)
+                                    text={`${getMarketWithLowestPrice(nftToBuy).price / ("1e" + 18)
                                         } ${nativeName}`}
                                 >
                                     <img
