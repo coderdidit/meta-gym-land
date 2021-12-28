@@ -256,34 +256,13 @@ function Marketplace() {
                 <div style={{ marginBottom: "10px" }}></div>
               </>
             )}
-            {/* NFTs Collection description */}
-            <div style={styles.banner}>
-              <Image
-                preview={false}
-                src={NFTCollections?.find(c => c?.addrs === nftAddress)?.image || "error"}
-                fallback={fallbackImg}
-                alt=""
-                style={styles.logo}
-              />
-              <div style={styles.text}>
-                <>
-                  <div>{`${NFTCollections?.find(c => c?.addrs === nftAddress)?.name}`}</div>
-                  <div
-                    style={{
-                      fontSize: "15px",
-                      fontWeight: "normal",
-                    }}
-                  >
-                    Collection Size: {`${totalNFTs}`}
-                  </div>
-                </>
-              </div>
-            </div>
           </>
         )}
-        {/* Collections view */}
+
 
         <div style={styles.NFTs}>
+
+          {/* Collections view */}
           {nftAddress === "explore" &&
             NFTCollections?.map((nft, index) => (
               <Card
@@ -310,66 +289,13 @@ function Marketplace() {
 
           {/* NFTs view */}
           {nftAddress !== "explore" &&
-            <NFTCollectionItems NFTTokenIds={NFTTokenIds} />}
+            <NFTCollectionItems
+              NFTTokenIds={NFTTokenIds}
+              name={NFTCollections?.find(c => c?.addrs === nftAddress)?.name}
+              img={NFTCollections?.find(c => c?.addrs === nftAddress)?.image || "error"}
+            />}
         </div>
-        {/* TODO get the one with lowest price */}
-        {/* modal boxes */}
-        {getMarketItem(nftToBuy) ? (
-          <Modal
-            title={`Buy ${nftToBuy?.name} #${nftToBuy?.token_id}`}
-            visible={visible}
-            onCancel={() => setVisibility(false)}
-            onOk={() => purchase()}
-            okText="Buy"
-          >
-            <Spin spinning={loading}>
-              <div
-                style={{
-                  width: "250px",
-                  margin: "auto",
-                }}
-              >
-                <Badge.Ribbon
-                  color="green"
-                  text={`${getMarketItem(nftToBuy).price / ("1e" + 18)
-                    } ${nativeName}`}
-                >
-                  <img
-                    src={nftToBuy?.image}
-                    alt=""
-                    style={{
-                      width: "250px",
-                      borderRadius: "10px",
-                      marginBottom: "15px",
-                    }}
-                  />
-                </Badge.Ribbon>
-              </div>
-            </Spin>
-          </Modal>
-        ) : (
-          <Modal
-            title={`Buy ${nftToBuy?.name} #${nftToBuy?.token_id}`}
-            visible={visible}
-            onCancel={() => setVisibility(false)}
-            onOk={() => setVisibility(false)}
-          >
-            <img
-              src={nftToBuy?.image}
-              alt=""
-              style={{
-                width: "250px",
-                margin: "auto",
-                borderRadius: "10px",
-                marginBottom: "15px",
-              }}
-            />
-            <Alert
-              message="This NFT is currently not for sale"
-              type="warning"
-            />
-          </Modal>
-        )}
+
       </div>
     </>
   );
