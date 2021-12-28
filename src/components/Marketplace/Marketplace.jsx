@@ -74,10 +74,12 @@ function Marketplace() {
 
   const [contractABI, setContractABI] = useState(deployedABI); //Smart Contract ABI here
   const [marketAddress, setMarketAddress] = useState(mainMarketAddress)
-  
+
   const contractProcessor = useWeb3ExecuteFunction();
   const nativeName = getNativeByChain(chainId);
   const contractABIJson = JSON.parse(contractABI);
+
+  const listings = new Map();
 
   const createdMarketItemsTable = "CreatedMarketItemsNeww";
   const queryMarketItems = useMoralisQuery(createdMarketItemsTable);
@@ -168,7 +170,6 @@ function Marketplace() {
     });
   }
 
-  
   /**
    * TODO maybe create mapping here
    * (token_address, token_id) => amount for sale
@@ -178,7 +179,6 @@ function Marketplace() {
    * but for now just followint the tutorial
    * 
   */
-
   const getMarketItem = (nft) => {
     const result = fetchMarketItems?.find(
       (e) =>
@@ -189,6 +189,24 @@ function Marketplace() {
     );
     return result;
   };
+
+  const getMarketItems = (nft) => {
+    const result = fetchMarketItems?.filter(
+      (e) =>
+        e.nftContract === nft?.token_address &&
+        e.tokenId === nft?.token_id &&
+        e.sold === false &&
+        e.confirmed === true
+    );
+    const key = `${nft?.token_address}:${nft?.token_id}`
+    listings.set(key, result.length);
+    return result.length > 0;
+  };
+
+  const getAmountForSale = (nft) => {
+    const key = `${nft?.token_address}:${nft?.token_id}`
+    return listings.get(key)
+  }
 
   return (
     <>
@@ -315,16 +333,18 @@ function Marketplace() {
                 }
                 key={index}
               >
-                {getMarketItem(nft) && (
-                  <Badge.Ribbon text="Buy Now" color="green"></Badge.Ribbon>
+                {getMarketItems(nft) && (
+                  <>
+                    <Badge.Ribbon text="Buy Now" color="green"></Badge.Ribbon>
+                  </>
                 )}
                 <Meta
                   title={nft.name}
                   description={
                     <>
-                      <p>id:</p>
-                      <p><b>{`${nft.token_id}`}</b></p>
-                      <p>amount minted: <b>{nft.amount}</b></p>
+                      <p>id: <b>{`${nft.token_id}`}</b></p>
+                      <p>total minted: <b>{nft.amount}</b></p>
+                      <p>for sale: <b>{getAmountForSale(nft)}</b></p>
                     </>
                   }
                 />
