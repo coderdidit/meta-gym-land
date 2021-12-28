@@ -13,18 +13,9 @@ import {
 import { useVerifyMetadata } from "hooks/useVerifyMetadata";
 import { useNFTTokenIds } from "hooks/useNFTTokenIds";
 import { mainMarketAddress, deployedABI, createdMarketItemsTable } from "../../MarketplaceSCMetadata";
-import { NFTCardStyle } from "../../GlobalStyles";
+import { NFTCardStyle, NFTsDiv } from "../../GlobalStyles";
 
 const styles = {
-    NFTs: {
-        display: "flex",
-        flexWrap: "wrap",
-        WebkitBoxPack: "start",
-        justifyContent: "flex-start",
-        margin: "0 auto",
-        maxWidth: "500px",
-        gap: "10px",
-    },
     banner: {
         display: "flex",
         justifyContent: "space-evenly",
@@ -249,7 +240,7 @@ function NFTCollectionItems({ nftAddress, colName, colImg }) {
                 </div>
             </div>
 
-            <div style={styles.NFTs}>
+            <div style={NFTsDiv}>
                 {NFTTokenIds?.result
                     .map((nft, index) => {
                         //Verify Metadata
