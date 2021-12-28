@@ -273,7 +273,7 @@ function NFTCollectionItems({ nftAddress, colName, colImg }) {
                                 }
                                 key={index}
                             >
-                                {hasMarketItems(nft) && (
+                                {hasMarketItems(nft) ? (
                                     <div onClick={() => handleBuyClick(nft)}>
                                         <Badge.Ribbon
                                             text="Buy Now"
@@ -281,6 +281,11 @@ function NFTCollectionItems({ nftAddress, colName, colImg }) {
 
                                         />
                                     </div>
+                                ) : (
+                                    <Badge.Ribbon
+                                        text="Sold Out"
+                                        color="orange"
+                                    />
                                 )}
                                 <Meta
                                     title={nft.name}
