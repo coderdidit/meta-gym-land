@@ -4,12 +4,11 @@ import { Modal, Button, Card, Image, Tooltip, Skeleton } from "antd";
 import { FileSearchOutlined, ShoppingCartOutlined } from "@ant-design/icons";
 import { getExplorer } from "helpers/networks";
 import { useVerifyMetadata } from "hooks/useVerifyMetadata";
-import { getEllipsisTxt } from "../helpers/formatters";
 import { brightFontCol } from "GlobalStyles";
 import { Input, Divider } from "antd";
 import { Link } from "react-router-dom";
 import { mainMarketAddress, deployedABI, listItemFunction } from "../MarketplaceSCMetadata";
-import {NFTCardStyle} from "../GlobalStyles";
+import { NFTCardStyle } from "../GlobalStyles";
 
 
 const { Meta } = Card;

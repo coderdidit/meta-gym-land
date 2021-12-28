@@ -4,6 +4,7 @@ import { useMoralis, useMoralisQuery } from "react-moralis";
 import { Table, Tag, Space } from "antd";
 import moment from "moment";
 import { createdMarketItemsTable } from "../MarketplaceSCMetadata";
+import { brightFontCol } from "../GlobalStyles";
 
 const styles = {
     table: {
@@ -89,11 +90,11 @@ function UserNFTTransactions() {
             ),
         },
         {
-            title: "Collection Name",
-            key: "collection",
+            title: "Amount",
+            key: "item",
             render: (text, record) => (
                 <Space size="middle">
-                    <span>{getName(record.collection, record.item)}</span>
+                    <span>1</span>
                 </Space>
             ),
         },
@@ -154,6 +155,8 @@ function UserNFTTransactions() {
                 height: "0px",
                 marginLeft: "43%",
                 marginBottom: "4rem",
+
+                color: brightFontCol,
             }}>
                 <Text strong>
                     <h3>🧾&nbsp;&nbsp;Your Transactions</h3>
