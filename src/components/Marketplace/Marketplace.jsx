@@ -191,6 +191,7 @@ function Marketplace() {
   };
 
   const getMarketItems = (nft) => {
+    console.log('getMarketItems fetchMarketItems', fetchMarketItems)
     const result = fetchMarketItems?.filter(
       (e) =>
         e.nftContract === nft?.token_address &&
