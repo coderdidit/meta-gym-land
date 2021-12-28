@@ -13,7 +13,7 @@ import {
   ShoppingCartOutlined,
 } from "@ant-design/icons";
 import { Link } from "react-router-dom";
-import { mainMarketAddress, deployedABI } from "../../MarketplaceSCMetadata";
+import { mainMarketAddress, deployedABI, createdMarketItemsTable } from "../../MarketplaceSCMetadata";
 // import SearchCollections from "components/SearchCollections";
 
 const { Meta } = Card;
@@ -81,7 +81,6 @@ function Marketplace() {
 
   const listings = new Map();
 
-  const createdMarketItemsTable = "CreatedMarketItemsNeww";
   const queryMarketItems = useMoralisQuery(createdMarketItemsTable);
   const fetchMarketItems = JSON.parse(
     JSON.stringify(queryMarketItems.data, [

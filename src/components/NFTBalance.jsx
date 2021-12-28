@@ -8,7 +8,7 @@ import { getEllipsisTxt } from "../helpers/formatters";
 import { brightFontCol } from "GlobalStyles";
 import { Input, Divider } from "antd";
 import { Link } from "react-router-dom";
-import { mainMarketAddress, deployedABI } from "../MarketplaceSCMetadata";
+import { mainMarketAddress, deployedABI, listItemFunction } from "../MarketplaceSCMetadata";
 
 const { Meta } = Card;
 
@@ -40,7 +40,6 @@ function NFTBalance() {
 
   const contractABIJson = JSON.parse(contractABI)
   const contractProcessor = useWeb3ExecuteFunction();
-  const listItemFunction = "createMarketItem";
 
   const handleListForSaleClick = (nft) => {
     setNftToList(nft);
