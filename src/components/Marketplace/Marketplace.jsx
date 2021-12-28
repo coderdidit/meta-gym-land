@@ -161,6 +161,7 @@ function Marketplace() {
 
   async function updateSoldMarketItem() {
     const id = getMarketItem(nftToBuy).objectId;
+    console.log('updateSoldMarketItem id', id);
     const marketList = Moralis.Object.extend(createdMarketItemsTable);
     const query = new Moralis.Query(marketList);
     await query.get(id).then((obj) => {
