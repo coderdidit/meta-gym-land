@@ -51,6 +51,12 @@ const styles = {
     fontSize: "27px",
     fontWeight: "bold",
   },
+  transactions: {
+    flexBasis: "100%",
+    height: "0px",
+    marginLeft: "70%",
+    marginBottom: "4rem",
+  }
 };
 
 const fallbackImg =
@@ -62,13 +68,12 @@ function Marketplace() {
   const { chainId, account, Moralis } = useMoralis();
   const NFTCollections = getCollectionsByChain(chainId);
 
-  const [nftAddress, setNftAddress] = useState("explore");
-
+  const [nftAddress, setNftAddress] = useState("explore", []);
 
   const { data: NFTTokenIds, error: NFTsFetchError } = useNFTTokenIds(nftAddress);
   const totalNFTs = NFTTokenIds?.total
-
   console.log("NFTTokenIds", NFTTokenIds);
+
   const [visible, setVisibility] = useState(false);
   const [nftToBuy, setNftToBuy] = useState(null);
 
@@ -213,12 +218,7 @@ function Marketplace() {
 
   return (
     <>
-      <div style={{
-        flexBasis: "100%",
-        height: "0px",
-        marginLeft: "70%",
-        marginBottom: "4rem",
-      }}>
+      <div style={styles.transactions}>
         <h3>
           You can check Your 🧾&nbsp;&nbsp;Transactions
           <Link to="/your-transactions">
@@ -226,10 +226,7 @@ function Marketplace() {
           </Link>
         </h3>
       </div>
-      {/* <div style={{width: "25%"}}>
-        <SearchCollections setInputValue={setInputValue} />
-      </div>
-      <br /> */}
+      {/* Smart Contract Alert */}
       <div>
         {contractABIJson.noContractDeployed && (
           <>
@@ -241,61 +238,21 @@ function Marketplace() {
             <div style={{ marginBottom: "10px" }}></div>
           </>
         )}
-        <h1 style={{ color: "red" }}>TEEEEEST</h1>
-        {/* 
-         display selected collection start
-          */}
-        {nftAddress !== "explore" && (
-          <>
-            {NFTsFetchError && (
+        {/* NFTs view */}
+        {NFTCollections?.map((nft, index) => {
+          console.log('nft', nft)
+            return (
               <>
-                <Alert
-                  message="Unable to fetch all NFT metadata... We are searching for a solution, please try again later!"
-                  type="warning"
+                <NFTCollectionItems
+                  nftAddress={nft.addrs}
+                  colName={nft.name}
+                  colImg={nft.image || "error"}
+                  key={index}
                 />
-                <div style={{ marginBottom: "10px" }}></div>
               </>
-            )}
-          </>
-        )}
-
-
-        <div style={styles.NFTs}>
-
-          {/* Collections view */}
-          {nftAddress === "explore" &&
-            NFTCollections?.map((nft, index) => (
-              <Card
-                hoverable
-                onClick={() => {
-                  console.log('display nft collection', nft?.addrs)
-                  setNftAddress(nft?.addrs)
-                }}
-                style={NFTCardStyle}
-                cover={
-                  <Image
-                    preview={false}
-                    src={nft?.image || "error"}
-                    fallback={fallbackImg}
-                    alt=""
-                    style={{ height: "240px" }}
-                  />
-                }
-                key={index}
-              >
-                <Meta title={nft.name} />
-              </Card>
-            ))}
-
-          {/* NFTs view */}
-          {nftAddress !== "explore" &&
-            <NFTCollectionItems
-              NFTTokenIds={NFTTokenIds}
-              name={NFTCollections?.find(c => c?.addrs === nftAddress)?.name}
-              img={NFTCollections?.find(c => c?.addrs === nftAddress)?.image || "error"}
-            />}
-        </div>
-
+            )
+          })
+        }
       </div>
     </>
   );
