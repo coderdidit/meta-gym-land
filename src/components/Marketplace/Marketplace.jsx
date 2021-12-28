@@ -126,7 +126,7 @@ function Marketplace() {
       },
       onError: (error) => {
         setLoading(false);
-        failPurchase();
+        failPurchase(error);
       },
     });
   }
@@ -148,20 +148,20 @@ function Marketplace() {
     }, secondsToGo * 1000);
   }
 
-  function failPurchase() {
-    let secondsToGo = 5;
+  function failPurchase(err) {
     const modal = Modal.error({
       title: "Error!",
-      content: `There was a problem when purchasing this NFT`,
+      content: `There was a problem when purchasing this NFT: ${err}`,
     });
-    setTimeout(() => {
-      modal.destroy();
-    }, secondsToGo * 1000);
+    // let secondsToGo = 5;
+    // setTimeout(() => {
+    //   modal.destroy();
+    // }, secondsToGo * 1000);
   }
 
   async function updateSoldMarketItem() {
     const id = getMarketItem(nftToBuy).objectId;
-    const marketList = Moralis.Object.extend("MarketItems");
+    const marketList = Moralis.Object.extend(createdMarketItemsTable);
     const query = new Moralis.Query(marketList);
     await query.get(id).then((obj) => {
       obj.set("sold", true);
@@ -351,6 +351,7 @@ function Marketplace() {
               </Card>
             ))}
         </div>
+        {/* TODO get the one with lowest price */}
         {getMarketItem(nftToBuy) ? (
           <Modal
             title={`Buy ${nftToBuy?.name} #${nftToBuy?.token_id}`}
