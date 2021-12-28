@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useMoralis, useNFTBalances, useWeb3ExecuteFunction } from "react-moralis";
-import { Modal, Alert, Button, Card, Image, Tooltip, Skeleton } from "antd";
+import { Modal, Button, Card, Image, Tooltip, Skeleton } from "antd";
 import { FileSearchOutlined, ShoppingCartOutlined } from "@ant-design/icons";
 import { getExplorer } from "helpers/networks";
 import { useVerifyMetadata } from "hooks/useVerifyMetadata";
 import { getEllipsisTxt } from "../helpers/formatters";
-import { mainBackgroundCol, brightFontCol } from "GlobalStyles";
+import { brightFontCol } from "GlobalStyles";
 import { Input, Divider } from "antd";
 import { Link } from "react-router-dom";
 import { mainMarketAddress, deployedABI } from "../MarketplaceSCMetadata";

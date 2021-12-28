@@ -4,6 +4,7 @@ import { getCollectionsByChain } from "./collections";
 import {
   useMoralis,
   useMoralisQuery,
+  useWeb3ExecuteFunction
 } from "react-moralis";
 import { Card, Image, Tooltip, Modal, Badge, Alert, Spin } from "antd";
 import { useNFTTokenIds } from "hooks/useNFTTokenIds";
@@ -11,7 +12,6 @@ import {
   FileSearchOutlined,
   ShoppingCartOutlined,
 } from "@ant-design/icons";
-import { useWeb3ExecuteFunction } from "react-moralis";
 import { Link } from "react-router-dom";
 import { mainMarketAddress, deployedABI } from "../../MarketplaceSCMetadata";
 // import SearchCollections from "components/SearchCollections";
