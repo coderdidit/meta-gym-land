@@ -16,16 +16,6 @@ const styles = {
 function UserNFTTransactions() {
     const { account } = useMoralis();
     const walletAddress = account
-    // TODO consider removing fetchItemImages
-    const queryItemImages = useMoralisQuery("ItemImages");
-    const fetchItemImages = JSON.parse(
-        JSON.stringify(queryItemImages.data, [
-            "nftContract",
-            "tokenId",
-            "name",
-            "image",
-        ])
-    );
     const queryMarketItems = useMoralisQuery(createdMarketItemsTable);
     const fetchMarketItems = JSON.parse(
         JSON.stringify(queryMarketItems.data, [
@@ -46,24 +36,6 @@ function UserNFTTransactions() {
             a.updatedAt < b.updatedAt ? 1 : b.updatedAt < a.updatedAt ? -1 : 0
         );
 
-    function getImage(addrs, id) {
-        const img = fetchItemImages.find(
-            (element) =>
-                element.nftContract === addrs &&
-                element.tokenId === id
-        );
-        return img?.image;
-    }
-
-    function getName(addrs, id) {
-        const nme = fetchItemImages.find(
-            (element) =>
-                element.nftContract === addrs &&
-                element.tokenId === id
-        );
-        return nme?.name;
-    }
-
     const columns = [
         {
             title: "Date",
@@ -75,7 +47,6 @@ function UserNFTTransactions() {
             key: "item",
             render: (text, record) => (
                 <Space size="middle">
-                    <img src={getImage(record.collection, record.item)} style={{ width: "40px", borderRadius: "4px" }} />
                     <span>#{record.item}</span>
                 </Space>
             ),
