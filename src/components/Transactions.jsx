@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
+import Text from "antd/lib/typography/Text";
 import { useMoralis, useMoralisQuery } from "react-moralis";
 import { Table, Tag, Space } from "antd";
 import moment from "moment";
@@ -12,7 +13,7 @@ const styles = {
 };
 
 function Transactions() {
-    const { Moralis, account } = useMoralis();
+    const { account } = useMoralis();
     const walletAddress = account
     const queryItemImages = useMoralisQuery("ItemImages");
     const fetchItemImages = JSON.parse(
@@ -137,10 +138,19 @@ function Transactions() {
 
     return (
         <>
-            <div>
-                <div style={styles.table}>
-                    <Table columns={columns} dataSource={data} />
-                </div>
+            <div style={{
+                fontFamily: "Source Serif Pro, sans-serif",
+                flexBasis: "100%",
+                height: "0px",
+                marginLeft: "43%",
+                marginBottom: "4rem",
+            }}>
+                <Text strong>
+                    <h3>🧾&nbsp;&nbsp;Your Transactions</h3>
+                </Text>
+            </div>
+            <div style={styles.table}>
+                <Table columns={columns} dataSource={data} />
             </div>
         </>
     );

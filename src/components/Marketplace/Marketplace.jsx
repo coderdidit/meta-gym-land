@@ -217,7 +217,7 @@ function Marketplace() {
         marginBottom: "4rem",
       }}>
         <h3>
-          You can check Your 🧾&nbsp;Transactions
+          You can check Your 🧾&nbsp;&nbsp;Transactions
           <Link to="/your-transactions">
             &nbsp;<b><u>here</u></b>
           </Link>
