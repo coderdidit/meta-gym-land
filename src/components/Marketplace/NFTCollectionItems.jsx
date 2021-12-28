@@ -302,18 +302,18 @@ function NFTCollectionItems({ nftAddress, colName, colImg }) {
                                                 </h1>
                                                 <div>
                                                     {hasMarketItems(nft) && (
-                                                        <h1 style={{
-                                                            backgroundColor: "cadetblue",
+                                                        <h3 style={{
+                                                            backgroundColor: "burlywood",
                                                             borderRadius: "1rem",
                                                         }}>
-                                                            <b style={{ color: "darkblue" }}>
+                                                            Best Price: <b style={{ color: "darkblue" }}>
                                                                 {
                                                                     getMarketWithLowestPrice(nft).price / ("1e" + 18)
                                                                 }
                                                             </b>
                                                             &nbsp;
                                                             <b style={{ color: "darkblue" }}>{nativeName}</b>
-                                                        </h1>
+                                                        </h3>
                                                     )}
                                                 </div>
                                             </div>
