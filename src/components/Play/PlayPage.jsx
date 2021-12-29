@@ -8,7 +8,7 @@ const PlayPage = ({ avtrUri, tokenAdrs, tokenId }) => {
                 fontFamily: "Source Serif Pro",
             }}>
                 <Text strong>
-                    <h1>Play in Metaverse Comming soon! 🚀</h1>
+                    <h1>Play in Meta Gym Land Metaverse Comming soon! 🚀</h1>
                 </Text>
             </div>
 
