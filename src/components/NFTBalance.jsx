@@ -139,7 +139,11 @@ function NFTBalance() {
                       <Button
                         onClick={() => {
                           const avatarUri = nft?.image;
-                          alert(`will play with avatar at: ${avatarUri}`);
+                          const avatarTokenAddress = nft?.token_address;
+                          const avatarTokenId = nft?.token_id;
+                          alert(`
+                          will play with avatar at: ${avatarUri}, ${avatarTokenAddress}, ${avatarTokenId}`
+                          );
                         }}
                         type="primary"
                         style={{
