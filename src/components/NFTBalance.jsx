@@ -137,7 +137,10 @@ function NFTBalance() {
                       } />
                       <br />
                       <Button
-                        onClick={() => alert('will play')}
+                        onClick={() => {
+                          const avatarUri = nft?.image;
+                          alert(`will play with avatar at: ${avatarUri}`);
+                        }}
                         type="primary"
                         style={{
                           margin: "0 auto",
