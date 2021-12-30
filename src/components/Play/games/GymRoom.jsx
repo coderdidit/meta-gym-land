@@ -19,7 +19,7 @@ const getConfig = (scene) => {
             default: 'arcade',
             arcade: {
                 gravity: { y: 0 },
-                debug: "debug"
+                // debug: "debug"
             },
         },
         scale: {
