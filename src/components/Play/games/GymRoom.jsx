@@ -51,8 +51,9 @@ const getConfig = (scene) => {
 const BG_KEY = "gymfloor";
 const PLAYER_KEY = "avatar";
 const LEFT_CHEVRON = 'left_chevron';
+const PLAYER_SCALE = 0.15;
 
-const sceneConfig = {
+const SceneConfig = {
     active: false,
     visible: false,
     key: "gym-main-room",
@@ -63,7 +64,7 @@ const GymRoom = ({ avatar }) => {
     // run game
     class GymRoomScene extends Phaser.Scene {
         constructor() {
-            super({ key: 'gym-main-room' });
+            super(SceneConfig);
         }
 
         preload() {
@@ -90,7 +91,7 @@ const GymRoom = ({ avatar }) => {
                 key: PLAYER_KEY,
             });
             const player = this.player;
-            player.setScale(0.15);
+            player.setScale(PLAYER_SCALE);
             // player.setCollideWorldBounds(true);
         }
 
