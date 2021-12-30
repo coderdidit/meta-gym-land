@@ -3,32 +3,35 @@ import GymRoomScene from "./GymRoomScene";
 
 const GymRoomID = "gym-room-canvas";
 
-const config = {
-    type: Phaser.AUTO,
-    parent: GymRoomID,
-    width: window.innerWidth,
-    height: window.innerHeight,
-    mode: Phaser.Scale.FIT,
-    autoCenter: Phaser.Scale.CENTER_VERTICALLY,
-    scene: [GymRoomScene],
-    audio: {
-        noAudio: true
-    },
-    render: {
-        pixelArt: true
-    },
-    physics: {
-        default: 'arcade',
-        arcade: {
-            gravity: { y: 0 },
-            debug: debug
+const getConfig = (scene) => {
+    return {
+        type: Phaser.AUTO,
+        parent: GymRoomID,
+        width: 800,
+        height: 600,
+        mode: Phaser.Scale.FIT,
+        autoCenter: Phaser.Scale.CENTER_VERTICALLY,
+        scene: [scene],
+        audio: {
+            noAudio: true
         },
-    },
-    fps: 30
+        render: {
+            pixelArt: true
+        },
+        physics: {
+            default: 'arcade',
+            arcade: {
+                gravity: { y: 0 },
+                debug: "debug"
+            },
+        },
+        fps: 30
+    }
 }
 
 const GymRoom = () => {
     // run game
+    const config = getConfig(GymRoomScene);
     new Phaser.Game(config);
     return (
         <div id={GymRoomID} />

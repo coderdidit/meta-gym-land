@@ -4,6 +4,7 @@ import { Image } from "antd";
 import { AvatarCtx } from "index";
 import { NFTsDiv, NFTImg } from "../../GlobalStyles";
 import { Link } from "react-router-dom";
+import GymRoom from "./games/GymRoom";
 
 const PlayPage = () => {
     const [avatar, setAvatar] = useContext(AvatarCtx);
@@ -50,6 +51,8 @@ const PlayPage = () => {
                         <div>
                             <h3>token Id: <b>{avatar?.tokenId}</b></h3>
                         </div>
+
+                        <GymRoom />
                     </>) :
                     (<>
                         <br />
