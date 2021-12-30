@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/static/css/main.61b846f9.chunk.css",
-    "main.js": "/static/js/main.1f2742f4.chunk.js",
-    "main.js.map": "/static/js/main.1f2742f4.chunk.js.map",
+    "main.js": "/static/js/main.4c7afad1.chunk.js",
+    "main.js.map": "/static/js/main.4c7afad1.chunk.js.map",
     "polyfills-dom.js": "/static/js/polyfills-dom.c67da8d5.chunk.js",
     "polyfills-dom.js.map": "/static/js/polyfills-dom.c67da8d5.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.1657acae.js",
     "runtime-main.js.map": "/static/js/runtime-main.1657acae.js.map",
     "static/css/3.a95be28f.chunk.css": "/static/css/3.a95be28f.chunk.css",
-    "static/js/3.cc2053d5.chunk.js": "/static/js/3.cc2053d5.chunk.js",
-    "static/js/3.cc2053d5.chunk.js.map": "/static/js/3.cc2053d5.chunk.js.map",
+    "static/js/3.b9d9bd20.chunk.js": "/static/js/3.b9d9bd20.chunk.js",
+    "static/js/3.b9d9bd20.chunk.js.map": "/static/js/3.b9d9bd20.chunk.js.map",
     "static/js/4.7fe8774b.chunk.js": "/static/js/4.7fe8774b.chunk.js",
     "static/js/4.7fe8774b.chunk.js.map": "/static/js/4.7fe8774b.chunk.js.map",
     "static/js/5.94d46ce3.chunk.js": "/static/js/5.94d46ce3.chunk.js",
@@ -17,19 +17,20 @@
     "index.html": "/index.html",
     "static/css/3.a95be28f.chunk.css.map": "/static/css/3.a95be28f.chunk.css.map",
     "static/css/main.61b846f9.chunk.css.map": "/static/css/main.61b846f9.chunk.css.map",
-    "static/js/3.cc2053d5.chunk.js.LICENSE.txt": "/static/js/3.cc2053d5.chunk.js.LICENSE.txt",
+    "static/js/3.b9d9bd20.chunk.js.LICENSE.txt": "/static/js/3.b9d9bd20.chunk.js.LICENSE.txt",
     "static/js/polyfills-dom.c67da8d5.chunk.js.LICENSE.txt": "/static/js/polyfills-dom.c67da8d5.chunk.js.LICENSE.txt",
     "static/media/Coin98.1e4e4073.png": "/static/media/Coin98.1e4e4073.png",
     "static/media/MathWallet.19212234.svg": "/static/media/MathWallet.19212234.svg",
     "static/media/SafePal.e7068bbc.svg": "/static/media/SafePal.e7068bbc.svg",
     "static/media/TokenPocket.0ba48742.svg": "/static/media/TokenPocket.0ba48742.svg",
+    "static/media/gymfloor.66239f9d.png": "/static/media/gymfloor.66239f9d.png",
     "static/media/wallet-connect.304e3277.svg": "/static/media/wallet-connect.304e3277.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.1657acae.js",
     "static/css/3.a95be28f.chunk.css",
-    "static/js/3.cc2053d5.chunk.js",
+    "static/js/3.b9d9bd20.chunk.js",
     "static/css/main.61b846f9.chunk.css",
-    "static/js/main.1f2742f4.chunk.js"
+    "static/js/main.4c7afad1.chunk.js"
   ]
 }
