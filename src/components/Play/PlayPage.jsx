@@ -50,7 +50,6 @@ const PlayPage = () => {
                         <div>
                             <h3>token Id: <b>{avatar?.tokenId}</b></h3>
                         </div>
-                        <div id="gym-room-canvas" />
                     </>) :
                     (<>
                         <br />
