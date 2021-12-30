@@ -1,5 +1,5 @@
 import Phaser from "phaser";
-import GymRoomScene from "./GymRoomScene";
+// import GymRoomScene from "./GymRoomScene";
 
 const GymRoomID = "gym-room-canvas";
 
@@ -31,6 +31,17 @@ const getConfig = (scene) => {
 
 const GymRoom = () => {
     // run game
+    class GymRoomScene extends Phaser.Scene {
+        constructor() {
+            super({ key: 'gym-main-room' });
+        }
+
+        preload() { }
+
+        create() { }
+
+        update(time, delta) { }
+    }
     const config = getConfig(GymRoomScene);
     new Phaser.Game(config);
     return (
