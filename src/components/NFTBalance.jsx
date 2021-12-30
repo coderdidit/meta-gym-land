@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useMoralis, useNFTBalances, useWeb3ExecuteFunction } from "react-moralis";
 import { Modal, Button, Card, Image, Tooltip, Skeleton } from "antd";
 import { FileSearchOutlined, ShoppingCartOutlined } from "@ant-design/icons";
@@ -10,10 +10,13 @@ import { Link } from "react-router-dom";
 import { mainMarketAddress, deployedABI, listItemFunction } from "../MarketplaceSCMetadata";
 import { NFTCardStyle, NFTsDiv, NFTImg } from "../GlobalStyles";
 import { AllowedNftContracts } from "../MglNftMetadata";
+import { AvatarCtx } from "index"; 
 
 const { Meta } = Card;
 
 function NFTBalance() {
+  const [avatar, setAvatar] = useContext(AvatarCtx);
+
   const { data: NFTBalances } = useNFTBalances();
   console.log('fetching NFTBalances', NFTBalances)
   const { chainId } = useMoralis();
@@ -141,6 +144,12 @@ function NFTBalance() {
                           const avatarUri = nft?.image;
                           const avatarTokenAddress = nft?.token_address;
                           const avatarTokenId = nft?.token_id;
+                          setAvatar({
+                            uri: avatarUri,
+                            tokenAddress: avatarTokenAddress,
+                            tokenId,
+                          });
+
                           alert(`
                           will play with avatar at: ${avatarUri}, ${avatarTokenAddress}, ${avatarTokenId}`
                           );
