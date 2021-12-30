@@ -147,7 +147,7 @@ function NFTBalance() {
                           setAvatar({
                             uri: avatarUri,
                             tokenAddress: avatarTokenAddress,
-                            tokenId,
+                            tokenId: avatarTokenId,
                           });
 
                           alert(`
