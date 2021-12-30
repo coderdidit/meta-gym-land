@@ -1,6 +1,6 @@
 import Phaser from "phaser";
 
-export class Player extends Phaser.GameObjects.Sprite {
+export class Player extends Phaser.GameObjects.Image {
     cursorKeys;
     speed = 200;
 
@@ -11,9 +11,16 @@ export class Player extends Phaser.GameObjects.Sprite {
         this.setOrigin(0, 0);
 
         // TODO Add animations
+        // this.anims.create({
+        //     key: 'idle',
+        //     frames: this.anims.generateFrameNumbers(key || '', { start: 0, end: 1 }),
+        //     frameRate: 2,
+        //     repeat: -1,
+        //   });
 
         // physics
         this.scene.physics.world.enable(this);
+        this.body.setCollideWorldBounds(true);
 
         // input
         this.cursorKeys = scene.input.keyboard.createCursorKeys();
@@ -28,11 +35,11 @@ export class Player extends Phaser.GameObjects.Sprite {
         switch (true) {
             case this.cursorKeys?.left.isDown:
                 velocity.x -= 1;
-                this.anims.play('left', true);
+                // this.anims.play('left', true);
                 break;
             case this.cursorKeys?.right.isDown:
                 velocity.x += 1;
-                this.anims.play('right', true);
+                // this.anims.play('right', true);
                 break;
         }
 
@@ -40,11 +47,11 @@ export class Player extends Phaser.GameObjects.Sprite {
         switch (true) {
             case this.cursorKeys?.down.isDown:
                 velocity.y += 1;
-                this.anims.play('idle', false);
+                // this.anims.play('idle', false);
                 break;
             case this.cursorKeys?.up.isDown:
                 velocity.y -= 1;
-                this.anims.play('up', true);
+                // this.anims.play('up', true);
                 break;
         }
 

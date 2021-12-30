@@ -86,13 +86,11 @@ const GymRoom = ({ avatar }) => {
             // Add a player sprite that can be moved around.
             this.player = new Player({
                 scene: this,
-                x: getGameWidth(this) / 2,
-                y: getGameHeight(this) / 2,
+                x: width / 2,
+                y: height / 2,
                 key: PLAYER_KEY,
             });
-            const player = this.player;
-            player.setScale(PLAYER_SCALE);
-            // player.setCollideWorldBounds(true);
+            this.player.setScale(PLAYER_SCALE);
         }
 
         createBackButton = () => {
