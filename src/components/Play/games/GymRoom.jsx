@@ -4,20 +4,18 @@ import Phaser from "phaser";
 import { IonPhaser } from "@ion-phaser/react";
 
 const getConfig = (scene) => {
+    let width = window.innerWidth;
+    let height = width / 1.778;
+
+    if (height > window.innerHeight) {
+        height = window.innerHeight;
+        width = height * 1.778;
+    }
+
+    const Scenes = [scene];
+
     return {
         type: Phaser.AUTO,
-        // parent: GymRoomID,
-        width: 800,
-        height: 600,
-        mode: Phaser.Scale.FIT,
-        autoCenter: Phaser.Scale.CENTER_VERTICALLY,
-        scene: [scene],
-        audio: {
-            noAudio: true
-        },
-        render: {
-            pixelArt: true
-        },
         physics: {
             default: 'arcade',
             arcade: {
@@ -25,7 +23,21 @@ const getConfig = (scene) => {
                 debug: "debug"
             },
         },
-        fps: 30
+        scale: {
+            mode: Phaser.Scale.NONE,
+            width,
+            height,
+        },
+        scene: Scenes,
+        audio: {
+            noAudio: true
+        },
+        render: {
+            pixelArt: true
+        },
+        fps: {
+            target: 30,
+        },
     }
 }
 
