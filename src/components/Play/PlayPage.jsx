@@ -2,7 +2,8 @@ import React, { useContext } from "react";
 import Text from "antd/lib/typography/Text";
 import { Image } from "antd";
 import { AvatarCtx } from "index";
-import { NFTCardStyle, NFTsDiv, NFTImg } from "../../GlobalStyles";
+import { NFTsDiv, NFTImg } from "../../GlobalStyles";
+import { Link } from "react-router-dom";
 
 const PlayPage = () => {
     const [avatar, setAvatar] = useContext(AvatarCtx);
@@ -53,9 +54,17 @@ const PlayPage = () => {
                     (<>
                         <br />
                         <br />
+                        <h2>If you don't see your avatar it may be that you hit refresh</h2>
+                        <h2>Please go to <Link to="/avatars"><u>Your (MGL) NFTs</u>
+                        </Link> page and click <b style={{ color: "#1990FF" }}>[Play with me]</b> button{" "}🔘 on one of your avatars</h2>
+                        <br />
+                        <h2>OR</h2>
+                        <br />
                         <h2>you don't have your avatar NFT yet</h2>
                         <h2>To be able to expirence Meta Gym Land, </h2>
-                        <h2> you will need to get your avatar NFT at our Marketplace</h2>
+                        <h2> you will need to get your avatar NFT in our <Link to="/marketplace">
+                            <b><u>Marketplace</u></b>
+                        </Link>{" "}🚀</h2>
                         <br />
                         <br />
                     </>)}
