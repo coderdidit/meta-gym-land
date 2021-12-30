@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 import { mainMarketAddress, deployedABI, listItemFunction } from "../MarketplaceSCMetadata";
 import { NFTCardStyle, NFTsDiv, NFTImg } from "../GlobalStyles";
 import { AllowedNftContracts } from "../MglNftMetadata";
-import { AvatarCtx } from "index"; 
+import { AvatarCtx } from "index";
 
 const { Meta } = Card;
 
@@ -149,17 +149,16 @@ function NFTBalance() {
                             tokenAddress: avatarTokenAddress,
                             tokenId: avatarTokenId,
                           });
-
-                          alert(`
-                          will play with avatar at: ${avatarUri}, ${avatarTokenAddress}, ${avatarTokenId}`
-                          );
                         }}
                         type="primary"
                         style={{
                           margin: "0 auto",
                           width: "100%",
                         }}
-                      >Play with me
+                      >
+                        <Link to='play'>
+                          Play with me
+                        </Link>
                       </Button>
                     </Card>
                     <Modal
