@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Phaser from "phaser";
-import GymRoomScene from "./GymRoomScene";
+// import GymRoomScene from "./GymRoomScene";
 import { IonPhaser } from "@ion-phaser/react";
-
-// const GymRoomID = "gym-room-canvas";
 
 const getConfig = (scene) => {
     return {
@@ -31,19 +29,26 @@ const getConfig = (scene) => {
     }
 }
 
-const GymRoom = () => {
+const GymRoom = ({ avatar }) => {
+    console.log('GymRoom avatar', avatar);
     // run game
-    // class GymRoomScene extends Phaser.Scene {
-    //     constructor() {
-    //         super({ key: 'gym-main-room' });
-    //     }
+    class GymRoomScene extends Phaser.Scene {
+        constructor() {
+            super({ key: 'gym-main-room' });
+        }
 
-    //     preload() { }
+        preload() {
+            this.load.image('avatar', avatar.uri);
+        }
 
-    //     create() { }
+        create() {
+            const player = this.physics.add.image(200, 300, 'avatar');
+        }
 
-    //     update(time, delta) { }
-    // }
+        update(time, delta) {
+
+        }
+    }
 
     const [initialised, setInitialised] = useState(true);
     const [config, setConfig] = useState();
@@ -55,10 +60,9 @@ const GymRoom = () => {
                 preBoot: (game) => {
                     // Makes sure the game doesnt create another game on rerender
                     setInitialised(false);
-                    // game.registry.merge({
-                    //   selectedGotchi,
-                    //   socket
-                    // });
+                    game.registry.merge({
+                        avatar,
+                    });
                 },
             },
         });
@@ -68,8 +72,6 @@ const GymRoom = () => {
         startGame();
     }, []);
 
-    // const config = getConfig(GymRoomScene);
-    // new Phaser.Game(config);
     return <IonPhaser initialize={initialised} game={config} id="phaser-app" />;
 };
 
