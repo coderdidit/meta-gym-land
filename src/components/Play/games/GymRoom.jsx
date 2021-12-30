@@ -40,6 +40,8 @@ const getConfig = (scene) => {
     }
 }
 
+const PlayerSpeed = 100;
+
 const GymRoom = ({ avatar }) => {
     console.log('GymRoom avatar', avatar);
     // run game
@@ -49,15 +51,37 @@ const GymRoom = ({ avatar }) => {
         }
 
         preload() {
-            this.load.image('avatar', avatar.uri);
+            const selectedAvatar = this.game.registry.values.avatar;
+            console.log('loading game avatar', selectedAvatar);
+            this.load.image('avatar', selectedAvatar.uri);
         }
 
         create() {
-            const player = this.physics.add.image(200, 300, 'avatar');
+            this.player = this.physics.add.image(200, 300, 'avatar');
+            this.player.setScale(0.15);
+            this.cursors = this.input.keyboard.createCursorKeys();
         }
 
         update(time, delta) {
+            this.handlePlayerMoves();
+        }
 
+        handlePlayerMoves() {
+            if (this.cursors.up.isDown) {
+                this.player.setVelocity(0, -PlayerSpeed)
+
+            } else if (this.cursors.down.isDown) {
+                this.player.setVelocity(0, PlayerSpeed)
+
+            } else if (this.cursors.left.isDown) {
+                this.player.setVelocity(-PlayerSpeed, 0)
+
+            } else if (this.cursors.right.isDown) {
+                this.player.setVelocity(PlayerSpeed, 0)
+            } else {
+                // idle
+                this.player.setVelocity(0, 0)
+            }
         }
     }
 
@@ -71,6 +95,7 @@ const GymRoom = ({ avatar }) => {
                 preBoot: (game) => {
                     // Makes sure the game doesnt create another game on rerender
                     setInitialised(false);
+                    console.log('Updating game registry', avatar);
                     game.registry.merge({
                         avatar,
                     });
