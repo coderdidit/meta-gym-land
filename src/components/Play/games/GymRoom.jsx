@@ -4,6 +4,7 @@ import { IonPhaser } from "@ion-phaser/react";
 import gymFloorImg from "./assets/gym-room/gymfloor.png";
 import leftShevronSvg from "./assets/icons/chevron_left.svg";
 import { getGameWidth, getGameHeight, getRelative } from "./helpers";
+import { Player } from "./objects";
 
 const setWidthAndHeight = () => {
     let width = window.innerWidth;
@@ -47,10 +48,15 @@ const getConfig = (scene) => {
     }
 }
 
-const PLAYER_SPEED = 100;
 const BG_KEY = "gymfloor";
 const PLAYER_KEY = "avatar";
 const LEFT_CHEVRON = 'left_chevron';
+
+const sceneConfig = {
+    active: false,
+    visible: false,
+    key: "gym-main-room",
+};
 
 const GymRoom = ({ avatar }) => {
     console.log('GymRoom avatar', avatar);
@@ -76,13 +82,16 @@ const GymRoom = ({ avatar }) => {
                 .setDisplaySize(width, height);
             this.createBackButton();
 
-            this.player = this.physics.add.image(200, 300, PLAYER_KEY);
+            // Add a player sprite that can be moved around.
+            this.player = new Player({
+                scene: this,
+                x: getGameWidth(this) / 2,
+                y: getGameHeight(this) / 2,
+                key: PLAYER_KEY,
+            });
             const player = this.player;
             player.setScale(0.15);
-            player.setCollideWorldBounds(true);
-
-            // cursors
-            this.cursors = this.input.keyboard.createCursorKeys();
+            // player.setCollideWorldBounds(true);
         }
 
         createBackButton = () => {
@@ -98,26 +107,8 @@ const GymRoom = ({ avatar }) => {
         };
 
         update(time, delta) {
-            this.handlePlayerMoves();
-        }
-
-        handlePlayerMoves() {
-            const player = this.player;
-            if (this.cursors.up.isDown) {
-                player.setVelocity(0, -PLAYER_SPEED);
-
-            } else if (this.cursors.down.isDown) {
-                player.setVelocity(0, PLAYER_SPEED);
-
-            } else if (this.cursors.left.isDown) {
-                player.setVelocity(-PLAYER_SPEED, 0);
-
-            } else if (this.cursors.right.isDown) {
-                player.setVelocity(PLAYER_SPEED, 0);
-            } else {
-                // idle
-                player.setVelocity(0, 0);
-            }
+            // Every frame, we update the player
+            this.player?.update();
         }
     }
 
