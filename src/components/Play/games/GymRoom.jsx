@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import Phaser from "phaser";
-// import GymRoomScene from "./GymRoomScene";
 import { IonPhaser } from "@ion-phaser/react";
 
 const getConfig = (scene) => {
