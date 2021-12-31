@@ -1,10 +1,10 @@
 import React from "react";
 import Text from "antd/lib/typography/Text";
 import { useMoralis, useMoralisQuery } from "react-moralis";
-import { Table, Tag, Space } from "antd";
+import { Button, Table, Tag, Space } from "antd";
 import moment from "moment";
 import { createdMarketItemsTable } from "../MarketplaceSCMetadata";
-import { brightFontCol } from "../GlobalStyles";
+import { brightFontCol, TopBtnDiv, BtnPrimary } from "../GlobalStyles";
 
 const styles = {
     table: {
@@ -120,6 +120,19 @@ function UserNFTTransactions() {
 
     return (
         <>
+            <div style={{
+                ...TopBtnDiv,
+                marginLeft: "20.4%",
+                marginBottom: "3rem",
+            }}>
+                <Button
+                    type="primary"
+                    style={BtnPrimary}
+                    onClick={() => window.history.back()}
+                >
+                    {"< "}Back
+                </Button>
+            </div>
             <div style={{
                 fontFamily: "Source Serif Pro",
                 fontSize: "27px",
