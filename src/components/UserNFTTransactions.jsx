@@ -5,6 +5,7 @@ import { Button, Table, Tag, Space } from "antd";
 import moment from "moment";
 import { createdMarketItemsTable } from "../MarketplaceSCMetadata";
 import { brightFontCol, TopBtnDiv, BtnPrimary } from "../GlobalStyles";
+import { LeftOutlined } from "@ant-design/icons";
 
 const styles = {
     table: {
@@ -130,7 +131,7 @@ function UserNFTTransactions() {
                     style={BtnPrimary}
                     onClick={() => window.history.back()}
                 >
-                    {"< "}Back
+                    <LeftOutlined />Back
                 </Button>
             </div>
             <div style={{
