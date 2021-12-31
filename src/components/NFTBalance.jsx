@@ -20,7 +20,6 @@ function NFTBalance() {
   const [avatar, setAvatar] = useContext(AvatarCtx);
 
   const { data: NFTBalances } = useNFTBalances();
-  console.log('fetching NFTBalances', NFTBalances)
   const { chainId } = useMoralis();
   const { verifyMetadata } = useVerifyMetadata();
 
@@ -78,7 +77,9 @@ function NFTBalance() {
     });
   };
 
-  console.log("NFTBalances", NFTBalances);
+  console.log("Filtered NFTBalances", NFTBalances?.result
+    .filter(nft => nft.image && nft.token_address === AllowedNftContracts.get(chainId)));
+
   return (
     <div style={{
       padding: "0 14%",

@@ -82,10 +82,14 @@ export const useVerifyMetadata = () => {
     }//setMetadata()
 
     function resolveCommonMetadata(NFT, metadata) {
-        //Set Image
         if (metadata?.image) NFT.image = resolveLink(metadata.image);
-        //Set name
         if (metadata?.name) NFT.name = metadata.name;
+        if (metadata?.cover_image) NFT.cover_image = metadata.cover_image;
+        if (metadata?.collection_cover_image) NFT.collection_cover_image = metadata.collection_cover_image;
+        if (metadata?.background_color) NFT.background_color = metadata.background_color;
+        if (metadata?.sprite) NFT.sprite = metadata.sprite;
+        if (metadata?.attributes) NFT.attributes = metadata.attributes;
+        if (metadata?.collection_name) NFT.collection_name = metadata.collection_name;
     }
 
     return { verifyMetadata };
