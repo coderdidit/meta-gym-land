@@ -93,5 +93,4 @@ export const useVerifyMetadata = () => {
     }
 
     return { verifyMetadata };
-
 }
