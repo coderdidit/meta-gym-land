@@ -11,10 +11,14 @@ import Webcam from "react-webcam";
 
 const { Text } = Typography;
 const { Option } = Select;
+const videoConstraints = {
+    width: 320,
+    height: 240,
+    // facingMode: "user"
+};
 
 const styles = {
     titleText: {
-        // fontSize: "35px",
         justifyContent: "center",
         color: brightFontCol,
         fontFamily: "Source Serif Pro",
@@ -25,14 +29,19 @@ const styles = {
         background: "none",
         color: brightFontCol,
         lineHeight: "1.4",
+        padding: "0",
     },
     btnDiv: {
         display: "flex",
-        marginTop: "5rem",
+        marginTop: "-2rem",
     },
     sideDiv: {
         padding: "2rem",
         margin: "1.5rem 0",
+    },
+    noPadNoMarg: {
+        padding: "0",
+        margin: "0"
     }
 };
 
@@ -47,10 +56,12 @@ const PlaySetupPage = () => {
     return (<>
         <Card style={{
             ...styles.card,
-            marginRight: "1rem",
         }}>
-            <h1 style={{ fontFamily: "Source Serif Pro", }}>
-                Welcome!
+            <h1 style={{
+                fontFamily: "Source Serif Pro",
+                fontSize: "25px",
+            }}>
+                <b>Welcome!</b>
             </h1>
             <div style={{
                 ...NFTsDiv,
@@ -70,51 +81,43 @@ const PlaySetupPage = () => {
         </Card>
         <Card style={{
             ...styles.card,
-            marginLeft: "1rem",
-        }}
-            title={<>
-                <div style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                    // flexGrow: 1,
-                    // paddingLeft: "8px",
-                    // paddingRight: "8px",
-                    // objectFit: "cover",
-                }}>
-                    <Webcam
-                        audio={false}
-                        style={{
-                            // width: "100%",
-                            // height: "100%",
-                            // objectFit: "cover",
-                            borderRadius: "1rem"
-                        }}
-                    />
-                </div>
-            </>}
-        >
+        }}>
             <div style={{
-                ...NFTsDiv,
-                ...styles.sideDiv,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
             }}>
-                <div>
-                    <VideoCameraFilled style={{
-                        fontSize: "1.2rem",
-                    }} />&nbsp;&nbsp;
-                    <Select defaultValue="lucy" style={{
-                        width: 120,
+                <Webcam
+                    audio={false}
+                    videoConstraints={videoConstraints}
+                    style={{
+                        objectFit: "cover",
+                        borderRadius: "1rem"
                     }}
-                        onChange={handleChange}>
-                        <Option value="jack">Jack</Option>
-                        <Option value="lucy">Lucy</Option>
-                        <Option value="disabled" disabled>
-                            Disabled
-                        </Option>
-                        <Option value="Yiminghe">yiminghe</Option>
-                    </Select>
-                </div>
-                <div style={BreakFlexDiv}></div>
+                />
+            </div>
+            <div style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                paddingTop: "2rem",
+                paddingBottom: "1rem",
+            }}>
+                <VideoCameraFilled style={{
+                    fontSize: "1.2rem",
+                }} />&nbsp;&nbsp;
+                <Select defaultValue="lucy" style={{
+                    width: 240,
+                }}
+                    onChange={handleChange}>
+                    <Option value="jack">Jack</Option>
+                    <Option value="lucy">Lucy</Option>
+                </Select>
+            </div>
+            <div style={{
+                ...BreakFlexDiv,
+                textAlign: "center",
+            }}>
                 <p>Having trouble with your video?</p>
             </div>
         </Card>
@@ -124,7 +127,7 @@ const PlaySetupPage = () => {
         <div style={{
             width: "50%",
             display: "flex",
-            justifyContent: "space-around",
+            justifyContent: "space-evenly",
         }}>
             <Card style={styles.card}>
                 <div>
