@@ -39,6 +39,17 @@ function NFTBalance() {
     setVisibility(true);
   };
 
+  function succListing() {
+    let secondsToGo = 5;
+    const modal = Modal.success({
+      title: "Success!",
+      content: `You have listed your NFT`,
+    });
+    setTimeout(() => {
+      modal.destroy();
+    }, secondsToGo * 1000);
+  }
+
   const listNft = async () => {
     if (listingPrice <= 0) {
       alert("price must be greater then 0");
@@ -58,7 +69,7 @@ function NFTBalance() {
     await contractProcessor.fetch({
       params: ops,
       onSuccess: () => {
-        alert("item listed");
+        succListing();
       },
       onError: (err) => {
         alert(err);
