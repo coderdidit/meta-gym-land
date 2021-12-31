@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useReducer } from "react";
 import { getNativeByChain, getExplorer } from "../../helpers/networks"
 import {
     useMoralis,
@@ -58,6 +58,9 @@ function NFTCollectionItems({ nftAddress, colName, colImg }) {
     const { verifyMetadata } = useVerifyMetadata();
     const listings = new Map();
 
+    // eslint-disable-next-line no-unused-vars
+    const [ignored, forceUpdate] = useReducer(x => x + 1, 0);
+
     const queryMarketItems = useMoralisQuery(createdMarketItemsTable);
     const fetchMarketItems = JSON.parse(
         JSON.stringify(queryMarketItems.data, [
@@ -93,11 +96,12 @@ function NFTCollectionItems({ nftAddress, colName, colImg }) {
 
         await contractProcessor.fetch({
             params: ops,
-            onSuccess: () => {
+            onSuccess: async () => {
                 console.log("success");
                 setLoading(false);
                 setVisibility(false);
-                updateSoldMarketItem(tokenDetails);
+                await updateSoldMarketItem(tokenDetails);
+                forceUpdate();
                 succPurchase();
             },
             onError: (error) => {
