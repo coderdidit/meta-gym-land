@@ -84,12 +84,11 @@ const PlaySetupPage = () => {
                 }}>
                     <Webcam
                         audio={false}
-                        height={240}
-                        width={520}
                         style={{
                             // width: "100%",
                             // height: "100%",
                             // objectFit: "cover",
+                            borderRadius: "1rem"
                         }}
                     />
                 </div>
@@ -116,7 +115,7 @@ const PlaySetupPage = () => {
                     </Select>
                 </div>
                 <div style={BreakFlexDiv}></div>
-                <p>Having trouble with your audio/video?</p>
+                <p>Having trouble with your video?</p>
             </div>
         </Card>
 
