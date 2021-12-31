@@ -4,7 +4,7 @@ import { Redirect } from "react-router";
 import GymRoom from "./games/GymRoom";
 
 const PlayPage = () => {
-    const [avatar, _] = useContext(AvatarCtx);
+    const [avatar] = useContext(AvatarCtx);
     if (!avatar) {
         return <Redirect to="/avatars" />;
     }

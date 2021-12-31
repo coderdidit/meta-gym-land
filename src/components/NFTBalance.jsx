@@ -15,7 +15,8 @@ import { AvatarCtx } from "index";
 const { Meta } = Card;
 
 function NFTBalance() {
-  const [_, setAvatar] = useContext(AvatarCtx);
+  // eslint-disable-next-line no-unused-vars
+  const [avatar, setAvatar] = useContext(AvatarCtx);
 
   const { data: NFTBalances } = useNFTBalances();
   console.log('fetching NFTBalances', NFTBalances)
