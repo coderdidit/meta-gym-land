@@ -102,7 +102,7 @@ const App = ({ isServerInfo }) => {
 
         <div style={styles.content}>
           <Switch>
-            <Route exact path="/" onEnter={() => console.log('home')}>
+            <Route exact path="/" >
               <Home />
             </Route>
             <Route path="/avatars">
