@@ -74,12 +74,23 @@ const PlaySetupPage = () => {
         }}
             title={<>
                 <div style={{
-                    borderRadius: "1rem",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    // flexGrow: 1,
+                    // paddingLeft: "8px",
+                    // paddingRight: "8px",
+                    // objectFit: "cover",
                 }}>
                     <Webcam
                         audio={false}
                         height={240}
                         width={520}
+                        style={{
+                            // width: "100%",
+                            // height: "100%",
+                            // objectFit: "cover",
+                        }}
                     />
                 </div>
             </>}
@@ -104,6 +115,8 @@ const PlaySetupPage = () => {
                         <Option value="Yiminghe">yiminghe</Option>
                     </Select>
                 </div>
+                <div style={BreakFlexDiv}></div>
+                <p>Having trouble with your audio/video?</p>
             </div>
         </Card>
 
