@@ -49,8 +49,8 @@ function NFTCollectionItems({ nftAddress, colName, colImg }) {
     const [nftToBuy, setNftToBuy] = useState(null);
     const [loading, setLoading] = useState(false);
 
-    const [contractABI] = useState(deployedABI); //Smart Contract ABI here
-    const [marketAddress] = useState(mainMarketAddress)
+    const contractABI = deployedABI;
+    const marketAddress = mainMarketAddress;
 
     const contractProcessor = useWeb3ExecuteFunction();
     const nativeName = getNativeByChain(chainId);

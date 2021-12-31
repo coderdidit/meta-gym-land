@@ -26,8 +26,8 @@ function NFTBalance() {
   const [nftToList, setNftToList] = useState(null);
   const [listingPrice, setListingPrice] = useState(0);
 
-  const [contractABI] = useState(deployedABI); //Smart Contract ABI here
-  const [marketAddress] = useState(mainMarketAddress)
+  const contractABI = deployedABI;
+  const marketAddress = mainMarketAddress;
 
   const contractABIJson = JSON.parse(contractABI)
   const contractProcessor = useWeb3ExecuteFunction();
