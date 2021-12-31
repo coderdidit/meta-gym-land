@@ -45,6 +45,7 @@ export const BtnPrimary = {
     paddingRight: BtnSidesPadding,
     paddingTop: "8px",
     paddingBottom: "31px",
+    border: "none",
 }
 
 export const BreakFlexDiv = {
