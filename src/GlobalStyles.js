@@ -47,7 +47,7 @@ export const BtnPrimary = {
     paddingBottom: "31px",
 }
 
-export const TopBtnDiv = {
+export const BreakFlexDiv = {
     flexBasis: "100%",
     height: "0px",
 }

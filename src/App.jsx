@@ -18,6 +18,7 @@ import { brightFontCol } from "GlobalStyles";
 import { MGLLogo } from "Logos";
 import { AppFooter } from "AppFooter";
 import PlayPage from "components/Play";
+import PlaySetupPage from "components/Play/PlaySetupPage";
 import { mainBackground } from "GlobalStyles";
 
 const { Header } = Layout;
@@ -109,6 +110,9 @@ const App = ({ isServerInfo }) => {
             </Route>
             <Route path="/play">
               <PlayPage />
+            </Route>
+            <Route path="/play-setup">
+              <PlaySetupPage />
             </Route>
             <Route path="/marketplace">
               <Marketplace />
