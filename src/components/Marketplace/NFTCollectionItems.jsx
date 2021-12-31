@@ -61,7 +61,11 @@ function NFTCollectionItems({ nftAddress, colName, colImg }) {
     // eslint-disable-next-line no-unused-vars
     const [ignored, forceUpdate] = useReducer(x => x + 1, 0);
 
-    const queryMarketItems = useMoralisQuery(createdMarketItemsTable);
+    const queryMarketItems = useMoralisQuery(
+        createdMarketItemsTable, query => {
+            // get not sold items
+            return query.equalTo("sold", false);
+        });
     const fetchMarketItems = JSON.parse(
         JSON.stringify(queryMarketItems.data, [
             "objectId",

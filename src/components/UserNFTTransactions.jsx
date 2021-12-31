@@ -20,8 +20,7 @@ function UserNFTTransactions() {
     const queryMarketItems = useMoralisQuery(
         createdMarketItemsTable, query => {
             return query.limit(20);
-        }
-    );
+        });
     const fetchMarketItems = JSON.parse(
         JSON.stringify(queryMarketItems.data, [
             "updatedAt",
