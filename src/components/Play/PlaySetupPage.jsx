@@ -5,13 +5,20 @@ import { Select, Image, Card, Button, Typography } from "antd";
 import { RightOutlined, LeftOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { BtnPrimary } from "../../GlobalStyles";
-import { brightFontCol } from "../../GlobalStyles";
-import { NFTsDiv, NFTImg, BreakFlexDiv } from "../../GlobalStyles";
+import { NFTsDiv, NFTImg, BreakFlexDiv, brightFontCol } from "../../GlobalStyles";
 import { VideoCameraFilled } from "@ant-design/icons";
+import Webcam from "react-webcam";
 
+const { Text } = Typography;
 const { Option } = Select;
 
 const styles = {
+    titleText: {
+        // fontSize: "35px",
+        justifyContent: "center",
+        color: brightFontCol,
+        fontFamily: "Source Serif Pro",
+    },
     card: {
         border: "none",
         borderBottom: "none",
@@ -26,8 +33,6 @@ const styles = {
     sideDiv: {
         padding: "2rem",
         margin: "1.5rem 0",
-        border: "3px solid #d3d3d3",
-        borderRadius: "1rem",
     }
 };
 
@@ -50,6 +55,8 @@ const PlaySetupPage = () => {
             <div style={{
                 ...NFTsDiv,
                 ...styles.sideDiv,
+                border: "3px solid #d3d3d3",
+                borderRadius: "1rem",
                 backgroundColor: "#FFF",
             }}>
                 <Image
@@ -64,16 +71,22 @@ const PlaySetupPage = () => {
         <Card style={{
             ...styles.card,
             marginLeft: "1rem",
-        }}>
-            <h1 style={{
-                fontFamily: "Source Serif Pro",
-            }}>
-                camera setup
-            </h1>
+        }}
+            title={<>
+                <div style={{
+                    borderRadius: "1rem",
+                }}>
+                    <Webcam
+                        audio={false}
+                        height={240}
+                        width={520}
+                    />
+                </div>
+            </>}
+        >
             <div style={{
                 ...NFTsDiv,
                 ...styles.sideDiv,
-                backgroundColor: "darkcyan",
             }}>
                 <div>
                     <VideoCameraFilled style={{
