@@ -27,7 +27,8 @@ export class GymRoomScene extends Phaser.Scene {
 
         this.add.image(width / 2, height / 2, BG)
             .setDisplaySize(width, height);
-        this.back = this.sound.add(CLICK, { loop: false });
+        // uncomment if you want to have sound on exit
+        // this.back = this.sound.add(CLICK, { loop: false });
         this.createBackButton();
 
         // Add a player sprite that can be moved around.
