@@ -14,6 +14,7 @@ import { useVerifyMetadata } from "hooks/useVerifyMetadata";
 import { useNFTTokenIds } from "hooks/useNFTTokenIds";
 import { mainMarketAddress, deployedABI, createdMarketItemsTable } from "../../MarketplaceSCMetadata";
 import { NFTCardStyle, NFTsDiv, NFTImg, brightFontCol, NFTImgWrapperStyle } from "../../GlobalStyles";
+import { AllowedNftContracts } from "../../MglNftMetadata";
 
 const styles = {
     banner: {
@@ -64,7 +65,9 @@ function NFTCollectionItems({ nftAddress, colName, colImg }) {
     const queryMarketItems = useMoralisQuery(
         createdMarketItemsTable, query => {
             // get not sold items
-            return query.equalTo("sold", false);
+            return query
+                .equalTo("sold", false)
+                .equalTo("nftContract", AllowedNftContracts.get(chainId));
         });
     const fetchMarketItems = JSON.parse(
         JSON.stringify(queryMarketItems.data, [
