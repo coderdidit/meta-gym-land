@@ -236,6 +236,7 @@ function NFTCollectionItems({ nftAddress, colName, colImg }) {
                         nft = verifyMetadata(nft);
                         return (
                             <Card
+                                key={index}
                                 hoverable
                                 actions={[
                                     <Tooltip title="View On Blockexplorer">
@@ -266,7 +267,6 @@ function NFTCollectionItems({ nftAddress, colName, colImg }) {
                                         }}
                                     />
                                 }
-                                key={index}
                             >
                                 {hasMarketItems(nft) ? (
                                     <div onClick={() => handleBuyClick(nft)}>
