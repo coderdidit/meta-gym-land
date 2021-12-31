@@ -20,8 +20,7 @@ export const useVerifyMetadata = () => {
         if (NFT.metadata) {
             //Set Image
             const metadata = NFT.metadata
-            if (metadata?.image) NFT.image = resolveLink(metadata.image);
-            if (metadata?.name) NFT.name = metadata.name;
+            resolveCommonMetadata(NFT, metadata);
             return NFT
         };
         //Get the Metadata
@@ -77,13 +76,17 @@ export const useVerifyMetadata = () => {
     function setMetadata(NFT, metadata) {
         //Add Metadata
         NFT.metadata = metadata;
+        resolveCommonMetadata(NFT, metadata);
+        //Set to State
+        if (metadata && !results[NFT.token_uri]) setResults({ ...results, [NFT.token_uri]: NFT });
+    }//setMetadata()
+
+    function resolveCommonMetadata(NFT, metadata) {
         //Set Image
         if (metadata?.image) NFT.image = resolveLink(metadata.image);
         //Set name
         if (metadata?.name) NFT.name = metadata.name;
-        //Set to State
-        if (metadata && !results[NFT.token_uri]) setResults({ ...results, [NFT.token_uri]: NFT });
-    }//setMetadata()
+    }
 
     return { verifyMetadata };
 
