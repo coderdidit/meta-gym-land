@@ -24,83 +24,71 @@ const styles = {
     }
 };
 
-const ColSpan = 2;
-
 const PlaySetupPage = () => {
     const [avatar] = useContext(AvatarCtx);
     if (!avatar) {
         return <Redirect to="/avatars" />;
     }
     return (<>
-        <Row>
-            <Col span={24}>
+        <Card style={styles.card}>
+            <div>
                 <div style={{
-                    display: "flex",
-                    gap: "3rem",
+                    backgroundColor: "chocolate",
+                    width: "15rem",
+                    height: "15rem",
+                    padding: "15rem",
                 }}>
-                    <Card style={styles.card}>
-                        <div>
-                            <div style={{
-                                backgroundColor: "chocolate",
-                                width: "15rem",
-                                height: "15rem",
-                                padding: "15rem",
-                            }}>
-                                <h1 style={{ fontFamily: "Source Serif Pro", }}>
-                                    avatar here...
-                                </h1>
-                            </div>
-                            <div
-                                style={{
-                                    ...styles.btnDiv,
-                                    justifyContent: "left",
-                                }}
-                            >
-                                <Button
-                                    type="primary"
-                                    style={BtnPrimary}
-                                    onClick={() => window.history.back()}
-                                >
-                                    <LeftOutlined />Back
-                                </Button>
-                            </div>
-                        </div>
-                    </Card>
-                    <Card style={styles.card} >
-                        <div style={{
-                            backgroundColor: "darkcyan",
-                        }}>
-                            <h1 style={{
-                                fontFamily: "Source Serif Pro",
-                                width: "15rem",
-                                height: "15rem",
-                                padding: "15rem",
-                            }}>
-                                camera setup here...
-                            </h1>
-                        </div>
-                        <div
-                            style={{
-                                ...styles.btnDiv,
-                                justifyContent: "right",
-                            }}
-                        >
-                            <Button
-                                style={{
-                                    ...BtnPrimary,
-                                    backgroundColor: "#20BF96",
-                                }}
-                            >
-                                <Link to='/play'>
-                                    Join MetaGymLand <RightOutlined />
-                                </Link>
-                            </Button>
-                        </div>
-
-                    </Card>
+                    <h1 style={{ fontFamily: "Source Serif Pro", }}>
+                        avatar here...
+                    </h1>
                 </div>
-            </Col>
-        </Row>
+                <div
+                    style={{
+                        ...styles.btnDiv,
+                        justifyContent: "left",
+                    }}
+                >
+                    <Button
+                        type="primary"
+                        style={BtnPrimary}
+                        onClick={() => window.history.back()}
+                    >
+                        <LeftOutlined />Back
+                    </Button>
+                </div>
+            </div>
+        </Card>
+        <Card style={styles.card} >
+            <div style={{
+                backgroundColor: "darkcyan",
+            }}>
+                <h1 style={{
+                    fontFamily: "Source Serif Pro",
+                    width: "15rem",
+                    height: "15rem",
+                    padding: "15rem",
+                }}>
+                    camera setup here...
+                </h1>
+            </div>
+            <div
+                style={{
+                    ...styles.btnDiv,
+                    justifyContent: "right",
+                }}
+            >
+                <Button
+                    style={{
+                        ...BtnPrimary,
+                        backgroundColor: "#20BF96",
+                    }}
+                >
+                    <Link to='/play'>
+                        Join MetaGymLand <RightOutlined />
+                    </Link>
+                </Button>
+            </div>
+        </Card>
     </>);
 }
 
