@@ -15,7 +15,7 @@ import { AvatarCtx } from "index";
 const { Meta } = Card;
 
 function NFTBalance() {
-  const [avatar, setAvatar] = useContext(AvatarCtx);
+  const [_, setAvatar] = useContext(AvatarCtx);
 
   const { data: NFTBalances } = useNFTBalances();
   console.log('fetching NFTBalances', NFTBalances)
@@ -26,8 +26,8 @@ function NFTBalance() {
   const [nftToList, setNftToList] = useState(null);
   const [listingPrice, setListingPrice] = useState(0);
 
-  const [contractABI, setContractABI] = useState(deployedABI); //Smart Contract ABI here
-  const [marketAddress, setMarketAddress] = useState(mainMarketAddress)
+  const [contractABI] = useState(deployedABI); //Smart Contract ABI here
+  const [marketAddress] = useState(mainMarketAddress)
 
   const contractABIJson = JSON.parse(contractABI)
   const contractProcessor = useWeb3ExecuteFunction();
