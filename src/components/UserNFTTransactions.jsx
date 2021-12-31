@@ -5,7 +5,7 @@ import { Button, Table, Tag, Space } from "antd";
 import moment from "moment";
 import { createdMarketItemsTable } from "../MarketplaceSCMetadata";
 import { brightFontCol, TopBtnDiv, BtnPrimary } from "../GlobalStyles";
-import { LeftOutlined } from "@ant-design/icons";
+import { DatabaseOutlined, LeftOutlined } from "@ant-design/icons";
 
 const styles = {
     table: {
@@ -145,7 +145,7 @@ function UserNFTTransactions() {
                 color: brightFontCol,
             }}>
                 <Text strong>
-                    <h3>🧾&nbsp;&nbsp;Your Transactions</h3>
+                    <h3><DatabaseOutlined /> Your recent transactions</h3>
                 </Text>
             </div>
             <div style={styles.table}>
