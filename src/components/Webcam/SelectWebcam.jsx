@@ -5,7 +5,7 @@ import { WebcamCtx } from "index";
 
 const { Option } = Select;
 
-const SelectWebcam = () => {
+const SelectWebcam = ({ webcamRef }) => {
     const [webcamId, setWebcamId] = useContext(WebcamCtx);
     const [videoDevices, setVideoDevices] = useState([]);
 
@@ -32,6 +32,7 @@ const SelectWebcam = () => {
         }
         return webcamId;
     };
+
     return videoDevices.length > 0 && (
         <>
             <VideoCameraFilled style={{
