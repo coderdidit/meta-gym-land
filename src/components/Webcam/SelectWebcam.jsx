@@ -21,14 +21,13 @@ const SelectWebcam = () => {
         [handleDevices]
     );
 
-    const handleChange = () => {
-
-    }
+    const handleChange = (selecteDeviceId) => {
+        console.log('selecteDeviceId', selecteDeviceId);
+    };
     const defaultCamId = () => {
         const deviceId = devices?.[0]?.deviceId;
         return deviceId;
     };
-
     return devices.length > 0 && (
         <>
             <VideoCameraFilled style={{
@@ -37,8 +36,8 @@ const SelectWebcam = () => {
             <Select
                 defaultValue={defaultCamId()}
                 style={{
-                    width: "250px",
-                    borderRadius: "0.2rem",
+                    width: "60%",
+                    borderRadius: "1rem",
                     overflow: "hidden",
                     color: "black",
                 }}
