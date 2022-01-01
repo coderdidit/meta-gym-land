@@ -87,6 +87,7 @@ const PlaySetupPage = () => {
                     audio={false}
                     videoConstraints={{ deviceId: webcamId }}
                     mirrored={true}
+                    className={"webcam"}
                     style={{
                         objectFit: "cover",
                         borderRadius: "1rem",

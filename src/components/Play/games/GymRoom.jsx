@@ -100,6 +100,7 @@ const GymRoom = ({ avatar }) => {
                     audio={false}
                     videoConstraints={{ deviceId: deviceId }}
                     mirrored={true}
+                    className={"webcam"}
                     style={{
                         objectFit: "cover",
                         borderRadius: "1rem",
