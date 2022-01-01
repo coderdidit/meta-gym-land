@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from "react";
+import React, { useContext, useRef, useEffect } from "react";
 import { AvatarCtx } from "index";
 import { Redirect } from "react-router";
 import { Image, Card, Button } from "antd";
@@ -41,14 +41,123 @@ const styles = {
 const PlaySetupPage = () => {
     const [avatar] = useContext(AvatarCtx);
     const [webcamId, setWebcamId] = useContext(WebcamCtx);
-    const webcamRef = React.useRef(null);
+    const webcamRef = useRef(null);
+    const canvasRef = useRef(null);
+
     console.log('webcamId', webcamId);
+
+    const runCoco = async () => {
+        requestAnimationFrame(() => {
+            runCoco()
+        })
+        // 3. TODO - Load network 
+        // e.g. const net = await cocossd.load();
+
+        //  Loop and detect hands
+        // setInterval(() => {
+        //     detect();
+        // }, 10);
+        // detect();
+
+        detect()
+    };
+
+    const detect = async () => {
+        // Check data is available
+        if (
+            typeof webcamRef.current !== "undefined" &&
+            webcamRef.current !== null &&
+            webcamRef.current.video.readyState === 4
+        ) {
+            // Get Video Properties
+
+            const video = webcamRef.current.video;
+            const videoWidth = webcamRef.current.video.videoWidth;
+            const videoHeight = webcamRef.current.video.videoHeight;
+
+            // const video = webcamRef.current.video;
+            // const videoWidth = webcamRef.current.video.videoWidth;
+            // const videoHeight = webcamRef.current.video.videoHeight;
+
+            // Set video width
+            // webcamRef.current.video.width = videoWidth;
+            // webcamRef.current.video.height = videoHeight;
+
+            // Set canvas height and width
+            canvasRef.current.width = videoWidth;
+            canvasRef.current.height = videoHeight;
+
+            // 4. TODO - Make Detections
+            // e.g. const obj = await net.detect(video);
+
+            // Draw mesh
+            const ctx = canvasRef.current.getContext("2d");
+            // ctx.drawImage(
+            //     video, 0, 0, videoWidth, videoHeight
+            // );
+
+            ctx.fillStyle = '#FF0300';
+            ctx.strokeStyle = '#FF0300';
+            ctx.beginPath();
+            ctx.arc(95, 50, 40, 0, 2 * Math.PI);
+            ctx.stroke();
+            ctx.fill();
+            // 5. TODO - Update drawing utility
+            // drawSomething(obj, ctx)  
+        }
+    };
+
+    useEffect(() => { runCoco() }, []);
 
     if (!avatar) {
         return <Redirect to="/avatars" />;
     }
 
     return (<>
+
+        {/*  */}
+        <>
+            <Webcam
+                audio={false}
+                videoConstraints={{ deviceId: webcamId }}
+                mirrored={true}
+                className={"webcam"}
+                ref={webcamRef}
+                muted={true}
+                style={{
+                    objectFit: "cover",
+                    borderRadius: "1rem",
+                    boxShadow: "0 0 10px 2px #202020",
+                    position: "absolute",
+                    height: "auto",
+                    zindex: 9,
+                    // param
+                    top: "10%",
+                    left: "52%",
+                    width: "18%",
+                }}
+            />
+            <canvas
+                ref={canvasRef}
+                className={"webcam-canvas"}
+                style={{
+                    objectFit: "cover",
+                    borderRadius: "1rem",
+                    position: "absolute",
+                    height: "auto",
+                    zindex: 8,
+                    // debug
+                    border: "5px solid red",
+                    // param
+                    top: "10%",
+                    left: "52%",
+                    width: "18%",
+                }}
+            />
+
+        </>
+
+        {/*  */}
         <Card style={{
             ...styles.card,
             ...styles.noPadNoMarg
@@ -78,38 +187,17 @@ const PlaySetupPage = () => {
         <Card style={{
             ...styles.card,
             ...styles.noPadNoMarg,
-            // styled with 2 width props 25%, 80% due to overall styling
-            width: "25%",
         }}>
-            <div style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-            }}>
-                <Webcam
-                    audio={false}
-                    videoConstraints={{ deviceId: webcamId }}
-                    mirrored={true}
-                    className={"webcam"}
-                    ref={webcamRef}
-                    style={{
-                        objectFit: "cover",
-                        borderRadius: "1rem",
-                        width: "80%",
-                        boxShadow: "0 0 10px 2px #202020",
-                    }}
-                />
-            </div>
-            
+
             <div style={{
                 ...BreakFlexDiv,
                 textAlign: "center",
                 justifyContent: "start",
-                paddingTop: "1rem",
+                paddingTop: "15rem",
             }}>
                 <p>Please select your webcam&nbsp;📷</p>
             </div>
-            
+
             <div style={{
                 display: "flex",
                 alignItems: "center",
