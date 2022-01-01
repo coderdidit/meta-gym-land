@@ -40,7 +40,7 @@ const styles = {
 
 const PlaySetupPage = () => {
     const [avatar] = useContext(AvatarCtx);
-    const deviceId = useContext(WebcamCtx);
+    const webcamId = useContext(WebcamCtx);
     if (!avatar) {
         return <Redirect to="/avatars" />;
     }
@@ -85,7 +85,7 @@ const PlaySetupPage = () => {
             }}>
                 <Webcam
                     audio={false}
-                    videoConstraints={{ deviceId: deviceId }}
+                    videoConstraints={{ deviceId: webcamId }}
                     mirrored={true}
                     style={{
                         objectFit: "cover",

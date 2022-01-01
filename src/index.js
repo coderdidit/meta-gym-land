@@ -23,9 +23,9 @@ const AvatarCtxProvider = ({ children }) => {
 // Webcam global state
 export const WebcamCtx = React.createContext();
 const WebcamCtxProvider = ({ children }) => {
-  const [deviceId, setDeviceId] = useState(null);
+  const [webcamId, setWebcamId] = useState(null);
   return (
-    <WebcamCtx.Provider value={[deviceId, setDeviceId]}>
+    <WebcamCtx.Provider value={[webcamId, setWebcamId]}>
       {children}
     </WebcamCtx.Provider>
   );

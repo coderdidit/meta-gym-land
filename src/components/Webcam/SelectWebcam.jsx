@@ -6,13 +6,13 @@ import { WebcamCtx } from "index";
 const { Option } = Select;
 
 const SelectWebcam = () => {
-    const [deviceId, setDeviceId] = useContext(WebcamCtx);
-    const [devices, setDevices] = useState([]);
+    const [webcamId, setWebcamId] = useContext(WebcamCtx);
+    const [videoDevices, setVideoDevices] = useState([]);
 
     const handleDevices = useCallback(
         mediaDevices =>
-            setDevices(mediaDevices.filter(({ kind }) => kind === "videoinput")),
-        [setDevices]
+            setVideoDevices(mediaDevices.filter(({ kind }) => kind === "videoinput")),
+        [setVideoDevices]
     );
 
     useEffect(
@@ -24,15 +24,15 @@ const SelectWebcam = () => {
 
     const handleChange = (selecteDeviceId) => {
         console.log('selecteDeviceId', selecteDeviceId);
-        setDeviceId(selecteDeviceId);
+        setWebcamId(selecteDeviceId);
     };
     const defaultCamId = () => {
-        if (!deviceId) {
-            return devices?.[0]?.deviceId;
+        if (!webcamId) {
+            return videoDevices?.[0]?.deviceId;
         }
-        return deviceId;
+        return webcamId;
     };
-    return devices.length > 0 && (
+    return videoDevices.length > 0 && (
         <>
             <VideoCameraFilled style={{
                 fontSize: "1.2rem",
@@ -47,7 +47,7 @@ const SelectWebcam = () => {
                 }}
 
                 onChange={handleChange}>
-                {devices.map((device, key) => (
+                {videoDevices.map((device, key) => (
                     <Option key={key} value={device.deviceId}>
                         <div style={{
                             width: "185px",
