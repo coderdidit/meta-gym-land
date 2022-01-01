@@ -8,6 +8,7 @@ import { BtnPrimary } from "../../GlobalStyles";
 import { NFTsDiv, NFTImg, BreakFlexDiv, brightFontCol } from "../../GlobalStyles";
 import { VideoCameraFilled } from "@ant-design/icons";
 import Webcam from "react-webcam";
+import SelectWebcam from "components/Webcam/SelectWebcam";
 
 const { Text } = Typography;
 const { Option } = Select;
@@ -110,16 +111,7 @@ const PlaySetupPage = () => {
                 paddingTop: "2rem",
                 paddingBottom: "1rem",
             }}>
-                <VideoCameraFilled style={{
-                    fontSize: "1.2rem",
-                }} />&nbsp;&nbsp;
-                <Select defaultValue="lucy" style={{
-                    width: 240,
-                }}
-                    onChange={handleChange}>
-                    <Option value="jack">Jack</Option>
-                    <Option value="lucy">Lucy</Option>
-                </Select>
+                <SelectWebcam />
             </div>
             <div style={{
                 ...BreakFlexDiv,
