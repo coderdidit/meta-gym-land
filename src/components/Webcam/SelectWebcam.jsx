@@ -1,11 +1,12 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback, useEffect, useContext } from "react";
 import { VideoCameraFilled } from "@ant-design/icons";
 import { Select } from "antd";
+import { WebcamCtx } from "index";
 
 const { Option } = Select;
 
 const SelectWebcam = () => {
-    const [deviceId, setDeviceId] = useState({});
+    const [deviceId, setDeviceId] = useContext(WebcamCtx);
     const [devices, setDevices] = useState([]);
 
     const handleDevices = useCallback(
@@ -23,9 +24,12 @@ const SelectWebcam = () => {
 
     const handleChange = (selecteDeviceId) => {
         console.log('selecteDeviceId', selecteDeviceId);
+        setDeviceId(selecteDeviceId);
     };
     const defaultCamId = () => {
-        const deviceId = devices?.[0]?.deviceId;
+        if (!deviceId) {
+            return devices?.[0]?.deviceId;
+        }
         return deviceId;
     };
     return devices.length > 0 && (

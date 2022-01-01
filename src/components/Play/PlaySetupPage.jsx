@@ -6,17 +6,9 @@ import { RightOutlined, LeftOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { BtnPrimary } from "../../GlobalStyles";
 import { NFTsDiv, NFTImg, BreakFlexDiv, brightFontCol } from "../../GlobalStyles";
-import { VideoCameraFilled } from "@ant-design/icons";
 import Webcam from "react-webcam";
 import SelectWebcam from "components/Webcam/SelectWebcam";
-
-const { Text } = Typography;
-const { Option } = Select;
-const videoConstraints = {
-    // width: 320,
-    // height: 240,
-    // facingMode: "user"
-};
+import { WebcamCtx } from "index";
 
 const styles = {
     titleText: {
@@ -48,6 +40,7 @@ const styles = {
 
 const PlaySetupPage = () => {
     const [avatar] = useContext(AvatarCtx);
+    const deviceId = useContext(WebcamCtx);
     if (!avatar) {
         return <Redirect to="/avatars" />;
     }
@@ -92,7 +85,7 @@ const PlaySetupPage = () => {
             }}>
                 <Webcam
                     audio={false}
-                    videoConstraints={videoConstraints}
+                    videoConstraints={{ deviceId: deviceId }}
                     mirrored={true}
                     style={{
                         objectFit: "cover",
