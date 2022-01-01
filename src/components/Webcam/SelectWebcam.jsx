@@ -25,8 +25,8 @@ const SelectWebcam = () => {
 
     }
     const defaultCamId = () => {
-        const d = devices?.[0]?.deviceId;
-        return d;
+        const deviceId = devices?.[0]?.deviceId;
+        return deviceId;
     };
 
     return devices.length > 0 && (
@@ -37,12 +37,22 @@ const SelectWebcam = () => {
             <Select
                 defaultValue={defaultCamId()}
                 style={{
-                    width: 240,
+                    width: "250px",
+                    borderRadius: "0.2rem",
+                    overflow: "hidden",
+                    color: "black",
                 }}
+
                 onChange={handleChange}>
                 {devices.map((device, key) => (
                     <Option key={key} value={device.deviceId}>
-                        {device.label || `Device ${key + 1}`}
+                        <div style={{
+                            width: "185px",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                        }}>
+                            {device.label || `Device ${key + 1}`}
+                        </div>
                     </Option>
                 ))}
             </Select>

@@ -51,9 +51,7 @@ const PlaySetupPage = () => {
     if (!avatar) {
         return <Redirect to="/avatars" />;
     }
-    const handleChange = () => {
 
-    }
     return (<>
         <Card style={{
             ...styles.card,
@@ -108,7 +106,7 @@ const PlaySetupPage = () => {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                paddingTop: "2rem",
+                paddingTop: "3rem",
                 paddingBottom: "1rem",
             }}>
                 <SelectWebcam />
@@ -117,7 +115,9 @@ const PlaySetupPage = () => {
                 ...BreakFlexDiv,
                 textAlign: "center",
             }}>
-                <p><u>Having trouble with your video?</u></p>
+                <p style={{
+                    opacity: "0.5",
+                }}><u>Having trouble with your video?</u></p>
             </div>
         </Card>
 
