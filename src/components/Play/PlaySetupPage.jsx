@@ -125,7 +125,7 @@ const PlaySetupPage = () => {
                     height: "auto",
                     zindex: 9,
                     // param
-                    top: "21%",
+                    top: "10%",
                     left: "51%",
                     width: "20%",
                 }}
@@ -142,7 +142,7 @@ const PlaySetupPage = () => {
                     // debug
                     border: "5px solid red",
                     // param
-                    top: "21%",
+                    top: "10%",
                     left: "51%",
                     width: "20%",
                 }}
@@ -204,7 +204,7 @@ const PlaySetupPage = () => {
                 <div style={{
                     padding: "2rem 1rem",
                     margin: "1.5rem 0",
-                    paddingTop: "5.1rem",
+                    paddingTop: "4rem",
                 }}>
                     <p style={{
                         textAlign: "center",
