@@ -3,9 +3,8 @@ import Phaser from "phaser";
 import { IonPhaser } from "@ion-phaser/react";
 import { GymRoomScene } from "./GymRoomScene";
 import { BootScene } from "./BootScene";
-import Webcam from "react-webcam";
 import { WebcamCtx } from "index";
-
+import PoseDetWebcam from "components/Webcam/PoseDetWebcam";
 
 const menuHeight = 60;
 // keeping for reference
@@ -94,24 +93,14 @@ const GymRoom = ({ avatar }) => {
             marginTop: "-40px",
         }}
     >
-        <div style={{
-            position: "absolute",
-            top: "1%",
-            left: "45%",
-        }}>
-            <Webcam
-                audio={false}
-                videoConstraints={{ deviceId: webcamId }}
-                mirrored={true}
-                className={"webcam"}
-                style={{
-                    objectFit: "cover",
-                    borderRadius: "1rem",
-                    width: "35%",
-                    boxShadow: "0 0 10px 2px #202020",
-                }}
-            />
-        </div>
+        <PoseDetWebcam
+            styleProps={{
+                width: "13%",
+                top: "1%",
+                left: "45%",
+                boxShadow: "0 0 10px 2px #202020",
+            }}
+        />
     </IonPhaser>;
 };
 

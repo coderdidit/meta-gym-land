@@ -24,10 +24,10 @@ const PoseDetWebcam = ({ styleProps }) => {
             // Draw mesh
             const ctx = canvasRef.current.getContext("2d");
             // testing
-            ctx.fillStyle = '#FF0300';
-            ctx.strokeStyle = '#FF0300';
+            ctx.fillStyle = '#04AA6D';
+            ctx.strokeStyle = '#04AA6D';
             ctx.beginPath();
-            ctx.arc(95, 50, 40, 0, 2 * Math.PI);
+            ctx.arc(50, 50, 20, 0, 2 * Math.PI);
             ctx.stroke();
             ctx.fill();
         }
@@ -93,8 +93,6 @@ const PoseDetWebcam = ({ styleProps }) => {
                     position: "absolute",
                     height: "auto",
                     zindex: 8,
-                    // debug
-                    border: "5px solid red",
                     // params
                     ...styleProps,
                 }}
