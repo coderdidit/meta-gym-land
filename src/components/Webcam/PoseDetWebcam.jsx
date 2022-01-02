@@ -2,7 +2,7 @@ import React, { useContext, useRef, useEffect } from "react";
 import { WebcamCtx } from "index";
 import Webcam from "react-webcam";
 
-const PoseDetWebcam = ({ camTop, camLeft, camWidth }) => {
+const PoseDetWebcam = ({ styleProps }) => {
     const { webcamId, setWebcamId, webcamRef } = useContext(WebcamCtx);
     const canvasRef = useRef(null);
 
@@ -77,14 +77,11 @@ const PoseDetWebcam = ({ camTop, camLeft, camWidth }) => {
                 style={{
                     objectFit: "cover",
                     borderRadius: "1rem",
-                    boxShadow: "0 0 10px 2px #202020",
                     position: "absolute",
                     height: "auto",
                     zindex: 9,
-                    // param
-                    top: camTop,
-                    left: camLeft,
-                    width: camWidth,
+                    // params
+                    ...styleProps,
                 }}
             />
             <canvas
@@ -98,10 +95,8 @@ const PoseDetWebcam = ({ camTop, camLeft, camWidth }) => {
                     zindex: 8,
                     // debug
                     border: "5px solid red",
-                    // param
-                    top: camTop,
-                    left: camLeft,
-                    width: camWidth,
+                    // params
+                    ...styleProps,
                 }}
             />
         </>

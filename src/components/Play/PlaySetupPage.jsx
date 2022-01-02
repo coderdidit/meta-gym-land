@@ -33,22 +33,21 @@ const styles = {
 
 const PlaySetupPage = () => {
     const [avatar] = useContext(AvatarCtx);
-    const {webcamId, setWebcamId} = useContext(WebcamCtx);
+    const { webcamId, setWebcamId } = useContext(WebcamCtx);
 
     if (!avatar) {
         return <Redirect to="/avatars" />;
     }
 
     return (<>
-
-        {/*  */}
         <PoseDetWebcam
-            camWidth={"20%"}
-            camTop={"10%"}
-            camLeft={"51%"}
+            styleProps={{
+                width: "20%",
+                top: "10%",
+                left: "51%",
+                boxShadow: "0 0 10px 2px #202020",
+            }}
         />
-
-        {/* main cards */}
         <div style={{
             width: "50%",
             display: "flex",
