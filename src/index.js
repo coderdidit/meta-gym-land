@@ -1,10 +1,14 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 import { MoralisProvider } from "react-moralis";
 import "./index.css";
 import Home from "components/Home";
-import { Pose } from '@mediapipe/pose';
+import '@mediapipe/pose';
+import * as tf from '@tensorflow/tfjs-core';
+import * as tfjsWasm from '@tensorflow/tfjs-backend-wasm';
+import * as poseDetection from '@tensorflow-models/pose-detection';
+import * as mpPose from '@mediapipe/pose';
 
 // Moralis vals
 const APP_ID = process.env.REACT_APP_MORALIS_APPLICATION_ID;
@@ -41,21 +45,54 @@ const WebcamCtxProvider = ({ children }) => {
 // PoseDetector global var
 export const PoseDetectorCtx = React.createContext();
 const PoseDetectorCtxProvider = ({ children }) => {
-  const poseDetector = new Pose({
-    locateFile: (file) => {
-      return `https://cdn.jsdelivr.net/npm/@mediapipe/pose/${file}`;
-    }
-  });
-  poseDetector.setOptions({
-    modelComplexity: 1,
-    smoothLandmarks: true,
-    //   enableSegmentation: true,
-    // smoothSegmentation: true,
-    minDetectionConfidence: 0.5,
-    minTrackingConfidence: 0.5
-  });
+  const [poseDetector, setPoseDetector] = useState(null);
 
-  console.log('poseDetector loaded', poseDetector);
+  useEffect(async () => {
+    if (!poseDetector) {
+      // TODO this can be avoided
+      console.log('registering wasm', wasmPath)
+      tfjsWasm.setWasmPaths(wasmPath);
+      await tf.setBackend("wasm");
+      console.log(`tfjs backend is ${tf.getBackend()}`);
+      console.log(`wasm thread count ${tfjsWasm.getThreadsCount()}`);
+      const pd = await poseDetection
+        .createDetector(model, detectorConfig);
+      setPoseDetector(pd);
+
+      console.log('poseDetector loaded', poseDetector);
+    }
+  }, []);
+
+  // tfjs
+  const wasmPath = `https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-wasm@${tfjsWasm.version_wasm}/dist/`;
+
+  const model = poseDetection.SupportedModels.BlazePose;
+  const detectorConfig = {
+    runtime: 'mediapipe', // or 'tfjs'
+    modelType: 'full',
+    maxPoses: 1,
+    scoreThreshold: 0.5,
+    solutionPath: `https://cdn.jsdelivr.net/npm/@mediapipe/pose@${mpPose.VERSION}`,
+    render3D: false
+  };
+  // const poseDetector = await poseDetection
+  //   .createDetector(model, detectorConfig);
+
+  // mediapipe
+
+  // const poseDetector = new Pose({
+  //   locateFile: (file) => {
+  //     return `https://cdn.jsdelivr.net/npm/@mediapipe/pose/${file}`;
+  //   }
+  // });
+  // poseDetector.setOptions({
+  //   modelComplexity: 1,
+  //   smoothLandmarks: true,
+  //   //   enableSegmentation: true,
+  //   // smoothSegmentation: true,
+  //   minDetectionConfidence: 0.5,
+  //   minTrackingConfidence: 0.5
+  // });
 
   return (
     <PoseDetectorCtx.Provider value={{ poseDetector }}>

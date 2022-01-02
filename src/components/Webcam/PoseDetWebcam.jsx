@@ -3,8 +3,8 @@ import { WebcamCtx, PoseDetectorCtx } from "index";
 import Webcam from "react-webcam";
 import { Camera } from "@mediapipe/camera_utils";
 import { drawConnectors, drawLandmarks } from "@mediapipe/drawing_utils";
-import { POSE_CONNECTIONS } from '@mediapipe/pose';
-
+import { POSE_CONNECTIONS, Pose } from '@mediapipe/pose';
+import * as cu from "@mediapipe/control_utils";
 
 const PoseDetWebcam = ({ styleProps }) => {
     const { webcamId, setWebcamId, webcamRef } = useContext(WebcamCtx);
@@ -15,19 +15,25 @@ const PoseDetWebcam = ({ styleProps }) => {
     console.log('PoseDetWebcam webcamRef', webcamRef);
     console.log('PoseDetWebcam webcamId', webcamId);
 
-    const startPredictions = () => {
+    let camera;
+
+    const startPredictions = async () => {
         // requestAnimationFrame(() => {
         //     startPredictions();
         // })
         // detectPose();
+        // const videoElement = document.getElementById("webcam");
+        if (camera) await camera.stop();
         const videoElement = webcamRef.current.video;
+
+        console.log('startPredictions', videoElement);
 
         poseDetector.onResults(onResults);
         // limit fps for predictions
         const fps = 15;
         const interval = 1000 / fps;
         let then = Date.now();
-        const camera = new Camera(videoElement, {
+        camera = new Camera(videoElement, {
             onFrame: async () => {
                 if (webCamAndCanvasAreInit()) {
                     const now = Date.now();
@@ -42,7 +48,7 @@ const PoseDetWebcam = ({ styleProps }) => {
             // width: 1280,
             // height: 720
         });
-        camera.start();
+        await camera.start();
     };
 
     const onResults = (results) => {
@@ -102,8 +108,10 @@ const PoseDetWebcam = ({ styleProps }) => {
         canvasRef.current.height = videoHeight;
     };
 
-    useEffect(() => {
-        startPredictions();
+    useEffect(async () => {
+        console.log("webcam changed", webcamId);
+        // if (camera) await camera.stop();
+        // await startPredictions();
     }, []);
 
     const getVideoConstraints = () => {
@@ -120,6 +128,7 @@ const PoseDetWebcam = ({ styleProps }) => {
                 videoConstraints={getVideoConstraints()}
                 mirrored={true}
                 className={"webcam"}
+                // id={"webcam"}
                 ref={webcamRef}
                 muted={true}
                 style={{
