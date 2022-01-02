@@ -5,7 +5,7 @@ import { WebcamCtx } from "index";
 
 const { Option } = Select;
 
-const SelectWebcam = ({ webcamRef }) => {
+const SelectWebcam = ({ webcamRef, width = "auto" }) => {
     const [webcamId, setWebcamId] = useContext(WebcamCtx);
     const [videoDevices, setVideoDevices] = useState([]);
 
@@ -36,7 +36,7 @@ const SelectWebcam = ({ webcamRef }) => {
             <Select
                 defaultValue={webcamId}
                 style={{
-                    width: "60%",
+                    width: width,
                     borderRadius: "1rem",
                     overflow: "hidden",
                     color: "black",
