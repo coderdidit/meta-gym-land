@@ -1,63 +1,32 @@
 import React, { useContext, useRef, useEffect } from "react";
 import { WebcamCtx, PoseDetectorCtx } from "index";
 import Webcam from "react-webcam";
-import { Camera } from "@mediapipe/camera_utils";
 import { drawConnectors, drawLandmarks } from "@mediapipe/drawing_utils";
-import { POSE_CONNECTIONS, Pose } from '@mediapipe/pose';
-import * as cu from "@mediapipe/control_utils";
+import { POSE_CONNECTIONS } from "@mediapipe/pose";
+
 
 const PoseDetWebcam = ({ styleProps }) => {
     const { webcamId, setWebcamId, webcamRef } = useContext(WebcamCtx);
-    const { poseDetector } = useContext(PoseDetectorCtx);
     const canvasRef = useRef(null);
+    const { poseDetector } = useContext(PoseDetectorCtx);
 
-    console.log('poseDetector PoseDetWebcam', poseDetector);
+    const startPredictions = async () => {
+        requestAnimationFrame(() => {
+            startPredictions();
+        })
+        detectPose();
+    };
+
+    console.log('PoseDetWebcam poseDetector', poseDetector);
     console.log('PoseDetWebcam webcamRef', webcamRef);
     console.log('PoseDetWebcam webcamId', webcamId);
 
-    let camera;
-
-    const startPredictions = async () => {
-        // requestAnimationFrame(() => {
-        //     startPredictions();
-        // })
-        // detectPose();
-        // const videoElement = document.getElementById("webcam");
-        if (camera) await camera.stop();
-        const videoElement = webcamRef.current.video;
-
-        console.log('startPredictions', videoElement);
-
-        poseDetector.onResults(onResults);
-        // limit fps for predictions
-        const fps = 15;
-        const interval = 1000 / fps;
-        let then = Date.now();
-        camera = new Camera(videoElement, {
-            onFrame: async () => {
-                if (webCamAndCanvasAreInit()) {
-                    const now = Date.now();
-                    const delta = now - then;
-                    if (delta > interval) {
-                        then = now - (delta % interval);
-                        // run prediction
-                        await poseDetector.send({ image: videoElement });
-                    }
-                }
-            },
-            // width: 1280,
-            // height: 720
-        });
-        await camera.start();
-    };
-
-    const onResults = (results) => {
+    const detectPose = async () => {
         if (webCamAndCanvasAreInit()) {
             doPredictionsCanvasSetup();
-            console.log('onResults', results);
-
             // Get Video Properties
-            // const video = webcamRef.current.video;
+            const video = webcamRef.current.video;
+
             const canvasCtx = canvasRef.current.getContext("2d");
             canvasCtx.save();
             canvasCtx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
@@ -77,12 +46,14 @@ const PoseDetWebcam = ({ styleProps }) => {
             canvasCtx.stroke();
             canvasCtx.fill();
 
-            // Draw mesh
             canvasCtx.globalCompositeOperation = 'source-over';
-            drawConnectors(canvasCtx, results.poseLandmarks, POSE_CONNECTIONS,
-                { color: '#00FF00', lineWidth: 4 });
-            drawLandmarks(canvasCtx, results.poseLandmarks,
-                { color: '#FF0000', lineWidth: 4 });
+
+            // Draw mesh
+            // drawConnectors(canvasCtx, results.poseLandmarks, POSE_CONNECTIONS,
+            //     { color: '#00FF00', lineWidth: 4 });
+            // drawLandmarks(canvasCtx, results.poseLandmarks,
+            //     { color: '#FF0000', lineWidth: 4 });
+
             canvasCtx.restore();
         }
     };
@@ -109,9 +80,7 @@ const PoseDetWebcam = ({ styleProps }) => {
     };
 
     useEffect(async () => {
-        console.log("webcam changed", webcamId);
-        // if (camera) await camera.stop();
-        // await startPredictions();
+        startPredictions();
     }, []);
 
     const getVideoConstraints = () => {
@@ -128,7 +97,6 @@ const PoseDetWebcam = ({ styleProps }) => {
                 videoConstraints={getVideoConstraints()}
                 mirrored={true}
                 className={"webcam"}
-                // id={"webcam"}
                 ref={webcamRef}
                 muted={true}
                 style={{
