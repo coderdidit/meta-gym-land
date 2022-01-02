@@ -21,7 +21,9 @@ const PoseDetWebcam = ({ camTop, camLeft, camWidth }) => {
         if (
             typeof webcamRef.current !== "undefined" &&
             webcamRef.current !== null &&
-            webcamRef.current.video.readyState === 4
+            webcamRef.current.video.readyState === 4 &&
+            canvasRef &&
+            canvasRef.current
         ) {
             // Get Video Properties
             const video = webcamRef.current.video;
