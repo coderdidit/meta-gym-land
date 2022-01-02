@@ -1,51 +1,58 @@
 import React, { useContext, useRef, useEffect } from "react";
 import { WebcamCtx, PoseDetectorCtx } from "index";
 import Webcam from "react-webcam";
-import { Camera } from "@mediapipe/camera_utils";
 import { drawConnectors, drawLandmarks } from "@mediapipe/drawing_utils";
 import { POSE_CONNECTIONS } from '@mediapipe/pose';
 
+const fps = 1;
+const interval = 1000 / fps;
+
 
 const PoseDetWebcam = ({ styleProps }) => {
-    const { webcamId, setWebcamId, webcamRef } = useContext(WebcamCtx);
+    const { webcamId, setWebcamId } = useContext(WebcamCtx);
     const { poseDetector } = useContext(PoseDetectorCtx);
     const canvasRef = useRef(null);
+    const webcamRef = useRef(null);
 
     console.log('poseDetector PoseDetWebcam', poseDetector);
     console.log('PoseDetWebcam webcamRef', webcamRef);
     console.log('PoseDetWebcam webcamId', webcamId);
+    let then = Date.now();
 
-    const startPredictions = () => {
-        // requestAnimationFrame(() => {
-        //     startPredictions();
-        // })
+    const startPredictions = async () => {
+        requestAnimationFrame(() => {
+            startPredictions();
+        })
         // detectPose();
-        const videoElement = webcamRef.current.video;
 
-        poseDetector.onResults(onResults);
+        if (webCamAndCanvasAreInit()) {
+            const videoElement = webcamRef.current.video;
+            const now = Date.now();
+            const delta = now - then;
+            if (delta > interval) {
+                then = now - (delta % interval);
+                console.log('sending', videoElement)
+                // document.getElementById("webcam")
+                await poseDetector.send({ image: videoElement });
+            }
+        }
+
         // limit fps for predictions
-        const fps = 15;
-        const interval = 1000 / fps;
-        let then = Date.now();
-        const camera = new Camera(videoElement, {
-            onFrame: async () => {
-                if (webCamAndCanvasAreInit()) {
-                    const now = Date.now();
-                    const delta = now - then;
-                    if (delta > interval) {
-                        then = now - (delta % interval);
-                        // run prediction
-                        await poseDetector.send({ image: videoElement });
-                    }
-                }
-            },
-            // width: 1280,
-            // height: 720
-        });
-        camera.start();
+
+        // let then = Date.now();
+        // // if (webCamAndCanvasAreInit()) {
+        // const now = Date.now();
+        // const delta = now - then;
+        // if (delta > interval) {
+        //     then = now - (delta % interval);
+        //     // run prediction
+        //     await poseDetector.send({ image: videoElement });
+        // }
+        // }
     };
 
     const onResults = (results) => {
+        console.log('onResults', results)
         if (webCamAndCanvasAreInit()) {
             doPredictionsCanvasSetup();
             console.log('onResults', results);
@@ -103,6 +110,8 @@ const PoseDetWebcam = ({ styleProps }) => {
     };
 
     useEffect(() => {
+        poseDetector.onResults(onResults);
+
         startPredictions();
     }, []);
 
@@ -120,6 +129,7 @@ const PoseDetWebcam = ({ styleProps }) => {
                 videoConstraints={getVideoConstraints()}
                 mirrored={true}
                 className={"webcam"}
+                id={"webcam"}
                 ref={webcamRef}
                 muted={true}
                 style={{
