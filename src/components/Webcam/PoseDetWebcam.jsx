@@ -38,7 +38,7 @@ const PoseDetWebcam = ({ styleProps }) => {
             webcamRef.current &&
             webcamRef.current.video.readyState === 4 &&
             canvasRef &&
-            canvasRef.current
+            canvasRef.current;
     };
 
     const doPredictionsCanvasSetup = () => {
