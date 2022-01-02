@@ -34,8 +34,8 @@ const PoseDetWebcam = ({ camTop, camLeft, camWidth }) => {
     };
 
     const webCamAndCanvasAreInit = () => {
-        return typeof webcamRef.current !== "undefined" &&
-            webcamRef.current !== null &&
+        return webcamRef &&
+            webcamRef.current &&
             webcamRef.current.video.readyState === 4 &&
             canvasRef &&
             canvasRef.current
