@@ -59,7 +59,10 @@ const GymRoom = ({ avatar }) => {
     // run game
     const [initialised, setInitialised] = useState(true);
     const [config, setConfig] = useState();
-    const deviceId = useContext(WebcamCtx);
+    const { webcamId, webcamRef } = useContext(WebcamCtx);
+
+    console.log('GymRoom webcamRef', webcamRef);
+    console.log('GymRoom webcamId', webcamId);
 
     const startGame = () => {
         setConfig({
@@ -92,23 +95,23 @@ const GymRoom = ({ avatar }) => {
         }}
     >
         <div style={{
-                position: "absolute",
-                top: "1%",
-                left: "45%",
-            }}>
-                <Webcam
-                    audio={false}
-                    videoConstraints={{ deviceId: deviceId }}
-                    mirrored={true}
-                    className={"webcam"}
-                    style={{
-                        objectFit: "cover",
-                        borderRadius: "1rem",
-                        width: "35%",
-                        boxShadow: "0 0 10px 2px #202020",
-                    }}
-                />
-            </div>
+            position: "absolute",
+            top: "1%",
+            left: "45%",
+        }}>
+            <Webcam
+                audio={false}
+                videoConstraints={{ deviceId: webcamId }}
+                mirrored={true}
+                className={"webcam"}
+                style={{
+                    objectFit: "cover",
+                    borderRadius: "1rem",
+                    width: "35%",
+                    boxShadow: "0 0 10px 2px #202020",
+                }}
+            />
+        </div>
     </IonPhaser>;
 };
 
