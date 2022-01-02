@@ -4,6 +4,7 @@ import App from "./App";
 import { MoralisProvider } from "react-moralis";
 import "./index.css";
 import Home from "components/Home";
+import { Pose } from '@mediapipe/pose';
 
 // Moralis vals
 const APP_ID = process.env.REACT_APP_MORALIS_APPLICATION_ID;
@@ -37,6 +38,32 @@ const WebcamCtxProvider = ({ children }) => {
   );
 };
 
+// PoseDetector global var
+export const PoseDetectorCtx = React.createContext();
+const PoseDetectorCtxProvider = ({ children }) => {
+  const poseDetector = new Pose({
+    locateFile: (file) => {
+      return `https://cdn.jsdelivr.net/npm/@mediapipe/pose/${file}`;
+    }
+  });
+  poseDetector.setOptions({
+    modelComplexity: 1,
+    smoothLandmarks: true,
+    //   enableSegmentation: true,
+    // smoothSegmentation: true,
+    minDetectionConfidence: 0.5,
+    minTrackingConfidence: 0.5
+  });
+
+  console.log('poseDetector loaded', poseDetector);
+
+  return (
+    <PoseDetectorCtx.Provider value={{ poseDetector }}>
+      {children}
+    </PoseDetectorCtx.Provider>
+  );
+};
+
 const Application = () => {
   const isServerInfo = APP_ID && SERVER_URL ? true : false;
   //Validate
@@ -44,11 +71,13 @@ const Application = () => {
   if (isServerInfo)
     return (
       <MoralisProvider appId={APP_ID} serverUrl={SERVER_URL}>
-        <AvatarCtxProvider >
-          <WebcamCtxProvider >
-            <App isServerInfo />
-          </WebcamCtxProvider>
-        </AvatarCtxProvider>
+        <PoseDetectorCtxProvider >
+          <AvatarCtxProvider >
+            <WebcamCtxProvider >
+              <App isServerInfo />
+            </WebcamCtxProvider>
+          </AvatarCtxProvider>
+        </PoseDetectorCtxProvider>
       </MoralisProvider>
     );
   else {
