@@ -126,7 +126,6 @@ function UserNFTTransactions() {
         <div>
             <div style={{
                 ...BreakFlexDiv,
-                // marginLeft: "20.4%",
                 marginBottom: "3rem",
             }}>
                 <Button
