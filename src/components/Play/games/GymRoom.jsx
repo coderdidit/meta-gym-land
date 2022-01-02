@@ -85,8 +85,7 @@ const GymRoom = ({ avatar }) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    return (<div>
-        <IonPhaser
+    return (<IonPhaser
         initialize={initialised}
         game={config}
         id="phaser-app"
@@ -102,8 +101,7 @@ const GymRoom = ({ avatar }) => {
                 boxShadow: "0 0 10px 2px #202020",
             }}
         />
-    </IonPhaser>
-    </div>);
+    </IonPhaser>);
 };
 
 export default GymRoom;
