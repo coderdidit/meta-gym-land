@@ -3,6 +3,7 @@ import { WebcamCtx, PoseDetectorCtx } from "index";
 import Webcam from "react-webcam";
 import { drawConnectors, drawLandmarks } from "@mediapipe/drawing_utils";
 import { POSE_CONNECTIONS } from "@mediapipe/pose";
+import { DrawUtils } from "./drawing_utils";
 
 
 const PoseDetWebcam = ({ styleProps }) => {
@@ -85,7 +86,7 @@ const PoseDetWebcam = ({ styleProps }) => {
         //     { color: '#00FF00', lineWidth: 4 });
         // drawLandmarks(canvasCtx, results.poseLandmarks,
         //     { color: '#FF0000', lineWidth: 4 });
-
+        // new DrawUtils(canvasCtx).drawResults(results);
         canvasCtx.restore();
     };
 
