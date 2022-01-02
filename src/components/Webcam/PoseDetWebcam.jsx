@@ -10,52 +10,90 @@ const PoseDetWebcam = ({ styleProps }) => {
     const canvasRef = useRef(null);
     const { poseDetector } = useContext(PoseDetectorCtx);
 
+    const fps = 0.2;
+    let then = Date.now();
+    const interval = 1000 / fps;
+
+    // runs on each frame
     const startPredictions = async () => {
         requestAnimationFrame(() => {
             startPredictions();
         })
-        detectPose();
+        if (webCamAndCanvasAreInit()) {
+            const now = Date.now();
+            const delta = now - then;
+            if (delta > interval) {
+                then = now - (delta % interval);
+                const video = webcamRef.current.video;
+
+                const results = await predict(video)
+
+                if (results && results.length > 0) {
+                    drawPose();
+                }
+            }
+        }
     };
 
     console.log('PoseDetWebcam poseDetector', poseDetector);
     console.log('PoseDetWebcam webcamRef', webcamRef);
     console.log('PoseDetWebcam webcamId', webcamId);
 
-    const detectPose = async () => {
-        if (webCamAndCanvasAreInit()) {
-            doPredictionsCanvasSetup();
-            // Get Video Properties
-            const video = webcamRef.current.video;
-
-            const canvasCtx = canvasRef.current.getContext("2d");
-            canvasCtx.save();
-            canvasCtx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
-
-            // Only overwrite existing pixels.
-            canvasCtx.globalCompositeOperation = 'source-in';
-            canvasCtx.fillStyle = '#00FF00';
-            canvasCtx.fillRect(0, 0, canvasRef.current.width, canvasRef.current.height);
-            // Only overwrite missing pixels.
-            canvasCtx.globalCompositeOperation = 'destination-atop';
-
-            // Draw testing circle
-            canvasCtx.fillStyle = '#04AA6D';
-            canvasCtx.strokeStyle = '#04AA6D';
-            canvasCtx.beginPath();
-            canvasCtx.arc(50, 50, 20, 0, 2 * Math.PI);
-            canvasCtx.stroke();
-            canvasCtx.fill();
-
-            canvasCtx.globalCompositeOperation = 'source-over';
-
-            // Draw mesh
-            // drawConnectors(canvasCtx, results.poseLandmarks, POSE_CONNECTIONS,
-            //     { color: '#00FF00', lineWidth: 4 });
-            // drawLandmarks(canvasCtx, results.poseLandmarks,
-            //     { color: '#FF0000', lineWidth: 4 });
-
-            canvasCtx.restore();
+    const predict = async (imgData) => {
+        // pose detection
+        console.log('imgData', imgData)
+        let poses;
+        try {
+            poses = await poseDetector.estimatePoses(
+                imgData,
+                {
+                    maxPoses: 1,
+                }
+            )
+            console.log('poses', poses)
+        } catch (error) {
+            // poseDetector.dispose();
+            // poseDetector = null;
+            console.error(error);
         }
+        return poses
+    }
+
+    const drawPose = async () => {
+        // if (webCamAndCanvasAreInit()) {
+        doPredictionsCanvasSetup();
+        // Get Video Properties
+        const video = webcamRef.current.video;
+
+        const canvasCtx = canvasRef.current.getContext("2d");
+        canvasCtx.save();
+        canvasCtx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
+
+        // Only overwrite existing pixels.
+        canvasCtx.globalCompositeOperation = 'source-in';
+        canvasCtx.fillStyle = '#00FF00';
+        canvasCtx.fillRect(0, 0, canvasRef.current.width, canvasRef.current.height);
+        // Only overwrite missing pixels.
+        canvasCtx.globalCompositeOperation = 'destination-atop';
+
+        // Draw testing circle
+        canvasCtx.fillStyle = '#04AA6D';
+        canvasCtx.strokeStyle = '#04AA6D';
+        canvasCtx.beginPath();
+        canvasCtx.arc(50, 50, 20, 0, 2 * Math.PI);
+        canvasCtx.stroke();
+        canvasCtx.fill();
+
+        canvasCtx.globalCompositeOperation = 'source-over';
+
+        // Draw mesh
+        // drawConnectors(canvasCtx, results.poseLandmarks, POSE_CONNECTIONS,
+        //     { color: '#00FF00', lineWidth: 4 });
+        // drawLandmarks(canvasCtx, results.poseLandmarks,
+        //     { color: '#FF0000', lineWidth: 4 });
+
+        canvasCtx.restore();
+        // }
     };
 
     const webCamAndCanvasAreInit = () => {
