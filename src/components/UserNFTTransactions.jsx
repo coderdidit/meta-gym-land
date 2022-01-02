@@ -123,10 +123,10 @@ function UserNFTTransactions() {
     }));
 
     return (
-        <>
+        <div>
             <div style={{
                 ...BreakFlexDiv,
-                marginLeft: "20.4%",
+                // marginLeft: "20.4%",
                 marginBottom: "3rem",
             }}>
                 <Button
@@ -142,10 +142,9 @@ function UserNFTTransactions() {
                 fontSize: "27px",
                 fontWeight: "bold",
                 flexBasis: "100%",
-                height: "0px",
-                marginLeft: "43%",
-                marginBottom: "4rem",
+                marginBottom: "1.5rem",
                 color: brightFontCol,
+                textAlign: "center"
             }}>
                 <Text strong>
                     <h3><DatabaseOutlined /> Your recent transactions</h3>
@@ -154,7 +153,7 @@ function UserNFTTransactions() {
             <div style={styles.table}>
                 <Table columns={columns} dataSource={data} />
             </div>
-        </>
+        </div>
     );
 }
 

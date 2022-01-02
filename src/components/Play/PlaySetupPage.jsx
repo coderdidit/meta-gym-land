@@ -39,7 +39,7 @@ const PlaySetupPage = () => {
         return <Redirect to="/avatars" />;
     }
 
-    return (<>
+    return (<div>
         <PoseDetWebcam
             styleProps={{
                 width: "20%",
@@ -148,7 +148,7 @@ const PlaySetupPage = () => {
                 </Link>
             </Button>
         </div>
-    </>);
+    </div>);
 }
 
 export default PlaySetupPage;
