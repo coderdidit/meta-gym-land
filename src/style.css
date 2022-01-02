@@ -58,3 +58,9 @@ h1, h2, h3, h4, h5, h6 {
 .ant-menu-horizontal:not(.ant-menu-dark)>.ant-menu-submenu-selected::after {
   border-bottom: 4px solid var(--active-color) !important;
 }
+
+/* #phaser-app canvas {
+  height: 100vh;
+  width: 100vw;
+  display: block;
+} */

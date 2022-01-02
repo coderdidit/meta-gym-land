@@ -36,7 +36,6 @@ const styles = {
     fontFamily: "Roboto, sans-serif",
     marginTop: "40px",
     height: "100vh",
-    paddingLeft: "5rem",
   },
   header: {
     // position: "fixed",

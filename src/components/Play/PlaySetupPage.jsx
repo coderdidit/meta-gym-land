@@ -49,7 +49,7 @@ const PlaySetupPage = () => {
                 styleProps={{
                     width: "20%",
                     top: "12%",
-                    left: "53%",
+                    left: "50%",
                     boxShadow: "0 0 10px 2px #202020",
                 }}
             />

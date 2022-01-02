@@ -48,7 +48,7 @@ const getConfig = (mainScene) => {
             pixelArt: true
         },
         fps: {
-            target: 30,
+            target: 60,
         },
     }
 }
@@ -85,7 +85,8 @@ const GymRoom = ({ avatar }) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    return <IonPhaser
+    return (<div>
+        <IonPhaser
         initialize={initialised}
         game={config}
         id="phaser-app"
@@ -101,7 +102,8 @@ const GymRoom = ({ avatar }) => {
                 boxShadow: "0 0 10px 2px #202020",
             }}
         />
-    </IonPhaser>;
+    </IonPhaser>
+    </div>);
 };
 
 export default GymRoom;
