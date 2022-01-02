@@ -10,7 +10,7 @@ const PoseDetWebcam = ({ styleProps }) => {
     const canvasRef = useRef(null);
     const { poseDetector } = useContext(PoseDetectorCtx);
 
-    const fps = 0.2;
+    const fps = 5;
     let then = Date.now();
     const interval = 1000 / fps;
 
@@ -20,16 +20,15 @@ const PoseDetWebcam = ({ styleProps }) => {
             startPredictions();
         })
         if (webCamAndCanvasAreInit()) {
+            doPredictionsCanvasSetup();
             const now = Date.now();
             const delta = now - then;
             if (delta > interval) {
                 then = now - (delta % interval);
                 const video = webcamRef.current.video;
-
                 const results = await predict(video)
-
                 if (results && results.length > 0) {
-                    drawPose();
+                    drawPose(results);
                 }
             }
         }
@@ -50,7 +49,6 @@ const PoseDetWebcam = ({ styleProps }) => {
                     maxPoses: 1,
                 }
             )
-            console.log('poses', poses)
         } catch (error) {
             // poseDetector.dispose();
             // poseDetector = null;
@@ -59,12 +57,9 @@ const PoseDetWebcam = ({ styleProps }) => {
         return poses
     }
 
-    const drawPose = async () => {
-        // if (webCamAndCanvasAreInit()) {
-        doPredictionsCanvasSetup();
+    const drawPose = async (results) => {
+        console.log('results', results)
         // Get Video Properties
-        const video = webcamRef.current.video;
-
         const canvasCtx = canvasRef.current.getContext("2d");
         canvasCtx.save();
         canvasCtx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
@@ -85,15 +80,13 @@ const PoseDetWebcam = ({ styleProps }) => {
         canvasCtx.fill();
 
         canvasCtx.globalCompositeOperation = 'source-over';
-
-        // Draw mesh
+        // draw pose here
         // drawConnectors(canvasCtx, results.poseLandmarks, POSE_CONNECTIONS,
         //     { color: '#00FF00', lineWidth: 4 });
         // drawLandmarks(canvasCtx, results.poseLandmarks,
         //     { color: '#FF0000', lineWidth: 4 });
 
         canvasCtx.restore();
-        // }
     };
 
     const webCamAndCanvasAreInit = () => {
