@@ -18,6 +18,11 @@ const PoseDetWebcam = ({ sizeProps, styleProps }) => {
         startPredictions();
     }, []);
 
+    const getDeviceId = () => {
+        return document
+        .getElementsByTagName('video')?.[0]?.captureStream()?.getVideoTracks()?.[0]?.getSettings()?.deviceId;
+    }
+
     useEffect(async () => {
         // poseDetector.onResults(onResults);
         // startPredictions();
@@ -26,8 +31,7 @@ const PoseDetWebcam = ({ sizeProps, styleProps }) => {
             //     if (webCamAndCanvasAreInit()) break;
             // }
             if (!webcamId) {
-                const dId = document
-                    .getElementsByTagName('video')?.[0]?.captureStream()?.getVideoTracks()?.[0]?.getSettings()?.deviceId;
+                const dId = getDeviceId();
                 console.log('webcamId is empty, inferring current webcamId', dId);
                 if (dId) {
                     setWebcamId(dId);
@@ -104,7 +108,10 @@ const PoseDetWebcam = ({ sizeProps, styleProps }) => {
     };
 
     const getVideoConstraints = () => {
-        if (webcamId) {
+        // if it is the same device do not force re-render
+        if (webcamId && webcamId == getDeviceId()) {
+            return {}
+        } else if (webcamId) {
             return { deviceId: webcamId }
         }
         return {}

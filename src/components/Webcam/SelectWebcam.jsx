@@ -25,12 +25,13 @@ const SelectWebcam = ({ width = "auto" }) => {
         [handleDevices]
     );
 
-    // useEffect(
-    //     () => {
-    //         forceUpdate();
-    //     },
-    //     [webcamId]
-    // );
+    useEffect(
+        () => {
+            console.log('SelectWebcam webcamId updated forceUpdate');
+            forceUpdate();
+        },
+        [webcamId]
+    );
 
     const handleChange = (selecteDeviceId) => {
         console.log('selecteDeviceId', selecteDeviceId);
@@ -53,6 +54,9 @@ const SelectWebcam = ({ width = "auto" }) => {
     // );
     return videoDevices.length > 0 && (
         <>
+            <p style={{
+                display: "none",
+            }}>{webcamId}</p>
             <VideoCameraFilled style={{
                 fontSize: "1.2rem",
             }} />&nbsp;&nbsp;
