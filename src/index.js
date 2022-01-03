@@ -47,14 +47,15 @@ const PoseDetectorCtxProvider = ({ children }) => {
       return path;
     }
   });
+  const ConfidenceScore = 0.65;
   poseDetector.setOptions({
     modelComplexity: 0,
     smoothLandmarks: true,
     selfieMode: true,
     //   enableSegmentation: true,
     // smoothSegmentation: true,
-    minDetectionConfidence: 0.5,
-    minTrackingConfidence: 0.5
+    minDetectionConfidence: ConfidenceScore,
+    minTrackingConfidence: ConfidenceScore,
   });
 
   useEffect(() => {

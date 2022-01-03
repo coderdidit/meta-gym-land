@@ -10,8 +10,11 @@ const SelectWebcam = ({ width = "auto" }) => {
     const [videoDevices, setVideoDevices] = useState([]);
 
     const handleDevices = useCallback(
-        mediaDevices =>
-            setVideoDevices(mediaDevices.filter(({ kind }) => kind === "videoinput")),
+        mediaDevices => {
+            const videoDevices = mediaDevices.filter(({ kind }) => kind === "videoinput");
+            console.log('videoDevices', videoDevices);
+            setVideoDevices(videoDevices);
+        },
         [setVideoDevices]
     );
 

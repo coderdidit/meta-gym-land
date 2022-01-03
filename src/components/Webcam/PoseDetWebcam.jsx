@@ -60,7 +60,7 @@ const PoseDetWebcam = ({ sizeProps, styleProps }) => {
                     poseDetector.reset();
                     noCamError = false;
                     camErrCnt += 1;
-                    const wait = 300 * camErrCnt
+                    const wait = 500 * camErrCnt
                     console.error(
                         `error catched, resetting the AI 
                         and waiting for ${wait / 1000} seconds`,
@@ -76,6 +76,7 @@ const PoseDetWebcam = ({ sizeProps, styleProps }) => {
     // HERE: handle game logic events driven by poses
     const onResults = (results) => {
         if (webCamAndCanvasAreInit()) {
+            console.log('results', results);
             doPredictionsCanvasSetup();
             drawPose(canvasRef, results);
         }
@@ -85,8 +86,6 @@ const PoseDetWebcam = ({ sizeProps, styleProps }) => {
         return webcamRef &&
             webcamRef.current &&
             webcamRef.current.video.readyState === 4 &&
-            (webcamRef.current.video.webkitDecodedFrameCount
-                || webcamRef.current.video.mozDecodedFrames) &&
             canvasRef &&
             canvasRef.current;
     };
