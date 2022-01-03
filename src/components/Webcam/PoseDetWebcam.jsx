@@ -4,10 +4,10 @@ import Webcam from "react-webcam";
 import { drawConnectors, drawLandmarks } from "@mediapipe/drawing_utils";
 import { POSE_CONNECTIONS } from '@mediapipe/pose';
 
-const fps = 1;
+const fps = 15;
 const interval = 1000 / fps;
 let noerror = true;
-
+let errcnt = 0;
 
 const PoseDetWebcam = ({ styleProps }) => {
     const { webcamId, setWebcamId } = useContext(WebcamCtx);
@@ -24,26 +24,26 @@ const PoseDetWebcam = ({ styleProps }) => {
         requestAnimationFrame(() => {
             startPredictions();
         })
-        // detectPose();
-
         if (webCamAndCanvasAreInit()) {
             const videoElement = webcamRef.current.video;
             const now = Date.now();
             const delta = now - then;
             if (delta > interval) {
                 then = now - (delta % interval);
-                console.log('sending', videoElement)
-                // document.getElementById("webcam")
                 try {
                     if (noerror) await poseDetector.send({ image: videoElement });
                 } catch (error) {
                     poseDetector.reset();
                     noerror = false;
-                    console.error('error catched, resetting the ai and waiting for 3 seconds',
+                    errcnt += 1;
+                    const wait = 3000 * errcnt
+                    console.error(
+                        `error catched, resetting the AI 
+                        and waiting for ${wait / 1000} seconds`,
                         error);
                     setTimeout(() => {
                         noerror = true
-                    }, 3000)
+                    }, wait)
                 }
             }
         }
