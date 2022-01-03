@@ -94,58 +94,43 @@ const PoseDetWebcam = ({ sizeProps, styleProps }) => {
     return (
         <div style={{
             display: "grid",
-            maxWidth: sizeProps.width,
             gridTemplateRows: "1fr",
             gridTemplateColumns: "1fr",
             gridTemplateAreas: "overlap",
-            // ...styleProps
         }}>
             <Webcam
                 audio={false}
                 videoConstraints={getVideoConstraints()}
                 mirrored={true}
                 className={"webcam"}
-                // id={"webcam"}
                 ref={webcamRef}
                 muted={true}
                 style={{
-                    // objectFit: "cover",
+                    objectFit: "cover",
                     borderRadius: "1rem",
-                    // position: "absolute",
-                    // height: "auto",
-                    // zindex: 8,
+                    zIndex: 8,
                     // params
-                    // ...sizeProps,
+                    ...sizeProps,
                     ...styleProps,
-
                     // grid props
                     gridArea: "overlap",
                     alignSelf: "center",
                     justifySelf: "center",
-
-                    // debug
-                    border: "1px solid blue",
                 }}
             />
             <canvas
                 ref={canvasRef}
                 className={"webcam-canvas"}
                 style={{
-                    // objectFit: "cover",
+                    objectFit: "cover",
                     borderRadius: "1rem",
-                    // position: "absolute",
-                    // height: "auto",
-                    // zindex: 9,
+                    zIndex: 9,
                     // params
-                    // ...sizeProps,
-
+                    ...sizeProps,
                     // grid props
                     gridArea: "overlap",
                     alignSelf: "center",
                     justifySelf: "center",
-
-                    // debug
-                    border: "1px solid red",
                 }}
             />
         </div>

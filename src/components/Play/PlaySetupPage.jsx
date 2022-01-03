@@ -92,14 +92,15 @@ const PlaySetupPage = () => {
                 }}>
                     <div style={{
                         ...BreakFlexDiv,
-                        paddingTop: "15rem",
+                        // paddingTop: "15rem",
                     }}></div>
 
                     <PoseDetWebcam
                         sizeProps={{
-                            width: "20%",
-                            top: "12%",
-                            left: "50%",
+                            width: "50%",
+                            height: "auto",
+                            // top: "12%",
+                            // left: "50%",
                         }}
                         styleProps={{
                             boxShadow: "0 0 10px 2px #202020",
