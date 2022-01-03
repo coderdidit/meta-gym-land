@@ -36,7 +36,6 @@ const styles = {
 const PlaySetupPage = () => {
     const [avatar] = useContext(AvatarCtx);
     const { webcamId, setWebcamId } = useContext(WebcamCtx);
-    console.log('PlaySetupPage webcamId', webcamId);
 
     if (!avatar) {
         return <Redirect to="/avatars" />;
