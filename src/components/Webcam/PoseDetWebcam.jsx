@@ -4,10 +4,8 @@ import Webcam from "react-webcam";
 import { drawConnectors, drawLandmarks } from "@mediapipe/drawing_utils";
 import { POSE_CONNECTIONS } from '@mediapipe/pose';
 
-const fps = 15;
-const interval = 1000 / fps;
-let noerror = true;
-let errcnt = 0;
+
+
 
 const PoseDetWebcam = ({ styleProps }) => {
     const { webcamId, setWebcamId } = useContext(WebcamCtx);
@@ -18,8 +16,17 @@ const PoseDetWebcam = ({ styleProps }) => {
     console.log('poseDetector PoseDetWebcam', poseDetector);
     console.log('PoseDetWebcam webcamRef', webcamRef);
     console.log('PoseDetWebcam webcamId', webcamId);
-    let then = Date.now();
 
+    useEffect(async () => {
+        poseDetector.onResults(onResults);
+        startPredictions()
+    }, []);
+
+    let then = Date.now();
+    const fps = 15;
+    const interval = 1000 / fps;
+    let noCamError = true;
+    let camErrCnt = 0;
     const startPredictions = async () => {
         requestAnimationFrame(() => {
             startPredictions();
@@ -31,45 +38,32 @@ const PoseDetWebcam = ({ styleProps }) => {
             if (delta > interval) {
                 then = now - (delta % interval);
                 try {
-                    if (noerror) await poseDetector.send({ image: videoElement });
+                    if (noCamError) await poseDetector
+                        .send({ image: videoElement });
                 } catch (error) {
                     poseDetector.reset();
-                    noerror = false;
-                    errcnt += 1;
-                    const wait = 3000 * errcnt
+                    noCamError = false;
+                    camErrCnt += 1;
+                    const wait = 1000 * camErrCnt
                     console.error(
                         `error catched, resetting the AI 
                         and waiting for ${wait / 1000} seconds`,
                         error);
                     setTimeout(() => {
-                        noerror = true
+                        noCamError = true
                     }, wait)
                 }
             }
         }
-
-        // limit fps for predictions
-
-        // let then = Date.now();
-        // // if (webCamAndCanvasAreInit()) {
-        // const now = Date.now();
-        // const delta = now - then;
-        // if (delta > interval) {
-        //     then = now - (delta % interval);
-        //     // run prediction
-        //     await poseDetector.send({ image: videoElement });
-        // }
-        // }
     };
 
     const onResults = (results) => {
-        console.log('onResults', results)
+        // console.log('onResults', results)
         if (webCamAndCanvasAreInit()) {
             doPredictionsCanvasSetup();
             console.log('onResults', results);
 
-            // Get Video Properties
-            // const video = webcamRef.current.video;
+            // Get Canvas
             const canvasCtx = canvasRef.current.getContext("2d");
             canvasCtx.save();
             canvasCtx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
@@ -121,12 +115,6 @@ const PoseDetWebcam = ({ styleProps }) => {
         canvasRef.current.width = videoWidth;
         canvasRef.current.height = videoHeight;
     };
-
-    useEffect(() => {
-        poseDetector.onResults(onResults);
-
-        startPredictions();
-    }, []);
 
     const getVideoConstraints = () => {
         if (webcamId) {

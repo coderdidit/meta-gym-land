@@ -1,13 +1,12 @@
 import React, { useState, useCallback, useEffect, useContext } from "react";
 import { VideoCameraFilled } from "@ant-design/icons";
 import { Select } from "antd";
-import { WebcamCtx, PoseDetectorCtx } from "index";
+import { WebcamCtx } from "index";
 
 const { Option } = Select;
 
 const SelectWebcam = ({ width = "auto" }) => {
-    const {webcamId, setWebcamId} = useContext(WebcamCtx);
-    const {poseDetector} = useContext(PoseDetectorCtx);
+    const { webcamId, setWebcamId } = useContext(WebcamCtx);
     const [videoDevices, setVideoDevices] = useState([]);
 
     const handleDevices = useCallback(
@@ -26,7 +25,6 @@ const SelectWebcam = ({ width = "auto" }) => {
     const handleChange = (selecteDeviceId) => {
         console.log('selecteDeviceId', selecteDeviceId);
         setWebcamId(selecteDeviceId);
-        poseDetector.reset();
     };
     return videoDevices.length > 0 && (
         <>
