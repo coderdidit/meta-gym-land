@@ -45,16 +45,6 @@ const PlaySetupPage = () => {
             borderRadius: "1rem",
             padding: "1rem 1rem",
         }}>
-            <PoseDetWebcam
-                sizeProps={{
-                    width: "20%",
-                    top: "12%",
-                    left: "50%",
-                }}
-                styleProps={{
-                    boxShadow: "0 0 10px 2px #202020",
-                }}
-            />
             <div style={{
                 display: "flex",
                 justifyContent: "space-evenly",
@@ -104,6 +94,17 @@ const PlaySetupPage = () => {
                         ...BreakFlexDiv,
                         paddingTop: "15rem",
                     }}></div>
+
+                    <PoseDetWebcam
+                        sizeProps={{
+                            width: "20%",
+                            top: "12%",
+                            left: "50%",
+                        }}
+                        styleProps={{
+                            boxShadow: "0 0 10px 2px #202020",
+                        }}
+                    />
 
                     <div style={{
                         padding: "2rem 2rem",
