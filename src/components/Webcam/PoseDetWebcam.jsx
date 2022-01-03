@@ -2,7 +2,10 @@ import React, { useContext, useRef, useEffect } from "react";
 import { WebcamCtx, PoseDetectorCtx } from "index";
 import Webcam from "react-webcam";
 import { drawConnectors, drawLandmarks } from "@mediapipe/drawing_utils";
-import { POSE_CONNECTIONS } from '@mediapipe/pose';
+import {
+    POSE_CONNECTIONS, POSE_LANDMARKS_LEFT,
+    POSE_LANDMARKS_RIGHT, POSE_LANDMARKS_NEUTRAL
+} from '@mediapipe/pose';
 
 const IDLE_POSE_LANDMARKS_COLOR = "#FF0000";
 const IDLE_POSE_LINES_COLOR = "#00FF00";
@@ -89,10 +92,63 @@ const PoseDetWebcam = ({ sizeProps, styleProps }) => {
 
         // Draw Pose mesh
         canvasCtx.globalCompositeOperation = 'source-over';
-        drawConnectors(canvasCtx, results.poseLandmarks, POSE_CONNECTIONS,
-            { color: IDLE_POSE_LINES_COLOR, lineWidth: 4 });
-        drawLandmarks(canvasCtx, results.poseLandmarks,
-            { color: IDLE_POSE_LANDMARKS_COLOR, lineWidth: 4 });
+        if (results.poseLandmarks) {
+            drawConnectors(canvasCtx, results.poseLandmarks, POSE_CONNECTIONS,
+                { color: IDLE_POSE_LINES_COLOR, lineWidth: 4, visibilityMin: 0.5 });
+
+            // left
+            console.log('POSE_LANDMARKS_RIGHT', POSE_LANDMARKS_RIGHT)
+            drawLandmarks(canvasCtx, Object.values(POSE_LANDMARKS_LEFT)
+                .map(index => results.poseLandmarks[index]),
+                {
+                    color: IDLE_POSE_LANDMARKS_COLOR,
+                    lineWidth: 4,
+                    visibilityMin: 0.5
+                });
+            // right
+            drawLandmarks(canvasCtx, Object.values(POSE_LANDMARKS_RIGHT)
+                .map(index => results.poseLandmarks[index]),
+                {
+                    color: 'rgb(0,217,231)',
+                    lineWidth: 4,
+                    visibilityMin: 0.5
+                });
+            // neutral
+            drawLandmarks(canvasCtx, Object.values(POSE_LANDMARKS_NEUTRAL)
+                .map(index => results.poseLandmarks[index]),
+                {
+                    color: 'white', fillColor: 'rgb(0,217,231)',
+                    lineWidth: 4,
+                    visibilityMin: 0.5
+                });
+
+            const le = {
+                // LEFT_EYE_INNER: 1, 
+                LEFT_EYE: 2,
+                LEFT_EYE_OUTER: 3
+            }
+
+            drawLandmarks(canvasCtx, Object.values(le)
+                .map(index => results.poseLandmarks[index]),
+                {
+                    color: 'white', fillColor: 'black',
+                    lineWidth: 4,
+                    visibilityMin: 0.5
+                });
+
+            const re = {
+                // RIGHT_EYE_INNER: 4, 
+                RIGHT_EYE: 5, RIGHT_EYE_OUTER: 6
+            }
+
+            drawLandmarks(canvasCtx, Object.values(re)
+                .map(index => results.poseLandmarks[index]),
+                {
+                    color: 'white', fillColor: 'black',
+                    lineWidth: 4,
+                    visibilityMin: 0.5
+                });
+        }
         canvasCtx.restore();
     };
 
