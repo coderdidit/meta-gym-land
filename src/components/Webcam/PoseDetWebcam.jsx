@@ -6,6 +6,7 @@ import { POSE_CONNECTIONS } from '@mediapipe/pose';
 
 const fps = 1;
 const interval = 1000 / fps;
+let noerror = true;
 
 
 const PoseDetWebcam = ({ styleProps }) => {
@@ -33,7 +34,17 @@ const PoseDetWebcam = ({ styleProps }) => {
                 then = now - (delta % interval);
                 console.log('sending', videoElement)
                 // document.getElementById("webcam")
-                await poseDetector.send({ image: videoElement });
+                try {
+                    if (noerror) await poseDetector.send({ image: videoElement });
+                } catch (error) {
+                    poseDetector.reset();
+                    noerror = false;
+                    console.error('error catched, resetting the ai and waiting for 3 seconds',
+                        error);
+                    setTimeout(() => {
+                        noerror = true
+                    }, 3000)
+                }
             }
         }
 
