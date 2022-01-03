@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 import { MoralisProvider } from "react-moralis";
@@ -60,6 +60,7 @@ const PoseDetectorCtxProvider = ({ children }) => {
   useEffect(() => {
     console.log('poseDetector loaded', poseDetector);
     poseDetector.initialize();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (

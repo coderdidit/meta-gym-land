@@ -13,17 +13,17 @@ const PoseDetWebcam = ({ sizeProps, styleProps }) => {
     console.log('PoseDetWebcam webcamRef', webcamRef);
     console.log('PoseDetWebcam webcamId', webcamId);
 
-    useEffect(async () => {
+    useEffect(() => {
         poseDetector.onResults(onResults);
         startPredictions();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const getDeviceId = () => {
-        return document
-            .getElementsByTagName('video')?.[0]?.captureStream()?.getVideoTracks()?.[0]?.getSettings()?.deviceId;
+        return webcamRef?.current?.stream?.getVideoTracks()?.[0]?.getSettings()?.deviceId;
     }
 
-    useEffect(async () => {
+    useEffect(() => {
         setTimeout(() => {
             if (!webcamId) {
                 const deviceId = getDeviceId();
@@ -34,7 +34,8 @@ const PoseDetWebcam = ({ sizeProps, styleProps }) => {
                     setWebcamId(deviceId);
                 }
             }
-        }, 4000)
+        }, 1000);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     let then = Date.now();
@@ -105,7 +106,7 @@ const PoseDetWebcam = ({ sizeProps, styleProps }) => {
 
     const getVideoConstraints = () => {
         // if it is the same device do not force re-render
-        if (webcamId && webcamId == getDeviceId()) {
+        if (webcamId && webcamId === getDeviceId()) {
             return {}
         } else if (webcamId) {
             return { deviceId: webcamId }
