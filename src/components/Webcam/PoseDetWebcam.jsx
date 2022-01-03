@@ -24,14 +24,16 @@ const PoseDetWebcam = ({ sizeProps, styleProps }) => {
     }
 
     useEffect(() => {
-        setTimeout(() => {
+        const checkCurWebcamId = setInterval(() => {
             if (!webcamId) {
                 const deviceId = getDeviceId();
                 console.log(
-                    'webcamId is empty, inferring current webcamId',
-                    deviceId);
+                    'webcamId is empty', webcamId);
+                console.log('inferring current webcamId', deviceId);
                 if (deviceId) {
                     setWebcamId(deviceId);
+                    console.log('clear checkCurWebcamId', checkCurWebcamId);
+                clearInterval(checkCurWebcamId);
                 }
             }
         }, 1000);
@@ -76,7 +78,6 @@ const PoseDetWebcam = ({ sizeProps, styleProps }) => {
     // HERE: handle game logic events driven by poses
     const onResults = (results) => {
         if (webCamAndCanvasAreInit()) {
-            console.log('results', results);
             doPredictionsCanvasSetup();
             drawPose(canvasRef, results);
         }
