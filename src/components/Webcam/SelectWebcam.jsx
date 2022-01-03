@@ -20,7 +20,11 @@ const SelectWebcam = ({ width = "auto" }) => {
 
     useEffect(
         () => {
-            navigator.mediaDevices.enumerateDevices().then(handleDevices);
+            navigator.mediaDevices.getUserMedia({ video: true, audio: false })
+                .then(s => {
+                    navigator.mediaDevices.enumerateDevices()
+                        .then(handleDevices);
+                });
         },
         [handleDevices]
     );
