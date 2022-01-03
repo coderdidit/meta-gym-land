@@ -33,7 +33,7 @@ const PoseDetWebcam = ({ sizeProps, styleProps }) => {
                 if (deviceId) {
                     setWebcamId(deviceId);
                     console.log('clear checkCurWebcamId', checkCurWebcamId);
-                clearInterval(checkCurWebcamId);
+                    clearInterval(checkCurWebcamId);
                 }
             }
         }, 1000);
