@@ -97,10 +97,8 @@ const PlaySetupPage = () => {
 
                     <PoseDetWebcam
                         sizeProps={{
-                            width: "50%",
+                            width: "52%",
                             height: "auto",
-                            // top: "12%",
-                            // left: "50%",
                         }}
                         styleProps={{
                             boxShadow: "0 0 10px 2px #202020",
