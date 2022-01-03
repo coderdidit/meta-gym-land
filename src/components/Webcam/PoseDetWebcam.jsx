@@ -92,6 +92,8 @@ const PoseDetWebcam = ({ styleProps }) => {
         return webcamRef &&
             webcamRef.current &&
             webcamRef.current.video.readyState === 4 &&
+            (webcamRef.current.video.webkitDecodedFrameCount
+                || webcamRef.current.video.mozDecodedFrames) &&
             canvasRef &&
             canvasRef.current;
     };
