@@ -15,7 +15,26 @@ const PoseDetWebcam = ({ sizeProps, styleProps }) => {
 
     useEffect(async () => {
         poseDetector.onResults(onResults);
-        startPredictions()
+        startPredictions();
+    }, []);
+
+    useEffect(async () => {
+        // poseDetector.onResults(onResults);
+        // startPredictions();
+        setTimeout(() => {
+            // while (true) {
+            //     if (webCamAndCanvasAreInit()) break;
+            // }
+            if (!webcamId) {
+                const dId = document
+                    .getElementsByTagName('video')?.[0]?.captureStream()?.getVideoTracks()?.[0]?.getSettings()?.deviceId;
+                console.log('webcamId is empty, inferring current webcamId', dId);
+                if (dId) {
+                    setWebcamId(dId);
+                    // forceUpdate();
+                }
+            }
+        }, 4000)
     }, []);
 
     let then = Date.now();

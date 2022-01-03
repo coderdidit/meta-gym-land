@@ -10,6 +10,7 @@ const SelectWebcam = ({ width = "auto" }) => {
     const [videoDevices, setVideoDevices] = useState([]);
     // eslint-disable-next-line no-unused-vars
     const [ignored, forceUpdate] = useReducer(x => x + 1, 0);
+    console.log('SelectWebcam webcamId', webcamId);
 
     const handleDevices = useCallback(
         mediaDevices =>
@@ -24,25 +25,32 @@ const SelectWebcam = ({ width = "auto" }) => {
         [handleDevices]
     );
 
+    // useEffect(
+    //     () => {
+    //         forceUpdate();
+    //     },
+    //     [webcamId]
+    // );
+
     const handleChange = (selecteDeviceId) => {
         console.log('selecteDeviceId', selecteDeviceId);
         setWebcamId(selecteDeviceId);
     };
 
-    useEffect(
-        () => {
-            if (!webcamId) {
-                const dId = document
-                    .getElementsByTagName('video')?.[0]?.captureStream()?.getVideoTracks()?.[0]?.getSettings()?.deviceId;
-                console.log('webcamId is empty, inferring current webcamId', dId);
-                if (dId) { 
-                    setWebcamId(dId);
-                    forceUpdate();
-                }
-            }
-        },
-        []
-    );
+    // useEffect(
+    //     () => {
+    //         if (!webcamId) {
+    //             const dId = document
+    //                 .getElementsByTagName('video')?.[0]?.captureStream()?.getVideoTracks()?.[0]?.getSettings()?.deviceId;
+    //             console.log('webcamId is empty, inferring current webcamId', dId);
+    //             if (dId) { 
+    //                 setWebcamId(dId);
+    //                 forceUpdate();
+    //             }
+    //         }
+    //     },
+    //     []
+    // );
     return videoDevices.length > 0 && (
         <>
             <VideoCameraFilled style={{
