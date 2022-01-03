@@ -31,7 +31,7 @@ const PoseDetWebcam = ({ sizeProps, styleProps }) => {
                     'webcamId is empty, inferring current webcamId',
                     deviceId);
                 if (deviceId) {
-                    setWebcamId(dId);
+                    setWebcamId(deviceId);
                 }
             }
         }, 4000)
