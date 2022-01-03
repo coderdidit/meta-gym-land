@@ -9,8 +9,9 @@ const SelectWebcam = ({ width = "auto" }) => {
     const { webcamId, setWebcamId } = useContext(WebcamCtx);
     const [videoDevices, setVideoDevices] = useState([]);
     // eslint-disable-next-line no-unused-vars
-    const [ignored, forceUpdate] = useReducer(x => x + 1, 0);
+    // const [ignored, forceUpdate] = useReducer(x => x + 1, 0);
     console.log('SelectWebcam webcamId', webcamId);
+    // const [selected, setSelected] = useState(webcamId);
 
     const handleDevices = useCallback(
         mediaDevices =>
@@ -25,43 +26,32 @@ const SelectWebcam = ({ width = "auto" }) => {
         [handleDevices]
     );
 
-    useEffect(
-        () => {
-            console.log('SelectWebcam webcamId updated forceUpdate');
-            forceUpdate();
-        },
-        [webcamId]
-    );
+    // useEffect(
+    //     () => {
+    //         console.log('SelectWebcam webcamId updated forceUpdate');
+    //         forceUpdate();
+    //     },
+    //     [webcamId]
+    // );
 
     const handleChange = (selecteDeviceId) => {
         console.log('selecteDeviceId', selecteDeviceId);
         setWebcamId(selecteDeviceId);
     };
 
-    // useEffect(
-    //     () => {
-    //         if (!webcamId) {
-    //             const dId = document
-    //                 .getElementsByTagName('video')?.[0]?.captureStream()?.getVideoTracks()?.[0]?.getSettings()?.deviceId;
-    //             console.log('webcamId is empty, inferring current webcamId', dId);
-    //             if (dId) { 
-    //                 setWebcamId(dId);
-    //                 forceUpdate();
-    //             }
-    //         }
-    //     },
-    //     []
-    // );
     return videoDevices.length > 0 && (
         <>
-            <p style={{
+            {/* <p style={{
                 display: "none",
             }}>{webcamId}</p>
+            <p style={{
+                display: "none",
+            }}>{ignored}</p> */}
             <VideoCameraFilled style={{
                 fontSize: "1.2rem",
             }} />&nbsp;&nbsp;
             <Select
-                defaultValue={webcamId}
+                value={webcamId}
                 style={{
                     width: width,
                     borderRadius: "1rem",
