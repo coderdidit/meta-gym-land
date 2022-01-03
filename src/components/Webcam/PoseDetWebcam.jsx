@@ -5,9 +5,7 @@ import { drawConnectors, drawLandmarks } from "@mediapipe/drawing_utils";
 import { POSE_CONNECTIONS } from '@mediapipe/pose';
 
 
-
-
-const PoseDetWebcam = ({ styleProps }) => {
+const PoseDetWebcam = ({ sizeProps, styleProps }) => {
     const { webcamId, setWebcamId } = useContext(WebcamCtx);
     const { poseDetector } = useContext(PoseDetectorCtx);
     const canvasRef = useRef(null);
@@ -140,6 +138,7 @@ const PoseDetWebcam = ({ styleProps }) => {
                     height: "auto",
                     zindex: 9,
                     // params
+                    ...sizeProps,
                     ...styleProps,
                 }}
             />
@@ -153,7 +152,7 @@ const PoseDetWebcam = ({ styleProps }) => {
                     height: "auto",
                     zindex: 8,
                     // params
-                    ...styleProps,
+                    ...sizeProps,
                 }}
             />
         </>
