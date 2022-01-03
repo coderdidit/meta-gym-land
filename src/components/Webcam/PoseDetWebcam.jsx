@@ -20,22 +20,18 @@ const PoseDetWebcam = ({ sizeProps, styleProps }) => {
 
     const getDeviceId = () => {
         return document
-        .getElementsByTagName('video')?.[0]?.captureStream()?.getVideoTracks()?.[0]?.getSettings()?.deviceId;
+            .getElementsByTagName('video')?.[0]?.captureStream()?.getVideoTracks()?.[0]?.getSettings()?.deviceId;
     }
 
     useEffect(async () => {
-        // poseDetector.onResults(onResults);
-        // startPredictions();
         setTimeout(() => {
-            // while (true) {
-            //     if (webCamAndCanvasAreInit()) break;
-            // }
             if (!webcamId) {
-                const dId = getDeviceId();
-                console.log('webcamId is empty, inferring current webcamId', dId);
-                if (dId) {
+                const deviceId = getDeviceId();
+                console.log(
+                    'webcamId is empty, inferring current webcamId',
+                    deviceId);
+                if (deviceId) {
                     setWebcamId(dId);
-                    // forceUpdate();
                 }
             }
         }, 4000)

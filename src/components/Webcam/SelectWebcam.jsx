@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect, useContext, useReducer } from "react";
+import React, { useState, useCallback, useEffect, useContext } from "react";
 import { VideoCameraFilled } from "@ant-design/icons";
 import { Select } from "antd";
 import { WebcamCtx } from "index";
