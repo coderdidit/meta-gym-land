@@ -5,6 +5,7 @@ import { MoralisProvider } from "react-moralis";
 import "./index.css";
 import Home from "components/Home";
 import { Pose } from '@mediapipe/pose';
+import * as mpPose from '@mediapipe/pose';
 
 // Moralis vals
 const APP_ID = process.env.REACT_APP_MORALIS_APPLICATION_ID;
@@ -41,11 +42,13 @@ export const PoseDetectorCtx = React.createContext();
 const PoseDetectorCtxProvider = ({ children }) => {
   const poseDetector = new Pose({
     locateFile: (file) => {
-      return `https://cdn.jsdelivr.net/npm/@mediapipe/pose/${file}`;
+      const path = `https://cdn.jsdelivr.net/npm/@mediapipe/pose@${mpPose.VERSION}/${file}`
+      console.log('mediapipe path', path);
+      return path;
     }
   });
   poseDetector.setOptions({
-    modelComplexity: 1,
+    modelComplexity: 0,
     smoothLandmarks: true,
     selfieMode: true,
     //   enableSegmentation: true,
@@ -54,10 +57,10 @@ const PoseDetectorCtxProvider = ({ children }) => {
     minTrackingConfidence: 0.5
   });
 
-  useEffect(() => poseDetector.initialize(), [])
-
-  console.log('poseDetector loaded', poseDetector);
-
+  useEffect(() => {
+    console.log('poseDetector loaded', poseDetector);
+    poseDetector.initialize();
+  }, [])
 
   return (
     <PoseDetectorCtx.Provider value={{ poseDetector }}>
