@@ -4,6 +4,9 @@ import Webcam from "react-webcam";
 import { drawConnectors, drawLandmarks } from "@mediapipe/drawing_utils";
 import { POSE_CONNECTIONS } from '@mediapipe/pose';
 
+const IDLE_POSE_LANDMARKS_COLOR = "#FF0000";
+const IDLE_POSE_LINES_COLOR = "#00FF00";
+
 
 const PoseDetWebcam = ({ sizeProps, styleProps }) => {
     const { webcamId, setWebcamId } = useContext(WebcamCtx);
@@ -55,40 +58,42 @@ const PoseDetWebcam = ({ sizeProps, styleProps }) => {
         }
     };
 
+    // HERE: handle game logic events driven by poses
     const onResults = (results) => {
-        // console.log('onResults', results)
         if (webCamAndCanvasAreInit()) {
-            doPredictionsCanvasSetup();
-            console.log('onResults', results);
-
-            // Get Canvas
-            const canvasCtx = canvasRef.current.getContext("2d");
-            canvasCtx.save();
-            canvasCtx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
-
-            // Only overwrite existing pixels.
-            canvasCtx.globalCompositeOperation = 'source-in';
-            canvasCtx.fillStyle = '#00FF00';
-            canvasCtx.fillRect(0, 0, canvasRef.current.width, canvasRef.current.height);
-            // Only overwrite missing pixels.
-            canvasCtx.globalCompositeOperation = 'destination-atop';
-
-            // Draw testing circle
-            canvasCtx.fillStyle = '#04AA6D';
-            canvasCtx.strokeStyle = '#04AA6D';
-            canvasCtx.beginPath();
-            canvasCtx.arc(50, 50, 20, 0, 2 * Math.PI);
-            canvasCtx.stroke();
-            canvasCtx.fill();
-
-            // Draw mesh
-            canvasCtx.globalCompositeOperation = 'source-over';
-            drawConnectors(canvasCtx, results.poseLandmarks, POSE_CONNECTIONS,
-                { color: '#00FF00', lineWidth: 4 });
-            drawLandmarks(canvasCtx, results.poseLandmarks,
-                { color: '#FF0000', lineWidth: 4 });
-            canvasCtx.restore();
+            drawPose(results);
         }
+    };
+
+    const drawPose = (results) => {
+        doPredictionsCanvasSetup();
+        // Get Canvas
+        const canvasCtx = canvasRef.current.getContext("2d");
+        canvasCtx.save();
+        canvasCtx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
+
+        // Only overwrite existing pixels.
+        canvasCtx.globalCompositeOperation = 'source-in';
+        canvasCtx.fillStyle = '#00FF00';
+        canvasCtx.fillRect(0, 0, canvasRef.current.width, canvasRef.current.height);
+        // Only overwrite missing pixels.
+        canvasCtx.globalCompositeOperation = 'destination-atop';
+
+        // Draw testing circle
+        canvasCtx.fillStyle = '#04AA6D';
+        canvasCtx.strokeStyle = '#04AA6D';
+        canvasCtx.beginPath();
+        canvasCtx.arc(50, 50, 20, 0, 2 * Math.PI);
+        canvasCtx.stroke();
+        canvasCtx.fill();
+
+        // Draw Pose mesh
+        canvasCtx.globalCompositeOperation = 'source-over';
+        drawConnectors(canvasCtx, results.poseLandmarks, POSE_CONNECTIONS,
+            { color: IDLE_POSE_LINES_COLOR, lineWidth: 4 });
+        drawLandmarks(canvasCtx, results.poseLandmarks,
+            { color: IDLE_POSE_LANDMARKS_COLOR, lineWidth: 4 });
+        canvasCtx.restore();
     };
 
     const webCamAndCanvasAreInit = () => {
