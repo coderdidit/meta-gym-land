@@ -9,6 +9,9 @@ import {
     GYM_ROOM_TILES,
     GYM_ROOM_MAT_SKY,
     GYM_ROOM_MAT_SPACE, 
+
+    GYM_ROOM_DANGEON_MAP,
+    GYM_ROOM_DANGEON_TILES,
 } from "./assets";
 
 const SceneConfig = {
@@ -16,6 +19,8 @@ const SceneConfig = {
     visible: false,
     key: GYM_ROOM_SCENE,
 };
+
+const mapScale = 1.1
 
 export class GymRoomScene extends Phaser.Scene {
     constructor() {
@@ -37,12 +42,15 @@ export class GymRoomScene extends Phaser.Scene {
         //     .setDisplaySize(width, height);
 
         // map
-        const map = this.make.tilemap({ key: GYM_ROOM_MAP })
-        const tileset_main = map.addTilesetImage('gym_room', GYM_ROOM_TILES, 36, 36)
+        const map = this.make.tilemap({ key: GYM_ROOM_DANGEON_MAP })
+
+        const tileset_main = map.addTilesetImage('dangeon', GYM_ROOM_DANGEON_TILES, 16, 16)
         const groundLayer = map.createLayer('floor', tileset_main)
         const wallsLayer = map.createLayer('walls', tileset_main)
-        // groundLayer.setScale(mapScale)
-        // this.wallsLayer.setScale(mapScale)
+        groundLayer.setScale(mapScale).setOrigin({x: width / 2,
+            y: height / 2})
+        wallsLayer.setScale(mapScale).setOrigin({x: width / 2,
+            y: height / 2})
 
         // back btn   
         // uncomment if you want to have sound on exit
