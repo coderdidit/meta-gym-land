@@ -1,23 +1,23 @@
 {
   "files": {
     "main.css": "/static/css/main.61b846f9.chunk.css",
-    "main.js": "/static/js/main.138a74ea.chunk.js",
-    "main.js.map": "/static/js/main.138a74ea.chunk.js.map",
+    "main.js": "/static/js/main.76343305.chunk.js",
+    "main.js.map": "/static/js/main.76343305.chunk.js.map",
     "polyfills-dom.js": "/static/js/polyfills-dom.33cef9a6.chunk.js",
     "polyfills-dom.js.map": "/static/js/polyfills-dom.33cef9a6.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.08d28162.js",
-    "runtime-main.js.map": "/static/js/runtime-main.08d28162.js.map",
+    "runtime-main.js": "/static/js/runtime-main.467bfa46.js",
+    "runtime-main.js.map": "/static/js/runtime-main.467bfa46.js.map",
     "static/css/3.a95be28f.chunk.css": "/static/css/3.a95be28f.chunk.css",
-    "static/js/3.125c3070.chunk.js": "/static/js/3.125c3070.chunk.js",
-    "static/js/3.125c3070.chunk.js.map": "/static/js/3.125c3070.chunk.js.map",
-    "static/js/4.fd356ea8.chunk.js": "/static/js/4.fd356ea8.chunk.js",
-    "static/js/4.fd356ea8.chunk.js.map": "/static/js/4.fd356ea8.chunk.js.map",
+    "static/js/3.eca75a7a.chunk.js": "/static/js/3.eca75a7a.chunk.js",
+    "static/js/3.eca75a7a.chunk.js.map": "/static/js/3.eca75a7a.chunk.js.map",
+    "static/js/4.f5b3fe8e.chunk.js": "/static/js/4.f5b3fe8e.chunk.js",
+    "static/js/4.f5b3fe8e.chunk.js.map": "/static/js/4.f5b3fe8e.chunk.js.map",
     "static/js/5.80e117d7.chunk.js": "/static/js/5.80e117d7.chunk.js",
     "static/js/5.80e117d7.chunk.js.map": "/static/js/5.80e117d7.chunk.js.map",
     "index.html": "/index.html",
     "static/css/3.a95be28f.chunk.css.map": "/static/css/3.a95be28f.chunk.css.map",
     "static/css/main.61b846f9.chunk.css.map": "/static/css/main.61b846f9.chunk.css.map",
-    "static/js/3.125c3070.chunk.js.LICENSE.txt": "/static/js/3.125c3070.chunk.js.LICENSE.txt",
+    "static/js/3.eca75a7a.chunk.js.LICENSE.txt": "/static/js/3.eca75a7a.chunk.js.LICENSE.txt",
     "static/js/polyfills-dom.33cef9a6.chunk.js.LICENSE.txt": "/static/js/polyfills-dom.33cef9a6.chunk.js.LICENSE.txt",
     "static/media/Coin98.1e4e4073.png": "/static/media/Coin98.1e4e4073.png",
     "static/media/MathWallet.19212234.svg": "/static/media/MathWallet.19212234.svg",
@@ -26,10 +26,10 @@
     "static/media/wallet-connect.304e3277.svg": "/static/media/wallet-connect.304e3277.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.08d28162.js",
+    "static/js/runtime-main.467bfa46.js",
     "static/css/3.a95be28f.chunk.css",
-    "static/js/3.125c3070.chunk.js",
+    "static/js/3.eca75a7a.chunk.js",
     "static/css/main.61b846f9.chunk.css",
-    "static/js/main.138a74ea.chunk.js"
+    "static/js/main.76343305.chunk.js"
   ]
 }
