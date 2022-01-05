@@ -3,6 +3,7 @@ import Phaser from "phaser";
 import { IonPhaser } from "@ion-phaser/react";
 import { GymRoomScene } from "./GymRoomScene";
 import { BootScene } from "./BootScene";
+import { Dialog } from "./plugins/Dialog";
 
 const menuHeight = 60;
 
@@ -35,6 +36,11 @@ const getConfig = (mainScene) => {
             mode: Phaser.Scale.NONE,
             width,
             height,
+        },
+        plugins: {
+            scene: [
+                { key: 'dialog', plugin: Dialog, mapping: 'dialog' }
+            ]
         },
         scene: Scenes,
         // audio: {

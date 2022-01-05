@@ -119,6 +119,12 @@ export class GymRoomScene extends Phaser.Scene {
 
         // colliders
         this.physics.add.collider(this.player, wallsLayer);
+
+        //
+        setTimeout(() => {
+            this.dialog.setText('sdfsdfsf assdfgdfag ggfgfgffgfg hjkkjh, sdfsdfsf');
+        }, 1000)
+        
     }
 
     createBackButton = () => {
