@@ -129,11 +129,12 @@ export class GymRoomScene extends Phaser.Scene {
 
         // text
         const playSpaceStretchTextBox = createTextBox(this,
-            // (width / 2) - width * 0.1, height - 100, 
+            (width / 2) - width * 0.1, height - 100,
             {
-            wrapWidth: 200,
-            fixedWidth: 300,}
-            )
+                // wrapWidth: 200,
+                // fixedWidth: 300,
+            }
+        )
 
         playSpaceStretchTextBox.start(
             "Welcome, choose on which mat you wold like to stretch today", 50);
@@ -144,7 +145,8 @@ export class GymRoomScene extends Phaser.Scene {
             const x = (object.x * mapScale) + (width / 5)
             const y = object.y * mapScale + height * 0.02
             // object.setScale(mapScale)
-            let tmp = this.add.rectangle((object.x + (object.width / 2)), (object.y + (object.height / 2)), object.width, object.height);
+            let tmp = this.add.rectangle(x, y,
+                object.width * mapScale, object.height * mapScale);
             tmp.properties = [
                 {
                     "name": object.name
@@ -155,13 +157,13 @@ export class GymRoomScene extends Phaser.Scene {
                 y,
                 `${object.name}`,
                 { font: "16px Arial", fill: "#ffffff" })
-                // .setOrigin((width / 5), (height * 0.02));
+            // .setOrigin((width / 5), (height * 0.02));
             // tmp.properties = object.properties.reduce(
             //     (obj, item) => Object.assign(obj, { [item.name]: item.value }), {}
             // );
             this.physics.world.enable(tmp, 1);
-            this.physics.add.overlap(this.player, tmp, () => {
-                console.log('overlap');
+            this.physics.add.overlap(this.player, tmp, (avatar, other) => {
+                console.log('overlap', avatar, other);
                 playSpaceStretchTextBox.start(`clik X to play ${object.name} 🚀`, 50);
             }, null, this);
         })
