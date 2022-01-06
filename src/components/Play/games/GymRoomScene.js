@@ -25,6 +25,7 @@ const SceneConfig = {
 const mapScale = 0.58;
 const tileMapSizing = 36;
 
+const set = new Set();
 
 export class GymRoomScene extends Phaser.Scene {
     constructor() {
@@ -114,11 +115,11 @@ export class GymRoomScene extends Phaser.Scene {
 
         // Add a player sprite that can be moved around.
         this.playerContainer = this.add.container(
-            
-        ).setScale(mapScale);
+            // (width / 5), (height * 0.02)
+        );
         this.player = new Player({
             scene: this,
-            x: width / 2, 
+            x: width / 2,
             y: height / 2,
             key: PLAYER_KEY,
         });
@@ -126,7 +127,7 @@ export class GymRoomScene extends Phaser.Scene {
         this.player.setScale(PLAYER_SCALE);
         const text = this.add.text(0, 0, "Some text", { font: "16px Arial", fill: "#ffffff" });
 
-        // this.playerContainer.add([this.player, text]);
+        this.playerContainer.add([text]);
         // this.player.copyPosition()
         this.cameras.main.startFollow(this.player);
 
@@ -144,6 +145,8 @@ export class GymRoomScene extends Phaser.Scene {
 
         playSpaceStretchTextBox.start(
             "Welcome, choose on which mat you wold like to stretch today", 50);
+
+        playSpaceStretchTextBox.setScrollFactor(0, 0);
 
         const scriptLayer = map.getObjectLayer('script')
         console.log('scriptLayer.objects', scriptLayer.objects);
@@ -173,7 +176,10 @@ export class GymRoomScene extends Phaser.Scene {
                 // other.body.dis
                 // check if it was triggered already, or disable collider on enter
                 // and enable on exit on outer edge collider
-                playSpaceStretchTextBox.start(`clik X to play ${object.name} 🚀`, 50);
+                if (!set.has(object.name)) {
+                    playSpaceStretchTextBox.start(`clik X to play ${object.name} 🚀`, 50);
+                    set.add(object.name);
+                }
             }, null, this);
         })
 
