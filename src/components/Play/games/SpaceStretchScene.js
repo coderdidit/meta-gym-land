@@ -14,7 +14,7 @@ const SceneConfig = {
     key: SPACE_STRETCH_SCENE,
 };
 
-export class SpaceStretchcene extends Phaser.Scene {
+export class SpaceStretchScene extends Phaser.Scene {
     constructor() {
         super(SceneConfig);
     }
@@ -50,11 +50,12 @@ export class SpaceStretchcene extends Phaser.Scene {
         this.createBackButton();
 
         // hint
-        const playSpaceStretchTextBox = createTextBox(this,
+        const hintTextBox = createTextBox(this,
             (width / 2) + width / 4, height * 0.025,
             { wrapWidth: 280 })
-        playSpaceStretchTextBox.setDepth(1);
-        playSpaceStretchTextBox.setScrollFactor(0, 0);
+        hintTextBox.setDepth(1);
+        hintTextBox.setScrollFactor(0, 0);
+        hintTextBox.start("🤖", 50);
 
         // player
         this.player = new Player({

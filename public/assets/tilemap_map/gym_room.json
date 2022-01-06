@@ -66,7 +66,7 @@
                 {
                  "height":63.443072702332,
                  "id":2,
-                 "name":"fly_stretch",
+                 "name":"fly_fit",
                  "rotation":0,
                  "type":"",
                  "visible":true,
@@ -92,7 +92,7 @@
          "y":0
         }],
  "nextlayerid":8,
- "nextobjectid":4,
+ "nextobjectid":5,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.7.2",

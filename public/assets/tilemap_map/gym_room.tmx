@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="50" height="40" tilewidth="36" tileheight="36" infinite="0" backgroundcolor="#9cdcfd" nextlayerid="8" nextobjectid="4">
+<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="50" height="40" tilewidth="36" tileheight="36" infinite="0" backgroundcolor="#9cdcfd" nextlayerid="8" nextobjectid="5">
  <editorsettings>
   <chunksize width="36" height="36"/>
   <export target="gym_room.json" format="json"/>
@@ -157,7 +157,7 @@
  </layer>
  <objectgroup id="7" name="script">
   <object id="1" name="space_stretch" x="219.479" y="507.545" width="212.62" height="66.8724"/>
-  <object id="2" name="fly_stretch" x="1337.45" y="399.52" width="205.761" height="63.4431"/>
+  <object id="2" name="fly_fit" x="1337.45" y="399.52" width="205.761" height="63.4431"/>
   <object id="3" name="cosmic_cardio" x="867.627" y="1009.95" width="205.761" height="65.1578"/>
  </objectgroup>
 </map>
