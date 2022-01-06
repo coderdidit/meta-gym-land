@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="50" height="40" tilewidth="36" tileheight="36" infinite="0" nextlayerid="8" nextobjectid="4">
+<map version="1.5" tiledversion="1.7.2" orientation="orthogonal" renderorder="right-down" width="50" height="40" tilewidth="36" tileheight="36" infinite="0" backgroundcolor="#9cdcfd" nextlayerid="8" nextobjectid="4">
  <editorsettings>
   <chunksize width="36" height="36"/>
   <export target="gym_room.json" format="json"/>

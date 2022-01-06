@@ -29,7 +29,7 @@ export const createTextBox = function (scene, x, y, config) {
             right: 10,
             top: 10,
             bottom: 10,
-            icon: 10,
+            icon: 0,
             text: 10,
         }
     })
@@ -73,12 +73,13 @@ export const createTextBox = function (scene, x, y, config) {
 }
 const getBuiltInText = function (scene, wrapWidth, fixedWidth, fixedHeight) {
     return scene.add.text(0, 0, '', {
-            fontSize: '20px',
-            wordWrap: {
-                width: wrapWidth
-            },
-            maxLines: 3
-        })
+        align: 'center',
+        fontSize: '18px',
+        wordWrap: {
+            width: wrapWidth
+        },
+        maxLines: 3
+    })
         .setFixedSize(fixedWidth, fixedHeight);
 }
 
@@ -93,7 +94,7 @@ const getBBcodeText = function (scene, wrapWidth, fixedWidth, fixedHeight) {
             width: wrapWidth
         },
         padding: {
-            left: 10,
+            left: 20,
             right: 0,
             top: 0,
             bottom: 0

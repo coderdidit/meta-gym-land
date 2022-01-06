@@ -15,6 +15,9 @@ import {
 } from "./assets";
 import { createTextBox } from "./utils/text";
 import { TextBox } from 'phaser3-rex-plugins/templates/ui/ui-components';
+import { debugCollisonBounds } from './utils/collision_debugger'
+
+const debugCollisons = true;
 
 const SceneConfig = {
     active: false,
@@ -114,9 +117,9 @@ export class GymRoomScene extends Phaser.Scene {
         this.createBackButton();
 
         // Add a player sprite that can be moved around.
-        this.playerContainer = this.add.container(
-            // (width / 5), (height * 0.02)
-        );
+        // this.playerContainer = this.add.container(
+        //     // (width / 5), (height * 0.02)
+        // );
         this.player = new Player({
             scene: this,
             x: width / 2,
@@ -125,9 +128,10 @@ export class GymRoomScene extends Phaser.Scene {
         });
         // this.player
         this.player.setScale(PLAYER_SCALE);
-        const text = this.add.text(0, 0, "Some text", { font: "16px Arial", fill: "#ffffff" });
+        this.player.setDepth(1);
+        // const text = this.add.text(0, 0, "Some text", { font: "16px Arial", fill: "#ffffff" });
 
-        this.playerContainer.add([text]);
+        // this.playerContainer.add([text]);
         // this.player.copyPosition()
         this.cameras.main.startFollow(this.player);
 
@@ -143,8 +147,10 @@ export class GymRoomScene extends Phaser.Scene {
             }
         )
 
+        playSpaceStretchTextBox.setDepth(1);
+
         playSpaceStretchTextBox.start(
-            "Welcome, choose on which mat you wold like to stretch today", 50);
+            "Welcome,\nchoose on which mat you wold like to stretch today", 50);
 
         playSpaceStretchTextBox.setScrollFactor(0, 0);
 
@@ -178,14 +184,18 @@ export class GymRoomScene extends Phaser.Scene {
                 // and enable on exit on outer edge collider
                 if (!set.has(object.name)) {
                     playSpaceStretchTextBox.start(`clik X to play ${object.name} 🚀`, 50);
+                    setTimeout(() => {
+                        playSpaceStretchTextBox.start("...", 50);
+                    }, 5000);
                     set.add(object.name);
                 }
             }, null, this);
         })
 
-        // setTimeout(() => {
-        //     playSpaceStretchTextBox.start("clik X to play space stretch 🚀", 50);
-        // }, 5000);
+        // debugging
+        if (debugCollisons) {
+            debugCollisonBounds(wallsLayer, this);
+        }
     }
 
     createBackButton = () => {
