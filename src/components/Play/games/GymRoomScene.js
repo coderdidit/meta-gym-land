@@ -22,7 +22,7 @@ const SceneConfig = {
     key: GYM_ROOM_SCENE,
 };
 
-const mapScale = 0.6;
+const mapScale = 0.58;
 const tileMapSizing = 36;
 
 
@@ -120,6 +120,8 @@ export class GymRoomScene extends Phaser.Scene {
             key: PLAYER_KEY,
         });
         this.player.setScale(PLAYER_SCALE);
+        const text = this.add.text(0, 0, "Some text", { font: "16px Arial", fill: "#ffffff" });
+        // this.player.copyPosition()
         // this.cameras.main.startFollow(this.player);
 
         // colliders
@@ -127,10 +129,11 @@ export class GymRoomScene extends Phaser.Scene {
 
         // text
         const playSpaceStretchTextBox = createTextBox(this,
-            (width / 2) - width * 0.1, height - 100, {
-            // wrapWidth: 200,
-            // fixedWidth: 300,
-        })
+            // (width / 2) - width * 0.1, height - 100, 
+            {
+            wrapWidth: 200,
+            fixedWidth: 300,}
+            )
 
         playSpaceStretchTextBox.start(
             "Welcome, choose on which mat you wold like to stretch today", 50);
@@ -138,12 +141,21 @@ export class GymRoomScene extends Phaser.Scene {
         const scriptLayer = map.getObjectLayer('script')
         console.log('scriptLayer.objects', scriptLayer.objects);
         scriptLayer.objects.forEach(object => {
+            const x = (object.x * mapScale) + (width / 5)
+            const y = object.y * mapScale + height * 0.02
+            // object.setScale(mapScale)
             let tmp = this.add.rectangle((object.x + (object.width / 2)), (object.y + (object.height / 2)), object.width, object.height);
             tmp.properties = [
                 {
                     "name": object.name
                 }
             ]
+            this.add.text(
+                x,
+                y,
+                `${object.name}`,
+                { font: "16px Arial", fill: "#ffffff" })
+                // .setOrigin((width / 5), (height * 0.02));
             // tmp.properties = object.properties.reduce(
             //     (obj, item) => Object.assign(obj, { [item.name]: item.value }), {}
             // );
