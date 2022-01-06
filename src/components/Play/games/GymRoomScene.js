@@ -14,6 +14,7 @@ import {
     GYM_ROOM_DANGEON_TILES,
 } from "./assets";
 import { createTextBox } from "./utils/text";
+import { TextBox } from 'phaser3-rex-plugins/templates/ui/ui-components';
 
 const SceneConfig = {
     active: false,
@@ -122,12 +123,18 @@ export class GymRoomScene extends Phaser.Scene {
         // colliders
         this.physics.add.collider(this.player, wallsLayer);
 
-        // texts
-        const textBox = createTextBox(this, width - 500, 100, {
-            wrapWidth: 200,
+        // text
+        const playSpaceStretchTextBox = createTextBox(this, 
+            (width / 2) - width * 0.2, 50, {
+            // wrapWidth: 200,
             // fixedWidth: 300,
         })
-        textBox.start("clik me to play space stretch 🚀", 50);
+
+        playSpaceStretchTextBox.start("Welcome, choose on which mat you wold like to stretch today", 50);
+
+        setTimeout(() => {
+            playSpaceStretchTextBox.start("clik X to play space stretch 🚀", 50);
+        }, 5000);
     }
 
     createBackButton = () => {
