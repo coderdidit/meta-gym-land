@@ -3,7 +3,7 @@ import Phaser from "phaser";
 import { IonPhaser } from "@ion-phaser/react";
 import { GymRoomScene } from "./GymRoomScene";
 import { BootScene } from "./BootScene";
-import { Dialog } from "./plugins/Dialog";
+import UIPlugin from 'phaser3-rex-plugins/templates/ui/ui-plugin.js';
 
 const menuHeight = 60;
 
@@ -37,9 +37,18 @@ const getConfig = (mainScene) => {
             width,
             height,
         },
+        // plugins: {
+        //     scene: [
+        //         { key: 'dialog', plugin: Dialog, mapping: 'dialog' }
+        //     ]
+        // },
         plugins: {
-            scene: [
-                { key: 'dialog', plugin: Dialog, mapping: 'dialog' }
+            scene: [{
+                key: 'rexUI',
+                plugin: UIPlugin,
+                mapping: 'rexUI'
+            },
+            // ...
             ]
         },
         scene: Scenes,

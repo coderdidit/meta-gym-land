@@ -13,6 +13,7 @@ import {
     GYM_ROOM_DANGEON_MAP,
     GYM_ROOM_DANGEON_TILES,
 } from "./assets";
+import { createTextBox } from "./utils/text";
 
 const SceneConfig = {
     active: false,
@@ -22,6 +23,7 @@ const SceneConfig = {
 
 const mapScale = 0.6;
 const tileMapSizing = 36;
+
 
 export class GymRoomScene extends Phaser.Scene {
     constructor() {
@@ -56,13 +58,13 @@ export class GymRoomScene extends Phaser.Scene {
             tileMapSizing
         );
         const groundLayer = map
-            .createLayer('floor', tileset_main, 
-            (width / 5), height * 0.02
+            .createLayer('floor', tileset_main,
+                (width / 5), height * 0.02
             );
 
         const wallsLayer = map
-            .createLayer('walls', tileset_main, 
-            (width / 5), height * 0.02
+            .createLayer('walls', tileset_main,
+                (width / 5), height * 0.02
             );
         groundLayer.setScale(mapScale);
 
@@ -87,7 +89,7 @@ export class GymRoomScene extends Phaser.Scene {
         const itemsLayer = map
             .createLayer('items', [tileset_main, mat_sky, mat_space],
                 (width / 5), (height * 0.02)
-                );
+            );
         itemsLayer.setScale(mapScale);
         // TODO check later
         // itemsLayer.forEachTile(t => {
@@ -120,11 +122,12 @@ export class GymRoomScene extends Phaser.Scene {
         // colliders
         this.physics.add.collider(this.player, wallsLayer);
 
-        //
-        setTimeout(() => {
-            this.dialog.setText('sdfsdfsf assdfgdfag ggfgfgffgfg hjkkjh, sdfsdfsf');
-        }, 1000)
-        
+        // texts
+        const textBox = createTextBox(this, width - 500, 100, {
+            wrapWidth: 200,
+            // fixedWidth: 300,
+        })
+        textBox.start("clik me to play space stretch 🚀", 50);
     }
 
     createBackButton = () => {

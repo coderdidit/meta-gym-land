@@ -5,6 +5,7 @@ import { GymRoomScene } from "./GymRoomScene";
 import { BootScene } from "./BootScene";
 import { WebcamCtx } from "index";
 import PoseDetWebcam from "components/Webcam/PoseDetWebcam";
+import UIPlugin from 'phaser3-rex-plugins/templates/ui/ui-plugin.js';
 
 const menuHeight = 60;
 
@@ -37,6 +38,15 @@ const getConfig = (mainScene) => {
             mode: Phaser.Scale.NONE,
             width,
             height,
+        },
+        plugins: {
+            scene: [{
+                key: 'rexUI',
+                plugin: UIPlugin,
+                mapping: 'rexUI'
+            },
+                // ...
+            ]
         },
         scene: Scenes,
         // audio: {
