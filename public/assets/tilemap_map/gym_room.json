@@ -45,9 +45,53 @@
          "width":50,
          "x":0,
          "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":7,
+         "name":"script",
+         "objects":[
+                {
+                 "height":66.8724279835391,
+                 "id":1,
+                 "name":"space_stretch",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":212.620027434842,
+                 "x":219.478737997257,
+                 "y":507.544581618656
+                }, 
+                {
+                 "height":63.443072702332,
+                 "id":2,
+                 "name":"fly_stretch",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":205.761316872428,
+                 "x":1337.44855967078,
+                 "y":399.519890260631
+                }, 
+                {
+                 "height":65.1577503429355,
+                 "id":3,
+                 "name":"cosmic_cardio",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":205.761316872428,
+                 "x":867.626886145405,
+                 "y":1009.9451303155
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
         }],
- "nextlayerid":7,
- "nextobjectid":1,
+ "nextlayerid":8,
+ "nextobjectid":4,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.7.2",

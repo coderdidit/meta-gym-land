@@ -92,6 +92,8 @@ export class GymRoomScene extends Phaser.Scene {
                 (width / 5), (height * 0.02)
             );
         itemsLayer.setScale(mapScale);
+
+        // map.createLayer('script', [tileset_main, mat_sky, mat_space], (width / 5), (height * 0.02));
         // TODO check later
         // itemsLayer.forEachTile(t => {
         //     let spriteShadow = t
@@ -124,17 +126,37 @@ export class GymRoomScene extends Phaser.Scene {
         this.physics.add.collider(this.player, wallsLayer);
 
         // text
-        const playSpaceStretchTextBox = createTextBox(this, 
-            (width / 2) - width * 0.2, 50, {
+        const playSpaceStretchTextBox = createTextBox(this,
+            (width / 2) - width * 0.1, height - 100, {
             // wrapWidth: 200,
             // fixedWidth: 300,
         })
 
-        playSpaceStretchTextBox.start("Welcome, choose on which mat you wold like to stretch today", 50);
+        playSpaceStretchTextBox.start(
+            "Welcome, choose on which mat you wold like to stretch today", 50);
 
-        setTimeout(() => {
-            playSpaceStretchTextBox.start("clik X to play space stretch 🚀", 50);
-        }, 5000);
+        const scriptLayer = map.getObjectLayer('script')
+        console.log('scriptLayer.objects', scriptLayer.objects);
+        scriptLayer.objects.forEach(object => {
+            let tmp = this.add.rectangle((object.x + (object.width / 2)), (object.y + (object.height / 2)), object.width, object.height);
+            tmp.properties = [
+                {
+                    "name": object.name
+                }
+            ]
+            // tmp.properties = object.properties.reduce(
+            //     (obj, item) => Object.assign(obj, { [item.name]: item.value }), {}
+            // );
+            this.physics.world.enable(tmp, 1);
+            this.physics.add.overlap(this.player, tmp, () => {
+                console.log('overlap');
+                playSpaceStretchTextBox.start(`clik X to play ${object.name} 🚀`, 50);
+            }, null, this);
+        })
+
+        // setTimeout(() => {
+        //     playSpaceStretchTextBox.start("clik X to play space stretch 🚀", 50);
+        // }, 5000);
     }
 
     createBackButton = () => {
