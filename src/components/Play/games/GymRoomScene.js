@@ -42,8 +42,8 @@ export class GymRoomScene extends Phaser.Scene {
         const height = getGameHeight(this);
 
         // bg image
-        this.add.image(width / 2, height / 2, BG)
-            .setDisplaySize(width, height);
+        // this.add.image(width / 2, height / 2, BG)
+        //     .setDisplaySize(width, height);
 
         // map
         const map = this.make.tilemap({
@@ -113,16 +113,22 @@ export class GymRoomScene extends Phaser.Scene {
         this.createBackButton();
 
         // Add a player sprite that can be moved around.
+        this.playerContainer = this.add.container(
+            
+        ).setScale(mapScale);
         this.player = new Player({
             scene: this,
-            x: width / 2,
+            x: width / 2, 
             y: height / 2,
             key: PLAYER_KEY,
         });
+        // this.player
         this.player.setScale(PLAYER_SCALE);
         const text = this.add.text(0, 0, "Some text", { font: "16px Arial", fill: "#ffffff" });
+
+        // this.playerContainer.add([this.player, text]);
         // this.player.copyPosition()
-        // this.cameras.main.startFollow(this.player);
+        this.cameras.main.startFollow(this.player);
 
         // colliders
         this.physics.add.collider(this.player, wallsLayer);
@@ -146,7 +152,7 @@ export class GymRoomScene extends Phaser.Scene {
             const y = object.y * mapScale + height * 0.02
             // object.setScale(mapScale)
             let tmp = this.add.rectangle(x, y,
-                object.width * mapScale, object.height * mapScale);
+                object.width * mapScale, object.height * mapScale).setOrigin(0)
             tmp.properties = [
                 {
                     "name": object.name
@@ -164,6 +170,9 @@ export class GymRoomScene extends Phaser.Scene {
             this.physics.world.enable(tmp, 1);
             this.physics.add.overlap(this.player, tmp, (avatar, other) => {
                 console.log('overlap', avatar, other);
+                // other.body.dis
+                // check if it was triggered already, or disable collider on enter
+                // and enable on exit on outer edge collider
                 playSpaceStretchTextBox.start(`clik X to play ${object.name} 🚀`, 50);
             }, null, this);
         })

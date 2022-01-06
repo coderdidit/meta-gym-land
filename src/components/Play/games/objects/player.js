@@ -1,6 +1,6 @@
 import Phaser from "phaser";
 
-export class Player extends Phaser.GameObjects.Image {
+export class Player extends Phaser.GameObjects.Sprite {
     cursorKeys;
     speed = 200;
 
