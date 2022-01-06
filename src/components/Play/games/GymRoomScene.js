@@ -47,7 +47,8 @@ export class GymRoomScene extends Phaser.Scene {
         this.input.keyboard.on('keydown', (event) => {
             const code = event.keyCode;
             if (sceneToGoOnXclick && code == Phaser.Input.Keyboard.KeyCodes.X) {
-                alert(`x key pressed will go to ${sceneToGoOnXclick}`);
+                // alert(`x key pressed will go to ${sceneToGoOnXclick}`);
+                this.scene.start(sceneToGoOnXclick);
             }
         }, this);
 
@@ -152,7 +153,7 @@ export class GymRoomScene extends Phaser.Scene {
         this.physics.add.collider(this.player, wallsLayer);
 
         // text
-        const playSpaceStretchTextBox = createTextBox(this,
+        const hintTextBox = createTextBox(this,
             // (width / 2) - width * 0.1, height - 100,
             (width / 2) + width / 4, height * 0.025,
             {
@@ -161,15 +162,14 @@ export class GymRoomScene extends Phaser.Scene {
             }
         )
 
-        playSpaceStretchTextBox.setDepth(1);
-        playSpaceStretchTextBox.start("🤖", 50);
+        hintTextBox.setDepth(1);
+        hintTextBox.start("🤖", 50);
         setTimeout(() => {
-
-            playSpaceStretchTextBox.start(
+            hintTextBox.start(
                 "🤖\nWelcome 👋,\nchoose on which mat you wold like to stretch today", 50);
         }, 1000);
 
-        playSpaceStretchTextBox.setScrollFactor(0, 0);
+        hintTextBox.setScrollFactor(0, 0);
 
         const scriptLayer = map.getObjectLayer('script')
         console.log('scriptLayer.objects', scriptLayer.objects);
@@ -197,10 +197,12 @@ export class GymRoomScene extends Phaser.Scene {
                 // and enable on exit on outer edge collider
                 if (!set.has(object.name)) {
                     sceneToGoOnXclick = object.name;
-                    playSpaceStretchTextBox.start(`clik X to play ${object.name} 🚀`, 50);
-                    setTimeout(() => {
-                        playSpaceStretchTextBox.start("🤖", 50);
-                    }, 5000);
+                    hintTextBox.start(`clik X to play ${object.name} 🚀`, 50);
+                    // setTimeout(() => {
+                    //     if (hintTextBox) {
+                    //         hintTextBox.start("🤖", 50);
+                    //     }
+                    // }, 5000);
                     set.add(object.name);
                 }
             }, null, this);

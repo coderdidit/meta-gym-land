@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Phaser from "phaser";
 import { IonPhaser } from "@ion-phaser/react";
 import { GymRoomScene } from "./GymRoomScene";
+import { SpaceStretchcene } from "./SpaceStretchScene";
 import { BootScene } from "./BootScene";
 import UIPlugin from 'phaser3-rex-plugins/templates/ui/ui-plugin.js';
 
@@ -21,7 +22,7 @@ const setWidthAndHeight = () => {
 
 const getConfig = (mainScene) => {
     const [width, height] = setWidthAndHeight();
-    const Scenes = [BootScene, mainScene];
+    const Scenes = [BootScene, mainScene, SpaceStretchcene];
 
     return {
         type: Phaser.AUTO,

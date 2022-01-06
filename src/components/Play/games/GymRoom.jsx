@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import Phaser from "phaser";
 import { IonPhaser } from "@ion-phaser/react";
 import { GymRoomScene } from "./GymRoomScene";
+import { SpaceStretchcene } from "./SpaceStretchScene";
 import { BootScene } from "./BootScene";
 import { WebcamCtx } from "index";
 import PoseDetWebcam from "components/Webcam/PoseDetWebcam";
@@ -23,7 +24,7 @@ const setWidthAndHeight = () => {
 
 const getConfig = (mainScene) => {
     const [width, height] = setWidthAndHeight();
-    const Scenes = [BootScene, mainScene];
+    const Scenes = [BootScene, mainScene, SpaceStretchcene];
 
     return {
         type: Phaser.AUTO,
