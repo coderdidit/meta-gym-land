@@ -17,7 +17,7 @@ import { createTextBox } from "./utils/text";
 import { TextBox } from 'phaser3-rex-plugins/templates/ui/ui-components';
 import { debugCollisonBounds } from './utils/collision_debugger'
 
-const debugCollisons = true;
+const debugCollisons = false;
 
 const SceneConfig = {
     active: false,
@@ -29,6 +29,8 @@ const mapScale = 0.8;
 const tileMapSizing = 36;
 
 const set = new Set();
+
+const sceneToGoOnXclick = null;
 
 export class GymRoomScene extends Phaser.Scene {
     constructor() {
@@ -75,7 +77,10 @@ export class GymRoomScene extends Phaser.Scene {
 
         // collide with all walls
         wallsLayer.setScale(mapScale);
-        wallsLayer.setCollisionByExclusion([-1]);
+        // wallsLayer.setCollisionByExclusion([-1]);
+        wallsLayer.setCollisionByProperty({
+            collides: true
+        })
 
         const mat_sky = map.addTilesetImage(
             'mat_sky', // ? filename ?? name of the tileset in json file
@@ -153,8 +158,8 @@ export class GymRoomScene extends Phaser.Scene {
         setTimeout(() => {
 
             playSpaceStretchTextBox.start(
-                "🤖 Welcome 👋,\nchoose on which mat you wold like to stretch today", 50);
-        }, 3000);
+                "🤖\nWelcome 👋,\nchoose on which mat you wold like to stretch today", 50);
+        }, 2000);
 
         playSpaceStretchTextBox.setScrollFactor(0, 0);
 
@@ -166,16 +171,12 @@ export class GymRoomScene extends Phaser.Scene {
             // object.setScale(mapScale)
             let tmp = this.add.rectangle(x, y,
                 object.width * mapScale, object.height * mapScale).setOrigin(0)
-            tmp.properties = [
-                {
-                    "name": object.name
-                }
-            ]
-            this.add.text(
-                x,
-                y,
-                `${object.name}`,
-                { font: "16px Arial", fill: "#ffffff" })
+            tmp.properties = [{name: object.name}]
+            // this.add.text(
+            //     x,
+            //     y,
+            //     `${object.name}`,
+            //     { font: "16px Arial", fill: "#ffffff" })
             // .setOrigin((width / 5), (height * 0.02));
             // tmp.properties = object.properties.reduce(
             //     (obj, item) => Object.assign(obj, { [item.name]: item.value }), {}

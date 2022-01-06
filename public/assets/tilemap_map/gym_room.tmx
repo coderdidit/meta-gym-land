@@ -12,6 +12,16 @@
  </tileset>
  <tileset firstgid="25" name="gym_room_sqrs" tilewidth="36" tileheight="36" tilecount="25" columns="5">
   <image source="../tilemap_tiles/gym_room_sqrs.png" width="180" height="180"/>
+  <tile id="10">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+   </properties>
+  </tile>
+  <tile id="15">
+   <properties>
+    <property name="collides" type="bool" value="true"/>
+   </properties>
+  </tile>
  </tileset>
  <layer id="2" name="floor" width="50" height="40">
   <data encoding="csv">

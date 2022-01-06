@@ -22,7 +22,7 @@ export class Player extends Phaser.GameObjects.Sprite {
 
         // physics
         this.scene.physics.world.enable(this);
-        this.body.setCollideWorldBounds(true);
+        // this.body.setCollideWorldBounds(true);
 
         // input
         this.cursorKeys = scene.input.keyboard.createCursorKeys();
