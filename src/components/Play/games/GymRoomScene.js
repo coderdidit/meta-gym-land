@@ -30,7 +30,7 @@ const tileMapSizing = 36;
 
 const set = new Set();
 
-const sceneToGoOnXclick = null;
+let sceneToGoOnXclick = null;
 
 export class GymRoomScene extends Phaser.Scene {
     constructor() {
@@ -43,6 +43,14 @@ export class GymRoomScene extends Phaser.Scene {
     };
 
     create() {
+        // constrols
+        this.input.keyboard.on('keydown', (event) => {
+            const code = event.keyCode;
+            if (sceneToGoOnXclick && code == Phaser.Input.Keyboard.KeyCodes.X) {
+                alert(`x key pressed will go to ${sceneToGoOnXclick}`);
+            }
+        }, this);
+
         // Add layout
         const width = getGameWidth(this);
         const height = getGameHeight(this);
@@ -159,7 +167,7 @@ export class GymRoomScene extends Phaser.Scene {
 
             playSpaceStretchTextBox.start(
                 "🤖\nWelcome 👋,\nchoose on which mat you wold like to stretch today", 50);
-        }, 2000);
+        }, 1000);
 
         playSpaceStretchTextBox.setScrollFactor(0, 0);
 
@@ -171,7 +179,7 @@ export class GymRoomScene extends Phaser.Scene {
             // object.setScale(mapScale)
             let tmp = this.add.rectangle(x, y,
                 object.width * mapScale, object.height * mapScale).setOrigin(0)
-            tmp.properties = [{name: object.name}]
+            tmp.properties = [{ name: object.name }]
             // this.add.text(
             //     x,
             //     y,
@@ -188,6 +196,7 @@ export class GymRoomScene extends Phaser.Scene {
                 // check if it was triggered already, or disable collider on enter
                 // and enable on exit on outer edge collider
                 if (!set.has(object.name)) {
+                    sceneToGoOnXclick = object.name;
                     playSpaceStretchTextBox.start(`clik X to play ${object.name} 🚀`, 50);
                     setTimeout(() => {
                         playSpaceStretchTextBox.start("🤖", 50);
