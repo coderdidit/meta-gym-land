@@ -15,14 +15,14 @@ export const createTextBox = function (scene, x, y, config) {
         y: y,
         // with: 500,
         background: scene.rexUI.add.roundRectangle(0, 0, 2, 2, 20, COLOR_PRIMARY)
-            .setStrokeStyle(2, COLOR_LIGHT),
+            .setStrokeStyle(4, COLOR_LIGHT),
 
         // icon: scene.rexUI.add.roundRectangle(0, 0, 2, 2, 20, COLOR_DARK),
 
         // text: getBuiltInText(scene, wrapWidth, fixedWidth, fixedHeight),
         text: getBBcodeText(scene, wrapWidth, fixedWidth, fixedHeight),
 
-        action: scene.add.image(0, 0, 'nextPage').setTint(COLOR_LIGHT).setVisible(false),
+        // action: scene.add.image(0, 0, 'nextPage').setTint(COLOR_LIGHT).setVisible(false),
         // draggable: true,
         space: {
             left: 10,
@@ -34,38 +34,38 @@ export const createTextBox = function (scene, x, y, config) {
         }
     })
         .setOrigin(0)
-        // .setScale(0.5)
         .layout();
 
-    textBox
-        .setInteractive()
-        .on('pointerdown', function () {
-            alert('I will take us to next mini game scene!!!');
-            var icon = this.getElement('action').setVisible(false);
-            this.resetChildVisibleState(icon);
-            if (this.isTyping) {
-                this.stop(true);
-            } else {
-                this.typeNextPage();
-            }
-        }, textBox)
-        .on('pageend', function () {
-            if (this.isLastPage) {
-                return;
-            }
+    // textBox
+    //     .setInteractive()
+    //     .on('pointerdown', function () {
+    //         alert('I will take us to next mini game scene!!!');
+    //         var icon = this.getElement('action').setVisible(false);
+    //         this.resetChildVisibleState(icon);
+    //         if (this.isTyping) {
+    //             this.stop(true);
+    //         } else {
+    //             this.typeNextPage();
+    //         }
+    //     }, textBox)
+        
+        // .on('pageend', function () {
+        //     if (this.isLastPage) {
+        //         return;
+        //     }
 
-            var icon = this.getElement('action').setVisible(true);
-            this.resetChildVisibleState(icon);
-            icon.y -= 30;
-            var tween = scene.tweens.add({
-                targets: icon,
-                y: '+=30', // '+=100'
-                ease: 'Bounce', // 'Cubic', 'Elastic', 'Bounce', 'Back'
-                duration: 500,
-                repeat: 0, // -1: infinity
-                yoyo: false
-            });
-        }, textBox)
+        //     var icon = this.getElement('action').setVisible(true);
+        //     this.resetChildVisibleState(icon);
+        //     icon.y -= 30;
+        //     var tween = scene.tweens.add({
+        //         targets: icon,
+        //         y: '+=30', // '+=100'
+        //         ease: 'Bounce', // 'Cubic', 'Elastic', 'Bounce', 'Back'
+        //         duration: 500,
+        //         repeat: 0, // -1: infinity
+        //         yoyo: false
+        //     });
+        // }, textBox)
     //.on('type', function () {
     //})
 
@@ -87,18 +87,18 @@ const getBBcodeText = function (scene, wrapWidth, fixedWidth, fixedHeight) {
     return scene.rexUI.add.BBCodeText(0, 0, '', {
         fixedWidth: fixedWidth,
         fixedHeight: fixedHeight,
-        align: 'center',
+        align: 'left',
         fontSize: '18px',
         wrap: {
             mode: 'word',
             width: wrapWidth
         },
         padding: {
-            left: 20,
-            right: 0,
-            top: 0,
-            bottom: 0
+            left: 10,
+            right: 10,
+            top: 10,
+            bottom: 10
         },
-        maxLines: 3
+        maxLines: 5
     })
 }

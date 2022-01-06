@@ -25,7 +25,7 @@ const SceneConfig = {
     key: GYM_ROOM_SCENE,
 };
 
-const mapScale = 0.58;
+const mapScale = 0.8;
 const tileMapSizing = 36;
 
 const set = new Set();
@@ -114,7 +114,7 @@ export class GymRoomScene extends Phaser.Scene {
         // back btn   
         // uncomment if you want to have sound on exit
         // this.back = this.sound.add(CLICK, { loop: false });
-        this.createBackButton();
+        // this.createBackButton();
 
         // Add a player sprite that can be moved around.
         // this.playerContainer = this.add.container(
@@ -140,17 +140,21 @@ export class GymRoomScene extends Phaser.Scene {
 
         // text
         const playSpaceStretchTextBox = createTextBox(this,
-            (width / 2) - width * 0.1, height - 100,
+            // (width / 2) - width * 0.1, height - 100,
+            (width / 2) + width / 4, height * 0.025,
             {
-                // wrapWidth: 200,
+                wrapWidth: 280,
                 // fixedWidth: 300,
             }
         )
 
         playSpaceStretchTextBox.setDepth(1);
+        playSpaceStretchTextBox.start("🤖", 50);
+        setTimeout(() => {
 
-        playSpaceStretchTextBox.start(
-            "Welcome,\nchoose on which mat you wold like to stretch today", 50);
+            playSpaceStretchTextBox.start(
+                "🤖 Welcome 👋,\nchoose on which mat you wold like to stretch today", 50);
+        }, 3000);
 
         playSpaceStretchTextBox.setScrollFactor(0, 0);
 
@@ -185,7 +189,7 @@ export class GymRoomScene extends Phaser.Scene {
                 if (!set.has(object.name)) {
                     playSpaceStretchTextBox.start(`clik X to play ${object.name} 🚀`, 50);
                     setTimeout(() => {
-                        playSpaceStretchTextBox.start("...", 50);
+                        playSpaceStretchTextBox.start("🤖", 50);
                     }, 5000);
                     set.add(object.name);
                 }
