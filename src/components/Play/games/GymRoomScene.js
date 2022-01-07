@@ -49,7 +49,6 @@ export class GymRoomScene extends Phaser.Scene {
         this.input.keyboard.on('keydown', (event) => {
             const code = event.keyCode;
             if (sceneToGoOnXclick && code == Phaser.Input.Keyboard.KeyCodes.X) {
-                // alert(`x key pressed will go to ${sceneToGoOnXclick}`);
                 this.scene.start(sceneToGoOnXclick);
             }
         }, this);
