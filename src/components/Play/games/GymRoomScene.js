@@ -52,7 +52,7 @@ export class GymRoomScene extends Phaser.Scene {
             const code = event.keyCode;
             if (sceneToGoOnXclick && code == Phaser.Input.Keyboard.KeyCodes.X) {
                 this.scene.start(sceneToGoOnXclick);
-                clearTimeout(roboTextTimeout);
+                if (roboTextTimeout) clearTimeout(roboTextTimeout);
             }
         }, this);
 
@@ -172,7 +172,6 @@ export class GymRoomScene extends Phaser.Scene {
 
         // text
         const hintTextBox = createTextBox(this,
-            // (width / 2) - width * 0.1, height - 100,
             (width / 2) + width / 4, height * 0.025,
             {
                 wrapWidth: 280,
@@ -218,11 +217,16 @@ export class GymRoomScene extends Phaser.Scene {
                 if (!set.has(object.name)) {
                     sceneToGoOnXclick = object.name;
                     hintTextBox.start(`🤖 press X to play ${object.name} 🚀`, 50);
-                    roboTextTimeout = setTimeout(() => {
-                        if (hintTextBox.scene) {
-                            hintTextBox.start("🤖", 50);
-                        }
-                    }, 5000);
+                    
+                    // this throws error at this point
+                    // roboTextTimeout = setTimeout(() => {
+                    //     console.log('hintTextBox.scene', hintTextBox.scene, this)
+                    //     console.log('hintTextBox.scene this', this)
+                    //     if (hintTextBox.scene) {
+                    //         hintTextBox.start("🤖", 50);
+                    //     }
+                    // }, 5000);
+
                     set.add(object.name);
                 } else {
                     // clear others
