@@ -182,7 +182,7 @@ export class GymRoomScene extends Phaser.Scene {
         hintTextBox.start("🤖", 50);
         setTimeout(() => {
             hintTextBox.start(
-                `🤖\nWelcome 👋,
+                `🤖 Welcome 👋,
                 \ngo to the MetaGym
                 \nand do some stretches 💪
                 `, 50);

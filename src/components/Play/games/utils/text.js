@@ -78,7 +78,7 @@ const getBuiltInText = function (scene, wrapWidth, fixedWidth, fixedHeight) {
         wordWrap: {
             width: wrapWidth
         },
-        maxLines: 3
+        maxLines: 10
     })
         .setFixedSize(fixedWidth, fixedHeight);
 }
@@ -99,6 +99,6 @@ const getBBcodeText = function (scene, wrapWidth, fixedWidth, fixedHeight) {
             top: 10,
             bottom: 10
         },
-        maxLines: 5
+        maxLines: 10
     })
 }
