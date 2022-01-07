@@ -29,8 +29,6 @@ export class BootScene extends Phaser.Scene {
         // Construct progress bar
         this.createProgressBar();
 
-        this.load.image('nextPage', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/assets/images/arrow-down-left.png');
-
         // Construct avatar game object from registry
         this.selectedAvatar = this.game.registry.values.avatar;
 
