@@ -25,6 +25,15 @@ export class FlyFitScene extends Phaser.Scene {
     };
 
     create() {
+        this.cameras.main.backgroundColor.setTo(255, 255, 255);
+        // constrols
+        this.input.keyboard.on('keydown', (event) => {
+            const code = event.keyCode;
+            if (code == Phaser.Input.Keyboard.KeyCodes.ESC) {
+                this.scene.start(GYM_ROOM_SCENE);
+            }
+        }, this);
+
         // Add layout
         const width = getGameWidth(this);
         const height = getGameHeight(this);
@@ -40,14 +49,15 @@ export class FlyFitScene extends Phaser.Scene {
         const infoText = this.add.text(
             width / 2,
             (height / 2) - height * .2,
-            `Welcome to ${FLY_FIT_SCENE}`,
+            `Welcome to ${FLY_FIT_SCENE}
+            \n press ESC to go back`,
             textStyle
         )
         infoText.setOrigin(0.5)
         infoText.setShadow(3, 3, 'rgba(0,0,0,0.2)', 2);
 
         // back
-        this.createBackButton();
+        // this.createBackButton();
 
         // hint
         // hint
