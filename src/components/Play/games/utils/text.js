@@ -16,15 +16,8 @@ export const createTextBox = function (scene, x, y, config) {
     const tBoxCfg = {
         x: x,
         y: y,
-        // with: 500,
         background: getRoundRectangle(scene),
-
-        // icon: scene.rexUI.add.roundRectangle(0, 0, 2, 2, 20, COLOR_DARK),
-
-        // text: getBuiltInText(scene, wrapWidth, fixedWidth, fixedHeight),
         text: getBBcodeText(scene, wrapWidth, fixedWidth, fixedHeight),
-
-        // action: scene.add.image(0, 0, 'nextPage').setTint(COLOR_LIGHT).setVisible(false),
         // draggable: true,
         space: {
             left: 10,
@@ -38,52 +31,7 @@ export const createTextBox = function (scene, x, y, config) {
     const textBox = new TextBox(scene, tBoxCfg);
     scene.add.existing(textBox);
     textBox.setOrigin(0).layout();
-
-    // textBox
-    //     .setInteractive()
-    //     .on('pointerdown', function () {
-    //         alert('I will take us to next mini game scene!!!');
-    //         var icon = this.getElement('action').setVisible(false);
-    //         this.resetChildVisibleState(icon);
-    //         if (this.isTyping) {
-    //             this.stop(true);
-    //         } else {
-    //             this.typeNextPage();
-    //         }
-    //     }, textBox)
-
-    // .on('pageend', function () {
-    //     if (this.isLastPage) {
-    //         return;
-    //     }
-
-    //     var icon = this.getElement('action').setVisible(true);
-    //     this.resetChildVisibleState(icon);
-    //     icon.y -= 30;
-    //     var tween = scene.tweens.add({
-    //         targets: icon,
-    //         y: '+=30', // '+=100'
-    //         ease: 'Bounce', // 'Cubic', 'Elastic', 'Bounce', 'Back'
-    //         duration: 500,
-    //         repeat: 0, // -1: infinity
-    //         yoyo: false
-    //     });
-    // }, textBox)
-    //.on('type', function () {
-    //})
-
     return textBox;
-}
-const getBuiltInText = function (scene, wrapWidth, fixedWidth, fixedHeight) {
-    return scene.add.text(0, 0, '', {
-        align: 'center',
-        fontSize: '18px',
-        wordWrap: {
-            width: wrapWidth
-        },
-        maxLines: 10
-    })
-        .setFixedSize(fixedWidth, fixedHeight);
 }
 
 const getRoundRectangle = function (scene) {
