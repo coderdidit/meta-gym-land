@@ -1,4 +1,5 @@
 import Phaser from "phaser";
+import { TextBox, BBCodeText, RoundRectangle } from 'phaser3-rex-plugins/templates/ui/ui-components';
 
 const COLOR_PRIMARY = 0x4e342e;
 const COLOR_LIGHT = 0x7b5e57;
@@ -10,12 +11,13 @@ export const createTextBox = function (scene, x, y, config) {
     var wrapWidth = GetValue(config, 'wrapWidth', 0);
     var fixedWidth = GetValue(config, 'fixedWidth', 0);
     var fixedHeight = GetValue(config, 'fixedHeight', 0);
-    var textBox = scene.rexUI.add.textBox({
+
+
+    const tBoxCfg = {
         x: x,
         y: y,
         // with: 500,
-        background: scene.rexUI.add.roundRectangle(0, 0, 2, 2, 20, COLOR_PRIMARY)
-            .setStrokeStyle(4, COLOR_LIGHT),
+        background: getRoundRectangle(scene),
 
         // icon: scene.rexUI.add.roundRectangle(0, 0, 2, 2, 20, COLOR_DARK),
 
@@ -32,9 +34,10 @@ export const createTextBox = function (scene, x, y, config) {
             icon: 0,
             text: 10,
         }
-    })
-        .setOrigin(0)
-        .layout();
+    }
+    const textBox = new TextBox(scene, tBoxCfg);
+    scene.add.existing(textBox);
+    textBox.setOrigin(0).layout();
 
     // textBox
     //     .setInteractive()
@@ -83,8 +86,15 @@ const getBuiltInText = function (scene, wrapWidth, fixedWidth, fixedHeight) {
         .setFixedSize(fixedWidth, fixedHeight);
 }
 
+const getRoundRectangle = function (scene) {
+    const rect = new RoundRectangle(scene, 0, 0, 2, 2, 20, COLOR_PRIMARY);
+    rect.setStrokeStyle(4, COLOR_LIGHT);
+    scene.add.existing(rect);
+    return rect;
+};
+
 const getBBcodeText = function (scene, wrapWidth, fixedWidth, fixedHeight) {
-    return scene.rexUI.add.BBCodeText(0, 0, '', {
+    const bbTextCfg = {
         fixedWidth: fixedWidth,
         fixedHeight: fixedHeight,
         align: 'left',
@@ -100,5 +110,8 @@ const getBBcodeText = function (scene, wrapWidth, fixedWidth, fixedHeight) {
             bottom: 10
         },
         maxLines: 10
-    })
+    }
+    const txt = new BBCodeText(scene, 0, 0, '', bbTextCfg);
+    scene.add.existing(txt);
+    return txt;
 }
