@@ -9,6 +9,7 @@ import {
     GYM_ROOM_TILES,
     GYM_ROOM_MAT_SKY,
     GYM_ROOM_MAT_SPACE,
+    CONCRETE_BG,
 
     GYM_ROOM_DANGEON_MAP,
     GYM_ROOM_DANGEON_TILES,
@@ -25,7 +26,7 @@ const SceneConfig = {
     key: GYM_ROOM_SCENE,
 };
 
-const mapScale = 0.8;
+const mapScale = 0.6;
 const tileMapSizing = 36;
 
 const set = new Set();
@@ -43,6 +44,7 @@ export class GymRoomScene extends Phaser.Scene {
     };
 
     create() {
+        this.cameras.main.backgroundColor.setTo(179, 201, 217);
         // constrols
         this.input.keyboard.on('keydown', (event) => {
             const code = event.keyCode;
@@ -67,6 +69,13 @@ export class GymRoomScene extends Phaser.Scene {
             tileHeight: tileMapSizing,
         })
 
+        // const tileset_bg = map.addTilesetImage(
+        //     CONCRETE_BG, // ? filename ?? name of the tileset in json file
+        //     CONCRETE_BG, // key
+        //     tileMapSizing,
+        //     tileMapSizing
+        // );
+
         const tileset_main = map.addTilesetImage(
             'gym_room_sqrs', // ? filename ?? name of the tileset in json file
             GYM_ROOM_TILES, // key
@@ -74,7 +83,9 @@ export class GymRoomScene extends Phaser.Scene {
             tileMapSizing
         );
         const groundLayer = map
-            .createLayer('floor', tileset_main,
+            .createLayer('floor', [tileset_main,
+                // tileset_bg
+            ],
                 (width / 5), height * 0.02
             );
 
@@ -134,15 +145,20 @@ export class GymRoomScene extends Phaser.Scene {
         // this.playerContainer = this.add.container(
         //     // (width / 5), (height * 0.02)
         // );
+
+        const playerObjLayer = map.getObjectLayer('player')
         this.player = new Player({
             scene: this,
-            x: width / 2,
-            y: height / 2,
+            x: playerObjLayer.objects[0].x * mapScale,
+            y: playerObjLayer.objects[0].y * mapScale,
             key: PLAYER_KEY,
         });
         // this.player
         this.player.setScale(PLAYER_SCALE);
         this.player.setDepth(1);
+
+        // Phaser.Display.Align.In.BottomCenter(this.player);
+
         // const text = this.add.text(0, 0, "Some text", { font: "16px Arial", fill: "#ffffff" });
 
         // this.playerContainer.add([text]);

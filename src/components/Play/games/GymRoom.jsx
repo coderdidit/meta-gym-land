@@ -57,7 +57,7 @@ const getConfig = (mainScene) => {
         //     noAudio: true
         // },
         render: {
-            // pixelArt: true
+            pixelArt: true
         },
         fps: {
             target: 60,
