@@ -48,9 +48,7 @@ const getConfig = (mainScene) => {
                 key: 'rexUI',
                 plugin: UIPlugin,
                 mapping: 'rexUI'
-            },
-                // ...
-            ]
+            }]
         },
         scene: Scenes,
         // audio: {

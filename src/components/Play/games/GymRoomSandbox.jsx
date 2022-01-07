@@ -42,19 +42,12 @@ const getConfig = (mainScene) => {
             width,
             height,
         },
-        // plugins: {
-        //     scene: [
-        //         { key: 'dialog', plugin: Dialog, mapping: 'dialog' }
-        //     ]
-        // },
         plugins: {
             scene: [{
                 key: 'rexUI',
                 plugin: UIPlugin,
                 mapping: 'rexUI'
-            },
-                // ...
-            ]
+            }]
         },
         scene: Scenes,
         // audio: {
