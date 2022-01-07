@@ -9,12 +9,16 @@ import { BootScene } from "./BootScene";
 import { WebcamCtx } from "index";
 import PoseDetWebcam from "components/Webcam/PoseDetWebcam";
 import UIPlugin from 'phaser3-rex-plugins/templates/ui/ui-plugin.js';
+import { MGLSmallLogo } from "Logos";
+import { SettingFilled } from "@ant-design/icons";
+import { Link } from "react-router-dom";
 
 const menuHeight = 60;
 
 const setWidthAndHeight = () => {
     let width = window.innerWidth;
-    let height = width / 1.778;
+    // let height = width / 1.778;
+    let height = window.innerHeight;
 
     if (height > window.innerHeight) {
         height = window.innerHeight;
@@ -100,9 +104,48 @@ const GymRoom = ({ avatar, useWebcam = true }) => {
         game={config}
         id="phaser-app"
         style={{
-            marginTop: "-40px",
+            position: "absolute",
+            top: "0px",
+            bottom: "0px",
+            width: "100%",
+            height: "100%",
+            zIndex: "1",
         }}
     >
+        {/* side menu */}
+        <div
+            style={{
+                width: "60px",
+                padding: "1rem",
+                height: "100%",
+                position: "fixed",
+                left: "0",
+                top: "0",
+                backgroundColor: "#003962",
+            }}
+        >
+            <div style={{
+                width: "inherit",
+                marginLeft: "-5px",
+                marginBottom: "1rem",
+            }}>
+                <Link to="/">
+                    <MGLSmallLogo
+                        width={"35"}
+                        height={"35"}
+                        viewBox={"0 0 16 16"}
+                    />
+                </Link>
+            </div>
+            <div>
+                <Link to="/play-setup">
+                    <SettingFilled style={{
+                        fontSize: "22px",
+                        color: "#FFF",
+                    }} />
+                </Link>
+            </div>
+        </div>
         {useWebcam && (<div style={{
             position: "fixed",
             top: "1%",
