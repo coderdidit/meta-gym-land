@@ -182,7 +182,10 @@ export class GymRoomScene extends Phaser.Scene {
         hintTextBox.start("🤖", 50);
         setTimeout(() => {
             hintTextBox.start(
-                "🤖\nWelcome 👋,\nchoose on which mat you wold like to stretch today", 50);
+                `🤖\nWelcome 👋,
+                \ngo to the MetaGym
+                \nand do some stretches 💪
+                `, 50);
         }, 1000);
 
         hintTextBox.setScrollFactor(0, 0);
