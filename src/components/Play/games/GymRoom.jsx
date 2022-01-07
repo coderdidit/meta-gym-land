@@ -103,14 +103,14 @@ const GymRoom = ({ avatar, useWebcam = true }) => {
             marginTop: "-40px",
         }}
     >
-        <div style={{
+        {useWebcam && (<div style={{
             position: "fixed",
             top: "1%",
             left: "45%",
             width: "220px",
             height: "auto",
         }} >
-            {useWebcam && (<PoseDetWebcam
+            <PoseDetWebcam
                 sizeProps={{
                     width: "100%",
                     height: "auto",
@@ -118,8 +118,8 @@ const GymRoom = ({ avatar, useWebcam = true }) => {
                 styleProps={{
                     boxShadow: "0 0 10px 2px #202020",
                 }}
-            />)}
-        </div>
+            />
+        </div>)}
     </IonPhaser>);
 };
 

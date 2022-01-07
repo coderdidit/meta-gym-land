@@ -48,24 +48,24 @@ export const createTextBox = function (scene, x, y, config) {
     //             this.typeNextPage();
     //         }
     //     }, textBox)
-        
-        // .on('pageend', function () {
-        //     if (this.isLastPage) {
-        //         return;
-        //     }
 
-        //     var icon = this.getElement('action').setVisible(true);
-        //     this.resetChildVisibleState(icon);
-        //     icon.y -= 30;
-        //     var tween = scene.tweens.add({
-        //         targets: icon,
-        //         y: '+=30', // '+=100'
-        //         ease: 'Bounce', // 'Cubic', 'Elastic', 'Bounce', 'Back'
-        //         duration: 500,
-        //         repeat: 0, // -1: infinity
-        //         yoyo: false
-        //     });
-        // }, textBox)
+    // .on('pageend', function () {
+    //     if (this.isLastPage) {
+    //         return;
+    //     }
+
+    //     var icon = this.getElement('action').setVisible(true);
+    //     this.resetChildVisibleState(icon);
+    //     icon.y -= 30;
+    //     var tween = scene.tweens.add({
+    //         targets: icon,
+    //         y: '+=30', // '+=100'
+    //         ease: 'Bounce', // 'Cubic', 'Elastic', 'Bounce', 'Back'
+    //         duration: 500,
+    //         repeat: 0, // -1: infinity
+    //         yoyo: false
+    //     });
+    // }, textBox)
     //.on('type', function () {
     //})
 
