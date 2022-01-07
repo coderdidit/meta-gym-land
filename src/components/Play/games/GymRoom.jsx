@@ -63,7 +63,7 @@ const getConfig = (mainScene) => {
     }
 }
 
-const GymRoom = ({ avatar }) => {
+const GymRoom = ({ avatar, useWebcam = true }) => {
     console.log('GymRoom avatar', avatar);
     // run game
     const [initialised, setInitialised] = useState(true);
@@ -110,7 +110,7 @@ const GymRoom = ({ avatar }) => {
             width: "220px",
             height: "auto",
         }} >
-            <PoseDetWebcam
+            {useWebcam && (<PoseDetWebcam
                 sizeProps={{
                     width: "100%",
                     height: "auto",
@@ -118,7 +118,7 @@ const GymRoom = ({ avatar }) => {
                 styleProps={{
                     boxShadow: "0 0 10px 2px #202020",
                 }}
-            />
+            />)}
         </div>
     </IonPhaser>);
 };
