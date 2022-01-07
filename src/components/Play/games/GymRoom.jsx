@@ -8,7 +8,6 @@ import { CosmicCardioScene } from "./CosmicCardioScene";
 import { BootScene } from "./BootScene";
 import { WebcamCtx } from "index";
 import PoseDetWebcam from "components/Webcam/PoseDetWebcam";
-import UIPlugin from 'phaser3-rex-plugins/templates/ui/ui-plugin.js';
 import { MGLSmallLogo } from "Logos";
 import { SettingFilled } from "@ant-design/icons";
 import { Link } from "react-router-dom";
@@ -46,13 +45,6 @@ const getConfig = (mainScene) => {
             mode: Phaser.Scale.NONE,
             width,
             height,
-        },
-        plugins: {
-            scene: [{
-                key: 'rexUI',
-                plugin: UIPlugin,
-                mapping: 'rexUI'
-            }]
         },
         scene: Scenes,
         // audio: {
