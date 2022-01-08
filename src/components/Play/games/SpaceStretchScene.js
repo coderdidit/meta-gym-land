@@ -168,15 +168,5 @@ export class SpaceStretchScene extends Phaser.Scene {
     update(time, delta) {
         // Every frame, we update the player
         this.player?.update();
-
-        // bg update
-        // this.shapes.forEach(function (shape, i) {
-        //     shape.x += (1 + 0.1 * i);
-        //     shape.y += (1 + 0.1 * i);
-        // });
-
-        // Phaser.Actions.WrapInRectangle(this.shapes, this.rect, 72);
-
-        // this.draw();
     }
 }
