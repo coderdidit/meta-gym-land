@@ -1,62 +1,61 @@
-import Phaser from 'phaser'
-import { getGameWidth, getGameHeight, getRelative } from './helpers'
-import { Player } from './objects'
-import { PLAYER_KEY, PLAYER_SCALE, GYM_ROOM_SCENE } from './shared'
+import Phaser from 'phaser';
+import { getGameWidth, getGameHeight } from './helpers';
+import { Player } from './objects';
+import { PLAYER_KEY, PLAYER_SCALE, GYM_ROOM_SCENE } from './shared';
 import {
-  BACK_ARROW,
   GYM_ROOM_MAP,
   GYM_ROOM_TILES,
   GYM_ROOM_MAT_SKY,
   GYM_ROOM_MAT_SPACE
-} from './assets'
-import { createTextBox } from './utils/text'
-import { debugCollisonBounds } from './utils/collision_debugger'
+} from './assets';
+import { createTextBox } from './utils/text';
+import { debugCollisonBounds } from './utils/collision_debugger';
 
-const debugCollisons = false
+const debugCollisons = false;
 
 const SceneConfig = {
   active: false,
   visible: false,
   key: GYM_ROOM_SCENE
-}
+};
 
-const mapScale = 0.6
-const tileMapSizing = 36
+const mapScale = 0.6;
+const tileMapSizing = 36;
 
-const miniGamesOverlaps = new Set()
+const miniGamesOverlaps = new Set();
 const miniGamesMapping = new Map([
   ['space_stretch', 'Space Stretch'],
   ['fly_fit', 'Fly Fit'],
   ['cosmic_cardio', 'Cosmic Cardio']
-])
+]);
 
-let sceneToGoOnXclick = null
-const miniGames = Array.from(miniGamesMapping.keys())
-const roboTextTimeouts = []
+let sceneToGoOnXclick = null;
+const miniGames = Array.from(miniGamesMapping.keys());
+const roboTextTimeouts = [];
 
 export class GymRoomScene extends Phaser.Scene {
   constructor() {
-    super(SceneConfig)
+    super(SceneConfig);
   }
 
   init = data => {
     this.selectedAvatar = data.selectedAvatar
-    console.log('selectedAvatar', this.selectedAvatar)
+    console.log('selectedAvatar', this.selectedAvatar);
   }
 
   create() {
     // basic props
-    const width = getGameWidth(this)
-    const height = getGameHeight(this)
-    this.cameras.main.backgroundColor.setTo(179, 201, 217)
+    const width = getGameWidth(this);
+    const height = getGameHeight(this);
+    this.cameras.main.backgroundColor.setTo(179, 201, 217);
     // constrols
     this.input.keyboard.on(
       'keydown',
       event => {
         const code = event.keyCode
         if (sceneToGoOnXclick && code == Phaser.Input.Keyboard.KeyCodes.X) {
-          roboTextTimeouts.forEach(t => clearTimeout(t))
-          this.scene.start(sceneToGoOnXclick)
+          roboTextTimeouts.forEach(t => clearTimeout(t));
+          this.scene.start(sceneToGoOnXclick);
         }
       },
       this
@@ -66,14 +65,14 @@ export class GymRoomScene extends Phaser.Scene {
       key: GYM_ROOM_MAP,
       tileWidth: tileMapSizing,
       tileHeight: tileMapSizing
-    })
+    });
 
     const tileset_main = map.addTilesetImage(
       'gym_room_sqrs', // ? filename ?? name of the tileset in json file
       GYM_ROOM_TILES, // key
       tileMapSizing,
       tileMapSizing
-    )
+    );
     const groundLayer = map.createLayer(
       'floor',
       [
@@ -82,58 +81,55 @@ export class GymRoomScene extends Phaser.Scene {
       ],
       width / 5,
       height * 0.02
-    )
+    );
 
     const wallsLayer = map.createLayer(
       'walls',
       tileset_main,
       width / 5,
       height * 0.02
-    )
-    groundLayer.setScale(mapScale)
-
-    wallsLayer.setScale(mapScale)
-    // collide with all walls
-    // wallsLayer.setCollisionByExclusion([-1]);
+    );
+    groundLayer.setScale(mapScale);
+    wallsLayer.setScale(mapScale);
     wallsLayer.setCollisionByProperty({
       collides: true
-    })
+    });
 
     const mat_sky = map.addTilesetImage(
       'mat_sky', // ? filename ?? name of the tileset in json file
       GYM_ROOM_MAT_SKY, // key
       tileMapSizing,
       tileMapSizing
-    )
+    );
 
     const mat_space = map.addTilesetImage(
       'mat_space', // ? filename ?? name of the tileset in json file
       GYM_ROOM_MAT_SPACE, // key
       tileMapSizing,
       tileMapSizing
-    )
+    );
 
     const itemsLayer = map.createLayer(
       'items',
       [tileset_main, mat_sky, mat_space],
       width / 5,
       height * 0.02
-    )
-    itemsLayer.setScale(mapScale)
+    );
+    itemsLayer.setScale(mapScale);
 
-    const playerObjLayer = map.getObjectLayer('player')
+    const playerObjLayer = map.getObjectLayer('player');
     this.player = new Player({
       scene: this,
       x: playerObjLayer.objects[0].x * mapScale,
       y: playerObjLayer.objects[0].y * mapScale,
       key: PLAYER_KEY
-    })
-    this.player.setScale(PLAYER_SCALE)
-    this.player.setDepth(1)
-    this.cameras.main.startFollow(this.player)
+    });
+    this.player.setScale(PLAYER_SCALE);
+    this.player.setDepth(1);
+    this.cameras.main.startFollow(this.player);
 
     // colliders
-    this.physics.add.collider(this.player, wallsLayer)
+    this.physics.add.collider(this.player, wallsLayer);
 
     // text
     const hintTextBox = createTextBox(
@@ -141,10 +137,10 @@ export class GymRoomScene extends Phaser.Scene {
       width / 2 + width / 4,
       height * 0.025,
       { wrapWidth: 280 }
-    )
+    );
 
-    hintTextBox.setDepth(1)
-    hintTextBox.start('🤖', 50)
+    hintTextBox.setDepth(1);
+    hintTextBox.start('🤖', 50);
     roboTextTimeouts.push(
       setTimeout(() => {
         hintTextBox.start(
@@ -155,11 +151,11 @@ export class GymRoomScene extends Phaser.Scene {
           30
         )
       }, 1000)
-    )
-    hintTextBox.setScrollFactor(0, 0)
+    );
+    hintTextBox.setScrollFactor(0, 0);
 
-    const scriptLayer = map.getObjectLayer('script')
-    console.log('scriptLayer.objects', scriptLayer.objects)
+    const scriptLayer = map.getObjectLayer('script');
+    console.log('scriptLayer.objects', scriptLayer.objects);
     scriptLayer.objects.forEach(object => {
       const x = object.x * mapScale + width / 5
       const y = object.y * mapScale + height * 0.02
@@ -192,8 +188,8 @@ export class GymRoomScene extends Phaser.Scene {
         },
         null,
         this
-      )
-    })
+      );
+    });
 
     // debugging
     if (debugCollisons) {

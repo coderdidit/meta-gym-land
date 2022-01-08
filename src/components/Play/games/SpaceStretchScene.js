@@ -1,7 +1,10 @@
 import Phaser from "phaser";
 import { getGameWidth, getGameHeight } from "./helpers";
 import { Player } from "./objects";
-import { PLAYER_KEY, PLAYER_SCALE, GYM_ROOM_SCENE, SPACE_STRETCH_SCENE } from "./shared";
+import {
+    PLAYER_KEY, PLAYER_SCALE,
+    GYM_ROOM_SCENE, SPACE_STRETCH_SCENE
+} from "./shared";
 import { createTextBox } from "./utils/text";
 import {
     ASTEROIDS,
