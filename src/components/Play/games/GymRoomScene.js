@@ -173,10 +173,7 @@ export class GymRoomScene extends Phaser.Scene {
         // text
         const hintTextBox = createTextBox(this,
             (width / 2) + width / 4, height * 0.025,
-            {
-                wrapWidth: 280,
-                // fixedWidth: 300,
-            }
+            { wrapWidth: 280 }
         )
 
         hintTextBox.setDepth(1);
@@ -217,16 +214,8 @@ export class GymRoomScene extends Phaser.Scene {
                 if (!set.has(object.name)) {
                     sceneToGoOnXclick = object.name;
                     hintTextBox.start(`🤖 press X to play ${object.name} 🚀`, 50);
-                    
-                    // this throws error at this point
-                    // roboTextTimeout = setTimeout(() => {
-                    //     console.log('hintTextBox.scene', hintTextBox.scene, this)
-                    //     console.log('hintTextBox.scene this', this)
-                    //     if (hintTextBox.scene) {
-                    //         hintTextBox.start("🤖", 50);
-                    //     }
-                    // }, 5000);
-
+                    roboTextTimeout = setTimeout(() => hintTextBox.start("🤖", 50),
+                        5000);
                     set.add(object.name);
                 } else {
                     // clear others
