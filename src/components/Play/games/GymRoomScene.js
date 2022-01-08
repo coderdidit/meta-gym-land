@@ -4,18 +4,12 @@ import { Player } from "./objects";
 import { PLAYER_KEY, PLAYER_SCALE, GYM_ROOM_SCENE } from "./shared";
 import {
     BACK_ARROW,
-    // BG,
     GYM_ROOM_MAP,
     GYM_ROOM_TILES,
     GYM_ROOM_MAT_SKY,
     GYM_ROOM_MAT_SPACE,
-    // CONCRETE_BG,
-
-    // GYM_ROOM_DANGEON_MAP,
-    // GYM_ROOM_DANGEON_TILES,
 } from "./assets";
 import { createTextBox } from "./utils/text";
-import { TextBox } from 'phaser3-rex-plugins/templates/ui/ui-components';
 import { debugCollisonBounds } from './utils/collision_debugger'
 
 const debugCollisons = false;

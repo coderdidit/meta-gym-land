@@ -89,17 +89,6 @@ export class CosmicCardioScene extends Phaser.Scene {
         this.player.setDepth(1);
     }
 
-    createBackButton = () => {
-        this.add
-            .image(getRelative(10, this), getRelative(24, this), BACK_ARROW)
-            .setOrigin(0)
-            .setInteractive({ useHandCursor: true })
-            .setDisplaySize(getRelative(54, this), getRelative(54, this))
-            .on("pointerdown", () => {
-                this.scene.start(GYM_ROOM_SCENE);
-            });
-    };
-
     update(time, delta) {
         // Every frame, we update the player
         this.player?.update();
