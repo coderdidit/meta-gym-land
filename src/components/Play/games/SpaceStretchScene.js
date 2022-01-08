@@ -11,6 +11,12 @@ const SceneConfig = {
     active: false,
     visible: false,
     key: SPACE_STRETCH_SCENE,
+    physics: {
+        default: 'arcade',
+        arcade: {
+            gravity: { y: 3000 }
+        }
+    }
 };
 
 const asteroidScale = 1;
