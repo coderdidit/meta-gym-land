@@ -1,15 +1,15 @@
-import Phaser from 'phaser';
-import { getGameWidth, getGameHeight } from './helpers';
-import { Player } from './objects';
-import { PLAYER_KEY, PLAYER_SCALE, GYM_ROOM_SCENE } from './shared';
+import Phaser from "phaser";
+import { getGameWidth, getGameHeight } from "./helpers";
+import { Player } from "./objects";
+import { PLAYER_KEY, PLAYER_SCALE, GYM_ROOM_SCENE } from "./shared";
 import {
   GYM_ROOM_MAP,
   GYM_ROOM_TILES,
   GYM_ROOM_MAT_SKY,
   GYM_ROOM_MAT_SPACE
-} from './assets';
-import { createTextBox } from './utils/text';
-import { debugCollisonBounds } from './utils/collision_debugger';
+} from "./assets";
+import { createTextBox } from "./utils/text";
+import { debugCollisonBounds } from "./utils/collision_debugger";
 
 const debugCollisons = false;
 
