@@ -125,7 +125,6 @@ export class GymRoomScene extends Phaser.Scene {
       height * 0.02
     );
     itemsLayer.setScale(mapScale);
-
     const resolvePlayerXY = () => {
       if (playerHasExitPos()) {
         return getMainRoomPlayerExitPos()
@@ -160,18 +159,19 @@ export class GymRoomScene extends Phaser.Scene {
     hintTextBox.setScrollFactor(0, 0);
     hintTextBox.start('🤖', 50);
 
-
-    roboTextTimeouts.push(
-      setTimeout(() => {
-        hintTextBox.start(
-          `🤖 Welcome 👋,
+    if (!playerHasExitPos()) {
+      roboTextTimeouts.push(
+        setTimeout(() => {
+          hintTextBox.start(
+            `🤖 Welcome 👋,
                 \ngo to the MetaGym
                 \nand do some stretches 💪
                 `,
-          30
-        )
-      }, 1000)
-    );
+            30
+          )
+        }, 1000)
+      );
+    }
 
     const scriptLayer = map.getObjectLayer('script');
     console.log('scriptLayer.objects', scriptLayer.objects);
