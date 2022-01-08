@@ -61,10 +61,10 @@ export class SpaceStretchScene extends Phaser.Scene {
         this.graphics = this.add.graphics();
         this.shapes = new Array(15).fill(null).map(
             () => new Phaser.Geom.Circle(
-                Phaser.Math.Between(0, width), 
-                Phaser.Math.Between(0, height), 
+                Phaser.Math.Between(0, width),
+                Phaser.Math.Between(0, height),
                 Phaser.Math.Between(1, 3)
-                ));
+            ));
         this.draw();
         // constrols
         this.input.keyboard.on('keydown', (event) => {
