@@ -2,6 +2,7 @@ import Phaser from "phaser";
 import { getGameWidth, getGameHeight } from "./helpers";
 import { Player } from "./objects";
 import { PLAYER_KEY, PLAYER_SCALE, GYM_ROOM_SCENE, SPACE_STRETCH_SCENE } from "./shared";
+import { createTextBox } from "./utils/text";
 import {
     ASTEROIDS,
 } from "./assets";
@@ -14,6 +15,11 @@ const SceneConfig = {
 
 const asteroidScale = 1;
 const maxAsteroidPlatformsCnt = 7;
+const textStyle = {
+    fontSize: '20px',
+    fill: '#fff',
+    fontFamily: 'Orbitron'
+}
 
 export class SpaceStretchScene extends Phaser.Scene {
     constructor() {
@@ -26,6 +32,8 @@ export class SpaceStretchScene extends Phaser.Scene {
     };
 
     create() {
+        // bg color
+        this.cameras.main.backgroundColor.setTo(31, 31, 30);
         // constrols
         this.input.keyboard.on('keydown', (event) => {
             const code = event.keyCode;
@@ -44,23 +52,22 @@ export class SpaceStretchScene extends Phaser.Scene {
         this.landingAcceleration = 2
 
         // openingText
-        const textStyle = {
-            fontSize: '20px',
-            fill: '#fff',
-            fontFamily: 'Orbitron'
-        }
-        this.add.text(
-            5,
-            5,
-            '🚀 Land on asteroids 🪨 and crush them 💥',
-            textStyle);
+        // hint
+        const hintTextBox = createTextBox(this,
+            (width / 2) + width / 4, height * 0.025,
+            { wrapWidth: 280 })
+        hintTextBox.setDepth(1);
+        hintTextBox.setScrollFactor(0, 0);
+        hintTextBox.start("🤖", 50);
+        setTimeout(() => {
+            hintTextBox.start(`🤖 Land 🚀 on asteroids 🪨\nand crush them 💥`, 50);
+            setTimeout(() => hintTextBox.start("🤖", 50), 5000);
+        }, 1500);
 
         // Add the scoreboard in
         this.scoreBoard = this.add.text(
-            this.physics.world.bounds.width - 145,
-            5,
-            "👨‍🚀 SCORE: 0",
-            textStyle);
+            width * 0.05, height * 0.015,
+            "SCORE: 0", textStyle);
 
         const asteroidGroupProps = {
             immovable: true,
@@ -100,7 +107,8 @@ export class SpaceStretchScene extends Phaser.Scene {
         // player
         this.player = new Player({
             scene: this,
-            x: Phaser.Math.Between(0, this.physics.world.bounds.width - 80),
+            x: Phaser.Math.Between(width * 0.1,
+                this.physics.world.bounds.width - 80),
             y: this.physics.world.bounds.height,
             key: PLAYER_KEY,
         });
@@ -114,7 +122,7 @@ export class SpaceStretchScene extends Phaser.Scene {
                 asteroids.setTint("0x33dd33")
                 asteroids.setImmovable(false)
                 asteroids.setVelocityY(600)
-                this.scoreBoard.setText(`👨‍🚀 Score: ${this.score}`)
+                this.scoreBoard.setText(`SCORE: ${this.score}`)
                 this.scoreBoard.setStyle(textStyle)
             }
         }
