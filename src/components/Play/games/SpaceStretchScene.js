@@ -37,9 +37,35 @@ export class SpaceStretchScene extends Phaser.Scene {
         console.log('selectedAvatar', this.selectedAvatar);
     };
 
+    color(i) {
+        return 0xffffff
+        // keeping for reference
+        // return 0x001100 * (i % 15) + 0x000033 * (i % 5);
+    }
+
+    draw() {
+        this.graphics.clear();
+        this.shapes.forEach((shape, i) => {
+            this.graphics
+                .fillStyle(this.color(i), 0.5)
+                .fillCircleShape(shape);
+        }, this);
+    }
+
     create() {
-        // bg color
+        // basic props
+        const width = getGameWidth(this);
+        const height = getGameHeight(this);
+        // background
         this.cameras.main.backgroundColor.setTo(31, 31, 30);
+        this.graphics = this.add.graphics();
+        this.shapes = new Array(15).fill(null).map(
+            () => new Phaser.Geom.Circle(
+                Phaser.Math.Between(0, width), 
+                Phaser.Math.Between(0, height), 
+                Phaser.Math.Between(1, 3)
+                ));
+        this.draw();
         // constrols
         this.input.keyboard.on('keydown', (event) => {
             const code = event.keyCode;
@@ -48,10 +74,6 @@ export class SpaceStretchScene extends Phaser.Scene {
                 this.scene.start(GYM_ROOM_SCENE);
             }
         }, this);
-
-        // basic props
-        const width = getGameWidth(this);
-        const height = getGameHeight(this);
 
         this.lastMovetime = Date.now()
         this.score = 0
@@ -146,5 +168,15 @@ export class SpaceStretchScene extends Phaser.Scene {
     update(time, delta) {
         // Every frame, we update the player
         this.player?.update();
+
+        // bg update
+        // this.shapes.forEach(function (shape, i) {
+        //     shape.x += (1 + 0.1 * i);
+        //     shape.y += (1 + 0.1 * i);
+        // });
+
+        // Phaser.Actions.WrapInRectangle(this.shapes, this.rect, 72);
+
+        // this.draw();
     }
 }
