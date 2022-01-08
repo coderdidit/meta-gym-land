@@ -33,7 +33,7 @@ const set = new Set();
 
 let sceneToGoOnXclick = null;
 const miniGames = ['space_stretch', 'fly_fit', 'cosmic_cardio'];
-let roboTextTimeout;
+const roboTextTimeouts = [];
 
 export class GymRoomScene extends Phaser.Scene {
     constructor() {
@@ -51,7 +51,7 @@ export class GymRoomScene extends Phaser.Scene {
         this.input.keyboard.on('keydown', (event) => {
             const code = event.keyCode;
             if (sceneToGoOnXclick && code == Phaser.Input.Keyboard.KeyCodes.X) {
-                if (roboTextTimeout) clearTimeout(roboTextTimeout);
+                roboTextTimeouts.forEach(t => clearTimeout(t));
                 this.scene.start(sceneToGoOnXclick);
             }
         }, this);
@@ -178,13 +178,13 @@ export class GymRoomScene extends Phaser.Scene {
 
         hintTextBox.setDepth(1);
         hintTextBox.start("🤖", 50);
-        setTimeout(() => {
+        roboTextTimeouts.push(setTimeout(() => {
             hintTextBox.start(
                 `🤖 Welcome 👋,
                 \ngo to the MetaGym
                 \nand do some stretches 💪
                 `, 50);
-        }, 1000);
+        }, 1000));
         hintTextBox.setScrollFactor(0, 0);
 
         const scriptLayer = map.getObjectLayer('script')
@@ -214,8 +214,8 @@ export class GymRoomScene extends Phaser.Scene {
                 if (!set.has(object.name)) {
                     sceneToGoOnXclick = object.name;
                     hintTextBox.start(`🤖 press X to play ${object.name} 🚀`, 50);
-                    roboTextTimeout = setTimeout(() => hintTextBox.start("🤖", 50),
-                        5000);
+                    roboTextTimeouts.push(setTimeout(() => hintTextBox.start("🤖", 50),
+                        5000));
                     set.add(object.name);
                 } else {
                     // clear others
