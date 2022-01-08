@@ -21,11 +21,11 @@ const SceneConfig = {
 
 const asteroidScale = 1;
 const maxAsteroidPlatformsCnt = 7;
-const textStyle = {
-    fontSize: '20px',
+const scoreBoardTextStyle = {
     fill: '#fff',
-    fontFamily: 'Orbitron'
+    font: '900 20px Orbitron',
 }
+const roboTextTimeouts = [];
 
 export class SpaceStretchScene extends Phaser.Scene {
     constructor() {
@@ -44,6 +44,7 @@ export class SpaceStretchScene extends Phaser.Scene {
         this.input.keyboard.on('keydown', (event) => {
             const code = event.keyCode;
             if (code == Phaser.Input.Keyboard.KeyCodes.ESC) {
+                roboTextTimeouts.forEach(t => clearTimeout(t));
                 this.scene.start(GYM_ROOM_SCENE);
             }
         }, this);
@@ -65,21 +66,20 @@ export class SpaceStretchScene extends Phaser.Scene {
         hintTextBox.setDepth(1);
         hintTextBox.setScrollFactor(0, 0);
         hintTextBox.start("🤖", 50);
-        setTimeout(() => {
+        roboTextTimeouts.push(setTimeout(() => {
             hintTextBox.start(`🤖 Land 🚀 on asteroids 🪨\nand crush them 💥`, 50);
-            setTimeout(() => hintTextBox.start("🤖", 50), 5000);
-        }, 1500);
+            roboTextTimeouts.push(setTimeout(() => hintTextBox.start("🤖", 50), 5000));
+        }, 1500));
 
         // Add the scoreboard in
         this.scoreBoard = this.add.text(
             width * 0.05, height * 0.015,
-            "SCORE: 0", textStyle);
+            "SCORE: 0", scoreBoardTextStyle);
         this.add.text(
             width * 0.05, height * 0.04,
             "press ESC to go back", {
-            fontSize: '17px',
             fill: '#FFBE59',
-            fontFamily: 'Orbitron'
+            font: '900 17px Orbitron',
         });
 
         const asteroidGroupProps = {
@@ -136,7 +136,7 @@ export class SpaceStretchScene extends Phaser.Scene {
                 asteroids.setImmovable(false)
                 asteroids.setVelocityY(600)
                 this.scoreBoard.setText(`SCORE: ${this.score}`)
-                this.scoreBoard.setStyle(textStyle)
+                this.scoreBoard.setStyle(scoreBoardTextStyle)
             }
         }
 
