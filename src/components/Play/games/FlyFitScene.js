@@ -39,16 +39,18 @@ export class FlyFitScene extends Phaser.Scene {
         const height = getGameHeight(this);
 
         // text
-        const sideTxtstyle = {
-            fill: '#4E342E',
-            font: '900 17px Orbitron',
-        }
         this.add.text(
             width * 0.05, height * 0.015,
-            "SCORE: 0", sideTxtstyle);
+            "SCORE: 0", {
+            fill: '#4E342E',
+            font: '900 20px Orbitron',
+        });
         this.add.text(
             width * 0.05, height * 0.04,
-            "press ESC to go back", sideTxtstyle);
+            "press ESC to go back", {
+            fill: '#4E342E',
+            font: '900 17px Orbitron',
+        });
 
         const infoText = this.add.text(
             width / 2,
@@ -63,7 +65,7 @@ export class FlyFitScene extends Phaser.Scene {
             }
         )
         infoText.setOrigin(0.5)
-        infoText.setShadow(3, 3, 'rgba(0,0,0,0.2)', 2);
+        // infoText.setShadow(3, 3, 'rgba(0,0,0,0.2)', 2);
 
         // back
         // this.createBackButton();

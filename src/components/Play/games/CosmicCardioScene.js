@@ -42,13 +42,13 @@ export class CosmicCardioScene extends Phaser.Scene {
         this.scoreBoard = this.add.text(
             width * 0.05, height * 0.015,
             "SCORE: 0", {
-            fill: '#fff',
+            fill: '#000',
             font: '900 20px Orbitron',
         });
         this.add.text(
             width * 0.05, height * 0.04,
             "press ESC to go back", {
-            fill: '#FFBE59',
+            fill: '#000',
             font: '900 17px Orbitron',
         });
         const infoText = this.add.text(
@@ -58,13 +58,13 @@ export class CosmicCardioScene extends Phaser.Scene {
             {
                 font: 'bold 32px Orbitron',
                 fill: '#FFF',
-                backgroundColor: '#0098A7',
+                backgroundColor: '#003861',
                 padding: 30,
                 align: 'center',
             }
         )
         infoText.setOrigin(0.5)
-        infoText.setShadow(3, 3, 'rgba(0,0,0,0.2)', 2);
+        // infoText.setShadow(3, 3, 'rgba(0,0,0,0.2)', 2);
 
         // back
         // this.createBackButton();
