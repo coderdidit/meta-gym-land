@@ -23,10 +23,15 @@ const SceneConfig = {
 const mapScale = 0.6;
 const tileMapSizing = 36;
 
-const set = new Set();
+const miniGamesOverlaps = new Set();
+const miniGamesMapping = new Map([
+    ['space_stretch', 'Space Stretch'],
+    ['fly_fit', 'Fly Fit'],
+    ['cosmic_cardio', 'Cosmic Cardio'],
+]);
 
 let sceneToGoOnXclick = null;
-const miniGames = ['space_stretch', 'fly_fit', 'cosmic_cardio'];
+const miniGames = Array.from(miniGamesMapping.keys());
 const roboTextTimeouts = [];
 
 export class GymRoomScene extends Phaser.Scene {
@@ -177,7 +182,7 @@ export class GymRoomScene extends Phaser.Scene {
                 `🤖 Welcome 👋,
                 \ngo to the MetaGym
                 \nand do some stretches 💪
-                `, 50);
+                `, 30);
         }, 1000));
         hintTextBox.setScrollFactor(0, 0);
 
@@ -205,17 +210,20 @@ export class GymRoomScene extends Phaser.Scene {
                 // other.body.dis
                 // check if it was triggered already, or disable collider on enter
                 // and enable on exit on outer edge collider
-                if (!set.has(object.name)) {
+                if (!miniGamesOverlaps.has(object.name)) {
+                    roboTextTimeouts.forEach(t => clearTimeout(t));
                     sceneToGoOnXclick = object.name;
-                    hintTextBox.start(`🤖 press X to play ${object.name} 🚀`, 50);
+                    hintTextBox
+                        .start(`🤖 press X to play ${miniGamesMapping.get(object.name)} 🚀`,
+                            50);
                     roboTextTimeouts.push(setTimeout(() => hintTextBox.start("🤖", 50),
                         5000));
-                    set.add(object.name);
+                    miniGamesOverlaps.add(object.name);
                 } else {
                     // clear others
                     miniGames
                         .filter(i => i !== object.name)
-                        .forEach(i => set.delete(i))
+                        .forEach(i => miniGamesOverlaps.delete(i))
                 }
             }, null, this);
         })
