@@ -1,10 +1,14 @@
-import { Card, Typography, List, Divider } from "antd";
+import { Card, Typography, Divider } from "antd";
 import React from "react";
 import { Button } from 'antd';
 import { Row, Col } from 'antd';
 import { brightFontCol } from "GlobalStyles";
 import { Link } from "react-router-dom";
 import { BtnPrimary } from "../GlobalStyles";
+import {
+  SmileFilled, VideoCameraFilled,
+  WalletFilled, SkinFilled
+} from "@ant-design/icons";
 
 const { Text } = Typography;
 
@@ -136,14 +140,14 @@ export default function Home() {
               padding: "1rem",
               margin: 0,
             }}>
-              <li>1. Connect your wallet</li>
-              <li>2. Select or buy your NFT avatar</li>
-              <li>3. Enable your Webcam</li>
-              <li>4. Play MetaGymLand</li>
+              <li>1. Connect your wallet&nbsp;&nbsp;<WalletFilled /></li>
+              <li>2. Select or buy your NFT avatar&nbsp;&nbsp;<SkinFilled /></li>
+              <li>3. Enable your Webcam&nbsp;&nbsp;<VideoCameraFilled /></li>
+              <li>4. Join MetaGymLand&nbsp;&nbsp;🎉</li>
             </ol>
             <p style={{
               padding: "1rem",
-            }}>Or you can skip steps 1 and 2 for now</p>
+            }}>Or you can skip steps 1 and 2 for now&nbsp;&nbsp;<SmileFilled /></p>
             <div style={{
               padding: "1rem",
             }}>By clicking&nbsp;&nbsp;&nbsp;
