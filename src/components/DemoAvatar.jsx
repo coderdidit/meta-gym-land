@@ -1,21 +1,14 @@
-import React, { useState, useContext } from "react";
-import { useMoralis, useNFTBalances, useWeb3ExecuteFunction } from "react-moralis";
-import { Modal, Button, Card, Image, Tooltip, Skeleton } from "antd";
-import { FileSearchOutlined, ShoppingCartOutlined, SkinFilled } from "@ant-design/icons";
+import React, { useContext } from "react";
+import { useMoralis } from "react-moralis";
+import { Button, Card, Image, Tooltip } from "antd";
+import { FileSearchOutlined, SkinFilled } from "@ant-design/icons";
 import { getExplorer } from "helpers/networks";
-import { useVerifyMetadata } from "hooks/useVerifyMetadata";
 import { brightFontCol } from "GlobalStyles";
-import { Input, Divider } from "antd";
 import { Link } from "react-router-dom";
-import { mainMarketAddress, deployedABI, listItemFunction } from "../MarketplaceSCMetadata";
 import { NFTCardStyle, NFTsDiv, NFTImg, BtnPrimary, NFTImgWrapperStyle } from "../GlobalStyles";
 import { DemoNFTContracts } from "../MglNftMetadata";
 import { AvatarCtx } from "index";
-import { NFTCollectionItems } from "./Marketplace/NFTCollectionItems";
-import { useVerifyMetadata } from "hooks/useVerifyMetadata";
 import { useNFTTokenIds } from "hooks/useNFTTokenIds";
-
-const { Meta } = Card;
 
 function DemoAvatar() {
     // eslint-disable-next-line no-unused-vars
@@ -53,6 +46,19 @@ function DemoAvatar() {
                     <b><u>Marketplace</u></b>
                 </Link>{" "}🚀
             </h3>
+            {(
+                <>
+                    {NFTsFetchError && (
+                        <>
+                            <Alert
+                                message="Unable to fetch NFT. We are searching for a solution, please try again later!"
+                                type="warning"
+                            />
+                            <div style={{ marginBottom: "10px" }}></div>
+                        </>
+                    )}
+                </>
+            )}
             <div style={NFTsDiv}>
                 {NFTTokenIds?.result
                     .map((nft, index) => {
@@ -88,7 +94,26 @@ function DemoAvatar() {
                                         }}
                                     />
                                 }
-                            />
+                            >
+                                <Button
+                                    onClick={() => {
+                                        const avatarUri = nft?.image;
+                                        const avatarTokenAddress = nft?.token_address;
+                                        const avatarTokenId = nft?.token_id;
+                                        setAvatar({
+                                            uri: avatarUri,
+                                            tokenAddress: avatarTokenAddress,
+                                            tokenId: avatarTokenId,
+                                        });
+                                    }}
+                                    type="primary"
+                                    style={BtnPrimary}
+                                >
+                                    <Link to='/play-setup'>
+                                        Play with me
+                                    </Link>
+                                </Button>
+                            </Card>
                         )
                     })}
             </div>
