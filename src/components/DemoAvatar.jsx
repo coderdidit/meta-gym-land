@@ -3,7 +3,6 @@ import { useMoralis } from "react-moralis";
 import { Button, Card, Image, Tooltip, Alert } from "antd";
 import { FileSearchOutlined, SkinFilled } from "@ant-design/icons";
 import { getExplorer } from "helpers/networks";
-import { brightFontCol } from "GlobalStyles";
 import { Link } from "react-router-dom";
 import { NFTCardStyle, NFTsDiv, NFTImg, BtnPrimary, NFTImgWrapperStyle } from "../GlobalStyles";
 import { DemoNFTContracts } from "../MglNftMetadata";
@@ -100,26 +99,33 @@ function DemoAvatar() {
                                     />
                                 }
                             >
-                                <Button
-                                    onClick={() => {
-                                        const avatarUri = nft?.image;
-                                        const avatarTokenAddress = nft?.token_address;
-                                        const avatarTokenId = nft?.token_id;
-                                        setAvatar({
-                                            uri: avatarUri,
-                                            tokenAddress: avatarTokenAddress,
-                                            tokenId: avatarTokenId,
-                                        });
-                                    }}
-                                    type="primary"
-                                    style={BtnPrimary}
-                                >
-                                    <Link to='/play-setup'>
-                                        Play with me
-                                    </Link>
-                                </Button>
-                            </Card>
-                        )
+                                <div
+                                    style={{
+                                        display: "flex",
+                                        justifyContent: "center",
+                                        alignItems: "center",
+                                        marginTop: "1rem",
+                                    }}>
+                                    <Button
+                                        onClick={() => {
+                                            const avatarUri = nft?.image;
+                                            const avatarTokenAddress = nft?.token_address;
+                                            const avatarTokenId = nft?.token_id;
+                                            setAvatar({
+                                                uri: avatarUri,
+                                                tokenAddress: avatarTokenAddress,
+                                                tokenId: avatarTokenId,
+                                            });
+                                        }}
+                                        type="primary"
+                                        style={BtnPrimary}
+                                    >
+                                        <Link to='/play-setup'>
+                                            Play with me
+                                        </Link>
+                                    </Button>
+                                </div>
+                            </Card>)
                     })}
             </div>
         </div>
