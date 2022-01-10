@@ -1,4 +1,4 @@
-import { Card, Typography } from "antd";
+import { Card, Typography, List, Divider } from "antd";
 import React from "react";
 import { Button } from 'antd';
 import { Row, Col } from 'antd';
@@ -117,30 +117,59 @@ export default function Home() {
         </Col>
       </Row>
       <Row style={{
-        fontFamily: "Source Serif Pro",
         flexBasis: "100%",
-        justifyContent: "center",
-        marginTop: "6rem",
+        marginTop: "5rem",
+        marginBottom: "3rem"
       }}>
-        <Col span={100} style={{
-          textAlign: "center",
-        }}>
-          <h1>Roadmap</h1>
-          ...
+        <Col span={100} >
+          <h1 style={{
+            fontFamily: "Source Serif Pro",
+            fontSize: "25px",
+            padding: "1rem",
+          }}>How it works?</h1>
+          <div style={{
+            fontSize: "18px",
+          }}>
+            <ol style={{
+              listStyle: "none",
+              textAlign: "left",
+              padding: "1rem",
+              margin: 0,
+            }}>
+              <li>1. Connect your wallet</li>
+              <li>2. Select or buy your NFT avatar</li>
+              <li>3. Enable your Webcam</li>
+              <li>4. Play MetaGymLand</li>
+            </ol>
+            <p style={{
+              padding: "1rem",
+            }}>Or you can skip steps 1 and 2 for now</p>
+            <div style={{
+              padding: "1rem",
+            }}>By clicking&nbsp;&nbsp;&nbsp;
+              <Button style={BtnPrimary}>Try with Demo Avatar</Button>
+            </div>
+          </div>
         </Col>
       </Row>
+      <Divider style={{
+        backgroundColor: "#032139",
+      }}></Divider>
       <Row style={{
-        fontFamily: "Source Serif Pro",
         flexBasis: "100%",
-        justifyContent: "center",
-        marginTop: "12rem",
-        marginBottom: "10rem"
+        marginTop: "4rem",
+        marginBottom: "2rem"
       }}>
+
         <Col span={100} style={{
           textAlign: "center"
         }}>
-          <h1>Team</h1>
-          ...
+          <div style={{
+            fontSize: "18px",
+          }}>
+            Want to be notified about our progress and future plans?&nbsp;&nbsp;&nbsp;
+            <Button style={BtnPrimary}>Sing Up to MetaGymLand Newsletter</Button>
+          </div>
         </Col>
       </Row>
     </div>
