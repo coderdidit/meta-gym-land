@@ -122,8 +122,8 @@ export default function Home() {
       </Row>
       <Row style={{
         flexBasis: "100%",
-        marginTop: "5rem",
-        marginBottom: "3rem"
+        marginTop: "4rem",
+        marginBottom: "2rem"
       }}>
         <Col span={100} >
           <h1 style={{
@@ -140,17 +140,19 @@ export default function Home() {
               padding: "1rem",
               margin: 0,
             }}>
-              <li>1. Connect your wallet&nbsp;&nbsp;<WalletFilled /></li>
-              <li>2. Select or buy your NFT avatar&nbsp;&nbsp;<SkinFilled /></li>
-              <li>3. Enable your Webcam&nbsp;&nbsp;<VideoCameraFilled /></li>
+              <li>1. Connect your wallet&nbsp;&nbsp;
+                <WalletFilled style={{ color: "#CE6527" }} /></li>
+              <li>2. Select or buy your NFT avatar&nbsp;&nbsp;
+                <SkinFilled style={{ color: "#64B1FF" }} /></li>
+              <li>3. Enable your Webcam&nbsp;&nbsp;
+                <VideoCameraFilled style={{ color: "#4957CB" }} /></li>
               <li>4. Join MetaGymLand&nbsp;&nbsp;🎉</li>
             </ol>
-            <p style={{
-              padding: "1rem",
-            }}>Or you can skip steps 1 and 2 for now&nbsp;&nbsp;<SmileFilled /></p>
             <div style={{
               padding: "1rem",
-            }}>By clicking&nbsp;&nbsp;&nbsp;
+            }}>Or you can skip steps 1 and 2 for now&nbsp;&nbsp;
+              <SmileFilled style={{ color: "#FFBE59" }} />&nbsp;&nbsp;
+              By clicking&nbsp;&nbsp;&nbsp;
               <Button style={BtnPrimary}>Try with Demo Avatar</Button>
             </div>
           </div>
@@ -161,8 +163,8 @@ export default function Home() {
       }}></Divider>
       <Row style={{
         flexBasis: "100%",
-        marginTop: "4rem",
-        marginBottom: "2rem"
+        marginTop: "3rem",
+        marginBottom: "3rem"
       }}>
 
         <Col span={100} style={{
@@ -172,7 +174,7 @@ export default function Home() {
             fontSize: "18px",
           }}>
             Want to be notified about our progress and future plans?&nbsp;&nbsp;&nbsp;
-            <Button style={BtnPrimary}>Sing Up to MetaGymLand Newsletter</Button>
+            <Button type="primary" style={BtnPrimary}>Sing Up to MetaGymLand Newsletter</Button>
           </div>
         </Col>
       </Row>
