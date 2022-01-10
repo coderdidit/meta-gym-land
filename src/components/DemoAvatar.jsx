@@ -26,32 +26,31 @@ function DemoAvatar() {
     const { verifyMetadata } = useVerifyMetadata();
 
     return (
-        <div style={{
-            padding: "0 14%",
-            // maxWidth: "1030px",
-            width: "100%",
-            background: "none",
-            color: brightFontCol,
-        }}>
-            <h1 style={{
-                fontFamily: "Source Serif Pro",
-                textAlign: "center",
-                fontSize: "27px",
-                fontWeight: "bold",
-            }}>I am a Demo Avatar <SkinFilled /></h1>
-            <br />
-            <h3>
-                You can try me first before having your ownI will dissapear soon
-            </h3>
-            <h3>
-                But I will dissapear soon
-            </h3>
-            <h3>
-                If you don't have your awesome Avatar yet, get one in our
-                {" "}<Link to="/marketplace">
-                    <b><u>Marketplace</u></b>
-                </Link>{" "}🚀
-            </h3>
+        <div>
+            <div style={{
+                marginTop: "1rem",
+                marginBottom: "3rem",
+            }}>
+                <h1 style={{
+                    fontFamily: "Source Serif Pro",
+                    textAlign: "center",
+                    fontSize: "27px",
+                    fontWeight: "bold",
+                }}>I am a Demo Avatar <SkinFilled /></h1>
+                <br />
+                <h3>
+                    You can try me first before having your own NFT avatar
+                </h3>
+                <h3>
+                    But I will dissapear soon&nbsp;&nbsp;😱
+                </h3>
+                <h3>
+                    If you don't have your awesome Avatar yet, get one in our
+                    {" "}<Link to="/marketplace">
+                        <b><u>Marketplace</u></b>
+                    </Link>{" "}🚀
+                </h3>
+            </div>
             {(
                 <>
                     {NFTsFetchError && (
