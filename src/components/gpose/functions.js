@@ -52,9 +52,9 @@ const resToGPose = (results) => {
 
     const bothArmsUp = (leftElbowToSholder > angle)
         && (rightElbowToSholder > angle)
-    const moveDown = (leftElbowToSholder > angle
+    const moveUp = (leftElbowToSholder > angle
         && rightElbowToSholder < angle) && !bothArmsUp
-    const moveUp = (rightElbowToSholder > angle
+    const moveDown = (rightElbowToSholder > angle
         && leftElbowToSholder < angle) && !bothArmsUp
 
     const noseToLeftEyeYdistance = nose.y - leftEye.y
