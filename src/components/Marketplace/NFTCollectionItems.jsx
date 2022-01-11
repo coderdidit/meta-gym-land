@@ -15,6 +15,8 @@ import { useNFTTokenIds } from "hooks/useNFTTokenIds";
 import { mainMarketAddress, deployedABI, createdMarketItemsTable } from "../../MarketplaceSCMetadata";
 import { NFTCardStyle, NFTsDiv, NFTImg, brightFontCol, NFTImgWrapperStyle } from "../../GlobalStyles";
 import { AllowedNftContracts } from "../../MglNftMetadata";
+import { DefaultChainID } from "../../MglNftMetadata";
+
 
 const styles = {
     banner: {
@@ -43,7 +45,7 @@ const fallbackImg =
 function NFTCollectionItems({ nftAddress, colName, colImg }) {
 
     const { chainId, account, Moralis } = useMoralis();
-    const { data: NFTTokenIds, error: NFTsFetchError } = useNFTTokenIds(nftAddress);
+    const { data: NFTTokenIds, error: NFTsFetchError } = useNFTTokenIds(nftAddress, 3, DefaultChainID);
     console.log("NFTTokenIds", NFTTokenIds);
 
     const [visible, setVisibility] = useState(false);
@@ -195,6 +197,8 @@ function NFTCollectionItems({ nftAddress, colName, colImg }) {
         const key = `${nft?.token_address}:${nft?.token_id}`
         return listings.get(key)
     }
+
+    console.log('Mrktplace NFTsFetchError', NFTsFetchError);
 
     return (
         <>
