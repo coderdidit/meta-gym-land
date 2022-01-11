@@ -41,7 +41,7 @@ function DemoAvatar() {
                     You can try me first before having your own NFT avatar
                 </h3>
                 <h3>
-                    But I will dissapear soon&nbsp;&nbsp;😱
+                    But But I will disappear soon&nbsp;&nbsp;😱
                 </h3>
                 <h3>
                     If you don't have your awesome Avatar yet, get one in our
@@ -98,7 +98,7 @@ function DemoAvatar() {
                                         }}
                                     />
                                     <Badge.Ribbon
-                                        text="I will dissapear soon"
+                                        text="I will disappear soon"
                                         color="red"
                                         style={{
                                             paddingRight: "5px",
