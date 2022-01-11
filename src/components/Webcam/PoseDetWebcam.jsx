@@ -80,6 +80,8 @@ const PoseDetWebcam = ({ sizeProps, styleProps }) => {
         if (webCamAndCanvasAreInit()) {
             doPredictionsCanvasSetup();
             drawPose(canvasRef, results);
+
+            console.log('pose det results', results);
         }
     };
 
