@@ -44,8 +44,9 @@ const fallbackImg =
 
 function NFTCollectionItems({ nftAddress, colName, colImg }) {
 
-    const { chainId, account, Moralis } = useMoralis();
-    const { data: NFTTokenIds, error: NFTsFetchError } = useNFTTokenIds(nftAddress, 3, DefaultChainID);
+    const { chainIdSelected, account, Moralis } = useMoralis();
+    const chainId = chainIdSelected || DefaultChainID;
+    const { data: NFTTokenIds, error: NFTsFetchError } = useNFTTokenIds(nftAddress, 3, chainId);
     console.log("NFTTokenIds", NFTTokenIds);
 
     const [visible, setVisibility] = useState(false);
@@ -141,7 +142,9 @@ function NFTCollectionItems({ nftAddress, colName, colImg }) {
         // const modal = 
         Modal.error({
             title: "Error!",
-            content: `There was a problem when purchasing this NFT: ${err}`,
+            content: `There was a problem when purchasing this NFT\n
+            Make sure to connect your wallet,\n
+            and choose correct blockchain`,
         });
         // let secondsToGo = 5;
         // setTimeout(() => {
