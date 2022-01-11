@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { useMoralis } from "react-moralis";
-import { Button, Card, Image, Tooltip, Alert } from "antd";
+import { Button, Card, Image, Tooltip, Alert, Badge } from "antd";
 import { FileSearchOutlined, SkinFilled } from "@ant-design/icons";
 import { getExplorer } from "helpers/networks";
 import { Link } from "react-router-dom";
@@ -85,7 +85,7 @@ function DemoAvatar() {
                                     </Tooltip>,
                                 ]}
                                 style={NFTCardStyle}
-                                cover={
+                                cover={<>
                                     <Image
                                         preview={false}
                                         src={nft.image || "error"}
@@ -97,6 +97,17 @@ function DemoAvatar() {
                                             ...NFTImgWrapperStyle
                                         }}
                                     />
+                                    <Badge.Ribbon
+                                        text="I will dissapear soon"
+                                        color="red"
+                                        style={{
+                                            paddingRight: "5px",
+                                            paddingLeft: "5px",
+                                            marginRight: "1rem",
+                                            marginTop: "-1rem",
+                                        }}
+                                    />
+                                </>
                                 }
                             >
                                 <div
