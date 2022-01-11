@@ -4,6 +4,8 @@ let _currentPose = IDLE;
 
 const setPose = (_m) => {
     _currentPose = _m;
+    // for debugging
+    window.pose = _currentPose;
 };
 
 const getPose = () => {

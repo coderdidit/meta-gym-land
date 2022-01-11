@@ -1,6 +1,7 @@
 import { ConfidenceScore } from "../../AIConfig";
 import { getAngleBetween } from './angles';
 import * as pose from "./pose";
+import * as gstate from "./state";
 
 // for media pipe
 const mapResults = (results) => {
@@ -9,7 +10,9 @@ const mapResults = (results) => {
 
 const mapMediaPipeResults = (results) => {
     // poseLandmarks has 33 landmarks
-    const { poseLandmarks } = results;
+    const { poseLandmarks } = results
+    // const poseLandmarks = results.poseLandmarks;
+    console.log('poseLandmarks', poseLandmarks, results);
     const posLandXY = poseLandmarks.map(pl => {
         return {
             x: pl.x,
@@ -18,16 +21,17 @@ const mapMediaPipeResults = (results) => {
         }
     });
     // remeber this is in selfie mode
+    // everything is flipped due to selfie mode
     return {
         nose: posLandXY[0],
-        leftShoulder: posLandXY[11],
-        rightShoulder: posLandXY[12],
-        leftElbow: posLandXY[13],
-        rightElbow: posLandXY[14],
-        leftEye: posLandXY[3], // 1, 2, 3 (inner, eye, outer)
-        rightEye: posLandXY[6], // 4, 5, 6 (inner, eye, outer)
-        leftEar: posLandXY[7],
-        rightEar: posLandXY[8],
+        leftShoulder: posLandXY[12], // normally 11 (flipped)
+        rightShoulder: posLandXY[11], // normally 12 (flipped)
+        leftElbow: posLandXY[14], // normally 13 (flipped)
+        rightElbow: posLandXY[13], // normally 14 (flipped)
+        leftEye: posLandXY[6], // 1, 2, 3 (inner, eye, outer) (flipped)
+        rightEye: posLandXY[3], // 4, 5, 6 (inner, eye, outer) (flipped)
+        leftEar: posLandXY[8],
+        rightEar: posLandXY[7],
     };
 };
 
@@ -61,7 +65,12 @@ const resToGPose = (results) => {
     const noseVissible = nose.score > scoreThreshold
     const lEVissible = leftEye.score > scoreThreshold
     const REVissible = rightEye.score > scoreThreshold
-    const moveSideActivationDist = 8;
+    const moveSideActivationDist = 0;
+
+    console.log('leftElbow.y', leftElbow.y);
+    console.log('rightElbow.y', rightElbow.y);
+    console.log('noseToLeftEyeYdistance', noseToLeftEyeYdistance);
+    console.log('noseToRightEyeYdistance', noseToRightEyeYdistance);
 
     if (noseVissible && lEVissible
         && noseToLeftEyeYdistance < moveSideActivationDist) {
@@ -76,8 +85,14 @@ const resToGPose = (results) => {
     } else if (moveDown) {
         return pose.RA_UP;
     } else {
-        return idle;
+        return pose.IDLE;
     }
 };
 
-export { resToGPose };
+const resultsToGPoseState = (results) => {
+    const curState = resToGPose(results);
+    gstate.setPose(curState);
+    return curState;
+}
+
+export { resultsToGPoseState };
