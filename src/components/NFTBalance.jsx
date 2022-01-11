@@ -109,7 +109,7 @@ function NFTBalance() {
           <b><u>Marketplace</u></b>
         </Link>{" "}🚀
       </h3>
-      {NFTBalances?.result &&
+      {NFTBalances?.result && NFTBalances.result.length > 0 &&
         <Divider style={{ backgroundColor: brightFontCol }} />}
       <div style={NFTsDiv}>
         <Skeleton loading={!NFTBalances?.result}>
