@@ -18,9 +18,9 @@ const fallbackImg =
 function DemoAvatar() {
     // eslint-disable-next-line no-unused-vars
     const [avatar, setAvatar] = useContext(AvatarCtx);
-    const { chainId } = useMoralis();
-    console.log('chainId', chainId);
-    const demoNFTContract = DemoNFTContracts.get(chainId) || DemoNFTContracts.get(DefaultChainID); // default to rinkeby
+    const { chainIdSelected } = useMoralis();
+    const chainId = chainIdSelected || DefaultChainID;
+    const demoNFTContract = DemoNFTContracts.get(chainId);
     console.log("demoNFTContract", demoNFTContract);
     const { data: NFTTokenIds, error: NFTsFetchError } = useNFTTokenIds(demoNFTContract, 3, DefaultChainID);
     console.log("NFTTokenIds", NFTTokenIds);
