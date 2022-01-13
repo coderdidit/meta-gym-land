@@ -3,7 +3,6 @@ import { getAngleBetween } from './angles';
 import * as pose from "./pose";
 import * as gstate from "./state";
 
-// for media pipe
 const mapResults = (results) => {
     return mapMediaPipeResults(results);
 };
@@ -22,6 +21,7 @@ const mapMediaPipeResults = (results) => {
     });
     // remeber this is in selfie mode
     // everything is flipped due to selfie mode
+    // see: https://google.github.io/mediapipe/solutions/pose#pose-landmark-model-blazepose-ghum-3d
     return {
         nose: posLandXY[0],
         leftShoulder: posLandXY[12], // normally 11 (flipped)
@@ -30,8 +30,6 @@ const mapMediaPipeResults = (results) => {
         rightElbow: posLandXY[13], // normally 14 (flipped)
         leftEye: posLandXY[6], // 1, 2, 3 (inner, eye, outer) (flipped)
         rightEye: posLandXY[3], // 4, 5, 6 (inner, eye, outer) (flipped)
-        leftEar: posLandXY[8],
-        rightEar: posLandXY[7],
     };
 };
 
