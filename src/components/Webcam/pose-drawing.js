@@ -49,26 +49,57 @@ export const drawPose = (canvasRef, results) => {
     // Draw Pose mesh
     canvasCtx.globalCompositeOperation = 'source-over';
     if (results.poseLandmarks) {
+        const CurPose = gstate.getPose()
         // console.log('results', results);
         const nose = results.poseLandmarks[0];
 
         // this is in selfie mode
         // so left is right
         // right is left
-        const n2rEndColor = gstate.getPose() === gpose.HTL ? ACTIVE_COLOR : "#1990FF";
-        const n2rlineWidth = gstate.getPose() === gpose.HTL ? 8 : 3;
+        const n2rEndColor = CurPose === gpose.HTL ? ACTIVE_COLOR : "#1990FF";
+        const n2rlineWidth = CurPose === gpose.HTL ? 8 : 3;
         drawLine(nose, { x: 0, y: nose.y }, n2rEndColor, canvasCtx, width, height, n2rlineWidth);
         // path from nose to left end
-        const n2lEndColor = gstate.getPose() === gpose.HTR ? ACTIVE_COLOR : "#20BF96";
-        const n2llineWidth = gstate.getPose() === gpose.HTR ? 8 : 3;
+        const n2lEndColor = CurPose === gpose.HTR ? ACTIVE_COLOR : "#20BF96";
+        const n2llineWidth = CurPose === gpose.HTR ? 8 : 3;
         drawLine(nose, { x: canvasRef?.current.width, y: nose.y }, n2lEndColor, canvasCtx, width, height, n2llineWidth);
 
+        // connectors all
         drawConnectors(canvasCtx, results.poseLandmarks, POSE_CONNECTIONS,
             {
                 color: IDLE_POSE_LINES_COLOR,
                 lineWidth: 4,
                 visibilityMin: VisibilityMin,
             });
+
+
+        // connectors left
+        if (CurPose === gpose.LA_UP || CurPose === gpose.BA_UP) {
+            drawConnectors(canvasCtx, Object.values({
+                LEFT_SHOULDER: 12,
+                LEFT_ELBOW: 14,
+                LEFT_WRIST: 16,
+            }).map(index => results.poseLandmarks[index]), POSE_CONNECTIONS,
+                {
+                    color: ACTIVE_COLOR,
+                    lineWidth: 8,
+                    visibilityMin: VisibilityMin,
+                });
+        }
+
+        // connectors right
+        if (CurPose === gpose.RA_UP || CurPose === gpose.BA_UP) {
+            drawConnectors(canvasCtx, Object.values({
+                LEFT_SHOULDER: 11,
+                LEFT_ELBOW: 13,
+                LEFT_WRIST: 15,
+            }).map(index => results.poseLandmarks[index]), POSE_CONNECTIONS,
+                {
+                    color: ACTIVE_COLOR,
+                    lineWidth: 8,
+                    visibilityMin: VisibilityMin,
+                });
+        }
 
         // left
         drawLandmarks(canvasCtx, Object.values(POSE_LANDMARKS_LEFT)
