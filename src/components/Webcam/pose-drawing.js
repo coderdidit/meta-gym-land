@@ -4,10 +4,14 @@ import {
     POSE_LANDMARKS_RIGHT, POSE_LANDMARKS_NEUTRAL
 } from '@mediapipe/pose';
 import { ConfidenceScore } from "../../AIConfig";
+import * as gstate from "../gpose/state";
+import * as gpose from "../gpose/pose";
+
 
 const IDLE_POSE_LANDMARKS_COLOR = "#FF0000";
 const IDLE_POSE_LINES_COLOR = "#00FF00";
 const VisibilityMin = ConfidenceScore;
+const ACTIVE_COLOR = "#F96F0A";
 
 const drawLine = (p1, p2, color, ctx, width, height) => {
     ctx.fillStyle = color;
@@ -48,9 +52,14 @@ export const drawPose = (canvasRef, results) => {
         // console.log('results', results);
         const nose = results.poseLandmarks[0];
 
-        drawLine(nose, { x: 0, y: nose.y }, "#1990FF", canvasCtx, width, height);
-        // path from nose to left end   
-        drawLine(nose, { x: canvasRef?.current.width, y: nose.y }, "#20BF96", canvasCtx, width, height);
+        // this is in selfie mode
+        // so left is right
+        // right is left
+        const n2rEndColor = gstate.getPose() === gpose.HTL ? ACTIVE_COLOR : "#1990FF";
+        drawLine(nose, { x: 0, y: nose.y }, n2rEndColor, canvasCtx, width, height);
+        // path from nose to left end
+        const n2lEndColor = gstate.getPose() === gpose.HTR ? ACTIVE_COLOR : "#20BF96";
+        drawLine(nose, { x: canvasRef?.current.width, y: nose.y }, n2lEndColor, canvasCtx, width, height);
 
         drawConnectors(canvasCtx, results.poseLandmarks, POSE_CONNECTIONS,
             {
