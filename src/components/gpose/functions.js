@@ -43,7 +43,7 @@ const e2sActivateAngle = 52;
 const scoreThreshold = ConfidenceScore;
 // vertical distance between left eye and nose 
 // that will indicate that head is tilted
-const e2nYDistanceActivation = 0;
+const e2nYDistanceActivation = 0.01;
 
 const resToGPose = (results) => {
     const parsedRes = mapResults(results);
