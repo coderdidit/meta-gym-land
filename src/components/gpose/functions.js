@@ -33,7 +33,7 @@ const mapMediaPipeResults = (results) => {
     };
 };
 
-// HYPERPARAMS
+// HYPER_PARAMS
 // TODO more investigation why this works
 // angle between elbow and shoulder
 // that will indicate that the arm is raised up
