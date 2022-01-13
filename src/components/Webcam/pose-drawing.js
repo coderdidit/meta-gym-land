@@ -13,10 +13,10 @@ const IDLE_POSE_LINES_COLOR = "#00FF00";
 const VisibilityMin = ConfidenceScore;
 const ACTIVE_COLOR = "#F96F0A";
 
-const drawLine = (p1, p2, color, ctx, width, height) => {
+const drawLine = (p1, p2, color, ctx, width, height, lineWidth) => {
     ctx.fillStyle = color;
     ctx.strokeStyle = color;
-    ctx.lineWidth = 3;
+    ctx.lineWidth = lineWidth;
     ctx.beginPath();
     ctx.moveTo(p1.x * width, p1.y * height)
     ctx.lineTo(p2.x, p2.y * height);
@@ -56,10 +56,12 @@ export const drawPose = (canvasRef, results) => {
         // so left is right
         // right is left
         const n2rEndColor = gstate.getPose() === gpose.HTL ? ACTIVE_COLOR : "#1990FF";
-        drawLine(nose, { x: 0, y: nose.y }, n2rEndColor, canvasCtx, width, height);
+        const n2rlineWidth = gstate.getPose() === gpose.HTL ? 8 : 3;
+        drawLine(nose, { x: 0, y: nose.y }, n2rEndColor, canvasCtx, width, height, n2rlineWidth);
         // path from nose to left end
         const n2lEndColor = gstate.getPose() === gpose.HTR ? ACTIVE_COLOR : "#20BF96";
-        drawLine(nose, { x: canvasRef?.current.width, y: nose.y }, n2lEndColor, canvasCtx, width, height);
+        const n2llineWidth = gstate.getPose() === gpose.HTR ? 8 : 3;
+        drawLine(nose, { x: canvasRef?.current.width, y: nose.y }, n2lEndColor, canvasCtx, width, height, n2llineWidth);
 
         drawConnectors(canvasCtx, results.poseLandmarks, POSE_CONNECTIONS,
             {
