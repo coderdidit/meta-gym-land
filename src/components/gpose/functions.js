@@ -28,8 +28,8 @@ const mapMediaPipeResults = (results) => {
         rightShoulder: posLandXY[11], // normally 12 (flipped)
         leftElbow: posLandXY[14], // normally 13 (flipped)
         rightElbow: posLandXY[13], // normally 14 (flipped)
-        leftEye: posLandXY[6], // 1, 2, 3 (inner, eye, outer) (flipped)
-        rightEye: posLandXY[3], // 4, 5, 6 (inner, eye, outer) (flipped)
+        leftEye: posLandXY[6], // 4, 5, 6 (inner, eye, outer) (flipped)
+        rightEye: posLandXY[3], // 1, 2, 3 (inner, eye, outer) (flipped)
     };
 };
 
