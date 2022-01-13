@@ -93,10 +93,10 @@ const resToGPose = (results) => {
     }
 };
 
-const resultsToGPoseState = (results) => {
+const updateGPoseState = (results) => { // accepts pose prediction results
     const curState = resToGPose(results);
     gstate.setPose(curState);
     return curState;
 }
 
-export { resultsToGPoseState };
+export { updateGPoseState };

@@ -2,7 +2,7 @@ import React, { useContext, useRef, useEffect } from "react";
 import { WebcamCtx, PoseDetectorCtx } from "index";
 import Webcam from "react-webcam";
 import { drawPose } from "./pose-drawing";
-import { resultsToGPoseState } from "../gpose/functions";
+import { updateGPoseState } from "../gpose/functions";
 
 const PoseDetWebcam = ({ sizeProps, styleProps }) => {
     const { webcamId, setWebcamId } = useContext(WebcamCtx);
@@ -83,7 +83,7 @@ const PoseDetWebcam = ({ sizeProps, styleProps }) => {
             drawPose(canvasRef, results);
             const { poseLandmarks } = results
             if (poseLandmarks) {
-                const curPose = resultsToGPoseState(results);
+                const curPose = updateGPoseState(results);
                 console.log('curPose', curPose);
             }
             // console.log('pose det results', results);
