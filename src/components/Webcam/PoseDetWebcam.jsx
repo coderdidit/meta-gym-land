@@ -86,7 +86,6 @@ const PoseDetWebcam = ({ sizeProps, styleProps }) => {
                 const curPose = updateGPoseState(results);
                 console.log('curPose', curPose);
             }
-            // console.log('pose det results', results);
         }
     };
 
