@@ -136,7 +136,7 @@ export const drawPose = (canvasRef, results) => {
             .map(index => results.poseLandmarks[index]),
             {
                 color: '#2450F7', fillColor: '#2450F7',
-                lineWidth: 20,
+                lineWidth: 12,
                 visibilityMin: VisibilityMin,
             });
 
@@ -150,7 +150,7 @@ export const drawPose = (canvasRef, results) => {
             .map(index => results.poseLandmarks[index]),
             {
                 color: '#2450F7', fillColor: '#2450F7',
-                lineWidth: 20,
+                lineWidth: 12,
                 visibilityMin: VisibilityMin,
             });
     }
