@@ -35,6 +35,15 @@ const mapMediaPipeResults = (results) => {
     };
 };
 
+// HYPERPARAMS
+// TODO more investigation why this works
+// angle between elbow and shoulder
+// that will indicate that the arm is raised up
+const e2sActivateAngle = 52;
+const scoreThreshold = ConfidenceScore;
+// vertical distance between left eye and nose 
+// that will indicate that head is tilted
+const e2nYDistanceActivation = 0;
 
 const resToGPose = (results) => {
     const parsedRes = mapResults(results);
@@ -43,29 +52,24 @@ const resToGPose = (results) => {
         leftShoulder, rightShoulder,
         leftElbow, rightElbow } = parsedRes;
 
-
     // TODO investigate more how this logic works in terms of flipping
     const leftElbowToSholder = getAngleBetween(leftElbow, leftShoulder) * -1
     const rightElbowToSholder = getAngleBetween(rightShoulder, rightElbow)
 
-    const angle = 52
-
-    const bothArmsUp = (leftElbowToSholder > angle)
-        && (rightElbowToSholder > angle)
-    const moveUp = (leftElbowToSholder > angle
-        && rightElbowToSholder < angle) && !bothArmsUp
-    const moveDown = (rightElbowToSholder > angle
-        && leftElbowToSholder < angle) && !bothArmsUp
+    const bothArmsUp = (leftElbowToSholder > e2sActivateAngle)
+        && (rightElbowToSholder > e2sActivateAngle)
+    const moveUp = (leftElbowToSholder > e2sActivateAngle
+        && rightElbowToSholder < e2sActivateAngle) && !bothArmsUp
+    const moveDown = (rightElbowToSholder > e2sActivateAngle
+        && leftElbowToSholder < e2sActivateAngle) && !bothArmsUp
 
     const noseToLeftEyeYdistance = nose.y - leftEye.y
     const noseToRightEyeYdistance = nose.y - rightEye.y
 
     // vissibility TODO treshold settings here may be unecessary
-    const scoreThreshold = ConfidenceScore;
     const noseVissible = nose.score > scoreThreshold
     const lEVissible = leftEye.score > scoreThreshold
     const REVissible = rightEye.score > scoreThreshold
-    const moveSideActivationDist = 0;
 
     console.log('leftElbow.y', leftElbow.y);
     console.log('rightElbow.y', rightElbow.y);
@@ -73,10 +77,10 @@ const resToGPose = (results) => {
     console.log('noseToRightEyeYdistance', noseToRightEyeYdistance);
 
     if (noseVissible && lEVissible
-        && noseToLeftEyeYdistance < moveSideActivationDist) {
+        && noseToLeftEyeYdistance < e2nYDistanceActivation) {
         return pose.HTL;
     } else if (noseVissible && REVissible
-        && noseToRightEyeYdistance < moveSideActivationDist) {
+        && noseToRightEyeYdistance < e2nYDistanceActivation) {
         return pose.HTR;
     } else if (bothArmsUp) {
         return pose.BA_UP;
