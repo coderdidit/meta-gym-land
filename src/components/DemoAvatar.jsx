@@ -48,26 +48,36 @@ function DemoAvatar() {
                     }}>{chainLogo}</div> */}
                 <h3 style={{
                     padding: "1rem 0",
+                    textAlign: "center",
                 }}>
                     <span style={{
                         color: "aqua",
                         cursor: "pointer",
                     }}
-                    onClick={() =>
-                        window.open(
-                            `${getExplorer(chainId)}address/${demoNFTContract}`,
-                            "_blank"
-                        )
-                    }
-                    >{demoNFTContract}</span> ON <span style={{
-                        color: "chocolate",
-                    }}>{chainName}</span>&nbsp;&nbsp;
+                        onClick={() =>
+                            window.open(
+                                `${getExplorer(chainId)}address/${demoNFTContract}`,
+                                "_blank"
+                            )
+                        }
+                    >{demoNFTContract}</span>
+                    <div style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        textAlign: "center",
+                    }}>
+                        ON&nbsp;
+                        {chainName}
+                        &nbsp;
+                        {chainLogo}
+                    </div>
                 </h3>
                 <h3>
-                    You can try me first before having your own NFT avatar
+                    You can try me first before having your own NFT avatar, but I will disappear soon&nbsp;&nbsp;😱
                 </h3>
                 <h3>
-                    But I will disappear soon&nbsp;&nbsp;😱
+                    
                 </h3>
                 <h3>
                     If you don't have your awesome Avatar yet, get one in our
