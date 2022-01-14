@@ -1,6 +1,6 @@
 export const mainBackground = "linear-gradient(180deg, #000207 0%, #003963 100%)"
 export const brightFontCol = "#fff"
-export const highlightTextColor = "#20BF96";
+export const highlightTextColor = "aqua";
 
 const NFTCardStyleSidesPadding = "0.2rem";
 
