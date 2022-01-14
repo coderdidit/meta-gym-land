@@ -23,6 +23,7 @@ import GymRoomSandbox from "components/Play/games/GymRoomSandbox";
 import PlaySetupPage from "components/Play/PlaySetupPage";
 import { mainBackground } from "GlobalStyles";
 import { ConnectWalletWarn, UseCorrectNetworkWarn } from "./components/Warrnings";
+import { MainChainID } from "MglNftMetadata";
 
 const { Header } = Layout;
 
@@ -117,8 +118,10 @@ const App = ({ isServerInfo }) => {
             </Route>
             <Route path="/avatars">
               {(() => {
-                if (isAuthenticated) {
+                if (isAuthenticated && chainId === MainChainID) {
                   return <NFTBalance />
+                } else if (isAuthenticated && chainId !== MainChainID) {
+                  return <UseCorrectNetworkWarn />
                 } else {
                   return <ConnectWalletWarn />
                 }
