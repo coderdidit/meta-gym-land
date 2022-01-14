@@ -29,10 +29,10 @@ const supportedChains = new Set(
     "0x13881", // Mumbai
   ]);
 
-export const chainIdToName = new Map([
-  ["0x4", "Rinkeby Testnet"],
-  ["0xa86a", "Avalanche"],
-  ["0xa869", "Avalanche Fuji Testnet"],
+export const chainIdToNameAndLogo = new Map([
+  ["0x4", ["Rinkeby Testnet", <ETHLogo />]],
+  ["0xa86a", ["Avalanche", <AvaxLogo />]],
+  ["0xa869", ["Avalanche Fuji Testnet", <AvaxLogo />]],
 ])
 
 const menuItems = [
