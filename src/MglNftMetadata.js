@@ -13,4 +13,4 @@ export const DemoNFTContracts = new Map([
     ]
 ]);
 
-export const DefaultChainID = "0x4"; // rinkeby
+export const DefaultChainID = "0xa869"; // AVAX fuji testnet

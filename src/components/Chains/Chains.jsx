@@ -103,7 +103,8 @@ function Chains() {
   const { isAuthenticated } = useMoralis();
   const [selected, setSelected] = useState({});
 
-  console.log("chain", chain);
+  console.log("Chains.jsx, chain", chain);
+  console.log("Chains.jsx, chainId", chainId);
 
   useEffect(() => {
     if (!chainId) return null;

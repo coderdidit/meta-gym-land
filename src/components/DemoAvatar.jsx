@@ -19,13 +19,13 @@ const fallbackImg =
 function DemoAvatar() {
     // eslint-disable-next-line no-unused-vars
     const [avatar, setAvatar] = useContext(AvatarCtx);
-    // const { chainIdSelected } = useMoralis();
-    // const chainId = chainIdSelected || DefaultChainID;
-    const chainId = "0xa869"; // Avalanche Fuji Testnet
+    const { chainIdSelected } = useMoralis();
+    const chainId = chainIdSelected || DefaultChainID;
+    // const chainId = "0xa869"; // Avalanche Fuji Testnet
     const chainName = chainIdToName.get(chainId);
     const demoNFTContract = DemoNFTContracts.get(chainId);
     console.log("demoNFTContract", demoNFTContract);
-    const { data: NFTTokenIds, error: NFTsFetchError } = useNFTTokenIds(demoNFTContract, 3, DefaultChainID);
+    const { data: NFTTokenIds, error: NFTsFetchError } = useNFTTokenIds(demoNFTContract, 3, chainId);
     console.log("NFTTokenIds", NFTTokenIds);
     const { verifyMetadata } = useVerifyMetadata();
 
