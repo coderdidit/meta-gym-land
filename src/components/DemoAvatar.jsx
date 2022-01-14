@@ -74,9 +74,6 @@ function DemoAvatar() {
                     You can try me first before having your own NFT avatar, but I will disappear soon&nbsp;&nbsp;😱
                 </h3>
                 <h3>
-                    
-                </h3>
-                <h3>
                     If you don't have your awesome Avatar yet, get one in our
                     {" "}<Link to="/marketplace">
                         <b><u>Marketplace</u></b>
