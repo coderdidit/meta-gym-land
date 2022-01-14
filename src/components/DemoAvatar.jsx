@@ -43,9 +43,6 @@ function DemoAvatar() {
                     fontWeight: "bold",
                 }}>I am a Demo NFT Avatar <SmileFilled style={{ color: "#FFBE59" }} />
                 </h1>
-                {/* <div style={{
-                        width: "10%"
-                    }}>{chainLogo}</div> */}
                 <h3 style={{
                     padding: "1rem 0",
                     textAlign: "center",
