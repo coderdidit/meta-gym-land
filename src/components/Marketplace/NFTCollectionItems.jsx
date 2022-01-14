@@ -70,7 +70,7 @@ function NFTCollectionItems({ nftAddress, colName, colImg }) {
             // get not sold items
             return query
                 .equalTo("sold", false)
-                .equalTo("nftContract", AllowedNftContracts.get(chainId));
+                .equalTo("nftContract", AllowedNftContracts.get(chainId).toLowerCase());
         });
     const fetchMarketItems = JSON.parse(
         JSON.stringify(queryMarketItems.data, [
