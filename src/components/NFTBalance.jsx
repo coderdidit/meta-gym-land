@@ -76,6 +76,9 @@ function NFTBalance() {
     });
   };
 
+  console.log('NFTBalance chainId', chainId);
+  console.log('AllowedNftContracts.get(chainId)', AllowedNftContracts.get(chainId));
+
   console.log("Filtered NFTBalances", NFTBalances?.result
     .filter(nft => nft.image && nft.token_address === AllowedNftContracts.get(chainId)));
 
