@@ -12,7 +12,6 @@ import { useVerifyMetadata } from "hooks/useVerifyMetadata";
 import { DefaultChainID } from "../MglNftMetadata";
 import { chainIdToNameAndLogo } from "../components/Chains/Chains";
 import {
-    brightFontCol,
     highlightTextColor,
     pageTitleStyle,
     descriptionStyle
@@ -51,7 +50,7 @@ function DemoAvatar() {
                     padding: "1rem 0",
                 }}>
                     <span style={{
-                        color: "aqua",
+                        color: highlightTextColor,
                         cursor: "pointer",
                     }}
                         onClick={() =>
