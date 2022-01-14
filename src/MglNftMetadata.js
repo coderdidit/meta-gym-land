@@ -1,20 +1,9 @@
 export const AllowedNftContracts = new Map([
     ["0x4",  // rinkeby
         "0x9ca6cf1671a384eccec958ea4ee27294e176b677",
-        // TODO enable to allow more contracts
-        // new Set([
-        //     "0x9ca6cf1671a384eccec958ea4ee27294e176b677"]
-        // ),
     ],
     ["0xa869", // AVAX fuji testnet
         "0x1904b52B2768E4DD72bf300202B4194E05dd0AFa"
-        // TODO enable to allow more contracts
-        // new Set([
-        //     "0x1904b52B2768E4DD72bf300202B4194E05dd0AFa",
-        //     "0xa27B2B17D60902C60397ae8D406Ec2B88c656e51" // demo nft
-        // ]
-        // )
-        // "0xa27B2B17D60902C60397ae8D406Ec2B88c656e51" demo nft
     ]
 ]);
 
