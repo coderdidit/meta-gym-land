@@ -32,7 +32,7 @@ const supportedChains = new Set(
 export const chainIdToName = new Map([
   ["0x4", "Rinkeby Testnet"],
   ["0xa86a", "Avalanche"],
-  ["0xa869", "Avalanche Testnet"],
+  ["0xa869", "Avalanche Fuji Testnet"],
 ])
 
 const menuItems = [

@@ -7,6 +7,9 @@ export const AllowedNftContracts = new Map([
 export const DemoNFTContracts = new Map([
     ["0x4",  // rinkeby
         "0xCB14609cCcE601fC24A7b39F39E0609b0B62acE4",
+    ],
+    ["0xa869", // AVAX fuji testnet
+        "0xa27B2B17D60902C60397ae8D406Ec2B88c656e51"
     ]
 ]);
 
