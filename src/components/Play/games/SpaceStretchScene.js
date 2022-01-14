@@ -173,16 +173,17 @@ export class SpaceStretchScene extends Phaser.Scene {
     }
 
     update(time, delta) {
-        // Every frame, we update the player
-        // this.player?.update();
-
         const now = Date.now()
         const timeDiff = (now - this.lastMovetime) / 1000
         const player = this.player;
         player.body.setVelocityX(0);
         player.body.setVelocityY(0);
-        
+
         const isIdle = !gstate.isNonIdle();
+        if (!isIdle) {
+            // reset
+            this.landingAcceleration = 2;
+        }
         // deffer gravity from in move state
         if (timeDiff > 0.8) {
             if (isIdle) {
