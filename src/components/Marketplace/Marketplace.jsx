@@ -20,7 +20,6 @@ function Marketplace() {
         <div style={{
           ...BreakFlexDiv,
           marginLeft: "95%",
-          // marginBottom: "1.8rem",
         }}>
           <Button
             type="primary"
