@@ -201,7 +201,7 @@ function NFTCollectionItems({ nftAddress, colName, colImg }) {
         return listings.get(key)
     }
 
-    console.log('Mrktplace NFTsFetchError', NFTsFetchError);
+    console.log('Marketplace NFTsFetchError', NFTsFetchError);
 
     return (
         <>
