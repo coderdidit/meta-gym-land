@@ -180,9 +180,11 @@ export class GymRoomScene extends Phaser.Scene {
       const y = object.y * mapScale + height * 0.02
       let trainingMatRect = this.add
         .rectangle(x, y, object.width * mapScale, object.height * mapScale,
-        // 0x6666ff // for debug
-      ).setName(object.name)
-        .setOrigin(0)
+          // 0x6666ff // for debug
+        ).setName(object.name)
+        .setOrigin(0);
+      // adjust collision box
+      trainingMatRect.setSize(trainingMatRect.width, trainingMatRect.height * 0.3);
       this.physics.world.enable(trainingMatRect, 1);
       trainingMats.push(trainingMatRect);
     });
