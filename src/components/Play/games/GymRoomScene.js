@@ -183,10 +183,7 @@ export class GymRoomScene extends Phaser.Scene {
       const objHeight = object.height * mapScale;
       let trainingMatRect = this.add
         .rectangle(x, y, objWidth, objHeight,
-      ).setName(object.name)
-        .setOrigin(0);
-      // adjust collision box
-      // trainingMatRect.setSize(trainingMatRect.width, trainingMatRect.height * 0.3);
+      ).setName(object.name).setOrigin(0);
       this.physics.world.enable(
         trainingMatRect, Phaser.Physics.Arcade.STATIC_BODY
       );
@@ -198,8 +195,6 @@ export class GymRoomScene extends Phaser.Scene {
       if (player.body.touching.none && player.collidingTrainingMat != matRectangle) {
         player.collidingTrainingMat = matRectangle;
         matRectangle.setFillStyle(0x33dd33, 0.3);
-        console.log('player touching', player.body.touching)
-        console.log('player wasTouching', player.body.wasTouching)
         roboTextTimeouts.forEach(t => clearTimeout(t))
         sceneToGoOnXclick = objName
         hintTextBox.start(
@@ -229,7 +224,6 @@ export class GymRoomScene extends Phaser.Scene {
   }
 
   update(time, delta) {
-
     // overlapend event
     const touching = !this.player.body.touching.none;
     const wasTouching = !this.player.body.wasTouching.none;
