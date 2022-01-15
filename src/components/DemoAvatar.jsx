@@ -11,7 +11,6 @@ import { useVerifyMetadata } from "hooks/useVerifyMetadata";
 import { MainChainID } from "../MglNftMetadata";
 import { chainIdToNameAndLogo } from "../components/Chains/Chains";
 import {
-    highlightTextColor,
     pageTitleStyle,
     descriptionStyle
 } from "GlobalStyles";
@@ -28,154 +27,162 @@ function DemoAvatar() {
     const chainLogo = chainIdToNameAndLogo.get(chainId)[1];
     const demoNFTContract = DemoNFTContracts.get(chainId);
     console.log("demoNFTContract", demoNFTContract);
-    const { data: NFTTokenIds, error: NFTsFetchError } = useNFTTokenIds(demoNFTContract, 3, chainId);
+    const { data: NFTTokenIds, error: NFTsFetchError, isLoading } = useNFTTokenIds(demoNFTContract, 3, chainId);
     console.log("NFTTokenIds", NFTTokenIds);
     const { verifyMetadata } = useVerifyMetadata();
 
-    return (
-        <div>
-            <div style={{
-                marginTop: "1rem",
-                marginBottom: "2rem",
-            }}>
-                <div style={{
-                    ...pageTitleStyle,
-                }}>I am a Demo NFT Avatar <SmileFilled style={{ color: "#FFBE59" }} />
-                </div>
-                <div style={{
-                    ...descriptionStyle,
-                    padding: "1rem 0",
-                }}>
-                    <Button
-                        style={BtnPrimary}
-                        onClick={() =>
-                            window.open(
-                                `${getExplorer(chainId)}address/${demoNFTContract}`,
-                                "_blank"
-                            )
-                        }
-                    >
-                        {demoNFTContract}
-                    </Button>
-                    <div style={{
-                        display: "flex",
-                        alignItems: "center",
-                        marginBottom: "1rem",
-                        marginTop: "0.5rem",
-                    }}>
-                        ON&nbsp;
-                        {chainName}
-                        &nbsp;&nbsp;
-                        {chainLogo}
-                    </div>
-                    <p>
-                        You can try me first before buying your own NFT Avatar, but I will disappear soon&nbsp;&nbsp;😱
-                    </p>
+    if (isLoading) {
+        return (
+            <div>
+                ...loading
+            </div>)
+    } else {
 
-                    <p>
-                        If you dont have your awesome Avatar yet, get one in our&nbsp;&nbsp;
+        return (
+            <div>
+                <div style={{
+                    marginTop: "1rem",
+                    marginBottom: "2rem",
+                }}>
+                    <div style={{
+                        ...pageTitleStyle,
+                    }}>I am a Demo NFT Avatar <SmileFilled style={{ color: "#FFBE59" }} />
+                    </div>
+                    <div style={{
+                        ...descriptionStyle,
+                        padding: "1rem 0",
+                    }}>
                         <Button
-                            type="primary"
                             style={BtnPrimary}
+                            onClick={() =>
+                                window.open(
+                                    `${getExplorer(chainId)}address/${demoNFTContract}`,
+                                    "_blank"
+                                )
+                            }
                         >
-                            <Link to="/marketplace">
-                                Marketplace{" "}🚀
-                            </Link>
+                            {demoNFTContract}
                         </Button>
-                    </p>
+                        <div style={{
+                            display: "flex",
+                            alignItems: "center",
+                            marginBottom: "1rem",
+                            marginTop: "0.5rem",
+                        }}>
+                            ON&nbsp;
+                            {chainName}
+                            &nbsp;&nbsp;
+                            {chainLogo}
+                        </div>
+                        <p>
+                            You can try me first before buying your own NFT Avatar, but I will disappear soon&nbsp;&nbsp;😱
+                        </p>
+
+                        <p>
+                            If you dont have your awesome Avatar yet, get one in our&nbsp;&nbsp;
+                            <Button
+                                type="primary"
+                                style={BtnPrimary}
+                            >
+                                <Link to="/marketplace">
+                                    Marketplace{" "}🚀
+                                </Link>
+                            </Button>
+                        </p>
+                    </div>
+                </div>
+                {(
+                    <>
+                        {NFTsFetchError && (
+                            <>
+                                <Alert
+                                    message="Unable to fetch NFT. We are searching for a solution, please try again later!"
+                                    type="warning"
+                                />
+                                <div style={{ marginBottom: "10px" }}></div>
+                            </>
+                        )}
+                    </>
+                )}
+                <div style={NFTsDiv}>
+                    {NFTTokenIds?.result
+                        .map((nft, index) => {
+                            //Verify Metadata
+                            nft = verifyMetadata(nft);
+                            return (
+                                <Card
+                                    key={index}
+                                    hoverable
+                                    actions={[
+                                        <Tooltip title="View On Blockexplorer">
+                                            <FileSearchOutlined
+                                                onClick={() =>
+                                                    window.open(
+                                                        `${getExplorer(chainId)}address/${nft.token_address}`,
+                                                        "_blank"
+                                                    )
+                                                }
+                                            />
+                                        </Tooltip>,
+                                    ]}
+                                    style={NFTCardStyle}
+                                    cover={<>
+                                        <Image
+                                            preview={false}
+                                            src={nft.image || "error"}
+                                            fallback={fallbackImg}
+                                            alt=""
+                                            style={NFTImg}
+                                            wrapperStyle={{
+                                                backgroundColor: "#" + nft?.background_color,
+                                                ...NFTImgWrapperStyle
+                                            }}
+                                        />
+                                        <Badge.Ribbon
+                                            text="I will disappear soon"
+                                            color="red"
+                                            style={{
+                                                paddingRight: "5px",
+                                                paddingLeft: "5px",
+                                                marginRight: "1rem",
+                                                marginTop: "-1rem",
+                                            }}
+                                        />
+                                    </>
+                                    }
+                                >
+                                    <div
+                                        style={{
+                                            display: "flex",
+                                            justifyContent: "center",
+                                            alignItems: "center",
+                                            marginTop: "1rem",
+                                        }}>
+                                        <Button
+                                            onClick={() => {
+                                                const avatarUri = nft?.image;
+                                                const avatarTokenAddress = nft?.token_address;
+                                                const avatarTokenId = nft?.token_id;
+                                                setAvatar({
+                                                    uri: avatarUri,
+                                                    tokenAddress: avatarTokenAddress,
+                                                    tokenId: avatarTokenId,
+                                                });
+                                            }}
+                                            type="primary"
+                                            style={BtnPrimary}
+                                        >
+                                            <Link to='/play-setup'>
+                                                Play with me
+                                            </Link>
+                                        </Button>
+                                    </div>
+                                </Card>)
+                        })}
                 </div>
             </div>
-            {(
-                <>
-                    {NFTsFetchError && (
-                        <>
-                            <Alert
-                                message="Unable to fetch NFT. We are searching for a solution, please try again later!"
-                                type="warning"
-                            />
-                            <div style={{ marginBottom: "10px" }}></div>
-                        </>
-                    )}
-                </>
-            )}
-            <div style={NFTsDiv}>
-                {NFTTokenIds?.result
-                    .map((nft, index) => {
-                        //Verify Metadata
-                        nft = verifyMetadata(nft);
-                        return (
-                            <Card
-                                key={index}
-                                hoverable
-                                actions={[
-                                    <Tooltip title="View On Blockexplorer">
-                                        <FileSearchOutlined
-                                            onClick={() =>
-                                                window.open(
-                                                    `${getExplorer(chainId)}address/${nft.token_address}`,
-                                                    "_blank"
-                                                )
-                                            }
-                                        />
-                                    </Tooltip>,
-                                ]}
-                                style={NFTCardStyle}
-                                cover={<>
-                                    <Image
-                                        preview={false}
-                                        src={nft.image || "error"}
-                                        fallback={fallbackImg}
-                                        alt=""
-                                        style={NFTImg}
-                                        wrapperStyle={{
-                                            backgroundColor: "#" + nft?.background_color,
-                                            ...NFTImgWrapperStyle
-                                        }}
-                                    />
-                                    <Badge.Ribbon
-                                        text="I will disappear soon"
-                                        color="red"
-                                        style={{
-                                            paddingRight: "5px",
-                                            paddingLeft: "5px",
-                                            marginRight: "1rem",
-                                            marginTop: "-1rem",
-                                        }}
-                                    />
-                                </>
-                                }
-                            >
-                                <div
-                                    style={{
-                                        display: "flex",
-                                        justifyContent: "center",
-                                        alignItems: "center",
-                                        marginTop: "1rem",
-                                    }}>
-                                    <Button
-                                        onClick={() => {
-                                            const avatarUri = nft?.image;
-                                            const avatarTokenAddress = nft?.token_address;
-                                            const avatarTokenId = nft?.token_id;
-                                            setAvatar({
-                                                uri: avatarUri,
-                                                tokenAddress: avatarTokenAddress,
-                                                tokenId: avatarTokenId,
-                                            });
-                                        }}
-                                        type="primary"
-                                        style={BtnPrimary}
-                                    >
-                                        <Link to='/play-setup'>
-                                            Play with me
-                                        </Link>
-                                    </Button>
-                                </div>
-                            </Card>)
-                    })}
-            </div>
-        </div>
-    );
+        );
+    }
 }
 
 export default DemoAvatar;
