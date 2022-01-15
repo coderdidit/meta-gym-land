@@ -143,6 +143,7 @@ export class GymRoomScene extends Phaser.Scene {
     this.player.setScale(PLAYER_SCALE);
     this.player.setDepth(1);
     this.cameras.main.startFollow(this.player);
+    const player = this.player;
 
     // colliders
     this.physics.add.collider(this.player, wallsLayer);
@@ -180,8 +181,8 @@ export class GymRoomScene extends Phaser.Scene {
       const y = object.y * mapScale + height * 0.02
       let trainingMatRect = this.add
         .rectangle(x, y, object.width * mapScale, object.height * mapScale,
-          // 0x6666ff // for debug
-        ).setName(object.name)
+        // 0x6666ff // for debug
+      ).setName(object.name)
         .setOrigin(0);
       // adjust collision box
       trainingMatRect.setSize(trainingMatRect.width, trainingMatRect.height * 0.3);
@@ -191,7 +192,9 @@ export class GymRoomScene extends Phaser.Scene {
 
     const playerMatHandelOverlap = (player, matRectangle) => {
       const objName = matRectangle.name;
-      if (!miniGamesOverlaps.has(objName)) {
+      if (player.collidingTrainingMat != objName) {
+        player.collidingTrainingMat = objName;
+        console.log('player', player.body)
         roboTextTimeouts.forEach(t => clearTimeout(t))
         sceneToGoOnXclick = objName
         hintTextBox.start(
@@ -201,17 +204,14 @@ export class GymRoomScene extends Phaser.Scene {
         roboTextTimeouts.push(
           setTimeout(() => hintTextBox.start('🤖', 50), 5000)
         )
-        miniGamesOverlaps.add(objName);
-      } else {
-        // clear matRectangles
-        miniGames
-          .filter(i => i !== objName)
-          .forEach(i => miniGamesOverlaps.delete(i))
       }
     }
 
     this.physics.add.overlap(this.player, trainingMats, playerMatHandelOverlap, null, this);
-
+    this.player.on("overlapend", function () {
+      this.body.debugBodyColor = 0x00ff33;
+      player.collidingTrainingMat = null;
+    });
     // debugging
     if (debugCollisons) {
       debugCollisonBounds(wallsLayer, this)
@@ -219,6 +219,22 @@ export class GymRoomScene extends Phaser.Scene {
   }
 
   update(time, delta) {
+    const touching = !this.player.body.touching.none;
+    const wasTouching = !this.player.body.wasTouching.none;
+
+    // if (touching && !wasTouching) block.emit("overlapstart");
+    if (!touching && wasTouching) this.player.emit("overlapend");
+
+    // miniGames.forEach(miniGame => {
+    //   if (this.player.collidingTrainingMat) {
+    //     if (
+    //       this.player.collidingTrainingMat === miniGame &&
+    //       this.player.body.touching.none
+    //     ) {
+    //       this.player.collidingTrainingMat = null;
+    //     }
+    //   }
+    // })
     // Every frame, we update the player
     this.player?.update()
   }
