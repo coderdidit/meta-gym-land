@@ -27,7 +27,6 @@ const SceneConfig = {
 const mapScale = 0.6;
 const tileMapSizing = 36;
 
-const miniGamesOverlaps = new Set();
 const miniGamesMapping = new Map([
   ['space_stretch', 'Space Stretch'],
   ['fly_fit', 'Fly Fit'],
@@ -142,6 +141,13 @@ export class GymRoomScene extends Phaser.Scene {
     });
     this.player.setScale(PLAYER_SCALE);
     this.player.setDepth(1);
+    // adjust collision box
+    this.player.body.setSize(
+      this.player.width * 0.5,
+      this.player.height * 0.3);
+    this.player.body.setOffset(
+      this.player.width * 0.25, this.player.height * 0.6
+    )
     this.cameras.main.startFollow(this.player);
     const player = this.player;
 
