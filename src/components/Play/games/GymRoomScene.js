@@ -184,36 +184,31 @@ export class GymRoomScene extends Phaser.Scene {
       ).setName(object.name)
         .setOrigin(0)
       this.physics.world.enable(trainingMatRect, 1);
-
       trainingMats.push(trainingMatRect);
     });
 
-    this.physics.add.overlap(
-      this.player,
-      trainingMats,
-      (avatar, matRectangle) => {
-        const objName = matRectangle.name;
-        if (!miniGamesOverlaps.has(objName)) {
-          roboTextTimeouts.forEach(t => clearTimeout(t))
-          sceneToGoOnXclick = objName
-          hintTextBox.start(
-            `🤖 press X to play ${miniGamesMapping.get(objName)} 🚀`,
-            50
-          )
-          roboTextTimeouts.push(
-            setTimeout(() => hintTextBox.start('🤖', 50), 5000)
-          )
-          miniGamesOverlaps.add(objName)
-        } else {
-          // clear matRectangles
-          miniGames
-            .filter(i => i !== objName)
-            .forEach(i => miniGamesOverlaps.delete(i))
-        }
-      },
-      null,
-      this
-    );
+    const playerMatHandelOverlap = (player, matRectangle) => {
+      const objName = matRectangle.name;
+      if (!miniGamesOverlaps.has(objName)) {
+        roboTextTimeouts.forEach(t => clearTimeout(t))
+        sceneToGoOnXclick = objName
+        hintTextBox.start(
+          `🤖 press X to play ${miniGamesMapping.get(objName)} 🚀`,
+          50
+        );
+        roboTextTimeouts.push(
+          setTimeout(() => hintTextBox.start('🤖', 50), 5000)
+        )
+        miniGamesOverlaps.add(objName);
+      } else {
+        // clear matRectangles
+        miniGames
+          .filter(i => i !== objName)
+          .forEach(i => miniGamesOverlaps.delete(i))
+      }
+    }
+
+    this.physics.add.overlap(this.player, trainingMats, playerMatHandelOverlap, null, this);
 
     // debugging
     if (debugCollisons) {
