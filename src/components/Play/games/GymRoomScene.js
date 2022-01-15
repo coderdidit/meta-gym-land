@@ -185,7 +185,7 @@ export class GymRoomScene extends Phaser.Scene {
       ).setName(object.name)
         .setOrigin(0);
       // adjust collision box
-      trainingMatRect.setSize(trainingMatRect.width, trainingMatRect.height * 0.3);
+      // trainingMatRect.setSize(trainingMatRect.width, trainingMatRect.height * 0.3);
       this.physics.world.enable(
         trainingMatRect, Phaser.Physics.Arcade.STATIC_BODY
       );
@@ -196,7 +196,7 @@ export class GymRoomScene extends Phaser.Scene {
       const objName = matRectangle.name;
       if (player.body.touching.none && player.collidingTrainingMat != matRectangle) {
         player.collidingTrainingMat = matRectangle;
-        matRectangle.setFillStyle(0x33dd33);
+        matRectangle.setFillStyle(0x33dd33, 0.3);
         console.log('player touching', player.body.touching)
         console.log('player wasTouching', player.body.wasTouching)
         roboTextTimeouts.forEach(t => clearTimeout(t))
@@ -205,9 +205,6 @@ export class GymRoomScene extends Phaser.Scene {
           `🤖 press X to play ${miniGamesMapping.get(objName)} 🚀`,
           50
         );
-        roboTextTimeouts.push(
-          setTimeout(() => hintTextBox.start('🤖', 50), 5000)
-        )
       }
     }
 
@@ -217,8 +214,11 @@ export class GymRoomScene extends Phaser.Scene {
     this.player.on("overlapend", function () {
       if (player.collidingTrainingMat) {
         const mat = player.collidingTrainingMat;
-        mat.setFillStyle(null);
+        mat.setFillStyle(null, 0);
         player.collidingTrainingMat = null;
+        roboTextTimeouts.push(
+          setTimeout(() => hintTextBox.start('🤖', 50), 1000)
+        );
       }
     });
     // debugging
