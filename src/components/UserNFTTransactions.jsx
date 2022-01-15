@@ -126,32 +126,39 @@ function UserNFTTransactions() {
         price: item.price / ("1e" + 18)
     }));
 
-    return (
-        <div>
-            <div style={{
-                ...BreakFlexDiv,
-                marginBottom: "3rem",
-            }}>
-                <Button
-                    type="primary"
-                    style={BtnPrimary}
-                    onClick={() => window.history.back()}
-                >
-                    <LeftOutlined />Back
-                </Button>
+    if (queryMarketItems.isLoading) {
+        return (
+            <div>
+                ...loading
+            </div>)
+    } else {
+        return (
+            <div>
+                <div style={{
+                    ...BreakFlexDiv,
+                    marginBottom: "3rem",
+                }}>
+                    <Button
+                        type="primary"
+                        style={BtnPrimary}
+                        onClick={() => window.history.back()}
+                    >
+                        <LeftOutlined />Back
+                    </Button>
+                </div>
+                <div style={{
+                    ...pageTitleStyle,
+                    marginBottom: "1.5rem",
+                    textAlign: "center"
+                }}>
+                    <div>Your recent transactions <DatabaseFilled /></div>
+                </div>
+                <div style={styles.table}>
+                    <Table columns={columns} dataSource={data} />
+                </div>
             </div>
-            <div style={{
-                ...pageTitleStyle,
-                marginBottom: "1.5rem",
-                textAlign: "center"
-            }}>
-                <div>Your recent transactions <DatabaseFilled /></div>
-            </div>
-            <div style={styles.table}>
-                <Table columns={columns} dataSource={data} />
-            </div>
-        </div>
-    );
+        );
+    }
 }
 
 export default UserNFTTransactions;
