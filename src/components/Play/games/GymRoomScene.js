@@ -173,42 +173,47 @@ export class GymRoomScene extends Phaser.Scene {
       );
     }
 
+    const trainingMats = []
     const scriptLayer = map.getObjectLayer('script');
-    console.log('scriptLayer.objects', scriptLayer.objects);
     scriptLayer.objects.forEach(object => {
       const x = object.x * mapScale + width / 5
       const y = object.y * mapScale + height * 0.02
-      let tmp = this.add
-        .rectangle(x, y, object.width * mapScale, object.height * mapScale)
+      let trainingMatRect = this.add
+        .rectangle(x, y, object.width * mapScale, object.height * mapScale,
+        // 0x6666ff // for debug
+      ).setName(object.name)
         .setOrigin(0)
-      tmp.properties = [{ name: object.name }]
-      this.physics.world.enable(tmp, 1)
-      this.physics.add.overlap(
-        this.player,
-        tmp,
-        (avatar, other) => {
-          if (!miniGamesOverlaps.has(object.name)) {
-            roboTextTimeouts.forEach(t => clearTimeout(t))
-            sceneToGoOnXclick = object.name
-            hintTextBox.start(
-              `🤖 press X to play ${miniGamesMapping.get(object.name)} 🚀`,
-              50
-            )
-            roboTextTimeouts.push(
-              setTimeout(() => hintTextBox.start('🤖', 50), 5000)
-            )
-            miniGamesOverlaps.add(object.name)
-          } else {
-            // clear others
-            miniGames
-              .filter(i => i !== object.name)
-              .forEach(i => miniGamesOverlaps.delete(i))
-          }
-        },
-        null,
-        this
-      );
+      this.physics.world.enable(trainingMatRect, 1);
+
+      trainingMats.push(trainingMatRect);
     });
+
+    this.physics.add.overlap(
+      this.player,
+      trainingMats,
+      (avatar, matRectangle) => {
+        const objName = matRectangle.name;
+        if (!miniGamesOverlaps.has(objName)) {
+          roboTextTimeouts.forEach(t => clearTimeout(t))
+          sceneToGoOnXclick = objName
+          hintTextBox.start(
+            `🤖 press X to play ${miniGamesMapping.get(objName)} 🚀`,
+            50
+          )
+          roboTextTimeouts.push(
+            setTimeout(() => hintTextBox.start('🤖', 50), 5000)
+          )
+          miniGamesOverlaps.add(objName)
+        } else {
+          // clear matRectangles
+          miniGames
+            .filter(i => i !== objName)
+            .forEach(i => miniGamesOverlaps.delete(i))
+        }
+      },
+      null,
+      this
+    );
 
     // debugging
     if (debugCollisons) {
