@@ -192,8 +192,12 @@ export class GymRoomScene extends Phaser.Scene {
 
     const playerMatHandelOverlap = (player, matRectangle) => {
       const objName = matRectangle.name;
-      if (player.collidingTrainingMat != objName) {
-        player.collidingTrainingMat = objName;
+      if (player.collidingTrainingMat != matRectangle) {
+        player.collidingTrainingMat = matRectangle;
+        matRectangle.setFillStyle(0x33dd33);
+
+        console.log('matRectangle', matRectangle)
+        // .setTint("0x33dd33");
         console.log('player', player.body)
         roboTextTimeouts.forEach(t => clearTimeout(t))
         sceneToGoOnXclick = objName
@@ -208,8 +212,12 @@ export class GymRoomScene extends Phaser.Scene {
     }
 
     this.physics.add.overlap(this.player, trainingMats, playerMatHandelOverlap, null, this);
-    this.player.on("overlapend", function () {
-      this.body.debugBodyColor = 0x00ff33;
+    this.player.on("overlapend", function (a, b) {
+      // this.body.debugBodyColor = 0x00ff33;
+      console.log('overlapend', a, b);
+      const mat = player.collidingTrainingMat;
+      mat.setFillStyle(0x0000ffff);
+      // .clearTint();
       player.collidingTrainingMat = null;
     });
     // debugging
