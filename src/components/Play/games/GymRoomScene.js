@@ -179,9 +179,10 @@ export class GymRoomScene extends Phaser.Scene {
     scriptLayer.objects.forEach(object => {
       const x = object.x * mapScale + width / 5
       const y = object.y * mapScale + height * 0.02
+      const objWidth = object.width * mapScale;
+      const objHeight = object.height * mapScale;
       let trainingMatRect = this.add
-        .rectangle(x, y, object.width * mapScale, object.height * mapScale,
-        // 0x6666ff // for debug
+        .rectangle(x, y, objWidth, objHeight,
       ).setName(object.name)
         .setOrigin(0);
       // adjust collision box
