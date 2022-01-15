@@ -92,17 +92,22 @@ function NFTBalance() {
     });
   console.log("Filtered NFTBalances", filteredNFTBalances);
 
-  return (
-    <div style={{
-      padding: "0 14%",
-      width: "100%",
-      background: "none",
-      color: brightFontCol,
-    }}>
-      <div style={pageTitleStyle}>
-        Your Avatars and Wearables <SkinFilled /></div>
-      {
-        !isLoading && (
+  if (isLoading) {
+    return (
+      <div>
+        ...loading
+      </div>)
+  } else {
+    return (
+      <div style={{
+        padding: "0 14%",
+        width: "100%",
+        background: "none",
+        color: brightFontCol,
+      }}>
+        <div style={pageTitleStyle}>
+          Your Avatars and Wearables <SkinFilled /></div>
+        {
           filteredNFTBalances
             && filteredNFTBalances.length > 0 ? (<>
               <div style={{
@@ -262,10 +267,11 @@ function NFTBalance() {
                 <Link to="/marketplace">Browse avatars</Link>
               </Button>
             </>
-          ))
-      }
-    </div>
-  );
+          )
+        }
+      </div>
+    );
+  }
 }
 
 export default NFTBalance;
