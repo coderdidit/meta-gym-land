@@ -80,9 +80,15 @@ export class SpaceStretchScene extends Phaser.Scene {
         const width = getGameWidth(this);
         const height = getGameHeight(this);
         // background
-        this.cameras.main.backgroundColor.setTo(31, 31, 30);
+        // this.game.graphics
+        // this.cameras.main.backgroundColor = "linear-gradient(180deg, #000207 0%, #003963 100%)";
         this.graphics = this.add.graphics();
         this.graphics.clear();
+        const rect = new Phaser.Geom.Rectangle(0, 0, width, height);
+        this.graphics.fillGradientStyle(0xff0000, 0x00ff00, 0x0000ff, 0xffff00, 1)
+            // .fillStyle(0xB8ABB2, 1)
+            .fillRectShape(rect);
+        
         const ground = this.drawGround(width, height);
         this.shapes = new Array(15).fill(null).map(
             () => new Phaser.Geom.Circle(
