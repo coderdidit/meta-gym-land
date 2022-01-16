@@ -12,6 +12,9 @@ import {
 import * as gstate from "../../gpose/state";
 import * as gpose from "../../gpose/pose";
 import { highlightTextColor } from "../../../GlobalStyles";
+import party from "party-js";
+import confetti from "confetti";
+
 
 const SceneConfig = {
     active: false,
@@ -26,13 +29,14 @@ const SceneConfig = {
 };
 
 const asteroidScale = 1;
-const maxAsteroidPlatformsCnt = 7;
+const maxAsteroidPlatformsCnt = 1;
 const scoreBoardTextStyle = {
     fill: highlightTextColor,
     font: '900 20px Orbitron',
 }
 const roboTextTimeouts = [];
 const playerSpeed = 100;
+
 
 export class SpaceStretchScene extends Phaser.Scene {
     constructor() {
@@ -68,6 +72,7 @@ export class SpaceStretchScene extends Phaser.Scene {
     }
 
     create() {
+        this.won = false;
         // basic props
         const width = getGameWidth(this);
         const height = getGameHeight(this);
@@ -184,7 +189,53 @@ export class SpaceStretchScene extends Phaser.Scene {
         this.physics.add.collider(this.player, asteroids, onCollide, null, this);
     }
 
+    youWonMsg() {
+        const canvasParent = document.querySelector('#phaser-app canvas');
+        party.confetti(canvasParent);
+        const { width, height } = this.physics.world.bounds
+        const textStyle = {
+            font: 'bold 32px Orbitron',
+            fill: '#FA34F3',
+            backgroundColor: '#251F54',
+            padding: 30,
+            align: 'center',
+        }
+        const infoText = this.add.text(
+            width / 2,
+            (height / 2) - height * .2,
+            `You Won! 🎉 \n
+            All 🪨🪨🪨 are crushed 😀`,
+            textStyle
+        )
+        infoText.setOrigin(0.5)
+        infoText.setShadow(3, 3, 'rgba(0,0,0,0.2)', 2)
+
+        this.input.on("pointerdown", () => this.scene.start(SPACE_STRETCH_SCENE))
+
+        const restartTextStyle = {
+            font: 'bold 32px Orbitron',
+            fill: '#EEEEF0',
+            backgroundColor: '#262D83',
+            padding: 30,
+            align: 'center',
+        }
+        const restartText = this.add.text(
+            width / 2,
+            height * .8,
+            "🎮 restart",
+            restartTextStyle
+        )
+        restartText.setOrigin(0.5)
+        restartText.setShadow(3, 3, 'rgba(0,0,0,0.2)', 2)
+    }
+
     update(time, delta) {
+        if (!this.won && this.score == this.placedAsteroidPlatforms) {
+            this.won = true;
+            this.youWonMsg();
+            return
+        }
+
         const now = Date.now()
         const timeDiff = (now - this.lastMovetime) / 1000
         const player = this.player;
