@@ -131,7 +131,7 @@ const PoseDetWebcam = ({ sizeProps, styleProps }) => {
                 audio={false}
                 videoConstraints={getVideoConstraints()}
                 mirrored={true}
-                className={"webcam"}
+                id={"webcam"}
                 ref={webcamRef}
                 muted={true}
                 style={{
@@ -148,7 +148,7 @@ const PoseDetWebcam = ({ sizeProps, styleProps }) => {
             />
             <canvas
                 ref={canvasRef}
-                className={"webcam-canvas"}
+                id={"webcam-canvas"}
                 style={{
                     objectFit: "cover",
                     zIndex: 9,
