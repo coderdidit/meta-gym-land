@@ -11,7 +11,7 @@ import {
 } from "./assets";
 import * as gstate from "../../gpose/state";
 import * as gpose from "../../gpose/pose";
-
+import { highlightTextColor } from "../../../GlobalStyles";
 
 const SceneConfig = {
     active: false,
@@ -28,7 +28,7 @@ const SceneConfig = {
 const asteroidScale = 1;
 const maxAsteroidPlatformsCnt = 7;
 const scoreBoardTextStyle = {
-    fill: '#fff',
+    fill: highlightTextColor,
     font: '900 20px Orbitron',
 }
 const roboTextTimeouts = [];
@@ -113,7 +113,7 @@ export class SpaceStretchScene extends Phaser.Scene {
         // Add the scoreboard in
         this.scoreBoard = this.add.text(
             width * 0.05, height * 0.015,
-            "SCORE: 0", scoreBoardTextStyle);
+            "🪨🪨🪨  0", scoreBoardTextStyle);
         this.add.text(
             width * 0.05, height * 0.04,
             "press ESC to go back", {
@@ -176,7 +176,7 @@ export class SpaceStretchScene extends Phaser.Scene {
                 asteroids.setTint("0x33dd33")
                 asteroids.setImmovable(false)
                 asteroids.setVelocityY(600)
-                this.scoreBoard.setText(`SCORE: ${this.score}`)
+                this.scoreBoard.setText(`🪨🪨🪨  ${this.score}`)
                 this.scoreBoard.setStyle(scoreBoardTextStyle)
             }
         }
