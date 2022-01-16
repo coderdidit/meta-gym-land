@@ -55,8 +55,9 @@ const PlaySetupPage = () => {
             {!webCamAndCanvasAreInit() &&
                 <Loader
                     style={{
-                        position: "absolute",
-                        zIndex: "1",
+                        display: "flex",
+                        justifyContent: "center",
+                        marginBottom: "-1.5rem",
                     }}
                 />}
             <div style={{
