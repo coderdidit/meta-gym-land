@@ -52,7 +52,13 @@ const PlaySetupPage = () => {
 
     return (
         <div>
-            {!webCamAndCanvasAreInit() && <Loader />}
+            {!webCamAndCanvasAreInit() &&
+                <Loader
+                    style={{
+                        position: "absolute",
+                        zIndex: "1",
+                    }}
+                />}
             <div style={{
                 boxShadow: "0 0 20px 2px #020811",
                 backgroundColor: "#042946",
