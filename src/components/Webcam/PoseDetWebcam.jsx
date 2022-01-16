@@ -1,12 +1,14 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useRef, useEffect } from "react";
 import { WebcamCtx, PoseDetectorCtx } from "index";
 import Webcam from "react-webcam";
 import { drawPose } from "./pose-drawing";
 import { updateGPoseState } from "../gpose/functions";
 
 const PoseDetWebcam = ({ sizeProps, styleProps }) => {
-    const { webcamId, setWebcamId, canvasRef, webcamRef } = useContext(WebcamCtx);
+    const { webcamId, setWebcamId } = useContext(WebcamCtx);
     const { poseDetector } = useContext(PoseDetectorCtx);
+    const canvasRef = useRef(null);
+    const webcamRef = useRef(null);
 
     console.log('poseDetector PoseDetWebcam', poseDetector);
     console.log('PoseDetWebcam webcamRef', webcamRef);
