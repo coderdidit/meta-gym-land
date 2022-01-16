@@ -18,6 +18,7 @@ const Loader = () => {
             // flexDirection: "column",
             marginTop: "10%",
             justifyContent: "center",
+            width: "50rem",
         }}>
 
             <div>
