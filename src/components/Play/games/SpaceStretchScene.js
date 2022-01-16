@@ -85,12 +85,12 @@ export class SpaceStretchScene extends Phaser.Scene {
         this.graphics = this.add.graphics();
         this.graphics.clear();
         const rect = new Phaser.Geom.Rectangle(0, 0, width, height);
-        this.graphics.fillGradientStyle(0x024F70, 0x43087E, 0x480360, 0x630459, 1)
+        this.graphics.fillGradientStyle(0x023246, 0x1E0338, 0x300240, 0x370232, 1)
             // .fillStyle(0xB8ABB2, 1)
             .fillRectShape(rect);
         
         const ground = this.drawGround(width, height);
-        this.shapes = new Array(35).fill(null).map(
+        this.shapes = new Array(45).fill(null).map(
             () => new Phaser.Geom.Circle(
                 Phaser.Math.Between(0, width),
                 Phaser.Math.Between(0, height),
@@ -188,7 +188,7 @@ export class SpaceStretchScene extends Phaser.Scene {
         const onCollide = (avatar, asteroids) => {
             if (avatar.body.onFloor()) {
                 this.score += 1
-                asteroids.setTint("0x33dd33")
+                asteroids.setTint("0x4f4f4f")
                 asteroids.setImmovable(false)
                 asteroids.setVelocityY(600)
                 this.scoreBoard.setText(`🪨🪨🪨  ${this.score}`)
