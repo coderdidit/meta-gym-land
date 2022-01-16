@@ -11,9 +11,12 @@ import {
 } from "./assets";
 import * as gstate from "../../gpose/state";
 import * as gpose from "../../gpose/pose";
-import { highlightTextColor } from "../../../GlobalStyles";
+import {
+    highlightTextColorNum,
+    mainBgColorNum,
+    highlightTextColor,
+} from "../../../GlobalStyles";
 import party from "party-js";
-import confetti from "confetti";
 
 
 const SceneConfig = {
@@ -29,7 +32,7 @@ const SceneConfig = {
 };
 
 const asteroidScale = 1;
-const maxAsteroidPlatformsCnt = 1;
+const maxAsteroidPlatformsCnt = 7;
 const scoreBoardTextStyle = {
     fill: highlightTextColor,
     font: '900 20px Orbitron',
@@ -106,7 +109,8 @@ export class SpaceStretchScene extends Phaser.Scene {
         // hint
         const hintTextBox = createTextBox(this,
             (width / 2) + width / 4, height * 0.025,
-            { wrapWidth: 280 })
+            { wrapWidth: 280 },
+        );
         hintTextBox.setDepth(1);
         hintTextBox.setScrollFactor(0, 0);
         hintTextBox.start("🤖", 50);
@@ -191,42 +195,42 @@ export class SpaceStretchScene extends Phaser.Scene {
 
     youWonMsg() {
         const canvasParent = document.querySelector('#phaser-app canvas');
-        party.confetti(canvasParent);
-        const { width, height } = this.physics.world.bounds
-        const textStyle = {
-            font: 'bold 32px Orbitron',
-            fill: '#FA34F3',
-            backgroundColor: '#251F54',
-            padding: 30,
-            align: 'center',
-        }
-        const infoText = this.add.text(
+        if (canvasParent) party.confetti(canvasParent);
+        // setInterval(() => {
+        //     party.confetti(canvasParent);
+        // }, 1000);
+
+        const width = getGameWidth(this);
+        const height = getGameHeight(this);
+
+        const msg = "All 🪨🪨🪨 are crushed 🎉\n" +
+            "\n\n" +
+            "Press X to 🎮 restart\n" +
+            "Press ESC to exit";
+
+        const youWonText = createTextBox(this,
             width / 2,
             (height / 2) - height * .2,
-            `You Won! 🎉 \n
-            All 🪨🪨🪨 are crushed 😀`,
-            textStyle
+            { wrapWidth: 280 },
+            mainBgColorNum,
+            highlightTextColorNum
         )
-        infoText.setOrigin(0.5)
-        infoText.setShadow(3, 3, 'rgba(0,0,0,0.2)', 2)
+        youWonText.setOrigin(0.5).setDepth(1);
+        youWonText.setScrollFactor(0, 0);
+        youWonText.start(msg, 50);
 
-        this.input.on("pointerdown", () => this.scene.start(SPACE_STRETCH_SCENE))
+        this.input.on("pointerdown", () => this.scene.start(SPACE_STRETCH_SCENE));
 
-        const restartTextStyle = {
-            font: 'bold 32px Orbitron',
-            fill: '#EEEEF0',
-            backgroundColor: '#262D83',
-            padding: 30,
-            align: 'center',
-        }
-        const restartText = this.add.text(
-            width / 2,
-            height * .8,
-            "🎮 restart",
-            restartTextStyle
-        )
-        restartText.setOrigin(0.5)
-        restartText.setShadow(3, 3, 'rgba(0,0,0,0.2)', 2)
+        this.input.keyboard.on(
+            'keydown',
+            event => {
+                const code = event.keyCode
+                if (code == Phaser.Input.Keyboard.KeyCodes.X) {
+                    this.scene.start(SPACE_STRETCH_SCENE);
+                }
+            },
+            this
+        );
     }
 
     update(time, delta) {
