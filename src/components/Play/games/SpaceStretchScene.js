@@ -215,8 +215,7 @@ export class SpaceStretchScene extends Phaser.Scene {
             mainBgColorNum,
             highlightTextColorNum
         )
-        youWonText.setOrigin(0.5).setDepth(1);
-        youWonText.setScrollFactor(0, 0);
+        youWonText.setOrigin(0.5).setDepth(1).setScrollFactor(0, 0);
         youWonText.start(msg, 50);
 
         this.input.on("pointerdown", () => this.scene.start(SPACE_STRETCH_SCENE));
