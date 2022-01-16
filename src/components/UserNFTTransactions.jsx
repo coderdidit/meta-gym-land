@@ -9,6 +9,7 @@ import {
     pageTitleStyle,
 } from "../GlobalStyles";
 import { DatabaseFilled, LeftOutlined } from "@ant-design/icons";
+import Loader from "./Loader";
 
 
 const styles = {
@@ -127,10 +128,7 @@ function UserNFTTransactions() {
     }));
 
     if (queryMarketItems.isLoading) {
-        return (
-            <div>
-                ...loading
-            </div>)
+        return (<Loader />);
     } else {
         return (
             <div>

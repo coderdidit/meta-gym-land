@@ -28,6 +28,7 @@ import {
 import { AllowedNftContracts } from "../../MglNftMetadata";
 import { MainChainID } from "../../MglNftMetadata";
 import { chainIdToNameAndLogo } from "../Chains/Chains";
+import Loader from "../Loader";
 
 
 const styles = {
@@ -227,10 +228,7 @@ function NFTCollectionItems({ nftAddress, colName, colImg }) {
     console.log('Marketplace NFTsFetchError', NFTsFetchError);
 
     if (isLoading) {
-        return (
-            <div>
-                ...loading
-            </div>)
+        return (<Loader />);
     } else {
 
         return (

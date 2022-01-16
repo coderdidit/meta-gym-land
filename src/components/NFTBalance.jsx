@@ -16,6 +16,7 @@ import { mainMarketAddress, deployedABI, listItemFunction } from "../Marketplace
 import { NFTCardStyle, NFTsDiv, NFTImg, BtnPrimary, NFTImgWrapperStyle } from "../GlobalStyles";
 import { AllowedNftContracts } from "../MglNftMetadata";
 import { AvatarCtx } from "index";
+import Loader from "./Loader";
 
 const { Meta } = Card;
 
@@ -93,10 +94,7 @@ function NFTBalance() {
   console.log("Filtered NFTBalances", filteredNFTBalances);
 
   if (isLoading) {
-    return (
-      <div>
-        ...loading
-      </div>)
+    return (<Loader />);
   } else {
     return (
       <div style={{

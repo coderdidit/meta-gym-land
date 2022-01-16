@@ -33,7 +33,7 @@ function DemoAvatar() {
     const { verifyMetadata } = useVerifyMetadata();
 
     if (isLoading) {
-        return (<Loader />)
+        return (<Loader />);
     } else {
 
         return (
