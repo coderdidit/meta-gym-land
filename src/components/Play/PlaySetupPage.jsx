@@ -47,7 +47,7 @@ const PlaySetupPage = () => {
         const webcamCanvas = document.getElementById("pose-det-webcam-canvas");
         return webcam &&
             webcam.readyState === 4 &&
-            webcamCanvas;
+            webcamCanvas && webcamId;
     };
 
     return (
@@ -158,7 +158,7 @@ const PlaySetupPage = () => {
                     paddingBottom: "1rem",
                 }}>
                     <Button
-                        disabled={webcamId === null}
+                        disabled={!webCamAndCanvasAreInit()}
                         className="join-mgl-btn"
                         style={{
                             ...BtnPrimary,
