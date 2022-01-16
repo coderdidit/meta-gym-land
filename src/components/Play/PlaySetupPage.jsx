@@ -47,7 +47,7 @@ const PlaySetupPage = () => {
         const webcamCanvas = document.getElementById("pose-det-webcam-canvas");
         return webcam &&
             webcam.readyState === 4 &&
-            webcamCanvas && webcamId;
+            webcamCanvas;
     };
 
     return (
