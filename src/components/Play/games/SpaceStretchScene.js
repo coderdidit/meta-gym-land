@@ -85,12 +85,12 @@ export class SpaceStretchScene extends Phaser.Scene {
         this.graphics = this.add.graphics();
         this.graphics.clear();
         const rect = new Phaser.Geom.Rectangle(0, 0, width, height);
-        this.graphics.fillGradientStyle(0xff0000, 0x00ff00, 0x0000ff, 0xffff00, 1)
+        this.graphics.fillGradientStyle(0x024F70, 0x43087E, 0x480360, 0x630459, 1)
             // .fillStyle(0xB8ABB2, 1)
             .fillRectShape(rect);
         
         const ground = this.drawGround(width, height);
-        this.shapes = new Array(15).fill(null).map(
+        this.shapes = new Array(35).fill(null).map(
             () => new Phaser.Geom.Circle(
                 Phaser.Math.Between(0, width),
                 Phaser.Math.Between(0, height),
