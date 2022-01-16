@@ -88,7 +88,7 @@ export class SpaceStretchScene extends Phaser.Scene {
         this.graphics.fillGradientStyle(0x023246, 0x1E0338, 0x300240, 0x370232, 1)
             // .fillStyle(0xB8ABB2, 1)
             .fillRectShape(rect);
-        
+
         const ground = this.drawGround(width, height);
         this.shapes = new Array(45).fill(null).map(
             () => new Phaser.Geom.Circle(
@@ -116,6 +116,8 @@ export class SpaceStretchScene extends Phaser.Scene {
         const hintTextBox = createTextBox(this,
             (width / 2) + width / 4, height * 0.025,
             { wrapWidth: 280 },
+            mainBgColorNum,
+            highlightTextColorNum
         );
         hintTextBox.setDepth(1);
         hintTextBox.setScrollFactor(0, 0);
@@ -162,7 +164,7 @@ export class SpaceStretchScene extends Phaser.Scene {
                         x = Phaser.Math.Between(worldWidth / 1.3, worldWidth - xOffset)
                     }
                     const asteroidTile = asteroids.create(x, asteroidYPos, ASTEROIDS)
-                    asteroidTile.setScale(asteroidScale)
+                    asteroidTile.setScale(asteroidScale);
                     asteroidYPos += step
                     this.placedAsteroidPlatforms += 1
                 }
