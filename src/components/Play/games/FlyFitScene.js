@@ -3,7 +3,7 @@ import { getGameWidth, getGameHeight, getRelative } from "./helpers";
 import { Player } from "./objects";
 import { PLAYER_KEY, PLAYER_SCALE, GYM_ROOM_SCENE, FLY_FIT_SCENE } from "./shared";
 import {
-    BACK_ARROW,
+    BTC,
 } from "./assets";
 import { createTextBox } from "./utils/text";
 
@@ -13,6 +13,8 @@ const SceneConfig = {
     visible: false,
     key: FLY_FIT_SCENE,
 };
+
+const btcScale = 0.11;
 
 export class FlyFitScene extends Phaser.Scene {
     constructor() {
@@ -57,19 +59,19 @@ export class FlyFitScene extends Phaser.Scene {
             font: '900 17px Orbitron',
         });
 
-        const infoText = this.add.text(
-            width / 2,
-            (height / 2) - height * .2,
-            `Comming Soon`,
-            {
-                font: 'bold 32px Orbitron',
-                fill: '#FFF',
-                backgroundColor: '#0098A7',
-                padding: 30,
-                align: 'center',
-            }
-        )
-        infoText.setOrigin(0.5)
+        // const infoText = this.add.text(
+        //     width / 2,
+        //     (height / 2) - height * .2,
+        //     `Comming Soon`,
+        //     {
+        //         font: 'bold 32px Orbitron',
+        //         fill: '#FFF',
+        //         backgroundColor: '#0098A7',
+        //         padding: 30,
+        //         align: 'center',
+        //     }
+        // )
+        // infoText.setOrigin(0.5)
         // infoText.setShadow(3, 3, 'rgba(0,0,0,0.2)', 2);
 
         // back
@@ -91,7 +93,24 @@ export class FlyFitScene extends Phaser.Scene {
             key: PLAYER_KEY,
         });
         this.player.setScale(PLAYER_SCALE);
-        this.player.setDepth(1);
+        this.player.body.setCollideWorldBounds(true);
+        this.player.setDepth(2);
+
+        this.score = 0;
+        this.btcCnt = 12;
+        const btcGroup = this.physics.add.group({
+            key: BTC,
+            quantity: this.btcCnt,
+            collideWorldBounds: true,
+        })
+
+        const btcRect = new Phaser.Geom.Rectangle(0, height * 0.2,
+            width, height - height * 0.08, 0x4e342e);
+        // for degub
+        // this.graphics.fillGradientStyle(0x023246, 0x1E0338, 0x300240, 0x370232, 1)
+        //     .fillRectShape(btcRect);
+        btcGroup.getChildren().forEach(dog => dog.setScale(btcScale).setDepth(1));
+        Phaser.Actions.RandomRectangle(btcGroup.getChildren(), btcRect);
     }
 
     update(time, delta) {
