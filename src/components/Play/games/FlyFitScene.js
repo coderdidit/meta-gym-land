@@ -25,7 +25,16 @@ export class FlyFitScene extends Phaser.Scene {
     };
 
     create() {
-        this.cameras.main.backgroundColor.setTo(255, 255, 255);
+        // basic props
+        const width = getGameWidth(this);
+        const height = getGameHeight(this);
+
+        this.graphics = this.add.graphics();
+        this.graphics.clear();
+        const rect = new Phaser.Geom.Rectangle(0, 0, width, height);
+        this.graphics.fillGradientStyle(0xdce7fc, 0x82b1ff, 0x4281ff, 0x4287f5, 1)
+            .fillRectShape(rect);
+
         // constrols
         this.input.keyboard.on('keydown', (event) => {
             const code = event.keyCode;
@@ -34,21 +43,17 @@ export class FlyFitScene extends Phaser.Scene {
             }
         }, this);
 
-        // Add layout
-        const width = getGameWidth(this);
-        const height = getGameHeight(this);
-
         // text
         this.add.text(
             width * 0.05, height * 0.015,
             "SCORE: 0", {
-            fill: '#4E342E',
+            fill: '#000000',
             font: '900 20px Orbitron',
         });
         this.add.text(
             width * 0.05, height * 0.04,
             "press ESC to go back", {
-            fill: '#4E342E',
+            fill: '#000000',
             font: '900 17px Orbitron',
         });
 
