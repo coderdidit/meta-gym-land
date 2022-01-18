@@ -36,7 +36,9 @@ const drawLine = (p1, p2, color, ctx, width, height, lineWidth) => {
     ctx.strokeStyle = color;
     ctx.lineWidth = lineWidth;
     ctx.beginPath();
+    // p1 (x, y) is in mediapipe format that is scaled down
     ctx.moveTo(p1.x * width, p1.y * height)
+    // p2 y is in mediapipe format that is scaled down
     ctx.lineTo(p2.x, p2.y * height);
     ctx.stroke();
 };
@@ -63,9 +65,14 @@ export const drawPose = (canvasRef, results) => {
         drawLine(nose, { x: 0, y: nose.y }, "#1990FF", canvasCtx,
             width, height, NOSE_LINE_WIDTH_IDLE);
         // path from nose to left end
-        drawLine(nose, { x: canvasRef?.current.width, y: nose.y },
+        drawLine(nose, { x: width, y: nose.y },
             "#20BF96", canvasCtx,
             width, height, NOSE_LINE_WIDTH_IDLE);
+
+        // console.log('nose', nose);
+        // drawLine({ x: 0.08, y: 0.985 }, { x: width - width * 0.08, y: 0.985 },
+        //     "#B8ABB2", canvasCtx,
+        //     width, height, 16);
 
         // connectors
         drawConnectors(canvasCtx, results.poseLandmarks, POSE_CONNECTIONS,
@@ -177,6 +184,11 @@ export const drawPose = (canvasRef, results) => {
             drawLine(nose, { x: canvasRef?.current.width, y: nose.y }, ACTIVE_COLOR,
                 canvasCtx, width, height, ACTIVE_LINE_WIDTH);
         }
+
+        // draw line nearly at the bottom for squats moves
+        drawLine(nose, { x: nose.x * width, y: 1 },
+            ACTIVE_COLOR, canvasCtx,
+            width, height, ACTIVE_LINE_WIDTH);
     }
     canvasCtx.restore();
 };
