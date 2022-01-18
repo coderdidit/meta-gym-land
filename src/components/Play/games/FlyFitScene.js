@@ -1,5 +1,5 @@
 import Phaser from "phaser";
-import { getGameWidth, getGameHeight, getRelative } from "./helpers";
+import { getGameWidth, getGameHeight } from "./helpers";
 import { Player } from "./objects";
 import { PLAYER_KEY, PLAYER_SCALE, GYM_ROOM_SCENE, FLY_FIT_SCENE } from "./shared";
 import {
@@ -7,6 +7,8 @@ import {
 } from "./assets";
 import { createTextBox } from "./utils/text";
 import party from "party-js";
+import * as gstate from "../../gpose/state";
+import * as gpose from "../../gpose/pose";
 
 
 const SceneConfig = {
@@ -16,7 +18,8 @@ const SceneConfig = {
 };
 
 const roboTextTimeouts = [];
-const playerSpeed = 100;
+const playerNgSpeed = 30
+const playerSpeed = 80;
 const btcScale = 0.11;
 const btcCnt = 12;
 
@@ -64,24 +67,6 @@ export class FlyFitScene extends Phaser.Scene {
             fill: '#000000',
             font: '900 17px Orbitron',
         });
-
-        // const infoText = this.add.text(
-        //     width / 2,
-        //     (height / 2) - height * .2,
-        //     `Comming Soon`,
-        //     {
-        //         font: 'bold 32px Orbitron',
-        //         fill: '#FFF',
-        //         backgroundColor: '#0098A7',
-        //         padding: 30,
-        //         align: 'center',
-        //     }
-        // )
-        // infoText.setOrigin(0.5)
-        // infoText.setShadow(3, 3, 'rgba(0,0,0,0.2)', 2);
-
-        // back
-        // this.createBackButton();
 
         // hint
         const hintTextBox = createTextBox(this,
@@ -173,6 +158,26 @@ export class FlyFitScene extends Phaser.Scene {
             return
         }
         // Every frame, we update the player
-        this.player?.update();
+        this.handlePlayerMoves();
+    }
+
+    handlePlayerMoves() {
+        const player = this.player;
+        player.body.setAngularVelocity(0);
+        player.body.setVelocity(0, 0);
+        player.body.setAcceleration(0)
+
+        const curPose = gstate.getPose();
+        if (player.cursorKeys?.up.isDown || curPose === gpose.BA_UP) {
+            // -90 guaranties that the move will straight from head 
+            // otherwise it would look like moving left
+            const ng = player.angle - 90;
+            const vec = this.physics.velocityFromAngle(ng, playerSpeed)
+            player.body.setVelocity(vec.x, vec.y);
+        } else if (player.cursorKeys?.left.isDown || curPose === gpose.HTL) {
+            player.body.setAngularVelocity(playerNgSpeed * -1);
+        } else if (player.cursorKeys?.right.isDown || curPose === gpose.HTR) {
+            player.body.setAngularVelocity(playerNgSpeed);
+        }
     }
 }
