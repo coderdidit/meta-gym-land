@@ -6,6 +6,7 @@ import {
     BTC,
 } from "./assets";
 import { createTextBox } from "./utils/text";
+import party from "party-js";
 
 
 const SceneConfig = {
@@ -14,7 +15,10 @@ const SceneConfig = {
     key: FLY_FIT_SCENE,
 };
 
+const roboTextTimeouts = [];
+const playerSpeed = 100;
 const btcScale = 0.11;
+const btcCnt = 12;
 
 export class FlyFitScene extends Phaser.Scene {
     constructor() {
@@ -28,6 +32,7 @@ export class FlyFitScene extends Phaser.Scene {
 
     create() {
         // basic props
+        this.won = false;
         const width = getGameWidth(this);
         const height = getGameHeight(this);
 
@@ -41,6 +46,7 @@ export class FlyFitScene extends Phaser.Scene {
         this.input.keyboard.on('keydown', (event) => {
             const code = event.keyCode;
             if (code == Phaser.Input.Keyboard.KeyCodes.ESC) {
+                roboTextTimeouts.forEach(t => clearTimeout(t));
                 this.scene.start(GYM_ROOM_SCENE);
             }
         }, this);
@@ -84,6 +90,10 @@ export class FlyFitScene extends Phaser.Scene {
         hintTextBox.setDepth(1);
         hintTextBox.setScrollFactor(0, 0);
         hintTextBox.start("🤖", 50);
+        roboTextTimeouts.push(setTimeout(() => {
+            hintTextBox.start(`🤖 BTC fly in the sky\b try to catch them`, 50);
+            roboTextTimeouts.push(setTimeout(() => hintTextBox.start("🤖", 50), 60000));
+        }, 500));
 
         // player
         this.player = new Player({
@@ -97,10 +107,9 @@ export class FlyFitScene extends Phaser.Scene {
         this.player.setDepth(2);
 
         this.score = 0;
-        this.btcCnt = 12;
         const btcGroup = this.physics.add.group({
             key: BTC,
-            quantity: this.btcCnt,
+            quantity: btcCnt,
             collideWorldBounds: true,
         })
 
@@ -120,7 +129,49 @@ export class FlyFitScene extends Phaser.Scene {
         }
     }
 
+    youWonMsg() {
+        const canvasParent = document.querySelector('#phaser-app canvas');
+        if (canvasParent) party.confetti(canvasParent);
+        // setInterval(() => {
+        //     party.confetti(canvasParent);
+        // }, 1000);
+
+        const width = getGameWidth(this);
+        const height = getGameHeight(this);
+
+        const msg = "You catched all flying BTCs 🎉\n" +
+            "\n\n" +
+            "Press X to 🎮 restart\n" +
+            "Press ESC to exit";
+
+        const youWonText = createTextBox(this,
+            width / 2,
+            (height / 2) - height * .2,
+            { wrapWidth: 280 },
+        )
+        youWonText.setOrigin(0.5).setDepth(1).setScrollFactor(0, 0);
+        youWonText.start(msg, 50);
+
+        this.input.on("pointerdown", () => this.scene.start(FLY_FIT_SCENE));
+
+        this.input.keyboard.on(
+            'keydown',
+            event => {
+                const code = event.keyCode
+                if (code == Phaser.Input.Keyboard.KeyCodes.X) {
+                    this.scene.start(FLY_FIT_SCENE);
+                }
+            },
+            this
+        );
+    }
+
     update(time, delta) {
+        if (!this.won && this.score == btcCnt) {
+            this.won = true;
+            this.youWonMsg();
+            return
+        }
         // Every frame, we update the player
         this.player?.update();
     }
