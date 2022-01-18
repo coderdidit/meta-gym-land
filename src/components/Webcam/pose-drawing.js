@@ -185,10 +185,12 @@ export const drawPose = (canvasRef, results) => {
                 canvasCtx, width, height, ACTIVE_LINE_WIDTH);
         }
 
-        // draw line nearly at the bottom for squats moves
-        drawLine(nose, { x: nose.x * width, y: 1 },
-            ACTIVE_COLOR, canvasCtx,
-            width, height, ACTIVE_LINE_WIDTH);
+        if (CurPose === gpose.NDWN) {
+            // draw line nearly at the bottom for squats moves
+            drawLine(nose, { x: nose.x * width, y: 1 },
+                ACTIVE_COLOR, canvasCtx,
+                width, height, ACTIVE_LINE_WIDTH);
+        }
     }
     canvasCtx.restore();
 };
