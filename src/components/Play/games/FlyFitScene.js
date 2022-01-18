@@ -9,6 +9,9 @@ import { createTextBox } from "./utils/text";
 import party from "party-js";
 import * as gstate from "../../gpose/state";
 import * as gpose from "../../gpose/pose";
+import {
+    mainBgColor,
+} from "../../../GlobalStyles";
 
 
 const SceneConfig = {
@@ -58,13 +61,13 @@ export class FlyFitScene extends Phaser.Scene {
         this.scoreBoard = this.add.text(
             width * 0.05, height * 0.015,
             "SCORE: 0", {
-            fill: '#000000',
+            fill: '#ba3a3a',
             font: '900 20px Orbitron',
         });
         this.add.text(
             width * 0.05, height * 0.04,
             "press ESC to go back", {
-            fill: '#000000',
+            fill: mainBgColor,
             font: '900 17px Orbitron',
         });
 
@@ -98,8 +101,8 @@ export class FlyFitScene extends Phaser.Scene {
             collideWorldBounds: true,
         })
 
-        const btcRect = new Phaser.Geom.Rectangle(width * 0.04, height * 0.12,
-            width - width * 0.04, height - height * 0.12, 0x4e342e);
+        const btcRect = new Phaser.Geom.Rectangle(width * 0.04, height * 0.13,
+            width - width * 0.04, height - height * 0.13, 0x4e342e);
         // for degub
         // this.graphics.fillGradientStyle(0x023246, 0x1E0338, 0x300240, 0x370232, 1)
         //     .fillRectShape(btcRect);
