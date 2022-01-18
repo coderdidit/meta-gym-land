@@ -106,7 +106,7 @@ export class FlyFitScene extends Phaser.Scene {
 
         // this made the plane to have body element    
         this.physics.world.enable(plane);
-
+        this.add.existing(plane);
         this.player = this.add.container(
             width / 2,
             height / 2,
@@ -122,6 +122,10 @@ export class FlyFitScene extends Phaser.Scene {
                     .setDepth(2),
             ]
         );
+
+        this.physics.world.enable(this.player);
+        this.add.existing(this.player);
+        this.player.body.setCollideWorldBounds(true);
         this.player.list[0].body.setCollideWorldBounds(true);
         this.player.list[1].body.setCollideWorldBounds(true);
 
