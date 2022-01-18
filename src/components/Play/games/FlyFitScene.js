@@ -46,7 +46,7 @@ export class FlyFitScene extends Phaser.Scene {
         }, this);
 
         // text
-        this.add.text(
+        this.scoreBoard = this.add.text(
             width * 0.05, height * 0.015,
             "SCORE: 0", {
             fill: '#000000',
@@ -104,13 +104,20 @@ export class FlyFitScene extends Phaser.Scene {
             collideWorldBounds: true,
         })
 
-        const btcRect = new Phaser.Geom.Rectangle(0, height * 0.2,
-            width, height - height * 0.08, 0x4e342e);
+        const btcRect = new Phaser.Geom.Rectangle(width * 0.04, height * 0.12,
+            width - width * 0.04, height - height * 0.12, 0x4e342e);
         // for degub
         // this.graphics.fillGradientStyle(0x023246, 0x1E0338, 0x300240, 0x370232, 1)
         //     .fillRectShape(btcRect);
         btcGroup.getChildren().forEach(dog => dog.setScale(btcScale).setDepth(1));
         Phaser.Actions.RandomRectangle(btcGroup.getChildren(), btcRect);
+
+        this.physics.add.overlap(this.player, btcGroup, collectBtc, null, this)
+        function collectBtc(avatar, btcItem) {
+            btcItem.destroy()
+            this.score += 1
+            this.scoreBoard.setText(`SCORE: ${this.score}`)
+        }
     }
 
     update(time, delta) {
