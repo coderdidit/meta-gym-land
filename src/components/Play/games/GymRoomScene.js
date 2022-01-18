@@ -188,7 +188,7 @@ export class GymRoomScene extends Phaser.Scene {
       const objHeight = object.height * mapScale;
       let trainingMatRect = this.add
         .rectangle(x, y, objWidth, objHeight,
-      ).setName('fly_fit').setOrigin(0);
+      ).setName(object.name).setOrigin(0);
       this.physics.world.enable(
         trainingMatRect, Phaser.Physics.Arcade.STATIC_BODY
       );
