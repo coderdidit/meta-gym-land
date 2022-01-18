@@ -84,15 +84,19 @@ export class FlyFitScene extends Phaser.Scene {
         }, 500));
 
         // player
-        this.player = new Player({
-            scene: this,
-            x: width / 2,
-            y: height / 2,
-            key: PLAYER_KEY,
-        });
-        this.player.setScale(PLAYER_SCALE);
-        this.player.body.setCollideWorldBounds(true);
-        this.player.setDepth(2);
+        this.player = this.add.container(
+            width / 2,
+            height / 2,
+            [
+                new Player({
+                    scene: this,
+                    x: 0,
+                    y: 0,
+                    key: PLAYER_KEY,
+                }).setScale(PLAYER_SCALE).setDepth(2),
+            ]
+        );
+        this.player.list[0].body.setCollideWorldBounds(true);
 
         this.score = 0;
         const btcGroup = this.physics.add.group({
@@ -109,7 +113,7 @@ export class FlyFitScene extends Phaser.Scene {
         btcGroup.getChildren().forEach(dog => dog.setScale(btcScale).setDepth(1));
         Phaser.Actions.RandomRectangle(btcGroup.getChildren(), btcRect);
 
-        this.physics.add.overlap(this.player, btcGroup, collectBtc, null, this)
+        this.physics.add.overlap(this.player.list[0], btcGroup, collectBtc, null, this)
         function collectBtc(avatar, btcItem) {
             btcItem.destroy()
             this.score += 1
@@ -165,7 +169,7 @@ export class FlyFitScene extends Phaser.Scene {
     }
 
     handlePlayerMoves() {
-        const player = this.player;
+        const player = this.player.list[0];
         player.body.setAngularVelocity(0);
         player.body.setVelocity(0, 0);
         player.body.setAcceleration(0)
