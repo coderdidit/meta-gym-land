@@ -6,6 +6,11 @@ import {
     BACK_ARROW,
 } from "./assets";
 import { createTextBox } from "./utils/text";
+import party from "party-js";
+import {
+    highlightTextColorNum,
+    mainBgColorNum,
+} from "../../../GlobalStyles";
 
 
 const SceneConfig = {
@@ -23,6 +28,9 @@ const nonState = 0;
 const wonState = 1;
 const loseState = 2;
 
+const bgColorRGB = [255, 255, 255];
+const bgColorHEXNum = 0xFFFFFF;
+
 export class CosmicCardioScene extends Phaser.Scene {
     constructor() {
         super(SceneConfig);
@@ -36,7 +44,7 @@ export class CosmicCardioScene extends Phaser.Scene {
     create() {
         this.wonState = nonState;
         this.curPrice = startingPrice;
-        this.cameras.main.backgroundColor.setTo(32, 191, 150);
+        this.cameras.main.backgroundColor.setTo(...bgColorRGB);
         // constrols
         this.input.keyboard.on('keydown', (event) => {
             const code = event.keyCode;
@@ -96,6 +104,34 @@ export class CosmicCardioScene extends Phaser.Scene {
         this.player.setDepth(1);
     }
 
+    youWoOrLosenMsg(msg) {
+        const width = getGameWidth(this);
+        const height = getGameHeight(this);
+
+        const youWonText = createTextBox(this,
+            width / 2,
+            height / 2,
+            { wrapWidth: 280 },
+            mainBgColorNum,
+            highlightTextColorNum
+        )
+        youWonText.setOrigin(0.5).setDepth(1).setScrollFactor(0, 0);
+        youWonText.start(msg, 50);
+
+        this.input.on("pointerdown", () => this.scene.start(COSMIC_CARDIO_SCENE));
+
+        this.input.keyboard.on(
+            'keydown',
+            event => {
+                const code = event.keyCode
+                if (code == Phaser.Input.Keyboard.KeyCodes.X) {
+                    this.scene.start(COSMIC_CARDIO_SCENE);
+                }
+            },
+            this
+        );
+    }
+
     update(time, delta) {
         const height = getGameHeight(this);
 
@@ -107,10 +143,30 @@ export class CosmicCardioScene extends Phaser.Scene {
         // 0 is top, height positive value is bottom
         if (this.curPrice >= height - 50) {
             this.wonState = loseState;
+            this.cameras.main.backgroundColor.setTo(189, 35, 42);
+            const msg = "You have been liquidated :(\n" +
+                "BTC price had a MASSIVE dip" +
+                "\n\n" +
+                "Press X to 🎮 restart\n" +
+                "Press ESC to exit";
+            this.youWoOrLosenMsg(
+                msg
+            )
         }
 
         if (this.curPrice <= 0 + 50) {
             this.wonState = wonState;
+            const canvasParent = document.querySelector('#phaser-app canvas');
+            this.cameras.main.backgroundColor.setTo(32, 191, 150);
+            if (canvasParent) party.confetti(canvasParent);
+            const msg = "You saved the BTC price 🎉\n" +
+                "it went to the MOOOON" +
+                "\n\n" +
+                "Press X to 🎮 restart\n" +
+                "Press ESC to exit";
+            this.youWoOrLosenMsg(
+                msg
+            )
         }
 
         let yDelta = 0;
@@ -123,7 +179,7 @@ export class CosmicCardioScene extends Phaser.Scene {
             if (this.curPrice < startingPrice) {
                 this.graphics.lineStyle(3, 0x00ff00);
             } else {
-                this.graphics.lineStyle(3, 0x1FBF96);
+                this.graphics.lineStyle(3, bgColorHEXNum);
                 // clear previous line
                 this.graphics.lineBetween(
                     x1Pos,
@@ -139,7 +195,7 @@ export class CosmicCardioScene extends Phaser.Scene {
         } else {
             // falling
             if (this.curPrice <= startingPrice) {
-                this.graphics.lineStyle(3, 0x1FBF96);
+                this.graphics.lineStyle(3, bgColorHEXNum);
                 // clear previous line
                 this.graphics.lineBetween(
                     x1Pos,
