@@ -65,15 +65,19 @@ export class CosmicCardioScene extends Phaser.Scene {
             .fillRectShape(rect);
 
         // line
+        const priceData = [
+            { x: 50, y: 700 },
+            { x: 100, y: 550 },
+            { x: 150, y: 600 },
+            { x: 290, y: 480 },
+            { x: 350, y: 600 },
+            { x: 450, y: 500 }
+        ];
         graphics.lineStyle(2, 0x00ff00);
         graphics.beginPath();
-        graphics.lineTo(xOffsett + 50, 700);
-        graphics.lineTo(xOffsett + 100, 550);
-        graphics.lineTo(xOffsett + 150, 600);
-        graphics.lineTo(xOffsett + 190, 580);
-        graphics.lineTo(xOffsett + 290, 480);
-        graphics.lineTo(xOffsett + 350, 600);
-        graphics.lineTo(xOffsett + 450, 500);
+        for (const p of priceData) {
+            graphics.lineTo(xOffsett + p.x, p.y);
+        }
         graphics.strokePath();
         graphics.closePath();
 
