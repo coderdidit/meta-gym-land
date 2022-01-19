@@ -15,9 +15,9 @@ const SceneConfig = {
 };
 const allowSquats = true;
 
-let curPrice = 500;
 const xOffsett = 100;
 const yOffsett = 100;
+const startingPrice = 500;
 
 export class CosmicCardioScene extends Phaser.Scene {
     constructor() {
@@ -30,6 +30,7 @@ export class CosmicCardioScene extends Phaser.Scene {
     };
 
     create() {
+        this.curPrice = startingPrice;
         this.cameras.main.backgroundColor.setTo(32, 191, 150);
         // constrols
         this.input.keyboard.on('keydown', (event) => {
@@ -100,8 +101,8 @@ export class CosmicCardioScene extends Phaser.Scene {
         // player
         this.player = new Player({
             scene: this,
-            x: width / 2,
-            y: height / 2,
+            x: width - width * .1,
+            y: height - height * .1,
             key: PLAYER_KEY,
         });
         this.player.setScale(PLAYER_SCALE);
@@ -112,18 +113,24 @@ export class CosmicCardioScene extends Phaser.Scene {
 
         let yDelta = 0;
         const changeFactor = 0.3
-
+        let priceColor = 0xaa0000;
         if (this.player.cursorKeys?.up.isDown) {
-            curPrice -= changeFactor
-            this.graphics.lineStyle(3, 0x00ff00);
-            this.graphics.lineBetween(xOffsett + 450, curPrice, xOffsett + 455, curPrice);
+            this.curPrice -= 2 * changeFactor
+            if (this.curPrice < startingPrice) {
+                this.graphics.lineStyle(3, 0x00ff00);
+            } else {
+                this.graphics.lineStyle(3, 0x1FBF96);
+            }
+            this.graphics.lineBetween(xOffsett + 450, this.curPrice, xOffsett + 455, this.curPrice);
         } else {
-            curPrice += changeFactor
-            this.graphics.lineStyle(3, 0xaa0000);
-            this.graphics.lineBetween(xOffsett + 450, curPrice, xOffsett + 455, curPrice);
+            // falling
+            if (this.curPrice <= startingPrice) {
+                this.graphics.lineStyle(3, 0x1FBF96);
+            } else {
+                this.graphics.lineStyle(3, 0xaa0000);
+            }
+            this.curPrice += changeFactor
+            this.graphics.lineBetween(xOffsett + 450, this.curPrice, xOffsett + 455, this.curPrice);
         }
-
-        // Every frame, we update the player
-        this.player?.update(allowSquats);
     }
 }
