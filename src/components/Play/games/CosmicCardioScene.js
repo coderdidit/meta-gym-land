@@ -15,6 +15,10 @@ const SceneConfig = {
 };
 const allowSquats = true;
 
+let curPrice = 500;
+const xOffsett = 100;
+const yOffsett = 100;
+
 export class CosmicCardioScene extends Phaser.Scene {
     constructor() {
         super(SceneConfig);
@@ -26,7 +30,7 @@ export class CosmicCardioScene extends Phaser.Scene {
     };
 
     create() {
-        this.cameras.main.backgroundColor.setTo(32,191,150);
+        this.cameras.main.backgroundColor.setTo(32, 191, 150);
         // constrols
         this.input.keyboard.on('keydown', (event) => {
             const code = event.keyCode;
@@ -38,6 +42,20 @@ export class CosmicCardioScene extends Phaser.Scene {
         // Add layout
         const width = getGameWidth(this);
         const height = getGameHeight(this);
+
+        this.graphics = this.add.graphics({ lineStyle: { width: 2, color: 0x00ff00 } });
+        const graphics = this.graphics
+        graphics.beginPath();
+        graphics.lineTo(xOffsett + 50, 700);
+        graphics.lineTo(xOffsett + 100, 550);
+        graphics.lineTo(xOffsett + 150, 600);
+        graphics.lineTo(xOffsett + 190, 580);
+        graphics.lineTo(xOffsett + 290, 480);
+        graphics.lineTo(xOffsett + 350, 600);
+        graphics.lineTo(xOffsett + 450, 500);
+        graphics.lineStyle(2, 0x00ff00);
+        graphics.strokePath()
+        graphics.closePath();
 
         // Add the scoreboard
         this.scoreBoard = this.add.text(
@@ -52,19 +70,19 @@ export class CosmicCardioScene extends Phaser.Scene {
             fill: '#000',
             font: '900 17px Orbitron',
         });
-        const infoText = this.add.text(
-            width / 2,
-            (height / 2) - height * .2,
-            `Comming Soon`,
-            {
-                font: 'bold 32px Orbitron',
-                fill: '#FFF',
-                backgroundColor: '#003861',
-                padding: 30,
-                align: 'center',
-            }
-        )
-        infoText.setOrigin(0.5)
+        // const infoText = this.add.text(
+        //     width / 2,
+        //     (height / 2) - height * .2,
+        //     `Comming Soon`,
+        //     {
+        //         font: 'bold 32px Orbitron',
+        //         fill: '#FFF',
+        //         backgroundColor: '#003861',
+        //         padding: 30,
+        //         align: 'center',
+        //     }
+        // )
+        // infoText.setOrigin(0.5)
         // infoText.setShadow(3, 3, 'rgba(0,0,0,0.2)', 2);
 
         // back
@@ -91,6 +109,19 @@ export class CosmicCardioScene extends Phaser.Scene {
     }
 
     update(time, delta) {
+
+        let yDelta = 0;
+
+        if (this.player.cursorKeys?.up.isDown) {
+            curPrice -= 0.1
+            this.graphics.lineStyle(3, 0x00ff00);
+            this.graphics.lineBetween(xOffsett + 450, curPrice, xOffsett + 455, curPrice);
+        } else {
+            curPrice += 0.1
+            this.graphics.lineStyle(3, 0xaa0000);
+            this.graphics.lineBetween(xOffsett + 450, curPrice, xOffsett + 455, curPrice);
+        }
+
         // Every frame, we update the player
         this.player?.update(allowSquats);
     }
