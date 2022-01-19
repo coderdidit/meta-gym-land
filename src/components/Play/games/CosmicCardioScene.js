@@ -29,7 +29,7 @@ const wonState = 1;
 const loseState = 2;
 
 const bgColorRGB = [255, 255, 255];
-const bgColorHEXNum = 0xFFFFFF;
+const bgColorHEXNum = 0xedf2f2;
 
 export class CosmicCardioScene extends Phaser.Scene {
     constructor() {
@@ -57,8 +57,15 @@ export class CosmicCardioScene extends Phaser.Scene {
         const width = getGameWidth(this);
         const height = getGameHeight(this);
 
-        this.graphics = this.add.graphics({ lineStyle: { width: 2, color: 0x00ff00 } });
-        const graphics = this.graphics
+        this.graphics = this.add.graphics();
+        const graphics = this.graphics;
+        // bg
+        const rect = new Phaser.Geom.Rectangle(xOffsett, height * .3, 700, height / 2);
+        this.graphics.fillStyle(0xedf2f2, 1)
+            .fillRectShape(rect);
+
+        // line
+        graphics.lineStyle(2, 0x00ff00);
         graphics.beginPath();
         graphics.lineTo(xOffsett + 50, 700);
         graphics.lineTo(xOffsett + 100, 550);
@@ -67,8 +74,7 @@ export class CosmicCardioScene extends Phaser.Scene {
         graphics.lineTo(xOffsett + 290, 480);
         graphics.lineTo(xOffsett + 350, 600);
         graphics.lineTo(xOffsett + 450, 500);
-        graphics.lineStyle(2, 0x00ff00);
-        graphics.strokePath()
+        graphics.strokePath();
         graphics.closePath();
 
         // Add the scoreboard
@@ -88,10 +94,17 @@ export class CosmicCardioScene extends Phaser.Scene {
         // hint
         const hintTextBox = createTextBox(this,
             (width / 2) + width / 4, height * 0.025,
-            { wrapWidth: 280 })
+            { wrapWidth: 280 },
+            mainBgColorNum,
+            highlightTextColorNum
+        )
         hintTextBox.setDepth(1);
         hintTextBox.setScrollFactor(0, 0);
-        hintTextBox.start("🤖", 50);
+        hintTextBox.start(
+            "🤖 your BTC position is having a long squeeze today\n" +
+            "and price is going down\n" +
+            "But, you can save it by doing squats!"
+            , 20);
 
         // player
         this.player = new Player({
@@ -132,6 +145,22 @@ export class CosmicCardioScene extends Phaser.Scene {
         );
     }
 
+    drawFinalPlot(color) {
+        const graphics = this.graphics;
+        graphics.lineStyle(6, color);
+        graphics.beginPath();
+        graphics.lineTo(xOffsett + 50, 700);
+        graphics.lineTo(xOffsett + 100, 550);
+        graphics.lineTo(xOffsett + 150, 600);
+        graphics.lineTo(xOffsett + 190, 580);
+        graphics.lineTo(xOffsett + 290, 480);
+        graphics.lineTo(xOffsett + 350, 600);
+        graphics.lineTo(xOffsett + 450, 500);
+        graphics.lineTo(xOffsett + 450, 500);
+        graphics.lineTo(xOffsett + 455, this.curPrice);
+        graphics.strokePath();
+    }
+
     update(time, delta) {
         const height = getGameHeight(this);
 
@@ -143,6 +172,8 @@ export class CosmicCardioScene extends Phaser.Scene {
         // 0 is top, height positive value is bottom
         if (this.curPrice >= height - 50) {
             this.wonState = loseState;
+            this.graphics.clear();
+            this.drawFinalPlot(0x000000);
             this.cameras.main.backgroundColor.setTo(189, 35, 42);
             const msg = "You have been liquidated :(\n" +
                 "BTC price had a MASSIVE dip" +
@@ -157,7 +188,9 @@ export class CosmicCardioScene extends Phaser.Scene {
         if (this.curPrice <= 0 + 50) {
             this.wonState = wonState;
             const canvasParent = document.querySelector('#phaser-app canvas');
+            this.graphics.clear();
             this.cameras.main.backgroundColor.setTo(32, 191, 150);
+            this.drawFinalPlot(0x00ff00);
             if (canvasParent) party.confetti(canvasParent);
             const msg = "You saved the BTC price 🎉\n" +
                 "it went to the MOOOON" +
