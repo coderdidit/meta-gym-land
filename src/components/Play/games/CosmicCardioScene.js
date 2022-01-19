@@ -19,6 +19,10 @@ const xOffsett = 100;
 const yOffsett = 100;
 const startingPrice = 500;
 
+const nonState = 0;
+const wonState = 1;
+const loseState = 2;
+
 export class CosmicCardioScene extends Phaser.Scene {
     constructor() {
         super(SceneConfig);
@@ -30,6 +34,7 @@ export class CosmicCardioScene extends Phaser.Scene {
     };
 
     create() {
+        this.wonState = nonState;
         this.curPrice = startingPrice;
         this.cameras.main.backgroundColor.setTo(32, 191, 150);
         // constrols
@@ -92,9 +97,24 @@ export class CosmicCardioScene extends Phaser.Scene {
     }
 
     update(time, delta) {
+        const height = getGameHeight(this);
+
+        if (this.wonState == wonState || this.wonState == loseState) {
+            return;
+        }
+
+        // it may be counter intuitive but:
+        // 0 is top, height positive value is bottom
+        if (this.curPrice >= height - 50) {
+            this.wonState = loseState;
+        }
+
+        if (this.curPrice <= 0 + 50) {
+            this.wonState = wonState;
+        }
 
         let yDelta = 0;
-        const changeFactor = 0.3
+        const changeFactor = 0.8
         const x1Pos = xOffsett + 450;
         const x2Pos = xOffsett + 455;
 
