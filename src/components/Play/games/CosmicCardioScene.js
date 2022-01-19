@@ -111,13 +111,14 @@ export class CosmicCardioScene extends Phaser.Scene {
     update(time, delta) {
 
         let yDelta = 0;
+        const changeFactor = 0.3
 
         if (this.player.cursorKeys?.up.isDown) {
-            curPrice -= 0.1
+            curPrice -= changeFactor
             this.graphics.lineStyle(3, 0x00ff00);
             this.graphics.lineBetween(xOffsett + 450, curPrice, xOffsett + 455, curPrice);
         } else {
-            curPrice += 0.1
+            curPrice += changeFactor
             this.graphics.lineStyle(3, 0xaa0000);
             this.graphics.lineBetween(xOffsett + 450, curPrice, xOffsett + 455, curPrice);
         }
