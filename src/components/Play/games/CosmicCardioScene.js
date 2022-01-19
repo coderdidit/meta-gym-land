@@ -71,24 +71,6 @@ export class CosmicCardioScene extends Phaser.Scene {
             fill: '#000',
             font: '900 17px Orbitron',
         });
-        // const infoText = this.add.text(
-        //     width / 2,
-        //     (height / 2) - height * .2,
-        //     `Comming Soon`,
-        //     {
-        //         font: 'bold 32px Orbitron',
-        //         fill: '#FFF',
-        //         backgroundColor: '#003861',
-        //         padding: 30,
-        //         align: 'center',
-        //     }
-        // )
-        // infoText.setOrigin(0.5)
-        // infoText.setShadow(3, 3, 'rgba(0,0,0,0.2)', 2);
-
-        // back
-        // this.createBackButton();
-
         // hint
         // hint
         const hintTextBox = createTextBox(this,
@@ -102,7 +84,7 @@ export class CosmicCardioScene extends Phaser.Scene {
         this.player = new Player({
             scene: this,
             x: width - width * .1,
-            y: height - height * .1,
+            y: height - height * .3,
             key: PLAYER_KEY,
         });
         this.player.setScale(PLAYER_SCALE);
@@ -113,24 +95,46 @@ export class CosmicCardioScene extends Phaser.Scene {
 
         let yDelta = 0;
         const changeFactor = 0.3
-        let priceColor = 0xaa0000;
+        const x1Pos = xOffsett + 450;
+        const x2Pos = xOffsett + 455;
+
         if (this.player.cursorKeys?.up.isDown) {
             this.curPrice -= 2 * changeFactor
             if (this.curPrice < startingPrice) {
                 this.graphics.lineStyle(3, 0x00ff00);
             } else {
                 this.graphics.lineStyle(3, 0x1FBF96);
+                // clear previous line
+                this.graphics.lineBetween(
+                    x1Pos,
+                    this.curPrice + 2 * changeFactor,
+                    x2Pos,
+                    this.curPrice + 2 * changeFactor);
             }
-            this.graphics.lineBetween(xOffsett + 450, this.curPrice, xOffsett + 455, this.curPrice);
+            this.graphics.lineBetween(
+                x1Pos,
+                this.curPrice,
+                x2Pos,
+                this.curPrice);
         } else {
             // falling
             if (this.curPrice <= startingPrice) {
                 this.graphics.lineStyle(3, 0x1FBF96);
+                // clear previous line
+                this.graphics.lineBetween(
+                    x1Pos,
+                    this.curPrice - changeFactor,
+                    x2Pos,
+                    this.curPrice - changeFactor);
             } else {
                 this.graphics.lineStyle(3, 0xaa0000);
             }
             this.curPrice += changeFactor
-            this.graphics.lineBetween(xOffsett + 450, this.curPrice, xOffsett + 455, this.curPrice);
+            this.graphics.lineBetween(
+                x1Pos,
+                this.curPrice,
+                x2Pos,
+                this.curPrice);
         }
     }
 }
