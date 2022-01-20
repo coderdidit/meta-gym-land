@@ -23,7 +23,7 @@ const SceneConfig = {
 };
 const allowSquats = true;
 
-const xOffsett = 100;
+const xOffsett = 50;
 const yOffsett = 100;
 
 const nonState = 0;
@@ -32,6 +32,8 @@ const loseState = 2;
 
 const bgColorRGB = [255, 255, 255];
 const bgColorHEXNum = 0xedf2f2;
+const chartTimeInterval = 1;
+const playerScale = 0.3;
 
 export class CosmicCardioScene extends Phaser.Scene {
     constructor() {
@@ -71,7 +73,7 @@ export class CosmicCardioScene extends Phaser.Scene {
         this.graphics = this.add.graphics();
         const graphics = this.graphics;
         // bg
-        const rect = new Phaser.Geom.Rectangle(xOffsett, height * .3, 700, height / 2);
+        const rect = new Phaser.Geom.Rectangle(100, height * .08, 700, height / 1.1);
         this.graphics
             .lineStyle(2, 0x000000)
             .fillStyle(0xedf2f2, 1)
@@ -117,25 +119,22 @@ export class CosmicCardioScene extends Phaser.Scene {
             , 20);
 
         // player
-        this.player = new Player({
-            scene: this,
-            x: width - width * .1,
-            y: height - height * .15,
-            key: PLAYER_KEY,
-        });
-        this.player.setScale(PLAYER_SCALE);
+        this.player = new Player({ scene: this, x: 0, y: 0, key: PLAYER_KEY, });
+        this.player.setScale(playerScale);
+        this.player.x = width - width * .11;
+        this.player.y = height * .74;
         this.player.setDepth(1);
-        this.player.setOrigin(0);
+        this.player.setOrigin(0.5);
         this.playerInitialY = this.player.y;
 
         // pump
-        this.pump = this.add.sprite(
-            this.player.x,
-            this.player.y + (this.player.y * PLAYER_SCALE) / 2.1,
-            PUMP_OPEN,
-        ).setOrigin(0).setScale(0.13);
-
-        this.pumpInitialY = this.pump.y
+        this.pump = this.add.sprite(0, 0, PUMP_OPEN)
+        .setOrigin(0.5).setScale(playerScale);
+        this.pump.x = this.player.x;
+        this.pump.y = this.player.y * 1.2;
+        this.pumpInitialY = this.pump.y;
+        // this.player.y = this.pump.y;
+        // this.playerInitialY = this.player.y;
     }
 
     youWoOrLosenMsg(msg) {
@@ -180,7 +179,7 @@ export class CosmicCardioScene extends Phaser.Scene {
         ];
         const priceData = this.priceData;
         const volatility = 0.05;
-        for (let i = 0, x = 55; x <= 500; x += 5, i++) {
+        for (let i = 0, x = 55; x <= 500; x += chartTimeInterval, i++) {
             const rnd = Math.random();
             let change_percent = 2 * volatility * rnd;
             if (change_percent > volatility)
@@ -269,9 +268,10 @@ export class CosmicCardioScene extends Phaser.Scene {
         const curPose = gstate.getPose();
         const player = this.player;
         if (player.cursorKeys?.down.isDown || curPose === gpose.BA_UP) {
+            const distanceDown = 40;
             this.player.y = this.playerInitialY;
-            player.y += 25;
-            this.pump.y = this.pumpInitialY + 25;
+            player.y += distanceDown;
+            this.pump.y = this.pumpInitialY;
             this.pump.setTexture(PUMP_CLOSED);
         } else {
             this.player.y = this.playerInitialY;
@@ -280,7 +280,7 @@ export class CosmicCardioScene extends Phaser.Scene {
         }
 
         if (player.cursorKeys?.down.isDown || curPose === gpose.BA_UP) {
-            this.curPrice -= 2 * changeFactor
+            this.curPrice -= changeFactor
             if (this.curPrice < this.startingPrice) {
                 this.graphics.lineStyle(3, 0x00ff00);
             } else {
