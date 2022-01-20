@@ -11,6 +11,8 @@ import {
     highlightTextColorNum,
     mainBgColorNum,
 } from "../../../GlobalStyles";
+import * as gstate from "../../gpose/state";
+import * as gpose from "../../gpose/pose";
 
 
 const SceneConfig = {
@@ -65,19 +67,9 @@ export class CosmicCardioScene extends Phaser.Scene {
             .fillRectShape(rect);
 
         // line
-        const priceData = [
-            { x: 50, y: 700 },
-            { x: 100, y: 550 },
-            { x: 150, y: 600 },
-            { x: 290, y: 480 },
-            { x: 350, y: 600 },
-            { x: 450, y: 500 }
-        ];
         graphics.lineStyle(2, 0x00ff00);
         graphics.beginPath();
-        for (const p of priceData) {
-            graphics.lineTo(xOffsett + p.x, p.y);
-        }
+        this.generateInitialPlot();
         graphics.strokePath();
         graphics.closePath();
 
@@ -114,11 +106,12 @@ export class CosmicCardioScene extends Phaser.Scene {
         this.player = new Player({
             scene: this,
             x: width - width * .1,
-            y: height - height * .3,
+            y: height - height * .2,
             key: PLAYER_KEY,
         });
         this.player.setScale(PLAYER_SCALE);
         this.player.setDepth(1);
+        this.playerInitialY = this.player.y;
     }
 
     youWoOrLosenMsg(msg) {
@@ -149,18 +142,25 @@ export class CosmicCardioScene extends Phaser.Scene {
         );
     }
 
+    generateInitialPlot() {
+        const priceData = [
+            { x: 50, y: 700 },
+            { x: 100, y: 550 },
+            { x: 150, y: 600 },
+            { x: 290, y: 480 },
+            { x: 350, y: 600 },
+            { x: 450, y: 500 }
+        ];
+        for (const p of priceData) {
+            this.graphics.lineTo(xOffsett + p.x, p.y);
+        }
+    }
+
     drawFinalPlot(color) {
         const graphics = this.graphics;
         graphics.lineStyle(6, color);
         graphics.beginPath();
-        graphics.lineTo(xOffsett + 50, 700);
-        graphics.lineTo(xOffsett + 100, 550);
-        graphics.lineTo(xOffsett + 150, 600);
-        graphics.lineTo(xOffsett + 190, 580);
-        graphics.lineTo(xOffsett + 290, 480);
-        graphics.lineTo(xOffsett + 350, 600);
-        graphics.lineTo(xOffsett + 450, 500);
-        graphics.lineTo(xOffsett + 450, 500);
+        this.generateInitialPlot();
         graphics.lineTo(xOffsett + 455, this.curPrice);
         graphics.strokePath();
     }
@@ -169,6 +169,7 @@ export class CosmicCardioScene extends Phaser.Scene {
         const height = getGameHeight(this);
 
         if (this.wonState == wonState || this.wonState == loseState) {
+            this.player.y = this.playerInitialY;
             return;
         }
 
@@ -211,7 +212,16 @@ export class CosmicCardioScene extends Phaser.Scene {
         const x1Pos = xOffsett + 450;
         const x2Pos = xOffsett + 455;
 
-        if (this.player.cursorKeys?.up.isDown) {
+        const curPose = gstate.getPose();
+        const player = this.player;
+        if (player.cursorKeys?.down.isDown || curPose === gpose.BA_UP) {
+            this.player.y = this.playerInitialY;
+            player.y += 100;
+        } else {
+            this.player.y = this.playerInitialY;
+        }
+
+        if (player.cursorKeys?.down.isDown || curPose === gpose.BA_UP) {
             this.curPrice -= 2 * changeFactor
             if (this.curPrice < startingPrice) {
                 this.graphics.lineStyle(3, 0x00ff00);
