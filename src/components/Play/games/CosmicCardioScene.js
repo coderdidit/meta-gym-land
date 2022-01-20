@@ -58,6 +58,7 @@ export class CosmicCardioScene extends Phaser.Scene {
 
     create(data) {
         this.createTime = Date.now();
+        this.frameTime = Date.now();
         this.wonState = nonState;
         this.score = data.score || 0;
         this.cameras.main.backgroundColor.setTo(...bgColorRGB);
@@ -132,6 +133,10 @@ export class CosmicCardioScene extends Phaser.Scene {
             "But, you can save it by doing squats!\n\n" +
             "Don't let the price hit the ground"
             , 10);
+
+        // active chart start position
+        this.x1Pos = this.chartStopX + 4;
+        this.x2Pos = this.chartStopX + 4 + chartLineWidth;
     }
 
     youWonOrLosenMsg(msg, bgcolor = mainBgColorNum) {
@@ -208,7 +213,7 @@ export class CosmicCardioScene extends Phaser.Scene {
         graphics.lineStyle(chartLineWidth, color);
         graphics.beginPath();
         this.drawChart();
-        graphics.lineTo(this.chartStopX + 4, this.curPrice);
+        graphics.lineTo(this.x2Pos + 4, this.curPrice);
         graphics.strokePath();
     }
 
@@ -273,38 +278,48 @@ export class CosmicCardioScene extends Phaser.Scene {
                 this.pump.setTexture(PUMP_OPEN);
             }
 
+            if (Date.now() - this.frameTime > 2000) {
+                this.x1Pos += 4
+                this.x2Pos += 4
+                this.frameTime = Date.now();
+            }
+
             const changeFactor = 0.3
-            const x1Pos = this.chartStopX + 4;
-            const x2Pos = this.chartStopX + 4 + chartLineWidth + 6;
+            const x1Pos = this.x1Pos;
+            const x2Pos = this.x2Pos;
             const longColor = 0x00ff00;
             const shortColor = 0xaa0000;
             if (player.cursorKeys?.down.isDown || curPose === gpose.BA_UP) {
                 // pump price
                 this.curPrice -= 2 * changeFactor
-                if (this.curPrice < this.startingPrice) {
-                    this.graphics.lineStyle(chartLineWidth, longColor);
-                } else {
-                    this.graphics.lineStyle(chartLineWidth, bgColorHEXNum);
-                }
-                this.graphics.lineBetween(
-                    x1Pos,
-                    this.curPrice,
-                    x2Pos,
-                    this.curPrice);
+                this.graphics.lineStyle(chartLineWidth, longColor);
+                // if (this.curPrice < this.startingPrice) {
+                //     this.graphics.lineStyle(chartLineWidth, longColor);
+                // } else {
+                //     this.graphics.lineStyle(chartLineWidth, bgColorHEXNum);
+                // }
+                // this.graphics.lineBetween(
+                //     x1Pos,
+                //     this.curPrice,
+                //     x2Pos,
+                //     this.curPrice);
             } else {
-                if (this.curPrice <= this.startingPrice) {
-                    this.graphics.lineStyle(chartLineWidth, bgColorHEXNum);
-                } else {
-                    this.graphics.lineStyle(chartLineWidth, shortColor);
-                }
+                // if (this.curPrice <= this.startingPrice) {
+                //     this.graphics.lineStyle(chartLineWidth, bgColorHEXNum);
+                // } else {
+                //     this.graphics.lineStyle(chartLineWidth, shortColor);
+                // }
                 // falling price on player idle
                 this.curPrice += changeFactor
+                this.graphics.lineStyle(chartLineWidth, shortColor);
             }
             this.graphics.lineBetween(
                 x1Pos,
                 this.curPrice,
                 x2Pos,
                 this.curPrice);
+        } else {
+            this.frameTime = Date.now();
         }
     }
 }
