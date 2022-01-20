@@ -73,8 +73,11 @@ export class CosmicCardioScene extends Phaser.Scene {
         const graphics = this.graphics;
         // bg
         const rect = new Phaser.Geom.Rectangle(xOffsett, height * .3, 700, height / 2);
-        this.graphics.fillStyle(0xedf2f2, 1)
-            .fillRectShape(rect);
+        this.graphics
+            .lineStyle(2, 0x000000)
+            .fillStyle(0xedf2f2, 1)
+            .fillRectShape(rect)
+            .strokeRectShape(rect);
 
         this.drawGround(width, height);
 
@@ -190,7 +193,7 @@ export class CosmicCardioScene extends Phaser.Scene {
     update(time, delta) {
         const width = getGameWidth(this);
         const height = getGameHeight(this);
-        
+
         if (this.wonState == wonState || this.wonState == loseState) {
             this.player.y = this.playerInitialY;
             this.pump.y = this.pumpInitialY
