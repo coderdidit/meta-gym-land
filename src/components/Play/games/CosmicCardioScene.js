@@ -1,5 +1,5 @@
 import Phaser from "phaser";
-import { getGameWidth, getGameHeight, getRelative } from "./helpers";
+import { getGameWidth, getGameHeight } from "./helpers";
 import { Player } from "./objects";
 import { PLAYER_KEY, PLAYER_SCALE, GYM_ROOM_SCENE, COSMIC_CARDIO_SCENE } from "./shared";
 import {
@@ -23,7 +23,6 @@ const SceneConfig = {
 };
 const allowSquats = true;
 
-const xOffsett = 50;
 
 const nonState = 0;
 const wonState = 1;
@@ -34,9 +33,8 @@ const bgColorHEXNum = 0xedf2f2;
 const chartTimeInterval = 1;
 const playerScale = PLAYER_SCALE * 2;
 
-const normalize = (min, max, x) => {
-    return (x - min) / (max - min);
-}
+const chartLineWidth = 4;
+
 
 export class CosmicCardioScene extends Phaser.Scene {
     constructor() {
@@ -73,23 +71,13 @@ export class CosmicCardioScene extends Phaser.Scene {
         const width = getGameWidth(this);
         const height = getGameHeight(this);
 
-        this.yOffset = height * .1
-
         this.graphics = this.add.graphics();
         const graphics = this.graphics;
-        // bg
-        const rect = new Phaser.Geom.Rectangle(100, height * .08, 700, height / 1.1);
-        this.graphics
-            .lineStyle(2, 0x000000)
-            .fillStyle(0xedf2f2, 1)
-            .fillRectShape(rect)
-            .strokeRectShape(rect);
-
         const ground = this.drawGround(width, height);
 
         // line
         this.generateFakeStocksData();
-        graphics.lineStyle(2, 0x00ff00);
+        graphics.lineStyle(chartLineWidth, 0x00ff00);
         graphics.beginPath();
         this.drawChart();
         graphics.strokePath();
@@ -108,7 +96,22 @@ export class CosmicCardioScene extends Phaser.Scene {
             fill: '#000',
             font: '900 17px Orbitron',
         });
-        // hint
+
+        const playerPumpX = width - (width * .2);
+        // pump
+        this.pump = this.add.sprite(0, 0, PUMP_OPEN)
+            .setOrigin(0.5, 0)
+            .setScale(playerScale);
+        this.pump.x = playerPumpX;
+        this.pump.y = ground.y - this.pump.height * playerScale;
+
+        // player
+        this.player = new Player({ scene: this, x: 0, y: 0, key: PLAYER_KEY, })
+            .setDepth(2).setOrigin(0.5, 1).setScale(playerScale);
+        this.player.x = playerPumpX;
+        this.player.y = this.pump.y;
+        this.playerInitialY = this.player.y;
+
         // hint
         const hintTextBox = createTextBox(this,
             (width / 2) + width / 4, height * 0.025,
@@ -119,29 +122,11 @@ export class CosmicCardioScene extends Phaser.Scene {
         hintTextBox.setDepth(1);
         hintTextBox.setScrollFactor(0, 0);
         hintTextBox.start(
-            "🤖 your BTC position is having a long squeeze today\n" +
-            "and price is going down\n" +
-            "But, you can save it by doing squats!"
+            "🤖 your BTC position is having a long squeeze\n" +
+            "price is going down\n\n" +
+            "But, you can save it by doing squats!" +
+            "Don't let the price hit the ground"
             , 20);
-
-
-        const playerPumpX = width - (width * .2);
-        // pump
-        this.pump = this.add.sprite(0, 0, PUMP_OPEN)
-            .setOrigin(0.5, 0)
-            .setScale(playerScale);
-        this.pump.x = playerPumpX;
-        this.pump.y = ground.y - this.pump.height * playerScale;
-        // this.pumpInitialY = this.pump.y;
-        // this.player.y = this.pump.y;
-        // this.playerInitialY = this.player.y;
-
-        // player
-        this.player = new Player({ scene: this, x: 0, y: 0, key: PLAYER_KEY, })
-            .setDepth(2).setOrigin(0.5, 1).setScale(playerScale);
-        this.player.x = playerPumpX;
-        this.player.y = this.pump.y;
-        this.playerInitialY = this.player.y;
     }
 
     youWoOrLosenMsg(msg) {
@@ -173,14 +158,17 @@ export class CosmicCardioScene extends Phaser.Scene {
     }
 
     generateFakeStocksData() {
+        const width = getGameWidth(this);
         const height = getGameHeight(this);
-
+        const chartStartX = width * .008
+        this.chartStopX = width / 2
+        const chartStopX = this.chartStopX
         this.priceData = [
-            { x: 50, y: height / 2 }
+            { x: chartStartX, y: height / 2 }
         ];
         const priceData = this.priceData;
         const volatility = 0.02;
-        for (let i = 0, x = 55; x <= 500; x += chartTimeInterval, i++) {
+        for (let i = 0, x = (chartStartX) + chartTimeInterval; x <= chartStopX; x += chartTimeInterval, i++) {
             const rnd = Math.random();
             let change_percent = 2 * volatility * rnd;
             if (change_percent > volatility)
@@ -204,16 +192,16 @@ export class CosmicCardioScene extends Phaser.Scene {
     drawChart() {
         const height = getGameHeight(this);
         for (const p of this.priceData) {
-            this.graphics.lineTo(xOffsett + p.x, p.y);
+            this.graphics.lineTo(p.x, p.y);
         }
     }
 
     drawFinalPlot(color) {
         const graphics = this.graphics;
-        graphics.lineStyle(6, color);
+        graphics.lineStyle(chartLineWidth, color);
         graphics.beginPath();
         this.drawChart();
-        graphics.lineTo(xOffsett + 505, this.curPrice);
+        graphics.lineTo(this.chartStopX + 4, this.curPrice);
         graphics.strokePath();
     }
 
@@ -223,7 +211,6 @@ export class CosmicCardioScene extends Phaser.Scene {
 
         if (this.wonState == wonState || this.wonState == loseState) {
             this.player.y = this.playerInitialY;
-            // this.pump.y = this.pumpInitialY
             this.pump.setTexture(PUMP_OPEN);
             return;
         }
@@ -236,14 +223,13 @@ export class CosmicCardioScene extends Phaser.Scene {
             this.drawGround(width, height);
             this.drawFinalPlot(0x000000);
             this.cameras.main.backgroundColor.setTo(189, 35, 42);
-            const msg = "You have been liquidated :(\n" +
+            const msg = "You have been liquidated 😢\n" +
                 "BTC price had a MASSIVE dip" +
                 "\n\n" +
                 "Press X to 🎮 restart\n" +
                 "Press ESC to exit";
-            this.youWoOrLosenMsg(
-                msg
-            )
+            this.youWoOrLosenMsg(msg);
+            return;
         }
 
         if (this.curPrice <= 0 + 50) {
@@ -259,42 +245,34 @@ export class CosmicCardioScene extends Phaser.Scene {
                 "\n\n" +
                 "Press X to 🎮 restart\n" +
                 "Press ESC to exit";
-            this.youWoOrLosenMsg(
-                msg
-            )
+            this.youWoOrLosenMsg(msg);
+            return;
         }
-
-        let yDelta = 0;
-        const changeFactor = 0.8
-        const x1Pos = xOffsett + 500;
-        const x2Pos = xOffsett + 505;
 
         const curPose = gstate.getPose();
         const player = this.player;
+
         if (player.cursorKeys?.down.isDown || curPose === gpose.BA_UP) {
-            const distanceDown = 40;
             this.player.y = this.playerInitialY;
-            player.y += distanceDown;
-            // this.pump.y = this.pumpInitialY;
+            player.y += 40;
             this.pump.setTexture(PUMP_CLOSED);
         } else {
             this.player.y = this.playerInitialY;
-            // this.pump.y = this.pumpInitialY
             this.pump.setTexture(PUMP_OPEN);
         }
 
+        const changeFactor = 0.8
+        const x1Pos = this.chartStopX + 4;
+        const x2Pos = this.chartStopX + 4 + chartLineWidth + 6;
+        const longColor = 0x00ff00;
+        const shortColor = 0xaa0000;
         if (player.cursorKeys?.down.isDown || curPose === gpose.BA_UP) {
-            this.curPrice -= changeFactor
+            // pump price
+            this.curPrice -= 2 * changeFactor
             if (this.curPrice < this.startingPrice) {
-                this.graphics.lineStyle(3, 0x00ff00);
+                this.graphics.lineStyle(chartLineWidth, longColor);
             } else {
-                this.graphics.lineStyle(3, bgColorHEXNum);
-                // clear previous line
-                this.graphics.lineBetween(
-                    x1Pos,
-                    this.curPrice + 2 * changeFactor,
-                    x2Pos,
-                    this.curPrice + 2 * changeFactor);
+                this.graphics.lineStyle(chartLineWidth, bgColorHEXNum);
             }
             this.graphics.lineBetween(
                 x1Pos,
@@ -302,24 +280,13 @@ export class CosmicCardioScene extends Phaser.Scene {
                 x2Pos,
                 this.curPrice);
         } else {
-            // falling
             if (this.curPrice <= this.startingPrice) {
-                this.graphics.lineStyle(3, bgColorHEXNum);
-                // clear previous line
-                this.graphics.lineBetween(
-                    x1Pos,
-                    this.curPrice - changeFactor,
-                    x2Pos,
-                    this.curPrice - changeFactor);
+                this.graphics.lineStyle(chartLineWidth, bgColorHEXNum);
             } else {
-                this.graphics.lineStyle(3, 0xaa0000);
+                this.graphics.lineStyle(chartLineWidth, shortColor);
             }
+            // falling price on player idle
             this.curPrice += changeFactor
-            this.graphics.lineBetween(
-                x1Pos,
-                this.curPrice,
-                x2Pos,
-                this.curPrice);
         }
     }
 }
