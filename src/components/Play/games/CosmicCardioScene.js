@@ -25,7 +25,6 @@ const allowSquats = true;
 
 const xOffsett = 100;
 const yOffsett = 100;
-const startingPrice = 500;
 
 const nonState = 0;
 const wonState = 1;
@@ -55,7 +54,7 @@ export class CosmicCardioScene extends Phaser.Scene {
 
     create() {
         this.wonState = nonState;
-        this.curPrice = startingPrice;
+
         this.cameras.main.backgroundColor.setTo(...bgColorRGB);
         // constrols
         this.input.keyboard.on('keydown', (event) => {
@@ -168,14 +167,37 @@ export class CosmicCardioScene extends Phaser.Scene {
     }
 
     generateInitialPlot() {
-        const priceData = [
-            { x: 50, y: 700 },
-            { x: 100, y: 550 },
-            { x: 150, y: 600 },
-            { x: 290, y: 480 },
-            { x: 350, y: 600 },
-            { x: 450, y: 500 }
+        // const priceData = [
+        //     { x: 50, y: 700 },
+        //     { x: 100, y: 550 },
+        //     { x: 150, y: 600 },
+        //     { x: 290, y: 480 },
+        //     { x: 350, y: 600 },
+        //     { x: 450, y: 500 }
+        // ];
+        this.priceData = [
+            { x: 50, y: 700 }
         ];
+        const priceData = this.priceData;
+        const volatility = 0.05;
+        for (let i = 0, x = 55; x <= 500; x += 5, i++) {
+            const rnd = Math.random();
+            let change_percent = 2 * volatility * rnd;
+            if (change_percent > volatility)
+                change_percent -= (2 * volatility);
+            let old_price = priceData[i].y;
+            let change_amount = old_price * change_percent;
+            let new_price = old_price + change_amount;
+            priceData.push({
+                x: x,
+                y: new_price,
+            });
+        }
+
+        // price setup
+        this.curPrice = priceData[priceData.length - 1].y;
+        this.startingPrice = this.curPrice;
+
         for (const p of priceData) {
             this.graphics.lineTo(xOffsett + p.x, p.y);
         }
@@ -186,7 +208,7 @@ export class CosmicCardioScene extends Phaser.Scene {
         graphics.lineStyle(6, color);
         graphics.beginPath();
         this.generateInitialPlot();
-        graphics.lineTo(xOffsett + 455, this.curPrice);
+        graphics.lineTo(xOffsett + 505, this.curPrice);
         graphics.strokePath();
     }
 
@@ -239,8 +261,8 @@ export class CosmicCardioScene extends Phaser.Scene {
 
         let yDelta = 0;
         const changeFactor = 0.8
-        const x1Pos = xOffsett + 450;
-        const x2Pos = xOffsett + 455;
+        const x1Pos = xOffsett + 500;
+        const x2Pos = xOffsett + 505;
 
         const curPose = gstate.getPose();
         const player = this.player;
@@ -257,7 +279,7 @@ export class CosmicCardioScene extends Phaser.Scene {
 
         if (player.cursorKeys?.down.isDown || curPose === gpose.BA_UP) {
             this.curPrice -= 2 * changeFactor
-            if (this.curPrice < startingPrice) {
+            if (this.curPrice < this.startingPrice) {
                 this.graphics.lineStyle(3, 0x00ff00);
             } else {
                 this.graphics.lineStyle(3, bgColorHEXNum);
@@ -275,7 +297,7 @@ export class CosmicCardioScene extends Phaser.Scene {
                 this.curPrice);
         } else {
             // falling
-            if (this.curPrice <= startingPrice) {
+            if (this.curPrice <= this.startingPrice) {
                 this.graphics.lineStyle(3, bgColorHEXNum);
                 // clear previous line
                 this.graphics.lineBetween(
