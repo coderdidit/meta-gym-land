@@ -48,7 +48,7 @@ export class CosmicCardioScene extends Phaser.Scene {
     };
 
     drawGround(width, height) {
-        const groundHeight = height * 0.05;
+        const groundHeight = height * 0.012;
         const rect = new Phaser.Geom.Rectangle(0, height - groundHeight, width, groundHeight);
         this.graphics
             .fillStyle(0xB8ABB2, 1)
@@ -119,7 +119,7 @@ export class CosmicCardioScene extends Phaser.Scene {
 
         // hint
         this.hintTextBox = createTextBox(this,
-            width / 2, height  / 2,
+            width / 2, height / 2,
             { wrapWidth: 280 },
             mainBgColorNum,
             highlightTextColorNum
@@ -171,7 +171,7 @@ export class CosmicCardioScene extends Phaser.Scene {
         this.chartStopX = width / 2
         const chartStopX = this.chartStopX
         this.priceData = [
-            { x: chartStartX, y: height / 2 }
+            { x: chartStartX, y: height / 1.5 }
         ];
         const priceData = this.priceData;
         const volatility = 0.02;
@@ -191,9 +191,9 @@ export class CosmicCardioScene extends Phaser.Scene {
 
         const lastX = priceData[priceData.length - 1].x
         this.avgPrice = priceData.map(p => p.y).reduce((a, b) => a + b, 0) / priceData.length;
-        priceData.push({ x: lastX + chartTimeInterval, y: this.avgPrice });
-        this.curPrice = this.avgPrice
+        this.curPrice = height / 1.2
         this.startingPrice = this.curPrice;
+        priceData.push({ x: lastX + chartTimeInterval, y: this.curPrice });
     }
 
     drawChart() {
@@ -226,7 +226,7 @@ export class CosmicCardioScene extends Phaser.Scene {
 
             // it may be counter intuitive but:
             // 0 is top, height positive value is bottom
-            if (this.curPrice >= height - 50) {
+            if (this.curPrice >= height) {
                 this.wonState = loseState;
                 this.graphics.clear();
                 this.drawGround(width, height);
@@ -273,7 +273,7 @@ export class CosmicCardioScene extends Phaser.Scene {
                 this.pump.setTexture(PUMP_OPEN);
             }
 
-            const changeFactor = 0.8
+            const changeFactor = 0.3
             const x1Pos = this.chartStopX + 4;
             const x2Pos = this.chartStopX + 4 + chartLineWidth + 6;
             const longColor = 0x00ff00;
