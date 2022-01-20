@@ -119,16 +119,16 @@ export class CosmicCardioScene extends Phaser.Scene {
 
         // hint
         this.hintTextBox = createTextBox(this,
-            (width / 2) + width / 4, height * 0.025,
+            width / 2, height  / 2,
             { wrapWidth: 280 },
             mainBgColorNum,
             highlightTextColorNum
-        )
+        ).setOrigin(0.5)
         const hintTextBox = this.hintTextBox;
         hintTextBox.setDepth(1);
         hintTextBox.setScrollFactor(0, 0);
         hintTextBox.start(
-            "🤖 BTC price is going down\n\n" +
+            "🤖 BTC price will start to go down in 3s!\n\n" +
             "But, you can save it by doing squats!\n\n" +
             "Don't let the price hit the ground"
             , 10);
@@ -213,8 +213,8 @@ export class CosmicCardioScene extends Phaser.Scene {
     }
 
     update(time, delta) {
-        if (Date.now() - this.createTime > 2000) {
-
+        if (Date.now() - this.createTime > 3500) {
+            if (this.hintTextBox) this.hintTextBox.destroy();
             const width = getGameWidth(this);
             const height = getGameHeight(this);
 
@@ -233,12 +233,11 @@ export class CosmicCardioScene extends Phaser.Scene {
                 this.drawFinalPlot(0x000000);
                 this.btc.setTint(0x3d3d3d);
                 this.cameras.main.backgroundColor.setTo(189, 35, 42);
-                const msg = "You have been liquidated 😢\n\n" +
+                const msg = "🤖 You have been liquidated 😢\n\n" +
                     "BTC price had a MASSIVE dip" +
                     "\n\n" +
                     "Press X to 🎮 restart\n" +
                     "Press ESC to exit";
-                this.hintTextBox.start("🤖", 50);
                 this.youWonOrLosenMsg(msg, 0x1c0707);
                 return;
             }
@@ -253,12 +252,11 @@ export class CosmicCardioScene extends Phaser.Scene {
                 this.score += 1;
                 this.scoreBoard.setText(`SCORE: ${this.score}`);
                 if (canvasParent) party.confetti(canvasParent);
-                const msg = "You saved the BTC price 🎉\n" +
+                const msg = "🤖 You saved the BTC price 🎉\n" +
                     "It went to the MOOOON" +
                     "\n\n" +
                     "Press X to 🎮 restart\n" +
                     "Press ESC to exit";
-                this.hintTextBox.start("🤖", 50);
                 this.youWonOrLosenMsg(msg, 0x0048ff);
                 return;
             }
