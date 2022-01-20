@@ -85,7 +85,7 @@ export class CosmicCardioScene extends Phaser.Scene {
             .fillRectShape(rect)
             .strokeRectShape(rect);
 
-        this.drawGround(width, height);
+        const ground = this.drawGround(width, height);
 
         // line
         this.generateFakeStocksData();
@@ -124,23 +124,24 @@ export class CosmicCardioScene extends Phaser.Scene {
             "But, you can save it by doing squats!"
             , 20);
 
-        // player
-        this.player = new Player({ scene: this, x: 0, y: 0, key: PLAYER_KEY, });
-        this.player.setScale(playerScale);
-        this.player.x = width - width * .2;
-        this.player.y = height * .74;
-        this.player.setDepth(1);
-        this.player.setOrigin(0.5);
-        this.playerInitialY = this.player.y;
 
+        const playerPumpX = width - (width * .2);
         // pump
         this.pump = this.add.sprite(0, 0, PUMP_OPEN)
-            .setOrigin(0.5).setScale(playerScale);
-        this.pump.x = this.player.x;
-        this.pump.y = this.player.y * 1.2;
-        this.pumpInitialY = this.pump.y;
+            .setOrigin(0.5, 0)
+            .setScale(playerScale);
+        this.pump.x = playerPumpX;
+        this.pump.y = ground.y - this.pump.height * playerScale;
+        // this.pumpInitialY = this.pump.y;
         // this.player.y = this.pump.y;
         // this.playerInitialY = this.player.y;
+
+        // player
+        this.player = new Player({ scene: this, x: 0, y: 0, key: PLAYER_KEY, })
+            .setDepth(2).setOrigin(0.5, 1).setScale(playerScale);
+        this.player.x = playerPumpX;
+        this.player.y = this.pump.y;
+        this.playerInitialY = this.player.y;
     }
 
     youWoOrLosenMsg(msg) {
@@ -172,8 +173,10 @@ export class CosmicCardioScene extends Phaser.Scene {
     }
 
     generateFakeStocksData() {
+        const height = getGameHeight(this);
+
         this.priceData = [
-            { x: 50, y: 700 }
+            { x: 50, y: height / 2 }
         ];
         const priceData = this.priceData;
         const volatility = 0.02;
@@ -192,15 +195,16 @@ export class CosmicCardioScene extends Phaser.Scene {
         }
 
         const lastX = priceData[priceData.length - 1].x
-        priceData.push({ x: lastX + 3*chartTimeInterval, y: Phaser.Math.Between(450, 650) });
-        this.curPrice = priceData[priceData.length - 1].y;
+        this.avgPrice = priceData.map(p => p.y).reduce((a, b) => a + b, 0) / priceData.length;
+        priceData.push({ x: lastX + chartTimeInterval, y: this.avgPrice });
+        this.curPrice = this.avgPrice
         this.startingPrice = this.curPrice;
     }
 
     drawChart() {
         const height = getGameHeight(this);
         for (const p of this.priceData) {
-            this.graphics.lineTo(xOffsett + p.x, p.y - height * 0.5);
+            this.graphics.lineTo(xOffsett + p.x, p.y);
         }
     }
 
@@ -219,7 +223,7 @@ export class CosmicCardioScene extends Phaser.Scene {
 
         if (this.wonState == wonState || this.wonState == loseState) {
             this.player.y = this.playerInitialY;
-            this.pump.y = this.pumpInitialY
+            // this.pump.y = this.pumpInitialY
             this.pump.setTexture(PUMP_OPEN);
             return;
         }
@@ -271,11 +275,11 @@ export class CosmicCardioScene extends Phaser.Scene {
             const distanceDown = 40;
             this.player.y = this.playerInitialY;
             player.y += distanceDown;
-            this.pump.y = this.pumpInitialY;
+            // this.pump.y = this.pumpInitialY;
             this.pump.setTexture(PUMP_CLOSED);
         } else {
             this.player.y = this.playerInitialY;
-            this.pump.y = this.pumpInitialY
+            // this.pump.y = this.pumpInitialY
             this.pump.setTexture(PUMP_OPEN);
         }
 
