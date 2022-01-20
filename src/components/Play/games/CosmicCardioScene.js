@@ -35,6 +35,10 @@ const bgColorHEXNum = 0xedf2f2;
 const chartTimeInterval = 1;
 const playerScale = 0.3;
 
+const normalize = (min, max, x) => {
+    return (x - min) / (max - min);
+}
+
 export class CosmicCardioScene extends Phaser.Scene {
     constructor() {
         super(SceneConfig);
@@ -121,7 +125,7 @@ export class CosmicCardioScene extends Phaser.Scene {
         // player
         this.player = new Player({ scene: this, x: 0, y: 0, key: PLAYER_KEY, });
         this.player.setScale(playerScale);
-        this.player.x = width - width * .11;
+        this.player.x = width - width * .2;
         this.player.y = height * .74;
         this.player.setDepth(1);
         this.player.setOrigin(0.5);
@@ -129,7 +133,7 @@ export class CosmicCardioScene extends Phaser.Scene {
 
         // pump
         this.pump = this.add.sprite(0, 0, PUMP_OPEN)
-        .setOrigin(0.5).setScale(playerScale);
+            .setOrigin(0.5).setScale(playerScale);
         this.pump.x = this.player.x;
         this.pump.y = this.player.y * 1.2;
         this.pumpInitialY = this.pump.y;
@@ -174,11 +178,12 @@ export class CosmicCardioScene extends Phaser.Scene {
         //     { x: 350, y: 600 },
         //     { x: 450, y: 500 }
         // ];
+        const height = getGameHeight(this);
         this.priceData = [
             { x: 50, y: 700 }
         ];
         const priceData = this.priceData;
-        const volatility = 0.05;
+        const volatility = 0.02;
         for (let i = 0, x = 55; x <= 500; x += chartTimeInterval, i++) {
             const rnd = Math.random();
             let change_percent = 2 * volatility * rnd;
@@ -194,6 +199,8 @@ export class CosmicCardioScene extends Phaser.Scene {
         }
 
         // price setup
+        const lastX = priceData[priceData.length - 1].x
+        priceData.push({ x: lastX + 3*chartTimeInterval, y: Phaser.Math.Between(450, 650) });
         this.curPrice = priceData[priceData.length - 1].y;
         this.startingPrice = this.curPrice;
 
