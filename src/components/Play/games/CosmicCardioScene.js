@@ -198,7 +198,7 @@ export class CosmicCardioScene extends Phaser.Scene {
         this.curPrice = priceData[priceData.length - 1].y;
         this.startingPrice = this.curPrice;
 
-        for (const p of priceData) {
+        for (const p of this.priceData) {
             this.graphics.lineTo(xOffsett + p.x, p.y);
         }
     }
@@ -207,7 +207,9 @@ export class CosmicCardioScene extends Phaser.Scene {
         const graphics = this.graphics;
         graphics.lineStyle(6, color);
         graphics.beginPath();
-        this.generateInitialPlot();
+        for (const p of this.priceData) {
+            this.graphics.lineTo(xOffsett + p.x, p.y);
+        }
         graphics.lineTo(xOffsett + 505, this.curPrice);
         graphics.strokePath();
     }
