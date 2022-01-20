@@ -24,7 +24,6 @@ const SceneConfig = {
 const allowSquats = true;
 
 const xOffsett = 50;
-const yOffsett = 100;
 
 const nonState = 0;
 const wonState = 1;
@@ -33,7 +32,7 @@ const loseState = 2;
 const bgColorRGB = [255, 255, 255];
 const bgColorHEXNum = 0xedf2f2;
 const chartTimeInterval = 1;
-const playerScale = 0.3;
+const playerScale = PLAYER_SCALE * 2;
 
 const normalize = (min, max, x) => {
     return (x - min) / (max - min);
@@ -74,6 +73,8 @@ export class CosmicCardioScene extends Phaser.Scene {
         const width = getGameWidth(this);
         const height = getGameHeight(this);
 
+        this.yOffset = height * .1
+
         this.graphics = this.add.graphics();
         const graphics = this.graphics;
         // bg
@@ -87,9 +88,10 @@ export class CosmicCardioScene extends Phaser.Scene {
         this.drawGround(width, height);
 
         // line
+        this.generateFakeStocksData();
         graphics.lineStyle(2, 0x00ff00);
         graphics.beginPath();
-        this.generateInitialPlot();
+        this.drawChart();
         graphics.strokePath();
         graphics.closePath();
 
@@ -169,16 +171,7 @@ export class CosmicCardioScene extends Phaser.Scene {
         );
     }
 
-    generateInitialPlot() {
-        // const priceData = [
-        //     { x: 50, y: 700 },
-        //     { x: 100, y: 550 },
-        //     { x: 150, y: 600 },
-        //     { x: 290, y: 480 },
-        //     { x: 350, y: 600 },
-        //     { x: 450, y: 500 }
-        // ];
-        const height = getGameHeight(this);
+    generateFakeStocksData() {
         this.priceData = [
             { x: 50, y: 700 }
         ];
@@ -198,14 +191,16 @@ export class CosmicCardioScene extends Phaser.Scene {
             });
         }
 
-        // price setup
         const lastX = priceData[priceData.length - 1].x
         priceData.push({ x: lastX + 3*chartTimeInterval, y: Phaser.Math.Between(450, 650) });
         this.curPrice = priceData[priceData.length - 1].y;
         this.startingPrice = this.curPrice;
+    }
 
+    drawChart() {
+        const height = getGameHeight(this);
         for (const p of this.priceData) {
-            this.graphics.lineTo(xOffsett + p.x, p.y);
+            this.graphics.lineTo(xOffsett + p.x, p.y - height * 0.5);
         }
     }
 
@@ -213,9 +208,7 @@ export class CosmicCardioScene extends Phaser.Scene {
         const graphics = this.graphics;
         graphics.lineStyle(6, color);
         graphics.beginPath();
-        for (const p of this.priceData) {
-            this.graphics.lineTo(xOffsett + p.x, p.y);
-        }
+        this.drawChart();
         graphics.lineTo(xOffsett + 505, this.curPrice);
         graphics.strokePath();
     }
