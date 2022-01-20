@@ -11,10 +11,22 @@ export const GYM_ROOM_DANGEON_TILES = 'dangeon';
 export const ASTEROIDS = 'asteroids';
 export const AIRPLANE = 'airplane';
 export const BTC = 'bitcoin';
+export const PUMP_OPEN = 'pump_open';
+export const PUMP_CLOSED = 'pump_closed';
 
 
 // Save all in game assets in the public folder
 export const assets = [
+  {
+    key: PUMP_OPEN,
+    src: `assets/images/${PUMP_OPEN}.png`,
+    type: 'IMAGE',
+  },
+  {
+    key: PUMP_CLOSED,
+    src: `assets/images/${PUMP_CLOSED}.png`,
+    type: 'IMAGE',
+  },
   {
     key: ASTEROIDS,
     src: `assets/images/${ASTEROIDS}.png`,

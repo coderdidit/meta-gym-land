@@ -3,7 +3,8 @@ import { getGameWidth, getGameHeight, getRelative } from "./helpers";
 import { Player } from "./objects";
 import { PLAYER_KEY, PLAYER_SCALE, GYM_ROOM_SCENE, COSMIC_CARDIO_SCENE } from "./shared";
 import {
-    BACK_ARROW,
+    PUMP_OPEN,
+    PUMP_CLOSED,
 } from "./assets";
 import { createTextBox } from "./utils/text";
 import party from "party-js";
@@ -106,12 +107,23 @@ export class CosmicCardioScene extends Phaser.Scene {
         this.player = new Player({
             scene: this,
             x: width - width * .1,
-            y: height - height * .2,
+            y: height - height * .16,
             key: PLAYER_KEY,
         });
         this.player.setScale(PLAYER_SCALE);
         this.player.setDepth(1);
+        this.player.setOrigin(0);
         this.playerInitialY = this.player.y;
+
+        // pump
+        console.log('this.player.y', (this.player.y * PLAYER_SCALE));
+        this.pump = this.add.sprite(
+            this.player.x,
+            this.player.y + (this.player.y * PLAYER_SCALE) / 2,
+            PUMP_OPEN,
+        ).setOrigin(0).setScale(0.125);
+
+        this.pumpInitialY = this.pump.y
     }
 
     youWoOrLosenMsg(msg) {
@@ -170,6 +182,8 @@ export class CosmicCardioScene extends Phaser.Scene {
 
         if (this.wonState == wonState || this.wonState == loseState) {
             this.player.y = this.playerInitialY;
+            this.pump.y = this.pumpInitialY
+            this.pump.setTexture(PUMP_OPEN);
             return;
         }
 
@@ -216,9 +230,13 @@ export class CosmicCardioScene extends Phaser.Scene {
         const player = this.player;
         if (player.cursorKeys?.down.isDown || curPose === gpose.BA_UP) {
             this.player.y = this.playerInitialY;
-            player.y += 100;
+            player.y += 25;
+            this.pump.y = this.pumpInitialY + 25;
+            this.pump.setTexture(PUMP_CLOSED);
         } else {
             this.player.y = this.playerInitialY;
+            this.pump.y = this.pumpInitialY
+            this.pump.setTexture(PUMP_OPEN);
         }
 
         if (player.cursorKeys?.down.isDown || curPose === gpose.BA_UP) {
