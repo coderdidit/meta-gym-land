@@ -86,6 +86,10 @@ export class CosmicCardioScene extends Phaser.Scene {
         graphics.strokePath();
         graphics.closePath();
 
+        const atlline = new Phaser.Geom.Line(0, this.atl, width, this.atl);
+        graphics.lineStyle(1, 0x878786);
+        graphics.strokeLineShape(atlline);
+
         // Add the scoreboard
         this.scoreBoard = this.add.text(
             width * 0.05, height * 0.015,
@@ -293,7 +297,6 @@ export class CosmicCardioScene extends Phaser.Scene {
             const shortColor = 0xaa0000;
 
             if (this.curPrice > this.atl) {
-                this.atl = this.curPrice
                 this.graphics.lineStyle(chartLineWidth, shortColor);
             } else {
                 this.graphics.lineStyle(chartLineWidth, longColor);
