@@ -92,7 +92,7 @@ export class CosmicCardioScene extends Phaser.Scene {
         graphics.closePath();
 
         const atlline = new Phaser.Geom.Line(0, this.atl, width, this.atl);
-        graphics.lineStyle(1, 0x878786);
+        graphics.lineStyle(1, 0x848484);
         graphics.strokeLineShape(atlline);
 
         // Add the scoreboard
