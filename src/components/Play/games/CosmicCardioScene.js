@@ -135,7 +135,7 @@ export class CosmicCardioScene extends Phaser.Scene {
             , 10);
 
         // active chart start position
-        this.x1Pos = this.chartStopX + 4;
+        this.x1Pos = this.chartStopX + 2;
         this.x2Pos = this.x1Pos + chartLineWidth;
     }
 
@@ -195,7 +195,9 @@ export class CosmicCardioScene extends Phaser.Scene {
         }
 
         const lastX = priceData[priceData.length - 1].x
-        this.avgPrice = priceData.map(p => p.y).reduce((a, b) => a + b, 0) / priceData.length;
+        const prices = priceData.map(p => p.y)
+        this.avgPrice = prices.reduce((a, b) => a + b, 0) / priceData.length;
+        this.atl = Math.max.apply(Math, prices);
         this.curPrice = height / 1.2
         this.startingPrice = this.curPrice;
         priceData.push({ x: lastX + chartTimeInterval, y: this.curPrice });
@@ -279,8 +281,8 @@ export class CosmicCardioScene extends Phaser.Scene {
             }
 
             if (Date.now() - this.frameTime > 2000) {
-                this.x1Pos += chartLineWidth
-                this.x2Pos += chartLineWidth
+                this.x1Pos = this.x1Pos + chartLineWidth + 1
+                this.x2Pos = this.x1Pos + chartLineWidth
                 this.frameTime = Date.now();
             }
 
@@ -289,10 +291,18 @@ export class CosmicCardioScene extends Phaser.Scene {
             const x2Pos = this.x2Pos;
             const longColor = 0x00ff00;
             const shortColor = 0xaa0000;
+
+            if (this.curPrice > this.atl) {
+                this.atl = this.curPrice
+                this.graphics.lineStyle(chartLineWidth, shortColor);
+            } else {
+                this.graphics.lineStyle(chartLineWidth, longColor);
+            }
+
             if (player.cursorKeys?.down.isDown || curPose === gpose.BA_UP) {
                 // pump price
                 this.curPrice -= 2 * changeFactor
-                this.graphics.lineStyle(chartLineWidth, longColor);
+                // this.graphics.lineStyle(chartLineWidth, longColor);
                 // if (this.curPrice < this.startingPrice) {
                 //     this.graphics.lineStyle(chartLineWidth, longColor);
                 // } else {
@@ -311,7 +321,7 @@ export class CosmicCardioScene extends Phaser.Scene {
                 // }
                 // falling price on player idle
                 this.curPrice += changeFactor
-                this.graphics.lineStyle(chartLineWidth, shortColor);
+                // this.graphics.lineStyle(chartLineWidth, shortColor);
             }
             this.graphics.lineBetween(
                 x1Pos,
