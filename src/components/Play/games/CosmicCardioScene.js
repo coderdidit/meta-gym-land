@@ -336,6 +336,9 @@ export class CosmicCardioScene extends Phaser.Scene {
                 this.curPrice,
                 x2Pos,
                 this.curPrice);
+            this.priceData.push(
+                { x: x1Pos, y: this.curPrice }
+            )
         } else {
             this.frameTime = Date.now();
         }
