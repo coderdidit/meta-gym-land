@@ -61,7 +61,8 @@ export class CosmicCardioScene extends Phaser.Scene {
         this.frameTime = Date.now();
         this.wonState = nonState;
         this.score = data.score || 0;
-        this.cameras.main.backgroundColor.setTo(...bgColorRGB);
+        // this.cameras.main.backgroundColor.setTo(...bgColorRGB);
+
         // constrols
         this.input.keyboard.on('keydown', (event) => {
             const code = event.keyCode;
@@ -76,6 +77,10 @@ export class CosmicCardioScene extends Phaser.Scene {
 
         this.graphics = this.add.graphics();
         const graphics = this.graphics;
+        const rect = new Phaser.Geom.Rectangle(0, 0, width, height);
+        this.graphics.fillGradientStyle(0xF7F7F7, 0xF7F7F7, 0xB1B1B1, 0xB1B1B1, 1)
+            .fillRectShape(rect);
+
         const ground = this.drawGround(width, height);
 
         // line
