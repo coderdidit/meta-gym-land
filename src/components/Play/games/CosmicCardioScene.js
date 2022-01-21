@@ -136,7 +136,7 @@ export class CosmicCardioScene extends Phaser.Scene {
 
         // active chart start position
         this.x1Pos = this.chartStopX + 4;
-        this.x2Pos = this.chartStopX + 4 + chartLineWidth;
+        this.x2Pos = this.x1Pos + chartLineWidth;
     }
 
     youWonOrLosenMsg(msg, bgcolor = mainBgColorNum) {
@@ -279,8 +279,8 @@ export class CosmicCardioScene extends Phaser.Scene {
             }
 
             if (Date.now() - this.frameTime > 2000) {
-                this.x1Pos += 4
-                this.x2Pos += 4
+                this.x1Pos += chartLineWidth
+                this.x2Pos += chartLineWidth
                 this.frameTime = Date.now();
             }
 
