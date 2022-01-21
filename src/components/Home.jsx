@@ -171,15 +171,14 @@ export default function Home() {
       </Row>
       <Divider style={{
         backgroundColor: "#032139",
-      }}></Divider>
+      }} />
       <Row style={{
         flexBasis: "100%",
         marginTop: "2rem",
-        marginBottom: "3rem"
       }}>
 
-        <Col span={100} style={{
-          textAlign: "center"
+        <Col span={50} style={{
+          textAlign: "left"
         }}>
           <div style={{
             ...descriptionStyle,
@@ -198,6 +197,16 @@ export default function Home() {
             </Button>
           </div>
         </Col>
+      </Row>
+      <Divider style={{
+        backgroundColor: "#032139",
+      }} />
+      <Row style={{
+        flexBasis: "100%",
+        marginTop: "2rem",
+        marginBottom: "7rem",
+      }}>
+        <h2>Contact: coderdidit@gmail.com</h2>
       </Row>
     </div>
   );

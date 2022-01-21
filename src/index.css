@@ -27,7 +27,7 @@ dd {
 }
 
 body {
-  min-height: 100vh;
+  background: linear-gradient(180deg, #000207 0%, #003963 100%);
   scroll-behavior: smooth;
   text-rendering: optimizeSpeed;
   line-height: 1.5;

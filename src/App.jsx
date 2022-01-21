@@ -41,7 +41,7 @@ const styles = {
     fontFamily: "Roboto, sans-serif",
     marginTop: "40px",
     marginBottom: "40px",
-    height: "100vh",
+    minHeight: "10rem",
   },
   header: {
     // position: "fixed",
@@ -84,9 +84,9 @@ const App = ({ isServerInfo }) => {
   return (
     <Layout style={
       {
-        height: "100vh",
+        // height: "100vh",
         overflow: "auto",
-        background: mainBackground,
+        background: "none",
         fontFamily: "Roboto, sans-serif",
       }}>
       <Router>
