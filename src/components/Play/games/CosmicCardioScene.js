@@ -136,10 +136,9 @@ export class CosmicCardioScene extends Phaser.Scene {
         hintTextBox.setDepth(1);
         hintTextBox.setScrollFactor(0, 0);
         hintTextBox.start(
-            "🤖 BTC price\n\n" +
-            "will go down in 3 SECONDS!\n\n" +
+            "🤖 BTC price will start go down!\n\n" +
             "But, you can PUMP IT UP\n\n" +
-            "by doing Squats!"
+            "By doing Squats!"
             , 10);
         // active chart start positions
         this.x1Pos = this.chartStopX + 2;
@@ -224,7 +223,7 @@ export class CosmicCardioScene extends Phaser.Scene {
     }
 
     update(time, delta) {
-        const initilaHintDealy = 5000;
+        const initilaHintDealy = 4000;
         const timeFromCreation = Date.now() - this.createTime;
         // counter
         if (timeFromCreation > initilaHintDealy && timeFromCreation < initilaHintDealy + 1000) {
