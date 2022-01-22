@@ -30,7 +30,7 @@ const wonState = 1;
 const loseState = 2;
 
 const chartTimeInterval = 1;
-const playerScale = PLAYER_SCALE * 2;
+const playerScale = PLAYER_SCALE * 1.5;
 const chartLineWidth = 3;
 
 export class CosmicCardioScene extends Phaser.Scene {
