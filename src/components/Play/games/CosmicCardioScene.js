@@ -44,7 +44,7 @@ export class CosmicCardioScene extends Phaser.Scene {
     };
 
     drawGround(width, height) {
-        const groundHeight = height * 0.012;
+        const groundHeight = height * 0.02;
         const rect = new Phaser.Geom.Rectangle(0, height - groundHeight, width, groundHeight);
         this.graphics
             .fillStyle(0xB8ABB2, 1)
