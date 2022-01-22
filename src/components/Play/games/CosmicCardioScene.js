@@ -62,6 +62,22 @@ export class CosmicCardioScene extends Phaser.Scene {
         this.wonState = nonState;
         this.score = data.score || 0;
 
+        // exit
+        this.input.keyboard.on('keydown', (event) => {
+            const code = event.keyCode;
+            if (code == Phaser.Input.Keyboard.KeyCodes.ESC) {
+                this.scene.start(GYM_ROOM_SCENE);
+            }
+        }, this);
+
+        this.graphics = this.add.graphics();
+        const graphics = this.graphics;
+        // background
+        const rect = new Phaser.Geom.Rectangle(0, 0, width, height);
+        this.graphics.fillGradientStyle(0xEEF2F4, 0xEEF2F4,0xFFFFFF, 0xFFFFFF, 1)
+            .fillRectShape(rect);
+        const ground = this.drawGround(width, height);
+
         // Add the scoreboard
         this.scoreBoard = this.add.text(
             width * 0.05, height * 0.015,
@@ -75,22 +91,6 @@ export class CosmicCardioScene extends Phaser.Scene {
             fill: '#000',
             font: '900 17px Orbitron',
         });
-
-        // exit
-        this.input.keyboard.on('keydown', (event) => {
-            const code = event.keyCode;
-            if (code == Phaser.Input.Keyboard.KeyCodes.ESC) {
-                this.scene.start(GYM_ROOM_SCENE);
-            }
-        }, this);
-
-        this.graphics = this.add.graphics();
-        const graphics = this.graphics;
-        // background
-        const rect = new Phaser.Geom.Rectangle(0, 0, width, height);
-        this.graphics.fillGradientStyle(0xF7F7F7, 0xF7F7F7, 0xB1B1B1, 0xB1B1B1, 1)
-            .fillRectShape(rect);
-        const ground = this.drawGround(width, height);
 
         // generate stock data
         this.generateFakeStocksData();
@@ -141,7 +141,7 @@ export class CosmicCardioScene extends Phaser.Scene {
             "By doing Squats!"
             , 10);
         // active chart start positions
-        this.x1Pos = this.chartStopX + 2;
+        this.x1Pos = this.chartStopX;
         this.x2Pos = this.x1Pos + chartLineWidth;
     }
 
@@ -215,10 +215,10 @@ export class CosmicCardioScene extends Phaser.Scene {
 
     drawFinalChart(color) {
         const graphics = this.graphics;
-        graphics.lineStyle(chartLineWidth, color);
+        graphics.lineStyle(chartLineWidth + 2, color);
         graphics.beginPath();
         this.drawChart();
-        graphics.lineTo(this.x2Pos + 4, this.curPrice);
+        graphics.lineTo(this.x2Pos + 6, this.curPrice);
         graphics.strokePath();
     }
 
@@ -294,7 +294,7 @@ export class CosmicCardioScene extends Phaser.Scene {
                 this.pump.setTexture(PUMP_OPEN);
             }
 
-            if (Date.now() - this.frameTime > 2000) {
+            if (Date.now() - this.frameTime > 1500) {
                 this.x1Pos = this.x1Pos + chartLineWidth + 1
                 this.x2Pos = this.x1Pos + chartLineWidth
                 this.frameTime = Date.now();
