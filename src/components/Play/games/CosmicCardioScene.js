@@ -34,6 +34,10 @@ const chartTimeInterval = 1;
 const playerScale = PLAYER_SCALE * 1.5;
 const chartLineWidth = 3;
 
+const changeFactor = 0.3;
+const longColor = 0x00ff00;
+const shortColor = 0xaa0000;
+
 let intervals = [];
 
 export class CosmicCardioScene extends Phaser.Scene {
@@ -262,7 +266,7 @@ export class CosmicCardioScene extends Phaser.Scene {
                 return;
             }
 
-            if (this.curPrice <= 0 + 50) {
+            if (this.curPrice <= 0 + height * .1) {
                 this.wonState = wonState;
                 const canvasParent = document.querySelector('#phaser-app canvas');
                 this.cameras.main.backgroundColor.setTo(32, 191, 150);
@@ -286,38 +290,32 @@ export class CosmicCardioScene extends Phaser.Scene {
             const curPose = gstate.getPose();
             const player = this.player;
 
-            if (player.cursorKeys?.down.isDown || curPose === gpose.NDWN) {
+            if (player.cursorKeys?.down.isDown || curPose === gpose.NDWN
+                || curPose === gpose.BA_UP) {
                 this.player.y = this.playerInitialY;
                 player.y += 40;
                 this.pump.setTexture(PUMP_CLOSED);
+                // price up
+                this.curPrice -= 4 * changeFactor
             } else {
                 this.player.y = this.playerInitialY;
                 this.pump.setTexture(PUMP_OPEN);
+                // price down
+                this.curPrice += changeFactor;
             }
-
+            // draw chart
             if (Date.now() - this.frameTime > 1500) {
                 this.x1Pos = this.x1Pos + chartLineWidth + 2;
                 this.x2Pos = this.x1Pos + chartLineWidth;
                 this.frameTime = Date.now();
             }
 
-            const changeFactor = 0.3
             const x1Pos = this.x1Pos;
             const x2Pos = this.x2Pos;
-            const longColor = 0x00ff00;
-            const shortColor = 0xaa0000;
-
             if (this.curPrice > this.atl) {
                 this.graphics.lineStyle(chartLineWidth, shortColor);
             } else {
                 this.graphics.lineStyle(chartLineWidth, longColor);
-            }
-
-            if (player.cursorKeys?.down.isDown || curPose === gpose.BA_UP) {
-                // pump price
-                this.curPrice -= 2 * changeFactor
-            } else {
-                this.curPrice += changeFactor
             }
             this.graphics.lineBetween(
                 x1Pos,
