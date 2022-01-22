@@ -16,6 +16,9 @@ import {
 import * as gstate from "../../gpose/state";
 import * as gpose from "../../gpose/pose";
 
+const randomFromInterval = (min, max) => {
+    return Math.floor(Math.random() * (max - min + 1.0) + min)
+}
 
 const SceneConfig = {
     active: false,
@@ -176,11 +179,11 @@ export class CosmicCardioScene extends Phaser.Scene {
     generateFakeStocksData() {
         const width = getGameWidth(this);
         const height = getGameHeight(this);
-        const chartStartX = width * .008
+        const chartStartX = width * .03
         this.chartStopX = width * .4
         const chartStopX = this.chartStopX
         this.priceData = [
-            { x: chartStartX, y: height / 1.5 }
+            { x: chartStartX, y: height / 1.7 }
         ];
         const priceData = this.priceData;
         const volatility = 0.02;
@@ -202,7 +205,7 @@ export class CosmicCardioScene extends Phaser.Scene {
         const prices = priceData.map(p => p.y)
         this.avgPrice = prices.reduce((a, b) => a + b, 0) / priceData.length;
         this.atl = Math.max.apply(Math, prices);
-        this.curPrice = height / 1.2
+        this.curPrice = randomFromInterval(height / 1.2, height / 1.5);
         this.startingPrice = this.curPrice;
         priceData.push({ x: lastX + chartTimeInterval, y: this.curPrice });
     }
