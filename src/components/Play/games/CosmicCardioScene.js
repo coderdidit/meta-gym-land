@@ -33,6 +33,8 @@ const chartTimeInterval = 1;
 const playerScale = PLAYER_SCALE * 1.5;
 const chartLineWidth = 3;
 
+let intervals = [];
+
 export class CosmicCardioScene extends Phaser.Scene {
     constructor() {
         super(SceneConfig);
@@ -72,11 +74,19 @@ export class CosmicCardioScene extends Phaser.Scene {
         this.wonState = nonState;
         this.score = data.score || 0;
 
-        // exit
+        // exit or restart
         this.input.keyboard.on('keydown', (event) => {
+            intervals.forEach(i => {
+                clearInterval(i);
+            })
             const code = event.keyCode;
             if (code == Phaser.Input.Keyboard.KeyCodes.ESC) {
                 this.scene.start(GYM_ROOM_SCENE);
+            }
+            if (code == Phaser.Input.Keyboard.KeyCodes.X) {
+                this.scene.start(COSMIC_CARDIO_SCENE, {
+                    score: this.score
+                });
             }
         }, this);
 
@@ -113,7 +123,7 @@ export class CosmicCardioScene extends Phaser.Scene {
         const atlline = new Phaser.Geom.Line(0, this.atl, width, this.atl);
         graphics.lineStyle(1, 0x848484, 0.8);
         graphics.strokeLineShape(atlline);
-        
+
         // BTC
         this.btc = this.add.image(width * .1, height * .9, BTC).setScale(0.4);
 
@@ -165,19 +175,6 @@ export class CosmicCardioScene extends Phaser.Scene {
         )
         youWonText.setOrigin(0.5).setDepth(1).setScrollFactor(0, 0);
         youWonText.start(msg, 10);
-
-        this.input.keyboard.on(
-            'keydown',
-            event => {
-                const code = event.keyCode
-                if (code == Phaser.Input.Keyboard.KeyCodes.X) {
-                    this.scene.start(COSMIC_CARDIO_SCENE, {
-                        score: this.score
-                    });
-                }
-            },
-            this
-        );
     }
 
     generateFakeStocksData() {
@@ -269,7 +266,9 @@ export class CosmicCardioScene extends Phaser.Scene {
                 this.cameras.main.backgroundColor.setTo(32, 191, 150);
                 this.score += 1;
                 this.scoreBoard.setText(`SCORE: ${this.score}`);
-                if (canvasParent) party.confetti(canvasParent);
+                intervals.push(setInterval(() => {
+                    if (canvasParent) party.confetti(canvasParent);
+                }, 500));
                 const msg = "🤖 You saved the BTC price 🎉\n\n" +
                     "It went to the MOOOON" +
                     "\n\n" +
