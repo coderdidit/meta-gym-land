@@ -83,7 +83,7 @@ export class CosmicCardioScene extends Phaser.Scene {
                 this.scene.start(GYM_ROOM_SCENE);
             }
         }, this);
-        
+
         this.graphics = this.add.graphics();
         const graphics = this.graphics;
         // background
@@ -136,11 +136,11 @@ export class CosmicCardioScene extends Phaser.Scene {
         hintTextBox.setDepth(1);
         hintTextBox.setScrollFactor(0, 0);
         hintTextBox.start(
-            "🤖 BTC price will start to go down in 3s!\n\n" +
-            "But, you can save it by doing squats!\n\n" +
-            "Don't let the price hit the ground"
+            "🤖 BTC price\n\n" +
+            "will go down in 3 SECONDS!\n\n" +
+            "But, you can PUMP IT UP\n\n" +
+            "by doing Squats!"
             , 10);
-
         // active chart start positions
         this.x1Pos = this.chartStopX + 2;
         this.x2Pos = this.x1Pos + chartLineWidth;
@@ -215,7 +215,6 @@ export class CosmicCardioScene extends Phaser.Scene {
     }
 
     drawFinalChart(color) {
-        const width = getGameWidth(this);
         const graphics = this.graphics;
         graphics.lineStyle(chartLineWidth, color);
         graphics.beginPath();
@@ -225,7 +224,18 @@ export class CosmicCardioScene extends Phaser.Scene {
     }
 
     update(time, delta) {
-        if (Date.now() - this.createTime > 3500) {
+        const initilaHintDealy = 5000;
+        const timeFromCreation = Date.now() - this.createTime;
+        // counter
+        if (timeFromCreation > initilaHintDealy && timeFromCreation < initilaHintDealy + 1000) {
+            this.hintTextBox.setText("...3")
+        } else if (timeFromCreation > initilaHintDealy + 1000 && timeFromCreation < initilaHintDealy + 2000) {
+            this.hintTextBox.setText("...2")
+        } else if (timeFromCreation > initilaHintDealy + 2000 && timeFromCreation < initilaHintDealy + 3000) {
+            this.hintTextBox.setText("...1")
+        } else if (timeFromCreation > initilaHintDealy + 2000 && timeFromCreation < initilaHintDealy + 4000) {
+            this.hintTextBox.setText("🤖 GO!")
+        } else if (timeFromCreation > initilaHintDealy + 4000) {
             if (this.hintTextBox) this.hintTextBox.destroy();
             const width = getGameWidth(this);
             const height = getGameHeight(this);
@@ -318,8 +328,6 @@ export class CosmicCardioScene extends Phaser.Scene {
             this.priceData.push(
                 { x: x1Pos, y: this.curPrice }
             )
-        } else {
-            this.frameTime = Date.now();
         }
     }
 }
