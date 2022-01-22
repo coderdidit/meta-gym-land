@@ -113,8 +113,7 @@ export class CosmicCardioScene extends Phaser.Scene {
         const atlline = new Phaser.Geom.Line(0, this.atl, width, this.atl);
         graphics.lineStyle(1, 0x848484, 0.8);
         graphics.strokeLineShape(atlline);
-
-
+        
         // BTC
         this.btc = this.add.image(width * .1, height * .9, BTC).setScale(0.4);
 
