@@ -74,7 +74,7 @@ export class CosmicCardioScene extends Phaser.Scene {
         const graphics = this.graphics;
         // background
         const rect = new Phaser.Geom.Rectangle(0, 0, width, height);
-        this.graphics.fillGradientStyle(0xEEF2F4, 0xEEF2F4,0xFFFFFF, 0xFFFFFF, 1)
+        this.graphics.fillGradientStyle(0xEEF2F4, 0xEEF2F4, 0xFFFFFF, 0xFFFFFF, 1)
             .fillRectShape(rect);
         const ground = this.drawGround(width, height);
 
@@ -184,17 +184,17 @@ export class CosmicCardioScene extends Phaser.Scene {
         ];
         const priceData = this.priceData;
         const volatility = 0.02;
-        for (let i = 0, x = (chartStartX) + chartTimeInterval; x <= chartStopX; x += chartTimeInterval, i++) {
+        for (let i = 0, x = chartStartX; x <= chartStopX; x += chartTimeInterval, i++) {
             const rnd = Math.random();
-            let change_percent = 2 * volatility * rnd;
-            if (change_percent > volatility)
-                change_percent -= (2 * volatility);
-            let old_price = priceData[i].y;
-            let change_amount = old_price * change_percent;
-            let new_price = old_price + change_amount;
+            let changePercent = 2 * volatility * rnd;
+            if (changePercent > volatility)
+                changePercent -= (2 * volatility);
+            let oldPrice = priceData[i].y;
+            let changeAmount = oldPrice * changePercent;
+            let newPrice = oldPrice + changeAmount;
             priceData.push({
                 x: x,
-                y: new_price,
+                y: newPrice,
             });
         }
 
