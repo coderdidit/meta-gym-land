@@ -24,7 +24,6 @@ const SceneConfig = {
     visible: false,
     key: COSMIC_CARDIO_SCENE,
 };
-const allowSquats = true;
 
 // game state
 const nonState = 0;
@@ -287,7 +286,7 @@ export class CosmicCardioScene extends Phaser.Scene {
             const curPose = gstate.getPose();
             const player = this.player;
 
-            if (player.cursorKeys?.down.isDown || curPose === gpose.BA_UP) {
+            if (player.cursorKeys?.down.isDown || curPose === gpose.NDWN) {
                 this.player.y = this.playerInitialY;
                 player.y += 40;
                 this.pump.setTexture(PUMP_CLOSED);
