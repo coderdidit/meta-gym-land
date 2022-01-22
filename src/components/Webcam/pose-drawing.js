@@ -69,11 +69,6 @@ export const drawPose = (canvasRef, results) => {
             "#20BF96", canvasCtx,
             width, height, NOSE_LINE_WIDTH_IDLE);
 
-        // console.log('nose', nose);
-        // drawLine({ x: 0.08, y: 0.985 }, { x: width - width * 0.08, y: 0.985 },
-        //     "#B8ABB2", canvasCtx,
-        //     width, height, 16);
-
         // connectors
         drawConnectors(canvasCtx, results.poseLandmarks, POSE_CONNECTIONS,
             {
@@ -186,7 +181,7 @@ export const drawPose = (canvasRef, results) => {
         }
 
         if (CurPose === gpose.NDWN) {
-            // draw line nearly at the bottom for squats moves
+            // draw line from nose to bottom
             drawLine(nose, { x: nose.x * width, y: 1 },
                 ACTIVE_COLOR, canvasCtx,
                 width, height, ACTIVE_LINE_WIDTH);
