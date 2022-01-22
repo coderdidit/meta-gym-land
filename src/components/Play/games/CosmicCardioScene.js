@@ -146,7 +146,7 @@ export class CosmicCardioScene extends Phaser.Scene {
         hintTextBox.start(
             "🤖 BTC price will start go down!\n\n" +
             "But, you can PUMP IT UP\n\n" +
-            "By doing Squats!"
+            "By doing SQUATS!"
             , 10);
         // active chart start positions
         this.x1Pos = this.chartStopX;
@@ -253,7 +253,7 @@ export class CosmicCardioScene extends Phaser.Scene {
             // 0 is top, height (positive value) is bottom
             if (this.curPrice >= height) {
                 this.wonState = loseState;
-                this.cameras.main.setBackgroundColor("#87171b");
+                this.cameras.main.setBackgroundColor("#4a0909");
                 this.btc.setTint(0x3d3d3d);
                 const msg = "🤖 You have been liquidated 😢\n\n" +
                     "BTC price had a MASSIVE dip" +
