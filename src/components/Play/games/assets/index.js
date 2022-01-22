@@ -13,10 +13,16 @@ export const AIRPLANE = 'airplane';
 export const BTC = 'bitcoin';
 export const PUMP_OPEN = 'pump_open';
 export const PUMP_CLOSED = 'pump_closed';
+export const SAD_WOJAK = 'sad_wojak';
 
 
 // Save all in game assets in the public folder
 export const assets = [
+  {
+    key: SAD_WOJAK,
+    src: `assets/images/${SAD_WOJAK}.png`,
+    type: 'IMAGE',
+  },
   {
     key: PUMP_OPEN,
     src: `assets/images/${PUMP_OPEN}.png`,

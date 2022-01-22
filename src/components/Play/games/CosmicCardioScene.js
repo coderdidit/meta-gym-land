@@ -5,7 +5,8 @@ import { PLAYER_KEY, PLAYER_SCALE, GYM_ROOM_SCENE, COSMIC_CARDIO_SCENE } from ".
 import {
     PUMP_OPEN,
     PUMP_CLOSED,
-    BTC
+    BTC,
+    SAD_WOJAK,
 } from "./assets";
 import { createTextBox } from "./utils/text";
 import party from "party-js";
@@ -249,6 +250,8 @@ export class CosmicCardioScene extends Phaser.Scene {
             // 0 is top, height (positive value) is bottom
             if (this.curPrice >= height) {
                 this.wonState = loseState;
+                this.add.image(width * .85, height * .2, SAD_WOJAK)
+                    .setScale(0.9);
                 this.cameras.main.setBackgroundColor("#4a0909");
                 this.btc.setTint(0x3d3d3d);
                 const msg = "🤖 You have been liquidated 😢\n\n" +
