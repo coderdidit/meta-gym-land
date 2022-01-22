@@ -14,10 +14,16 @@ export const BTC = 'bitcoin';
 export const PUMP_OPEN = 'pump_open';
 export const PUMP_CLOSED = 'pump_closed';
 export const SAD_WOJAK = 'sad_wojak';
+export const GREEN_WOJAK = 'green_wojak';
 
 
 // Save all in game assets in the public folder
 export const assets = [
+  {
+    key: GREEN_WOJAK,
+    src: `assets/images/${GREEN_WOJAK}.png`,
+    type: 'IMAGE',
+  },
   {
     key: SAD_WOJAK,
     src: `assets/images/${SAD_WOJAK}.png`,

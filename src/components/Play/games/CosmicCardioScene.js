@@ -7,6 +7,7 @@ import {
     PUMP_CLOSED,
     BTC,
     SAD_WOJAK,
+    GREEN_WOJAK,
 } from "./assets";
 import { createTextBox } from "./utils/text";
 import party from "party-js";
@@ -192,7 +193,6 @@ export class CosmicCardioScene extends Phaser.Scene {
         ];
         const priceData = this.priceData;
         const volatility = 0.02;
-        const midPoint = chartStopX / 2;
         for (let i = 0, x = chartStartX; x <= chartStopX; x += chartTimeInterval, i++) {
             const rnd = Math.random();
             let changePercent = 2 * volatility * rnd;
@@ -269,9 +269,12 @@ export class CosmicCardioScene extends Phaser.Scene {
                 this.cameras.main.backgroundColor.setTo(32, 191, 150);
                 this.score += 1;
                 this.scoreBoard.setText(`SCORE: ${this.score}`);
+                this.add.image(width * .85, height * .25, GREEN_WOJAK)
+                    .setScale(0.9);
+                if (canvasParent) party.confetti(canvasParent);
                 intervals.push(setInterval(() => {
                     if (canvasParent) party.confetti(canvasParent);
-                }, 500));
+                }, 1000));
                 const msg = "🤖 You saved the BTC price 🎉\n\n" +
                     "It went to the MOOOON" +
                     "\n\n" +
