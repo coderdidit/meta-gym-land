@@ -21,7 +21,7 @@ const roundedRect = (ctx, x, y, width, height) => {
     const radius = 35
     ctx.beginPath();
     ctx.lineWidth = ACTIVE_LINE_WIDTH;
-    ctx.strokeStyle = "#2450F7";
+    ctx.strokeStyle = ACTIVE_COLOR;
     ctx.lineJoin = "round";
     ctx.moveTo(x, y + radius);
     ctx.arcTo(x, y + height, x + radius, y + height, radius);
@@ -29,6 +29,19 @@ const roundedRect = (ctx, x, y, width, height) => {
     ctx.arcTo(x + width, y, x + width - radius, y, radius);
     ctx.arcTo(x, y, x, y + radius, radius);
     ctx.stroke();
+
+    // ctx.beginPath();
+    // ctx.lineWidth = 2;
+    // ctx.strokeStyle = ACTIVE_COLOR;
+    // ctx.lineJoin = "round";
+    // const bx = x + ACTIVE_LINE_WIDTH;
+    // const by = x + ACTIVE_LINE_WIDTH;
+    // ctx.moveTo(bx, by + radius);
+    // ctx.arcTo(bx, by + height, bx + radius, by + height, radius);
+    // ctx.arcTo(bx + width, by + height, bx + width, by + height - radius, radius);
+    // ctx.arcTo(bx + width, by, bx + width - radius, by, radius);
+    // ctx.arcTo(bx, by, bx, by + radius, radius);
+    // ctx.stroke();
 }
 
 const drawLine = (p1, p2, color, ctx, width, height, lineWidth) => {
@@ -62,6 +75,8 @@ export const drawPose = (canvasRef, results) => {
     canvasCtx.globalCompositeOperation = 'source-over';
     if (results.poseLandmarks) {
         const nose = results.poseLandmarks[0];
+
+        // path from nose to right end
         drawLine(nose, { x: 0, y: nose.y }, "#1990FF", canvasCtx,
             width, height, NOSE_LINE_WIDTH_IDLE);
         // path from nose to left end
