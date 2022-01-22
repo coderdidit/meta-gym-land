@@ -14,8 +14,6 @@ const SceneConfig = {
     key: COSMIC_CARDIO_SCENE,
 };
 
-const allowSquats = true;
-
 export class CosmicCardioScene extends Phaser.Scene {
     constructor() {
         super(SceneConfig);
@@ -27,7 +25,7 @@ export class CosmicCardioScene extends Phaser.Scene {
     };
 
     create() {
-        this.cameras.main.backgroundColor.setTo(32, 191, 150);
+        this.cameras.main.backgroundColor.setTo(32,191,150);
         // constrols
         this.input.keyboard.on('keydown', (event) => {
             const code = event.keyCode;
@@ -53,19 +51,19 @@ export class CosmicCardioScene extends Phaser.Scene {
             fill: '#000',
             font: '900 17px Orbitron',
         });
-        // const infoText = this.add.text(
-        //     width / 2,
-        //     (height / 2) - height * .2,
-        //     `Comming Soon`,
-        //     {
-        //         font: 'bold 32px Orbitron',
-        //         fill: '#FFF',
-        //         backgroundColor: '#003861',
-        //         padding: 30,
-        //         align: 'center',
-        //     }
-        // )
-        // infoText.setOrigin(0.5)
+        const infoText = this.add.text(
+            width / 2,
+            (height / 2) - height * .2,
+            `Comming Soon`,
+            {
+                font: 'bold 32px Orbitron',
+                fill: '#FFF',
+                backgroundColor: '#003861',
+                padding: 30,
+                align: 'center',
+            }
+        )
+        infoText.setOrigin(0.5)
         // infoText.setShadow(3, 3, 'rgba(0,0,0,0.2)', 2);
 
         // back
@@ -84,7 +82,7 @@ export class CosmicCardioScene extends Phaser.Scene {
         this.player = new Player({
             scene: this,
             x: width / 2,
-            y: height - height * 0.1,
+            y: height / 2,
             key: PLAYER_KEY,
         });
         this.player.setScale(PLAYER_SCALE);
@@ -93,6 +91,6 @@ export class CosmicCardioScene extends Phaser.Scene {
 
     update(time, delta) {
         // Every frame, we update the player
-        this.player?.update(allowSquats);
+        this.player?.update();
     }
 }
