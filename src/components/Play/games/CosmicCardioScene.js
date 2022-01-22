@@ -177,7 +177,7 @@ export class CosmicCardioScene extends Phaser.Scene {
         const width = getGameWidth(this);
         const height = getGameHeight(this);
         const chartStartX = width * .008
-        this.chartStopX = width / 2
+        this.chartStopX = width * .4
         const chartStopX = this.chartStopX
         this.priceData = [
             { x: chartStartX, y: height / 1.5 }
@@ -269,7 +269,7 @@ export class CosmicCardioScene extends Phaser.Scene {
                 this.graphics.clear();
                 this.drawGround(width, height);
                 this.cameras.main.backgroundColor.setTo(32, 191, 150);
-                this.drawFinalPlot(0x00ff00);
+                this.drawFinalChart(0x00ff00);
                 this.score += 1;
                 this.scoreBoard.setText(`SCORE: ${this.score}`);
                 if (canvasParent) party.confetti(canvasParent);
