@@ -16,9 +16,6 @@ import {
 import * as gstate from "../../gpose/state";
 import * as gpose from "../../gpose/pose";
 
-const randomFromInterval = (min, max) => {
-    return Math.floor(Math.random() * (max - min + 1.0) + min)
-}
 
 const SceneConfig = {
     active: false,
@@ -34,7 +31,7 @@ const loseState = 2;
 
 const chartTimeInterval = 1;
 const playerScale = PLAYER_SCALE * 2;
-const chartLineWidth = 4;
+const chartLineWidth = 3;
 
 export class CosmicCardioScene extends Phaser.Scene {
     constructor() {
@@ -51,6 +48,16 @@ export class CosmicCardioScene extends Phaser.Scene {
         const rect = new Phaser.Geom.Rectangle(0, height - groundHeight, width, groundHeight);
         this.graphics
             .fillStyle(0xB8ABB2, 1)
+            .fillRectShape(rect);
+        return rect;
+    }
+
+    drawBG(color = 0xEEF2F4) {
+        const width = getGameWidth(this);
+        const height = getGameHeight(this);
+        const rect = new Phaser.Geom.Rectangle(0, 0, width, height);
+        this.graphics
+            .fillStyle(color)
             .fillRectShape(rect);
         return rect;
     }
@@ -76,22 +83,20 @@ export class CosmicCardioScene extends Phaser.Scene {
         this.graphics = this.add.graphics();
         const graphics = this.graphics;
         // background
-        const rect = new Phaser.Geom.Rectangle(0, 0, width, height);
-        this.graphics.fillGradientStyle(0xEEF2F4, 0xEEF2F4, 0xFFFFFF, 0xFFFFFF, 1)
-            .fillRectShape(rect);
+        // this.drawBG();
         const ground = this.drawGround(width, height);
 
         // Add the scoreboard
         this.scoreBoard = this.add.text(
             width * 0.05, height * 0.015,
             `SCORE: ${this.score}`, {
-            fill: '#000',
+            fill: '#FFF',
             font: '900 20px Orbitron',
         });
         this.add.text(
             width * 0.05, height * 0.04,
             "press ESC to go back", {
-            fill: '#000',
+            fill: '#FFF',
             font: '900 17px Orbitron',
         });
 
@@ -102,11 +107,11 @@ export class CosmicCardioScene extends Phaser.Scene {
         graphics.beginPath();
         this.drawChart();
         graphics.strokePath();
-        graphics.closePath();
+        const startingPath = graphics.closePath();
 
         // all time law in chart line
         const atlline = new Phaser.Geom.Line(0, this.atl, width, this.atl);
-        graphics.lineStyle(1, 0x848484);
+        graphics.lineStyle(1, 0x848484, 0.8);
         graphics.strokeLineShape(atlline);
 
 
@@ -179,6 +184,9 @@ export class CosmicCardioScene extends Phaser.Scene {
     generateFakeStocksData() {
         const width = getGameWidth(this);
         const height = getGameHeight(this);
+        // specify price range
+        const minPossible = height / 1.05
+        const maxPossible = height * .3
         const chartStartX = width * .03
         this.chartStopX = width * .4
         const chartStopX = this.chartStopX
@@ -187,6 +195,7 @@ export class CosmicCardioScene extends Phaser.Scene {
         ];
         const priceData = this.priceData;
         const volatility = 0.02;
+        const midPoint = chartStopX / 2;
         for (let i = 0, x = chartStartX; x <= chartStopX; x += chartTimeInterval, i++) {
             const rnd = Math.random();
             let changePercent = 2 * volatility * rnd;
@@ -195,34 +204,26 @@ export class CosmicCardioScene extends Phaser.Scene {
             let oldPrice = priceData[i].y;
             let changeAmount = oldPrice * changePercent;
             let newPrice = oldPrice + changeAmount;
+
+            // if price range is to far set it to middle
+            if (newPrice >= minPossible || newPrice <= maxPossible) {
+                newPrice = height / 1.5;
+            }
             priceData.push({
                 x: x,
                 y: newPrice,
             });
         }
-
-        const lastX = priceData[priceData.length - 1].x
-        const prices = priceData.map(p => p.y)
-        this.avgPrice = prices.reduce((a, b) => a + b, 0) / priceData.length;
+        const prices = priceData.map(p => p.y);
         this.atl = Math.max.apply(Math, prices);
-        this.curPrice = randomFromInterval(height / 1.2, height / 1.5);
+        this.curPrice = priceData[priceData.length - 1].y
         this.startingPrice = this.curPrice;
-        priceData.push({ x: lastX + chartTimeInterval, y: this.curPrice });
     }
 
     drawChart() {
         for (const p of this.priceData) {
             this.graphics.lineTo(p.x, p.y);
         }
-    }
-
-    drawFinalChart(color) {
-        const graphics = this.graphics;
-        graphics.lineStyle(chartLineWidth + 2, color);
-        graphics.beginPath();
-        this.drawChart();
-        graphics.lineTo(this.x2Pos + 6, this.curPrice);
-        graphics.strokePath();
     }
 
     update(time, delta) {
@@ -252,11 +253,8 @@ export class CosmicCardioScene extends Phaser.Scene {
             // 0 is top, height (positive value) is bottom
             if (this.curPrice >= height) {
                 this.wonState = loseState;
-                this.graphics.clear();
-                this.drawGround(width, height);
-                this.drawFinalChart(0x000000);
+                this.cameras.main.setBackgroundColor("#87171b");
                 this.btc.setTint(0x3d3d3d);
-                this.cameras.main.backgroundColor.setTo(189, 35, 42);
                 const msg = "🤖 You have been liquidated 😢\n\n" +
                     "BTC price had a MASSIVE dip" +
                     "\n\n" +
@@ -269,14 +267,11 @@ export class CosmicCardioScene extends Phaser.Scene {
             if (this.curPrice <= 0 + 50) {
                 this.wonState = wonState;
                 const canvasParent = document.querySelector('#phaser-app canvas');
-                this.graphics.clear();
-                this.drawGround(width, height);
                 this.cameras.main.backgroundColor.setTo(32, 191, 150);
-                this.drawFinalChart(0x00ff00);
                 this.score += 1;
                 this.scoreBoard.setText(`SCORE: ${this.score}`);
                 if (canvasParent) party.confetti(canvasParent);
-                const msg = "🤖 You saved the BTC price 🎉\n" +
+                const msg = "🤖 You saved the BTC price 🎉\n\n" +
                     "It went to the MOOOON" +
                     "\n\n" +
                     "Press X to 🎮 restart\n" +
@@ -298,8 +293,8 @@ export class CosmicCardioScene extends Phaser.Scene {
             }
 
             if (Date.now() - this.frameTime > 1500) {
-                this.x1Pos = this.x1Pos + chartLineWidth + 1
-                this.x2Pos = this.x1Pos + chartLineWidth
+                this.x1Pos = this.x1Pos + chartLineWidth + 2;
+                this.x2Pos = this.x1Pos + chartLineWidth;
                 this.frameTime = Date.now();
             }
 
