@@ -1,7 +1,7 @@
 import Phaser from "phaser";
 import { getGameWidth, getGameHeight } from "./helpers";
 import { Player } from "./objects";
-import { PLAYER_KEY, PLAYER_SCALE, GYM_ROOM_SCENE, COSMIC_CARDIO_SCENE } from "./shared";
+import { PLAYER_KEY, PLAYER_SCALE, GYM_ROOM_SCENE, CHART_SQUATS } from "./shared";
 import {
     PUMP_OPEN,
     PUMP_CLOSED,
@@ -22,7 +22,7 @@ import * as gpose from "../../gpose/pose";
 const SceneConfig = {
     active: false,
     visible: false,
-    key: COSMIC_CARDIO_SCENE,
+    key: CHART_SQUATS,
 };
 
 // game state
@@ -40,7 +40,7 @@ const shortColor = 0xaa0000;
 
 let intervals = [];
 
-export class CosmicCardioScene extends Phaser.Scene {
+export class ChartSquats extends Phaser.Scene {
     constructor() {
         super(SceneConfig);
     }
@@ -89,7 +89,7 @@ export class CosmicCardioScene extends Phaser.Scene {
                 this.scene.start(GYM_ROOM_SCENE);
             }
             if (code == Phaser.Input.Keyboard.KeyCodes.X) {
-                this.scene.start(COSMIC_CARDIO_SCENE, {
+                this.scene.start(CHART_SQUATS, {
                     score: this.score
                 });
             }
