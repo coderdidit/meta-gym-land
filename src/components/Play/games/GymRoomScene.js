@@ -231,6 +231,6 @@ export class GymRoomScene extends Phaser.Scene {
     if (!touching && wasTouching) this.player.emit("overlapend");
 
     // Every frame, we update the player
-    this.player?.update()
+    this.player?.update();
   }
 }
