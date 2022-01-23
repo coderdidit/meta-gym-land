@@ -184,8 +184,8 @@ export class GymRoomScene extends Phaser.Scene {
     }
 
     const trainingMats = []
-    const scriptLayer = map.getObjectLayer('script');
-    scriptLayer.objects.forEach(object => {
+    const miniGamesLayer = map.getObjectLayer('mini_games');
+    miniGamesLayer.objects.forEach(object => {
       const x = object.x * mapScale + adjustedWidth;
       const y = object.y * mapScale + adjustedHeight
       const objWidth = object.width * mapScale;
