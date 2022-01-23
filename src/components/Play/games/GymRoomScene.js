@@ -114,6 +114,10 @@ export class GymRoomScene extends Phaser.Scene {
       adjustedHeight
     );
     itemsLayer.setScale(mapScale);
+    itemsLayer.setCollisionByProperty({
+      collides: true
+    });
+
     const resolvePlayerXY = () => {
       if (playerHasExitPos()) {
         return getMainRoomPlayerExitPos()
@@ -143,6 +147,7 @@ export class GymRoomScene extends Phaser.Scene {
 
     // colliders
     this.physics.add.collider(this.player, wallsLayer);
+    this.physics.add.collider(this.player, itemsLayer);
 
     // text
     const hintTextBox = createTextBox(
