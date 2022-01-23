@@ -4,9 +4,6 @@ import { Player } from "./objects";
 import { PLAYER_KEY, PLAYER_SCALE, GYM_ROOM_SCENE } from "./shared";
 import {
   GYM_ROOM_MAP,
-  GYM_ROOM_TILES,
-  GYM_ROOM_MAT_SKY,
-  GYM_ROOM_MAT_SPACE,
   GYM_ROOM_TILESET_V2
 } from "./assets";
 import { createTextBox } from "./utils/text";
@@ -35,7 +32,6 @@ const miniGamesMapping = new Map([
 ]);
 
 let sceneToGoOnXclick = null;
-const miniGames = Array.from(miniGamesMapping.keys());
 const roboTextTimeouts = [];
 
 export class GymRoomScene extends Phaser.Scene {
@@ -80,12 +76,6 @@ export class GymRoomScene extends Phaser.Scene {
       tileHeight: tileMapSizing
     });
 
-    const tileset_main = map.addTilesetImage(
-      'gym_room_sqrs', // ? filename ?? name of the tileset in json file
-      GYM_ROOM_TILES, // key
-      tileMapSizing,
-      tileMapSizing
-    );
     const tileset_main_v2 = map.addTilesetImage(
       GYM_ROOM_TILESET_V2, // ? filename ?? name of the tileset in json file
       GYM_ROOM_TILESET_V2, // key
@@ -95,9 +85,7 @@ export class GymRoomScene extends Phaser.Scene {
     const groundLayer = map.createLayer(
       'floor',
       [
-        tileset_main,
         tileset_main_v2,
-        // tileset_bg
       ],
       adjustedWidth,
       adjustedHeight
@@ -105,8 +93,9 @@ export class GymRoomScene extends Phaser.Scene {
 
     const wallsLayer = map.createLayer(
       'walls',
-      [tileset_main,
-      tileset_main_v2],
+      [
+        tileset_main_v2
+      ],
       adjustedWidth,
       adjustedHeight
     );
@@ -116,28 +105,10 @@ export class GymRoomScene extends Phaser.Scene {
       collides: true
     });
 
-    const mat_sky = map.addTilesetImage(
-      'mat_sky', // ? filename ?? name of the tileset in json file
-      GYM_ROOM_MAT_SKY, // key
-      tileset_main_v2,
-      tileMapSizing,
-      tileMapSizing
-    );
-
-    const mat_space = map.addTilesetImage(
-      'mat_space', // ? filename ?? name of the tileset in json file
-      GYM_ROOM_MAT_SPACE, // key
-      tileset_main_v2,
-      tileMapSizing,
-      tileMapSizing
-    );
-
     const itemsLayer = map.createLayer(
       'items',
       [
-        tileset_main,
         tileset_main_v2,
-        mat_sky, mat_space
       ],
       adjustedWidth,
       adjustedHeight
