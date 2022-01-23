@@ -105,7 +105,8 @@ export class GymRoomScene extends Phaser.Scene {
 
     const wallsLayer = map.createLayer(
       'walls',
-      tileset_main,
+      [tileset_main,
+      tileset_main_v2],
       adjustedWidth,
       adjustedHeight
     );
@@ -118,6 +119,7 @@ export class GymRoomScene extends Phaser.Scene {
     const mat_sky = map.addTilesetImage(
       'mat_sky', // ? filename ?? name of the tileset in json file
       GYM_ROOM_MAT_SKY, // key
+      tileset_main_v2,
       tileMapSizing,
       tileMapSizing
     );
@@ -125,13 +127,18 @@ export class GymRoomScene extends Phaser.Scene {
     const mat_space = map.addTilesetImage(
       'mat_space', // ? filename ?? name of the tileset in json file
       GYM_ROOM_MAT_SPACE, // key
+      tileset_main_v2,
       tileMapSizing,
       tileMapSizing
     );
 
     const itemsLayer = map.createLayer(
       'items',
-      [tileset_main, mat_sky, mat_space],
+      [
+        tileset_main,
+        tileset_main_v2,
+        mat_sky, mat_space
+      ],
       adjustedWidth,
       adjustedHeight
     );
