@@ -255,7 +255,7 @@ export class ChartSquats extends Phaser.Scene {
             // 0 is top, height (positive value) is bottom
             if (this.curPrice >= height) {
                 this.wonState = loseState;
-                this.add.image(width * .65, height * .2, SAD_WOJAK)
+                this.add.image(width * .85, height * .3, SAD_WOJAK)
                     .setScale(0.9);
                 this.cameras.main.setBackgroundColor("#4a0909");
                 this.btc.setTint(0x3d3d3d);
@@ -268,13 +268,13 @@ export class ChartSquats extends Phaser.Scene {
                 return;
             }
 
-            if (this.curPrice <= 0 + height) {
+            if (this.curPrice <= 0) {
                 this.wonState = wonState;
                 const canvasParent = document.querySelector('#phaser-app canvas');
                 this.cameras.main.backgroundColor.setTo(32, 191, 150);
                 this.score += 1;
                 this.scoreBoard.setText(`SCORE: ${this.score}`);
-                this.add.image(width * .65, height * .25, GREEN_WOJAK)
+                this.add.image(width * .85, height * .35, GREEN_WOJAK)
                     .setScale(0.9);
                 if (canvasParent) party.confetti(canvasParent);
                 intervals.push(setInterval(() => {
