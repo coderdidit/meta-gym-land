@@ -95,7 +95,8 @@ export class GymRoomScene extends Phaser.Scene {
     const groundLayer = map.createLayer(
       'floor',
       [
-        tileset_main
+        tileset_main,
+        tileset_main_v2,
         // tileset_bg
       ],
       adjustedWidth,
