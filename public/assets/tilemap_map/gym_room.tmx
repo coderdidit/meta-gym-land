@@ -222,7 +222,7 @@
  </objectgroup>
  <objectgroup id="7" name="script">
   <object id="1" name="fly_fit" x="575.83" y="611.752" width="216.269" height="72.3494"/>
-  <object id="2" name="cosmic_cardio" x="1691.9" y="503.936" width="216.078" height="71.9001"/>
+  <object id="2" name="chart_squats" x="1691.9" y="503.936" width="216.078" height="71.9001"/>
   <object id="3" name="space_stretch" x="1223.93" y="1115.58" width="216.034" height="72.5133"/>
  </objectgroup>
 </map>
