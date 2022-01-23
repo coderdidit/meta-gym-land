@@ -25,7 +25,7 @@ const SceneConfig = {
 };
 
 const mapScale = 0.6;
-const tileMapSizing = 36;
+const tileMapSizing = 32;
 
 const miniGamesMapping = new Map([
   ['space_stretch', 'Space Mat'],
@@ -51,6 +51,10 @@ export class GymRoomScene extends Phaser.Scene {
     // basic props
     const width = getGameWidth(this);
     const height = getGameHeight(this);
+
+    const adjustedWidth = width / 5;
+    const adjustedHeight = height * 0.02;
+
     this.cameras.main.backgroundColor.setTo(179, 201, 217);
     // constrols
     this.input.keyboard.on(
@@ -87,15 +91,15 @@ export class GymRoomScene extends Phaser.Scene {
         tileset_main
         // tileset_bg
       ],
-      width / 5,
-      height * 0.02
+      adjustedWidth,
+      adjustedHeight
     );
 
     const wallsLayer = map.createLayer(
       'walls',
       tileset_main,
-      width / 5,
-      height * 0.02
+      adjustedWidth,
+      adjustedHeight
     );
     groundLayer.setScale(mapScale);
     wallsLayer.setScale(mapScale);
@@ -120,8 +124,8 @@ export class GymRoomScene extends Phaser.Scene {
     const itemsLayer = map.createLayer(
       'items',
       [tileset_main, mat_sky, mat_space],
-      width / 5,
-      height * 0.02
+      adjustedWidth,
+      adjustedHeight
     );
     itemsLayer.setScale(mapScale);
     const resolvePlayerXY = () => {
@@ -182,8 +186,8 @@ export class GymRoomScene extends Phaser.Scene {
     const trainingMats = []
     const scriptLayer = map.getObjectLayer('script');
     scriptLayer.objects.forEach(object => {
-      const x = object.x * mapScale + width / 5
-      const y = object.y * mapScale + height * 0.02
+      const x = object.x * mapScale + adjustedWidth;
+      const y = object.y * mapScale + adjustedHeight
       const objWidth = object.width * mapScale;
       const objHeight = object.height * mapScale;
       let trainingMatRect = this.add
