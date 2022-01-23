@@ -25,7 +25,7 @@ const SceneConfig = {
   key: GYM_ROOM_SCENE
 };
 
-const mapScale = 0.6;
+const mapScale = 1;
 const tileMapSizing = 32;
 
 const miniGamesMapping = new Map([
