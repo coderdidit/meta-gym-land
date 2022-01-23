@@ -6,7 +6,8 @@ import {
   GYM_ROOM_MAP,
   GYM_ROOM_TILES,
   GYM_ROOM_MAT_SKY,
-  GYM_ROOM_MAT_SPACE
+  GYM_ROOM_MAT_SPACE,
+  GYM_ROOM_TILESET_V2
 } from "./assets";
 import { createTextBox } from "./utils/text";
 import { debugCollisonBounds } from "./utils/collision_debugger";
@@ -82,6 +83,12 @@ export class GymRoomScene extends Phaser.Scene {
     const tileset_main = map.addTilesetImage(
       'gym_room_sqrs', // ? filename ?? name of the tileset in json file
       GYM_ROOM_TILES, // key
+      tileMapSizing,
+      tileMapSizing
+    );
+    const tileset_main_v2 = map.addTilesetImage(
+      GYM_ROOM_TILESET_V2, // ? filename ?? name of the tileset in json file
+      GYM_ROOM_TILESET_V2, // key
       tileMapSizing,
       tileMapSizing
     );
