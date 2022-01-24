@@ -124,9 +124,13 @@ const PoseDetWebcam = ({ sizeProps, styleProps }) => {
     return (
         <div
             id={"pose-det-webcam-container"}
-        >
+            style={{
+                display: "grid",
+                gridTemplateRows: "1fr",
+                gridTemplateColumns: "1fr",
+                gridTemplateAreas: "overlap",
+            }} >
             <div
-
                 style={{
                     display: "grid",
                     gridTemplateRows: "1fr",
