@@ -49,8 +49,8 @@ export class GymRoomScene extends Phaser.Scene {
     const width = getGameWidth(this);
     const height = getGameHeight(this);
 
-    const adjustedWidth = width / 5;
-    const adjustedHeight = height * 0.02;
+    const adjustedWidth = width;
+    const adjustedHeight = height;
 
     this.cameras.main.backgroundColor.setTo(179, 201, 217);
     // constrols
@@ -87,8 +87,6 @@ export class GymRoomScene extends Phaser.Scene {
       [
         tileset_main_v2,
       ],
-      adjustedWidth,
-      adjustedHeight
     );
 
     const wallsLayer = map.createLayer(
@@ -96,8 +94,6 @@ export class GymRoomScene extends Phaser.Scene {
       [
         tileset_main_v2
       ],
-      adjustedWidth,
-      adjustedHeight
     );
     groundLayer.setScale(mapScale);
     wallsLayer.setScale(mapScale);
@@ -110,8 +106,6 @@ export class GymRoomScene extends Phaser.Scene {
       [
         tileset_main_v2,
       ],
-      adjustedWidth,
-      adjustedHeight
     );
     itemsLayer.setScale(mapScale);
     itemsLayer.setCollisionByProperty({
@@ -143,6 +137,12 @@ export class GymRoomScene extends Phaser.Scene {
       this.player.width * 0.25, this.player.height * 0.6
     )
     this.cameras.main.startFollow(this.player);
+    
+    // world bounds
+    this.physics.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
+    this.physics.world.setBoundsCollision(true, true, false, true);
+    this.player.body.setCollideWorldBounds(true);
+
     const player = this.player;
 
     // colliders
