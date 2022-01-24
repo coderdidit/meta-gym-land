@@ -49,9 +49,6 @@ export class GymRoomScene extends Phaser.Scene {
     const width = getGameWidth(this);
     const height = getGameHeight(this);
 
-    const adjustedWidth = width;
-    const adjustedHeight = height;
-
     this.cameras.main.backgroundColor.setTo(179, 201, 217);
     // constrols
     this.input.keyboard.on(
@@ -180,8 +177,8 @@ export class GymRoomScene extends Phaser.Scene {
     const trainingMats = []
     const miniGamesLayer = map.getObjectLayer('mini_games');
     miniGamesLayer.objects.forEach(object => {
-      const x = object.x * mapScale + adjustedWidth;
-      const y = object.y * mapScale + adjustedHeight
+      const x = object.x * mapScale;
+      const y = object.y * mapScale;
       const objWidth = object.width * mapScale;
       const objHeight = object.height * mapScale;
       let trainingMatRect = this.add
