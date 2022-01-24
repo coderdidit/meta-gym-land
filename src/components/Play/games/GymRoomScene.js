@@ -165,9 +165,12 @@ export class GymRoomScene extends Phaser.Scene {
       roboTextTimeouts.push(
         setTimeout(() => {
           hintTextBox.start(
-            `🤖 Welcome 👋,
-                \ngo to the MetaGym
-                \nand do some stretches 💪`,
+            "🤖 Welcome 👋\n" +
+            "go to the MetaGym\n" +
+            "and do some stretches 💪\n" +
+            // "\n" +
+            "hint...\n" +
+            "look for the GLOWING MATS",
             30
           )
         }, 1000)
