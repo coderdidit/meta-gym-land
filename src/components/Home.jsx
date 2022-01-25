@@ -33,12 +33,14 @@ const styles = {
   }
 };
 
+const LRPadding = "5rem";
+
 export default function Home() {
   return (
     <div
       style={{
-        paddingLeft: "3rem",
-        paddingRight: "3rem",
+        paddingLeft: LRPadding,
+        paddingRight: LRPadding,
       }}
     >
       <div style={{
