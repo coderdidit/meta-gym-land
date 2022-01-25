@@ -7,7 +7,7 @@ import {
   descriptionStyle
 } from "GlobalStyles";
 import { Link } from "react-router-dom";
-import { BtnPrimary } from "../GlobalStyles";
+import { BtnPrimary, BtnInfo } from "../GlobalStyles";
 import mglVideoDemoImg from "./assets/mgl_video_demo.png";
 import howItWorksImg from "./assets/how_it_works.png";
 
@@ -81,7 +81,7 @@ export default function Home() {
                 </Link>
               </Button>
               <Button style={{
-                ...BtnPrimary,
+                ...BtnInfo,
               }}>
                 <Link to="/demo-avatar">
                   Try with Demo Avatar
