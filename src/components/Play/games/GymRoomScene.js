@@ -137,7 +137,7 @@ export class GymRoomScene extends Phaser.Scene {
 
     // world bounds
     this.physics.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
-    this.physics.world.setBoundsCollision(true, true, false, true);
+    this.physics.world.setBoundsCollision(true, true, true, true);
     this.player.body.setCollideWorldBounds(true);
 
     const player = this.player;
