@@ -4,6 +4,7 @@ import { Button, Image } from 'antd';
 import {
   brightFontCol,
   pageTitleStyle,
+  pageTitle2Style,
   descriptionStyle
 } from "GlobalStyles";
 import { Link } from "react-router-dom";
@@ -123,12 +124,15 @@ export default function Home() {
       {/* </Row> */}
       <div style={{
         flexBasis: "100%",
+      }} />
+      <div style={{
+        padding: "0.5rem 1rem 3rem 1rem",
       }}>
+        <Text strong style={pageTitle2Style}>
+          How it works?
+        </Text>
       </div>
-      <div
-        style={{
-        }}
-      >
+      <div>
         <Image
           preview={false}
           src={howItWorksImg}

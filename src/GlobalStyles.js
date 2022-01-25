@@ -87,6 +87,12 @@ export const pageTitleStyle = {
     fontWeight: "bold",
 }
 
+export const pageTitle2Style = {
+    fontFamily: "Source Serif Pro",
+    fontSize: "30px",
+    fontWeight: "bold",
+}
+
 export const pageTitleMidStyle = {
     fontFamily: "Source Serif Pro",
     fontSize: "30px",
