@@ -38,10 +38,11 @@ function DemoAvatar() {
     } else {
 
         return (
-            <div>
+            <div style={{
+                marginBottom: "6rem",
+            }}>
                 <div style={{
                     marginTop: "1rem",
-                    marginBottom: "2rem",
                 }}>
                     <div style={{
                         ...pageTitleStyle,

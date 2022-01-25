@@ -64,7 +64,6 @@ const styles = {
     padding: "0 35px",
     background: "none",
     color: brightFontCol,
-    marginTop: "4rem",
   },
 };
 
