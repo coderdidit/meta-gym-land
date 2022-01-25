@@ -4,7 +4,7 @@ import { Redirect } from "react-router";
 import { Image, Card, Button } from "antd";
 import { RightOutlined, LeftOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
-import { BtnPrimary } from "../../GlobalStyles";
+import { BtnPrimary, BtnInfo } from "../../GlobalStyles";
 import { NFTImg, BreakFlexDiv, brightFontCol, mainBgColorDarker } from "../../GlobalStyles";
 import SelectWebcam from "components/Webcam/SelectWebcam";
 import { WebcamCtx } from "index";
@@ -151,7 +151,7 @@ const PlaySetupPage = () => {
                         disabled={webcamId == null}
                         className="join-mgl-btn"
                         style={{
-                            ...BtnPrimary,
+                            ...BtnInfo,
                         }}
                     >
                         <Link to='/play'>
