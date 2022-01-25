@@ -13,7 +13,7 @@ import {
   SmileFilled, VideoCameraFilled,
   WalletFilled, SkinFilled
 } from "@ant-design/icons";
-import mglVideoDemoImg from "./assets/mgl_video_demo.svg";
+import mglVideoDemoImg from "./assets/mgl_video_demo.png";
 
 const { Text } = Typography;
 
