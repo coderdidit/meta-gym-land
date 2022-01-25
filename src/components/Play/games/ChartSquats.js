@@ -87,6 +87,7 @@ export class ChartSquats extends Phaser.Scene {
 
         // exit or restart
         this.input.keyboard.on('keydown', (event) => {
+            console.log('avatarObject', this.player.avatarObject.user);
             intervals.forEach(i => {
                 clearInterval(i);
             })

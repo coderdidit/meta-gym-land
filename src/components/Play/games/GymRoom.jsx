@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import Phaser from "phaser";
+import { useMoralis } from "react-moralis";
 import { IonPhaser } from "@ion-phaser/react";
 import { GymRoomScene } from "./GymRoomScene";
 import { SpaceStretchScene } from "./SpaceStretchScene";
@@ -96,6 +97,8 @@ const GymRoom = ({ avatar, useWebcam = true }) => {
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    // console.log('gymroom.jsx moralis avatar, user', avatar, avatar.user);
 
     return (<IonPhaser
         initialize={initialised}

@@ -37,6 +37,10 @@ export class FlyFitScene extends Phaser.Scene {
         console.log('selectedAvatar', this.selectedAvatar);
     };
 
+    gameUser() {
+        return this.game.registry.values?.avatar?.user;
+    }
+
     create() {
         // basic props
         this.won = false;
@@ -49,9 +53,14 @@ export class FlyFitScene extends Phaser.Scene {
         this.graphics.fillGradientStyle(0xdce7fc, 0x82b1ff, 0x4281ff, 0x4287f5, 1)
             .fillRectShape(rect);
 
+        console.log('FlyFitScene create', this.gameUser());
+        // console.log('this.player.getUser() in create', this.gameUser());
+
         // constrols
         this.input.keyboard.on('keydown', (event) => {
             const code = event.keyCode;
+            console.log('this.player.getUser()', this.gameUser());
+            window.test = this.player.avatarObject;
             if (code == Phaser.Input.Keyboard.KeyCodes.ESC) {
                 roboTextTimeouts.forEach(t => clearTimeout(t));
                 this.scene.start(GYM_ROOM_SCENE);

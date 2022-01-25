@@ -100,6 +100,8 @@ export class SpaceStretchScene extends Phaser.Scene {
         this.input.keyboard.on('keydown', (event) => {
             const code = event.keyCode;
             if (code == Phaser.Input.Keyboard.KeyCodes.ESC) {
+                console.log('avatarObject', this.player.avatarObject);
+                // console.log('avatarObject user', this.player.avatarObject['user']);
                 roboTextTimeouts.forEach(t => clearTimeout(t));
                 this.scene.start(GYM_ROOM_SCENE);
             }
