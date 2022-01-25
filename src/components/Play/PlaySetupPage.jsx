@@ -42,7 +42,9 @@ const PlaySetupPage = () => {
     }
 
     return (
-        <div>
+        <div style={{
+            marginBottom: "6rem",
+        }}>
             <div style={{
                 boxShadow: "0 0 20px 2px #020811",
                 backgroundColor: mainBgColorDarker,
