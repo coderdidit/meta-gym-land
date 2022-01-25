@@ -5,7 +5,7 @@ import { PLAYER_KEY, PLAYER_SCALE, GYM_ROOM_SCENE } from "./shared";
 import {
   GYM_ROOM_MAP,
   GYM_ROOM_TILESET_V2,
-  GRASS_BG
+  GYM_ROOM_BG
 } from "./assets";
 import { createTextBox } from "./utils/text";
 import { debugCollisonBounds } from "./utils/collision_debugger";
@@ -74,8 +74,8 @@ export class GymRoomScene extends Phaser.Scene {
       tileHeight: tileMapSizing
     });
 
-    const bg = this.add.image(map.widthInPixels / 2, map.heightInPixels / 2, GRASS_BG);
-    bg.setDisplaySize(map.widthInPixels  * 1.5, map.heightInPixels * 1.5);
+    const bg = this.add.image(map.widthInPixels / 2, map.heightInPixels / 2, GYM_ROOM_BG);
+    bg.setDisplaySize(map.widthInPixels * 1.5, map.heightInPixels * 1.5);
 
     const tileset_main_v2 = map.addTilesetImage(
       GYM_ROOM_TILESET_V2, // ? filename ?? name of the tileset in json file

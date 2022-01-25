@@ -12,14 +12,14 @@ export const PUMP_CLOSED = 'pump_closed';
 export const SAD_WOJAK = 'sad_wojak';
 export const GREEN_WOJAK = 'green_wojak';
 
-export const GRASS_BG = 'grass';
+export const GYM_ROOM_BG = 'sky';
 
 
 // Save all in game assets in the public folder
 export const assets = [
   {
-    key: GRASS_BG,
-    src: `assets/images/${GRASS_BG}.JPG`,
+    key: GYM_ROOM_BG,
+    src: `assets/images/${GYM_ROOM_BG}.png`,
     type: 'IMAGE',
   },
   {
