@@ -64,6 +64,7 @@ const styles = {
     padding: "0 35px",
     background: "none",
     color: brightFontCol,
+    marginTop: "4rem",
   },
 };
 
@@ -80,6 +81,7 @@ const App = ({ isServerInfo }) => {
     <Layout style={
       {
         height: "100vh",
+        minHeight: "5rem",
         overflow: "auto",
         background: mainBackground,
         fontFamily: "Roboto, sans-serif",
