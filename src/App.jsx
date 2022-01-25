@@ -80,7 +80,6 @@ const App = ({ isServerInfo }) => {
     <Layout style={
       {
         height: "100vh",
-        minHeight: "5rem",
         overflow: "auto",
         background: mainBackground,
         fontFamily: "Roboto, sans-serif",
