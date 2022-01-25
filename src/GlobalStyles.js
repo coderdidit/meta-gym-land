@@ -1,4 +1,4 @@
-export const mainBackground = "linear-gradient( 135deg , #040225, #132890 80%, #470d85)";
+export const mainBackground = "linear-gradient(135deg , #040225, #132890 80%, #470d85)";
 export const mainBgColor = "#0B1456";
 export const mainBgColorDarker = "#131b5e";
 export const mainBgColorNum = 0x0B1456;
