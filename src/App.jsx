@@ -40,6 +40,7 @@ const styles = {
     fontFamily: "Roboto, sans-serif",
     marginTop: "40px",
     marginBottom: "40px",
+    minHeight: "80vh",
   },
   header: {
     width: "100%",
