@@ -10,8 +10,14 @@ const RewardsPage = () => {
             style={{
                 marginTop: "4rem",
                 marginBottom: "6rem",
-            }}
-        >
+                // textAlign: "left",
+            }}>
+                    
+            <h1 style={{
+                ...pageTitleStyle,
+                marginBottom: "2rem",
+            }}>Stretch To Earn</h1>
+
             <h1 style={{
                 ...pageTitleStyle,
                 marginBottom: "3rem",
