@@ -71,15 +71,17 @@ const RewardsPage = () => {
             <div>
                 <h1 style={{
                     ...pageTitleStyle,
-                }}>Your current&nbsp;
-                    {mbmt}
-                    &nbsp;balance
+                }}>Your current balance:
                 </h1>
                 <div style={{
                     ...pageTitleStyle,
                     textAlign: "center",
+
+                }}><span style={{
                     color: "gold",
-                }}>{curXP}</div>
+                }}>{curXP}</span>&nbsp;
+                    {mbmt}
+                </div>
             </div>
         </section>
         <div style={{
