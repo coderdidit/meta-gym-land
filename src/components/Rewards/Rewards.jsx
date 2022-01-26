@@ -6,13 +6,15 @@ import {
 } from "../../GlobalStyles";
 import { useMoralis } from "react-moralis";
 
+const mbmt = <span style={{ color: highlightTextColor }}>{MBMT_TICKER}</span>;
+
 
 const RewardsPage = () => {
     const { user } = useMoralis();
     console.log('RewardsPage user', user);
     const curXP = user && user.get && user.get('mglXP') ? user.get('mglXP') : 0;
-    return (
-        <div
+    return (<>
+        <section
             style={{
                 marginTop: "4rem",
                 marginBottom: "6rem",
@@ -22,13 +24,20 @@ const RewardsPage = () => {
             <h1 style={{
                 ...pageTitleStyle,
                 marginBottom: "2rem",
-            }}>Stretch To Earn</h1>
+            }}>Stretch To Earn {mbmt}</h1>
 
             <h1 style={{
                 ...pageTitleStyle,
-                marginBottom: "3rem",
-            }}>Your current <span style={{ color: highlightTextColor }}>{MBMT_TICKER}: {curXP}</span>
+            }}>Your current&nbsp;
+                {mbmt}
+                &nbsp;balance
             </h1>
+            <h1 style={{
+                ...pageTitleStyle,
+                textAlign: "center",
+                color: highlightTextColor,
+                marginBottom: "3rem",
+            }}>{curXP}</h1>
             <div style={{
                 flexBasis: "100%",
             }} />
@@ -53,7 +62,8 @@ const RewardsPage = () => {
                 }}>
                 <p>You cant earn $mgl XP with demo avatar</p>
             </div>
-        </div>
+        </section>
+    </>
     );
 }
 
