@@ -14,6 +14,12 @@ import {
   getMainRoomPlayerExitPos,
   playerHasExitPos
 } from "./Globals";
+import {
+  highlightTextColorNum,
+  mainBgColorNum,
+} from "../../../GlobalStyles";
+import { EarnableScene } from './EarnableScene';
+
 
 const debugCollisons = false;
 
@@ -35,7 +41,7 @@ const miniGamesMapping = new Map([
 let sceneToGoOnXclick = null;
 const roboTextTimeouts = [];
 
-export class GymRoomScene extends Phaser.Scene {
+export class GymRoomScene extends EarnableScene {
   constructor() {
     super(SceneConfig);
   }
@@ -221,6 +227,16 @@ export class GymRoomScene extends Phaser.Scene {
         );
       }
     });
+
+    // XP inventory
+    const xpEarnedOnventory = createTextBox(this,
+      width * 0.05, height * 0.015,
+      { wrapWidth: 280 },
+      mainBgColorNum,
+      0xFFFFF
+    );
+    xpEarnedOnventory.setScrollFactor(0, 0);
+    xpEarnedOnventory.start(`$MBMT: ${this.currentXPBalance() || 0}`, 10);
     // debugging
     if (debugCollisons) {
       debugCollisonBounds(wallsLayer, this)

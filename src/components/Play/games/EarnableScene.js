@@ -6,12 +6,11 @@ export class EarnableScene extends Phaser.Scene {
     }
 
     currentXPBalance() {
-        return this.gameUser().get('mglXP');
+        return this.gameUser()?.get('mglXP');
     }
 
     async updateXP() {
         if (this.score === 0) return;
-        // TODO add if demo avatar return;
         const inMiniGameScore = this.score;
         const usr = this.gameUser();
         if (usr && usr.set && usr.get) {
