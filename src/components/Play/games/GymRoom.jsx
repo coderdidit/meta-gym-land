@@ -13,7 +13,7 @@ import { SettingFilled } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { mainBgColor } from "../../../GlobalStyles";
 
-const menuHeight = 60;
+const menuHeight = 0;
 
 const setWidthAndHeight = () => {
     let width = window.innerWidth;
