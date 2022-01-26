@@ -6,7 +6,7 @@ import {
     PUMP_OPEN,
     PUMP_CLOSED,
     BTC,
-    SAD_WOJAK,
+    RED_WOJAK,
     GREEN_WOJAK,
 } from "./assets";
 import { createTextBox } from "./utils/text";
@@ -262,7 +262,7 @@ export class ChartSquats extends Phaser.Scene {
             // 0 is top, height (positive value) is bottom
             if (this.curPrice >= height) {
                 this.wonState = loseState;
-                this.add.image(width * .85, height * .3, SAD_WOJAK)
+                this.add.image(width * .85, height * .3, RED_WOJAK)
                     .setScale(0.9);
                 this.cameras.main.setBackgroundColor("#4a0909");
                 this.btc.setTint(0x3d3d3d);
