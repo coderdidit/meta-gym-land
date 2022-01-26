@@ -4,6 +4,7 @@ import {
     descriptionStyle,
     MBMT_TICKER,
 } from "../../GlobalStyles";
+import { Divider } from "antd";
 import { useMoralis } from "react-moralis";
 
 const mbmt = <span style={{ color: highlightTextColor }}>{MBMT_TICKER}</span>;
@@ -21,7 +22,7 @@ const RewardsPage = () => {
             style={{
                 display: "grid",
                 gridTemplateColumns: "1fr 1fr",
-                gridGap: "5rem",
+                gridGap: "10rem",
                 marginTop: "4rem",
             }}>
             <div>
@@ -71,12 +72,12 @@ const RewardsPage = () => {
             <div>
                 <h1 style={{
                     ...pageTitleStyle,
+                    textAlign: "center",
                 }}>Your current balance:
                 </h1>
                 <div style={{
                     ...pageTitleStyle,
                     textAlign: "center",
-
                 }}><span style={{
                     color: "gold",
                 }}>{curXP}</span>&nbsp;
@@ -87,6 +88,10 @@ const RewardsPage = () => {
         <div style={{
             flexBasis: "100%",
         }} />
+        <Divider style={{
+            marginTop: "2rem",
+            marginBottom: "2rem",
+        }}></Divider>
         <section style={{
             ...descriptionStyle,
             marginBottom: "6rem",
