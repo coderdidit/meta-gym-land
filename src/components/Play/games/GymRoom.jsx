@@ -148,6 +148,8 @@ const GymRoom = ({ avatar, useWebcam = true }) => {
             position: "fixed",
             top: "1%",
             left: "45%",
+            top: "300px",
+            bottom: "0px",
         }} >
             <PoseDetWebcam
                 sizeProps={{

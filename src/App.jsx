@@ -152,7 +152,7 @@ const App = ({ isServerInfo }) => {
           </Switch>
         </div>
       </Router>
-      <AppFooter style={styles.footer} />
+      <AppFooter />
     </Layout>
   );
 };
