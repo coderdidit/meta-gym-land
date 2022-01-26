@@ -1,4 +1,4 @@
-import { Card, Typography, Divider } from "antd";
+import { Typography, Divider } from "antd";
 import React from "react";
 import { Button, Image } from 'antd';
 import {
@@ -45,80 +45,70 @@ export default function Home() {
       }}
     >
       <div style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
+        display: "grid",
+        gridTemplateColumns: "1fr 1fr",
       }}>
-        <Card
-          style={styles.card}
-          title={
-            <>
-              <Text strong style={styles.titleText}>
-                Ready to get started?
-              </Text>
-            </>
-          }
-        >
-          <div style={{
+        <div style={{
+          padding: "3rem 1rem",
+        }}>
+          <div strong style={{
+            ...styles.titleText,
+            paddingTop: "1rem",
           }}>
-            <Text style={styles.text}>
-              Follow steps below, have fun and get fit!
-            </Text>
-            <div
+            Ready to get started?
+          </div>
+          <div style={{
+            ...styles.text,
+            paddingTop: "1rem",
+          }}>
+            Follow steps below, have fun and get fit!
+          </div>
+
+          <div style={{
+            paddingTop: "4.5rem",
+          }}>
+            <Button
+              type="primary"
               style={{
-                display: "flex",
-                gap: "1rem",
-                justifyContent: "left",
-                alignItems: "center",
-                marginTop: "5rem",
+                ...BtnPrimary,
+                marginRight: "1rem",
               }}
             >
-              <Button
-                type="primary"
-                style={{
-                  ...BtnPrimary,
-                }}
-              >
-                <Link to="/avatars">
-                  Play now
-                </Link>
-              </Button>
-              <Button style={{
-                ...BtnInfo,
-              }}>
-                <Link to="/demo-avatar">
-                  Try with Demo Avatar
-                </Link>
-              </Button>
-            </div>
+              <Link to="/avatars">
+                Play now
+              </Link>
+            </Button>
+            <Button style={{
+              ...BtnInfo,
+            }}>
+              <Link to="/demo-avatar">
+                Try with Demo Avatar
+              </Link>
+            </Button>
           </div>
-        </Card>
-        <Card
-          style={{
-            ...styles.card,
-          }}
-        >
-          <div>
-            <Image
-              preview={false}
-              src={mglVideoDemoImg}
-              alt=""
-              className="demo-video"
-              style={{
-                width: "720px",
-                padding: "0px",
-                margin: "0px",
-              }}
-              onClick={() =>
-                window.open(
-                  `https://www.youtube.com/watch?v=Bv7i0m6Szzc`,
-                  "_blank"
-                )
-              }
-            />
-          </div>
-        </Card>
+        </div>
+
+        <div>
+          <Image
+            preview={false}
+            src={mglVideoDemoImg}
+            alt=""
+            className="demo-video"
+            style={{
+              width: "720px",
+              padding: "0px",
+              margin: "0px",
+            }}
+            onClick={() =>
+              window.open(
+                `https://www.youtube.com/watch?v=Bv7i0m6Szzc`,
+                "_blank"
+              )
+            }
+          />
+        </div>
       </div>
+
       <div style={{
         flexBasis: "100%",
       }} />
