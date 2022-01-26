@@ -8,7 +8,8 @@ import { useMoralis } from "react-moralis";
 
 const RewardsPage = () => {
     const { user } = useMoralis();
-    const curXP = user?.mglXP || 0;
+    console.log('RewardsPage user', user);
+    const curXP = user && user.get && user.get('mglXP') ? user.get('mglXP') : 0;
     return (
         <div
             style={{
