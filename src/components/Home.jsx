@@ -34,7 +34,7 @@ const styles = {
   }
 };
 
-const LRPadding = "5rem";
+const LRPadding = "6rem";
 
 export default function Home() {
   return (
@@ -49,7 +49,7 @@ export default function Home() {
         gridTemplateColumns: "1fr 1fr",
       }}>
         <div style={{
-          padding: "3rem 1rem",
+          padding: "2rem 1rem",
         }}>
           <div strong style={{
             ...styles.titleText,
@@ -95,7 +95,7 @@ export default function Home() {
             alt=""
             className="demo-video"
             style={{
-              width: "720px",
+              width: "100%",
               padding: "0px",
               margin: "0px",
             }}
