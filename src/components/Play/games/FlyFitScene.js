@@ -13,6 +13,7 @@ import * as gpose from "../../gpose/pose";
 import {
     mainBgColor,
 } from "../../../GlobalStyles";
+import { EarnableScene } from './EarnableScene';
 
 
 const SceneConfig = {
@@ -27,7 +28,7 @@ const playerSpeed = 80;
 const btcScale = 0.11;
 const btcCnt = 12;
 
-export class FlyFitScene extends Phaser.Scene {
+export class FlyFitScene extends EarnableScene {
     constructor() {
         super(SceneConfig);
     }
@@ -36,25 +37,6 @@ export class FlyFitScene extends Phaser.Scene {
         this.selectedAvatar = data.selectedAvatar;
         console.log('selectedAvatar', this.selectedAvatar);
     };
-
-    gameUser() {
-        return this.game.registry.values?.avatar?.user;
-    }
-
-    async updateXP() {
-        if (this.score === 0) return;
-        // TODO add if demo avatar return;
-        const inMiniGameScore = this.score;
-        const usr = this.gameUser();
-        if (usr && usr.set && usr.get) {
-            const xpSoFar = usr.get('mglXP');
-            const inMiniGameXP = inMiniGameScore * 0.1;
-            const newXP = xpSoFar + inMiniGameXP;
-            usr.set('mglXP', newXP);
-            const saveMglXPResult = await usr.save();
-            console.log('saveMglXPResult', saveMglXPResult);
-        }
-    }
 
     create() {
         // basic props
