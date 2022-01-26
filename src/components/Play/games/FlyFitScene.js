@@ -55,12 +55,10 @@ export class FlyFitScene extends EarnableScene {
         console.log('FlyFitScene gameUser get', usr.get);
         console.log('FlyFitScene gameUser set', usr.set);
         console.log('FlyFitScene gameUser save', usr.save);
-        // console.log('this.player.getUser() in create', this.gameUser());
 
         // constrols
         this.input.keyboard.on('keydown', async (event) => {
             const code = event.keyCode;
-            console.log('this.player.getUser()', this.gameUser());
             await this.updateXP();
             if (code == Phaser.Input.Keyboard.KeyCodes.ESC) {
                 roboTextTimeouts.forEach(t => clearTimeout(t));
