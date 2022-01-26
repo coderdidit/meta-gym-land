@@ -59,12 +59,6 @@ const styles = {
     fontSize: "17px",
     fontWeight: "500",
   },
-  footer: {
-    width: "100%",
-    padding: "0 35px",
-    background: "none",
-    color: brightFontCol,
-  },
 };
 
 const App = ({ isServerInfo }) => {
