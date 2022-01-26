@@ -17,6 +17,7 @@ import {
 import {
   mainBgColorNum,
   MBMT_TICKER,
+  highlightTextColorNum,
 } from "../../../GlobalStyles";
 import { EarnableScene } from './EarnableScene';
 
@@ -232,7 +233,9 @@ export class GymRoomScene extends EarnableScene {
       width * 0.05, height * 0.015,
       { wrapWidth: 280 },
       mainBgColorNum,
-      0xF96F0A
+      0x4154e8,
+      "center", 
+      "#FFEB3A"
     );
     xpEarnedOnventory.setScrollFactor(0, 0);
     xpEarnedOnventory.start(`${MBMT_TICKER}: ${this.currentXPBalance() || 0}`, 10);
