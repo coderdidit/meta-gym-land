@@ -40,8 +40,7 @@ export default function Home() {
   return (
     <div
       style={{
-        // paddingLeft: LRPadding,
-        // paddingRight: LRPadding,
+
       }}
     >
       <section style={{
