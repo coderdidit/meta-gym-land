@@ -3,8 +3,12 @@ import {
     pageTitleStyle,
     descriptionStyle
 } from "../../GlobalStyles";
+import { useMoralis } from "react-moralis";
+
 
 const RewardsPage = () => {
+    const { user } = useMoralis();
+    const curXP = user?.mglXP || 0;
     return (
         <div
             style={{
@@ -21,7 +25,7 @@ const RewardsPage = () => {
             <h1 style={{
                 ...pageTitleStyle,
                 marginBottom: "3rem",
-            }}>Your current <span style={{color: highlightTextColor}}>$mgl XP: 0</span>
+            }}>Your current <span style={{color: highlightTextColor}}>$mgl XP: {curXP}</span>
             </h1>
             <div style={{
                 flexBasis: "100%",
