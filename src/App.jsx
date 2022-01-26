@@ -61,7 +61,7 @@ const styles = {
   },
   footer: {
     width: "100%",
-    padding: "0 35px",
+    // padding: "0 35px",
     background: "none",
     color: brightFontCol,
   },
@@ -79,9 +79,10 @@ const App = ({ isServerInfo }) => {
   return (
     <Layout style={
       {
-        height: "100vh",
-        overflow: "auto",
-        background: mainBackground,
+        // height: "100vh",
+        // overflow: "auto",
+        // background: mainBackground,
+        background: "none",
         fontFamily: "Roboto, sans-serif",
       }}>
       <Router>
