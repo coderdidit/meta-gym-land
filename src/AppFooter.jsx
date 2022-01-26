@@ -1,4 +1,4 @@
-import { Layout, Divider } from "antd";
+import { Divider } from "antd";
 import Text from "antd/lib/typography/Text";
 import packageJson from '../package.json';
 import { brightFontCol } from "GlobalStyles";
@@ -11,9 +11,6 @@ import {
     MediaPipeLogo,
     PhaserLogo,
 } from "Logos";
-const { Footer } = Layout;
-
-const secFooterSpan = 2;
 
 export const AppFooter = ({ style }) => {
     return (
