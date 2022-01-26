@@ -44,7 +44,7 @@ export default function Home() {
         paddingRight: LRPadding,
       }}
     >
-      <div style={{
+      <section style={{
         display: "grid",
         gridTemplateColumns: "1fr 1fr",
       }}>
@@ -107,74 +107,78 @@ export default function Home() {
             }
           />
         </div>
-      </div>
+      </section>
 
       <div style={{
         flexBasis: "100%",
       }} />
-      <div style={{
-        padding: "0.5rem 1rem 3rem 1rem",
-      }}>
-        <Text strong style={pageTitle2Style}>
-          How it works?
-        </Text>
-      </div>
-      <div>
-        <Image
-          preview={false}
-          src={howItWorksImg}
-          alt=""
-          style={{
-          }}
-        />
-      </div>
+      <section>
+        <div style={{
+          padding: "0.5rem 1rem 3rem 1rem",
+        }}>
+          <Text strong style={pageTitle2Style}>
+            How it works?
+          </Text>
+        </div>
+        <div>
+          <Image
+            preview={false}
+            src={howItWorksImg}
+            alt=""
+            style={{
+            }}
+          />
+        </div>
+      </section>
       <div style={{
         flexBasis: "100%",
       }} />
       <Divider style={{
         backgroundColor: "#032139",
       }}></Divider>
-      <div style={{
-        marginTop: "3rem",
-        marginBottom: "3rem",
-        alignItems: "center",
-        justifyContent: "center"
-      }}>
+      <section>
         <div style={{
-          textAlign: "center"
+          marginTop: "3rem",
+          marginBottom: "3rem",
+          alignItems: "center",
+          justifyContent: "center"
         }}>
           <div style={{
-            ...descriptionStyle,
+            textAlign: "center"
           }}>
-            Want to be notified about our progress and future plans?&nbsp;&nbsp;&nbsp;
-            <Button type="primary"
-              style={BtnPrimary}
-              onClick={() =>
-                window.open(
-                  `https://coderdidit.ck.page/666d446d94`,
-                  "_blank"
-                )
-              }
-            >
-              Sing up to newsletter
-            </Button>
+            <div style={{
+              ...descriptionStyle,
+            }}>
+              Want to be notified about our progress and future plans?&nbsp;&nbsp;&nbsp;
+              <Button type="primary"
+                style={BtnPrimary}
+                onClick={() =>
+                  window.open(
+                    `https://coderdidit.ck.page/666d446d94`,
+                    "_blank"
+                  )
+                }
+              >
+                Sing up to newsletter
+              </Button>
+            </div>
+          </div>
+          <div style={{
+            flexBasis: "100%",
+          }} />
+          <div style={{
+            marginTop: "2rem",
+            textAlign: "center",
+            fontSize: "18px",
+          }}>
+            <span style={{
+              opacity: 0.2,
+            }}>contact:</span>
+            &nbsp;&nbsp;
+            <span>coderdidit@gmail.com</span>
           </div>
         </div>
-        <div style={{
-          flexBasis: "100%",
-        }} />
-        <div style={{
-          marginTop: "2rem",
-          textAlign: "center",
-          fontSize: "18px",
-        }}>
-          <span style={{
-            opacity: 0.2,
-          }}>contact:</span>
-          &nbsp;&nbsp;
-          <span>coderdidit@gmail.com</span>
-        </div>
-      </div>
+      </section>
     </div>
   );
 }
