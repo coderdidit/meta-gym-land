@@ -21,7 +21,8 @@ const RewardsPage = () => {
             <h1 style={{
                 ...pageTitleStyle,
                 marginBottom: "3rem",
-            }}>Your current $mgl XP: 0</h1>
+            }}>Your current <span style={{color: highlightTextColor}}>$mgl XP: 0</span>
+            </h1>
             <div style={{
                 flexBasis: "100%",
             }} />
