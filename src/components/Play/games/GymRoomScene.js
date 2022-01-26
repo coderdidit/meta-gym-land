@@ -175,7 +175,6 @@ export class GymRoomScene extends EarnableScene {
             "🤖 Welcome 👋\n" +
             "go to the MetaGym\n" +
             "and do some stretches 💪\n" +
-            // "\n" +
             "hint...\n" +
             "look for the GLOWING MATS",
             30
@@ -233,7 +232,7 @@ export class GymRoomScene extends EarnableScene {
       width * 0.05, height * 0.015,
       { wrapWidth: 280 },
       mainBgColorNum,
-      0xFFFFF
+      0xF96F0A
     );
     xpEarnedOnventory.setScrollFactor(0, 0);
     xpEarnedOnventory.start(`$MBMT: ${this.currentXPBalance() || 0}`, 10);

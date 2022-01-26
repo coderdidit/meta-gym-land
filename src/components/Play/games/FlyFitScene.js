@@ -50,12 +50,6 @@ export class FlyFitScene extends EarnableScene {
         this.graphics.fillGradientStyle(0xdce7fc, 0x82b1ff, 0x4281ff, 0x4287f5, 1)
             .fillRectShape(rect);
 
-        const usr = this.gameUser();
-        console.log('FlyFitScene gameUser', usr);
-        console.log('FlyFitScene gameUser get', usr.get);
-        console.log('FlyFitScene gameUser set', usr.set);
-        console.log('FlyFitScene gameUser save', usr.save);
-
         // constrols
         this.input.keyboard.on('keydown', async (event) => {
             const code = event.keyCode;
