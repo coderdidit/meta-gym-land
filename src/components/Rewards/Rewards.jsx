@@ -1,7 +1,8 @@
 import {
     highlightTextColor,
     pageTitleStyle,
-    descriptionStyle
+    descriptionStyle,
+    MBMT_TICKER,
 } from "../../GlobalStyles";
 import { useMoralis } from "react-moralis";
 
@@ -17,7 +18,7 @@ const RewardsPage = () => {
                 marginBottom: "6rem",
                 // textAlign: "left",
             }}>
-                    
+
             <h1 style={{
                 ...pageTitleStyle,
                 marginBottom: "2rem",
@@ -26,7 +27,7 @@ const RewardsPage = () => {
             <h1 style={{
                 ...pageTitleStyle,
                 marginBottom: "3rem",
-            }}>Your current <span style={{color: highlightTextColor}}>$mgl XP: {curXP}</span>
+            }}>Your current <span style={{ color: highlightTextColor }}>{MBMT_TICKER}: {curXP}</span>
             </h1>
             <div style={{
                 flexBasis: "100%",

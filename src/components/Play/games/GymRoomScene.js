@@ -15,8 +15,8 @@ import {
   playerHasExitPos
 } from "./Globals";
 import {
-  highlightTextColorNum,
   mainBgColorNum,
+  MBMT_TICKER,
 } from "../../../GlobalStyles";
 import { EarnableScene } from './EarnableScene';
 
@@ -235,7 +235,7 @@ export class GymRoomScene extends EarnableScene {
       0xF96F0A
     );
     xpEarnedOnventory.setScrollFactor(0, 0);
-    xpEarnedOnventory.start(`$MBMT: ${this.currentXPBalance() || 0}`, 10);
+    xpEarnedOnventory.start(`${MBMT_TICKER}: ${this.currentXPBalance() || 0}`, 10);
     // debugging
     if (debugCollisons) {
       debugCollisonBounds(wallsLayer, this)
