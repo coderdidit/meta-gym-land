@@ -18,6 +18,7 @@ import {
 } from "../../../GlobalStyles";
 import party from "party-js";
 import { EarnableScene } from './EarnableScene';
+import { MiniGameCtx } from "index";
 
 
 const SceneConfig = {
@@ -49,7 +50,6 @@ export class SpaceStretchScene extends EarnableScene {
 
     init = (data) => {
         this.selectedAvatar = data.selectedAvatar;
-        console.log('selectedAvatar', this.selectedAvatar);
     };
 
     color(i) {
@@ -109,6 +109,7 @@ export class SpaceStretchScene extends EarnableScene {
                 this.scene.start(SPACE_STRETCH_SCENE);
             }
             if (code == Phaser.Input.Keyboard.KeyCodes.ESC) {
+                this.game.registry.values?.setMinigame(GYM_ROOM_SCENE);
                 this.scene.start(GYM_ROOM_SCENE);
             }
         }, this);

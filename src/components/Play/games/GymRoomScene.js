@@ -48,8 +48,7 @@ export class GymRoomScene extends EarnableScene {
   }
 
   init = data => {
-    this.selectedAvatar = data.selectedAvatar
-    console.log('selectedAvatar', this.selectedAvatar);
+    this.selectedAvatar = data.selectedAvatar;
   }
 
   create() {
@@ -69,6 +68,7 @@ export class GymRoomScene extends EarnableScene {
             this.player.x,
             this.player.y,
           )
+          this.game.registry.values?.setMinigame(sceneToGoOnXclick);
           this.scene.start(sceneToGoOnXclick);
         }
       },

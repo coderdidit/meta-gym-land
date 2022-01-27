@@ -31,6 +31,7 @@ export class BootScene extends Phaser.Scene {
 
         // Construct avatar game object from registry
         this.selectedAvatar = this.game.registry.values.avatar;
+        this.setMinigame = this.game.registry.values.setMinigame;
 
         // Listener that triggers when an asset has loaded
         this.load.on(

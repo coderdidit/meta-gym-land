@@ -62,6 +62,7 @@ export class FlyFitScene extends EarnableScene {
                 this.scene.start(FLY_FIT_SCENE);
             }
             if (code == Phaser.Input.Keyboard.KeyCodes.ESC) {
+                this.game.registry.values?.setMinigame(GYM_ROOM_SCENE);
                 this.scene.start(GYM_ROOM_SCENE);
             }
         }, this);

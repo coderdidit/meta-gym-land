@@ -88,6 +88,7 @@ const GymRoom = ({ avatar, useWebcam = true }) => {
                     console.log('Updating game registry', avatar);
                     game.registry.merge({
                         avatar,
+                        setMinigame,
                     });
                 },
             },
