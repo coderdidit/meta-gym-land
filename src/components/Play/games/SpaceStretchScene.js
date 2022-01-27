@@ -18,7 +18,6 @@ import {
 } from "../../../GlobalStyles";
 import party from "party-js";
 import { EarnableScene } from './EarnableScene';
-import { MiniGameCtx } from "index";
 
 
 const SceneConfig = {

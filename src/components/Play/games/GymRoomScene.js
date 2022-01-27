@@ -17,7 +17,6 @@ import {
 import {
   mainBgColorNum,
   MBMT_TICKER,
-  highlightTextColorNum,
 } from "../../../GlobalStyles";
 import { EarnableScene } from './EarnableScene';
 

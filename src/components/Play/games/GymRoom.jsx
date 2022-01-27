@@ -13,7 +13,12 @@ import { SettingFilled, InfoCircleFilled } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { mainBgColor } from "../../../GlobalStyles";
 import { Popover } from 'antd';
-
+import {
+    GYM_ROOM_SCENE,
+    SPACE_STRETCH_SCENE,
+    FLY_FIT_SCENE,
+    CHART_SQUATS
+} from "./shared";
 
 const menuHeight = 0;
 
@@ -67,6 +72,38 @@ const getConfig = (mainScene) => {
     }
 }
 
+
+const MiniGameInstructions = new Map([
+    [GYM_ROOM_SCENE, {
+        title: "Gym room", content: (
+            <>
+                {GYM_ROOM_SCENE}
+            </>
+        )
+    }],
+    [SPACE_STRETCH_SCENE, {
+        title: "Space stretch", content: (
+            <>
+                {SPACE_STRETCH_SCENE}
+            </>
+        )
+    }],
+    [FLY_FIT_SCENE, {
+        title: "Fly fit", content: (
+            <>
+                {FLY_FIT_SCENE}
+            </>
+        )
+    }],
+    [CHART_SQUATS, {
+        title: "Chart squats", content: (
+            <>
+                {CHART_SQUATS}
+            </>
+        )
+    }],
+]);
+
 const GymRoom = ({ avatar, useWebcam = true }) => {
     console.log('GymRoom avatar', avatar);
     // run game
@@ -74,6 +111,21 @@ const GymRoom = ({ avatar, useWebcam = true }) => {
     const [config, setConfig] = useState();
     const { webcamId, webcamRef } = useContext(WebcamCtx);
     const { minigame, setMinigame } = useContext(MiniGameCtx);
+
+    const miniGameInstroctions = () => {
+        const i = MiniGameInstructions.get(minigame);
+        return (<>
+            <Popover placement="right"
+                title={i.title}
+                content={i.content}
+                trigger="click">
+                <InfoCircleFilled style={{
+                    fontSize: "20px",
+                    color: "#FFF",
+                }} />
+            </Popover>
+        </>);
+    }
 
     console.log('GymRoom webcamRef', webcamRef);
     console.log('GymRoom webcamId', webcamId);
@@ -150,15 +202,7 @@ const GymRoom = ({ avatar, useWebcam = true }) => {
             <div style={{
                 marginTop: "5rem",
             }}>
-                <Popover placement="right"
-                    title={"test"}
-                    content={minigame}
-                    trigger="click">
-                    <InfoCircleFilled style={{
-                        fontSize: "20px",
-                        color: "#FFF",
-                    }} />
-                </Popover>
+                {miniGameInstroctions()}
             </div>
         </div>
         {useWebcam && (<div style={{
