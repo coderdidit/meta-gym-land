@@ -97,8 +97,6 @@ const GymRoom = ({ avatar, useWebcam = true }) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    // console.log('gymroom.jsx moralis avatar, user', avatar, avatar.user);
-
     return (<IonPhaser
         initialize={initialised}
         game={config}
