@@ -103,13 +103,43 @@ const MiniGameInstructions = new Map([
                     &nbsp;
                     <span style={{ color: "blue" }}>MOVE RIGHT</span>
                 </div>
+                <div style={{ padding: "0.3rem" }}>
+                    Be creative!<br />
+                    Other simmilar moves will workl as well
+                </div>
             </>
         )
     }],
     [SPACE_STRETCH_SCENE, {
         title: "Space stretch", content: (
             <>
-                {SPACE_STRETCH_SCENE}
+                <div style={{ padding: "0.3rem" }}>
+                    <span style={{ backgroundColor: "antiquewhite", padding: "0.2rem", borderRadius: "3px" }}>
+                        both arms up</span>&nbsp;
+                    <span style={{ color: "crimson" }}>MOVE UP</span>
+                </div>
+                <div style={{ padding: "0.3rem" }}>
+                    <span style={{ backgroundColor: "antiquewhite", padding: "0.2rem", borderRadius: "3px" }}>
+                        gravity</span>
+                    &nbsp;
+                    <span style={{ color: "blue" }}>MOVE DOWN</span>
+                </div>
+                <div style={{ padding: "0.3rem" }}>
+                    <span style={{ backgroundColor: "aqua", padding: "0.2rem", borderRadius: "3px" }}>
+                        tilt your head to left</span>
+                    &nbsp;
+                    <span style={{ color: "crimson" }}>MOVE LEFT</span>
+                </div>
+                <div style={{ padding: "0.3rem" }}>
+                    <span style={{ backgroundColor: "antiquewhite", padding: "0.2rem", borderRadius: "3px" }}>
+                        tilt your head to right</span>
+                    &nbsp;
+                    <span style={{ color: "blue" }}>MOVE RIGHT</span>
+                </div>
+                <div style={{ padding: "0.3rem" }}>
+                    Be creative!<br />
+                    Other simmilar moves will workl as well
+                </div>
             </>
         )
     }],
