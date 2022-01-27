@@ -77,17 +77,31 @@ const MiniGameInstructions = new Map([
     [GYM_ROOM_SCENE, {
         title: "Gym room", content: (
             <>
-                <div>
-                    ['right arm up', 'both arms up'] MOVE UP
+                <div style={{ padding: "0.3rem" }}>
+                    <span style={{ backgroundColor: "aqua", padding: "0.2rem", borderRadius: "3px" }}>
+                        right arm up</span>
+                    &nbsp;|&nbsp;
+                    <span style={{ backgroundColor: "antiquewhite", padding: "0.2rem", borderRadius: "3px" }}>
+                        both arms up</span>&nbsp;
+                    <span style={{ color: "crimson" }}>MOVE UP</span>
                 </div>
-                <div>
-                    ['left arm up'] MOVE DOWN
+                <div style={{ padding: "0.3rem" }}>
+                    <span style={{ backgroundColor: "antiquewhite", padding: "0.2rem", borderRadius: "3px" }}>
+                        left arm up</span>
+                    &nbsp;
+                    <span style={{ color: "blue" }}>MOVE DOWN</span>
                 </div>
-                <div>
-                    ['Tilt your head to left'] MOVE LEFT
+                <div style={{ padding: "0.3rem" }}>
+                    <span style={{ backgroundColor: "aqua", padding: "0.2rem", borderRadius: "3px" }}>
+                        tilt your head to left</span>
+                    &nbsp;
+                    <span style={{ color: "crimson" }}>MOVE LEFT</span>
                 </div>
-                <div>
-                    ['Tilt your head to right'] MOVE RIGHT
+                <div style={{ padding: "0.3rem" }}>
+                    <span style={{ backgroundColor: "antiquewhite", padding: "0.2rem", borderRadius: "3px" }}>
+                        tilt your head to right</span>
+                    &nbsp;
+                    <span style={{ color: "blue" }}>MOVE RIGHT</span>
                 </div>
             </>
         )
