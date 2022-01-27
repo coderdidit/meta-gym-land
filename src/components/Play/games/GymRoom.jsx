@@ -77,7 +77,18 @@ const MiniGameInstructions = new Map([
     [GYM_ROOM_SCENE, {
         title: "Gym room", content: (
             <>
-                {GYM_ROOM_SCENE}
+                <div>
+                    ['right arm up', 'both arms up'] MOVE UP
+                </div>
+                <div>
+                    ['left arm up'] MOVE DOWN
+                </div>
+                <div>
+                    ['Tilt your head to left'] MOVE LEFT
+                </div>
+                <div>
+                    ['Tilt your head to right'] MOVE RIGHT
+                </div>
             </>
         )
     }],
