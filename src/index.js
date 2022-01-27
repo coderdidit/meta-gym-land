@@ -7,6 +7,7 @@ import Home from "components/Home";
 import { Pose } from '@mediapipe/pose';
 import * as mpPose from '@mediapipe/pose';
 import { ConfidenceScore } from "./AIConfig";
+import { GYM_ROOM_SCENE } from "./components/Play/games/shared";
 
 // Moralis vals
 const APP_ID = process.env.REACT_APP_MORALIS_APPLICATION_ID;
@@ -20,6 +21,17 @@ const AvatarCtxProvider = ({ children }) => {
     <AvatarCtx.Provider value={[avatar, setAvatar]}>
       {children}
     </AvatarCtx.Provider>
+  );
+};
+
+// MiniGame selected global state
+export const MiniGameCtx = React.createContext();
+const MiniGameCtxProvider = ({ children }) => {
+  const [minigame, setMinigame] = useState(GYM_ROOM_SCENE);
+  return (
+    <MiniGameCtx.Provider value={{ minigame, setMinigame }}>
+      {children}
+    </MiniGameCtx.Provider>
   );
 };
 
@@ -81,7 +93,9 @@ const Application = () => {
         <PoseDetectorCtxProvider >
           <AvatarCtxProvider >
             <WebcamCtxProvider >
-              <App isServerInfo />
+              <MiniGameCtxProvider >
+                <App isServerInfo />
+              </MiniGameCtxProvider>
             </WebcamCtxProvider>
           </AvatarCtxProvider>
         </PoseDetectorCtxProvider>

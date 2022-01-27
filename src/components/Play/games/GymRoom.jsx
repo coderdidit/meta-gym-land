@@ -6,12 +6,14 @@ import { SpaceStretchScene } from "./SpaceStretchScene";
 import { FlyFitScene } from "./FlyFitScene";
 import { ChartSquats } from "./ChartSquats";
 import { BootScene } from "./BootScene";
-import { WebcamCtx } from "index";
+import { WebcamCtx, MiniGameCtx } from "index";
 import PoseDetWebcam from "components/Webcam/PoseDetWebcam";
 import { MGLSmallLogo } from "Logos";
-import { SettingFilled } from "@ant-design/icons";
+import { SettingFilled, InfoCircleFilled } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { mainBgColor } from "../../../GlobalStyles";
+import { Popover } from 'antd';
+
 
 const menuHeight = 0;
 
@@ -71,6 +73,7 @@ const GymRoom = ({ avatar, useWebcam = true }) => {
     const [initialised, setInitialised] = useState(true);
     const [config, setConfig] = useState();
     const { webcamId, webcamRef } = useContext(WebcamCtx);
+    const { minigame, setMinigame } = useContext(MiniGameCtx);
 
     console.log('GymRoom webcamRef', webcamRef);
     console.log('GymRoom webcamId', webcamId);
@@ -142,6 +145,19 @@ const GymRoom = ({ avatar, useWebcam = true }) => {
                         color: "#FFF",
                     }} />
                 </Link>
+            </div>
+            <div style={{
+                marginTop: "5rem",
+            }}>
+                <Popover placement="right"
+                    title={"test"}
+                    content={minigame}
+                    trigger="click">
+                    <InfoCircleFilled style={{
+                        fontSize: "20px",
+                        color: "#FFF",
+                    }} />
+                </Popover>
             </div>
         </div>
         {useWebcam && (<div style={{
