@@ -105,8 +105,6 @@ export class SpaceStretchScene extends EarnableScene {
                 this.scene.start(SPACE_STRETCH_SCENE);
             }
             if (code == Phaser.Input.Keyboard.KeyCodes.ESC) {
-                console.log('avatarObject', this.player.avatarObject);
-                // console.log('avatarObject user', this.player.avatarObject['user']);
                 roboTextTimeouts.forEach(t => clearTimeout(t));
                 this.scene.start(GYM_ROOM_SCENE);
             }
