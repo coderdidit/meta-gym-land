@@ -105,7 +105,7 @@ export class SpaceStretchScene extends EarnableScene {
                 await this.updateXP();
             }
             if (code == Phaser.Input.Keyboard.KeyCodes.X) {
-                this.scene.start(FLY_FIT_SCENE);
+                this.scene.start(SPACE_STRETCH_SCENE);
             }
             if (code == Phaser.Input.Keyboard.KeyCodes.ESC) {
                 roboTextTimeouts.forEach(t => clearTimeout(t));
