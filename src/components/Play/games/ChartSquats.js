@@ -90,11 +90,14 @@ export class ChartSquats extends EarnableScene {
             intervals.forEach(i => {
                 clearInterval(i);
             })
-            await this.updateXP();
             if (webCamContainer) {
                 webCamContainer.style.marginLeft = '';
             }
             const code = event.keyCode;
+            if (code == Phaser.Input.Keyboard.KeyCodes.ESC ||
+                code == Phaser.Input.Keyboard.KeyCodes.X) {
+                await this.updateXP();
+            }
             if (code == Phaser.Input.Keyboard.KeyCodes.ESC) {
                 this.scene.start(GYM_ROOM_SCENE);
             }

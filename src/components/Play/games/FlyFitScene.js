@@ -53,7 +53,13 @@ export class FlyFitScene extends EarnableScene {
         // constrols
         this.input.keyboard.on('keydown', async (event) => {
             const code = event.keyCode;
-            await this.updateXP();
+            if (code == Phaser.Input.Keyboard.KeyCodes.ESC ||
+                code == Phaser.Input.Keyboard.KeyCodes.X) {
+                await this.updateXP();
+            }
+            if (code == Phaser.Input.Keyboard.KeyCodes.X) {
+                this.scene.start(FLY_FIT_SCENE);
+            }
             if (code == Phaser.Input.Keyboard.KeyCodes.ESC) {
                 roboTextTimeouts.forEach(t => clearTimeout(t));
                 this.scene.start(GYM_ROOM_SCENE);
@@ -166,19 +172,6 @@ export class FlyFitScene extends EarnableScene {
         )
         youWonText.setOrigin(0.5).setDepth(1).setScrollFactor(0, 0);
         youWonText.start(msg, 50);
-
-        this.input.on("pointerdown", () => this.scene.start(FLY_FIT_SCENE));
-
-        this.input.keyboard.on(
-            'keydown',
-            event => {
-                const code = event.keyCode
-                if (code == Phaser.Input.Keyboard.KeyCodes.X) {
-                    this.scene.start(FLY_FIT_SCENE);
-                }
-            },
-            this
-        );
     }
 
     update(time, delta) {
