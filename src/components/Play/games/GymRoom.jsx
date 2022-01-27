@@ -173,7 +173,17 @@ const MiniGameInstructions = new Map([
     [CHART_SQUATS, {
         title: "Chart squats", content: (
             <>
-                {CHART_SQUATS}
+                <div style={{ padding: "0.3rem" }}>
+                    <span style={{ backgroundColor: "antiquewhite", padding: "0.2rem", borderRadius: "3px" }}>
+                        do squat</span>&nbsp;
+                    <span style={{ color: "crimson" }}>PUMP THE PRICE UP</span>
+                    <div style={{ padding: "0.3rem" }}>
+                        <span style={{ backgroundColor: "aqua", padding: "0.2rem", borderRadius: "3px" }}>
+                            do nothing</span>
+                        &nbsp;
+                        <span style={{ color: "crimson" }}>PRICE WIL GO DOWN</span>
+                    </div>
+                </div>
             </>
         )
     }],
@@ -275,7 +285,7 @@ const GymRoom = ({ avatar, useWebcam = true }) => {
                 </Link>
             </div>
             <div style={{
-                marginTop: "5rem",
+                marginTop: "7rem",
             }}>
                 {miniGameInstroctions()}
             </div>
