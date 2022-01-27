@@ -146,7 +146,27 @@ const MiniGameInstructions = new Map([
     [FLY_FIT_SCENE, {
         title: "Fly fit", content: (
             <>
-                {FLY_FIT_SCENE}
+                <div style={{ padding: "0.3rem" }}>
+                    <span style={{ backgroundColor: "antiquewhite", padding: "0.2rem", borderRadius: "3px" }}>
+                        both arms up</span>&nbsp;
+                    <span style={{ color: "crimson" }}>MOVE FORWOARD</span>
+                </div>
+                <div style={{ padding: "0.3rem" }}>
+                    <span style={{ backgroundColor: "aqua", padding: "0.2rem", borderRadius: "3px" }}>
+                        tilt your body and head to left</span>
+                    &nbsp;
+                    <span style={{ color: "crimson" }}>TURN LEFT</span>
+                </div>
+                <div style={{ padding: "0.3rem" }}>
+                    <span style={{ backgroundColor: "antiquewhite", padding: "0.2rem", borderRadius: "3px" }}>
+                        tilt your body and head to right</span>
+                    &nbsp;
+                    <span style={{ color: "blue" }}>TURN RIGHT</span>
+                </div>
+                <div style={{ padding: "0.3rem" }}>
+                    Be creative!<br />
+                    Other simmilar moves will workl as well
+                </div>
             </>
         )
     }],
