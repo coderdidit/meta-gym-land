@@ -87,15 +87,16 @@ export class ChartSquats extends EarnableScene {
 
         // exit or restart
         this.input.keyboard.on('keydown', async (event) => {
-            intervals.forEach(i => {
-                clearInterval(i);
-            })
+            
             if (webCamContainer) {
                 webCamContainer.style.marginLeft = '';
             }
             const code = event.keyCode;
             if (code == Phaser.Input.Keyboard.KeyCodes.ESC ||
                 code == Phaser.Input.Keyboard.KeyCodes.X) {
+                intervals.forEach(i => {
+                    clearInterval(i);
+                });
                 await this.updateXP();
             }
             if (code == Phaser.Input.Keyboard.KeyCodes.ESC) {

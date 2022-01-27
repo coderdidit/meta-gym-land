@@ -102,13 +102,13 @@ export class SpaceStretchScene extends EarnableScene {
             const code = event.keyCode;
             if (code == Phaser.Input.Keyboard.KeyCodes.ESC ||
                 code == Phaser.Input.Keyboard.KeyCodes.X) {
+                roboTextTimeouts.forEach(t => clearTimeout(t));
                 await this.updateXP();
             }
             if (code == Phaser.Input.Keyboard.KeyCodes.X) {
                 this.scene.start(SPACE_STRETCH_SCENE);
             }
             if (code == Phaser.Input.Keyboard.KeyCodes.ESC) {
-                roboTextTimeouts.forEach(t => clearTimeout(t));
                 this.scene.start(GYM_ROOM_SCENE);
             }
         }, this);
