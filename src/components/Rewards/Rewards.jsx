@@ -69,12 +69,13 @@ const RewardsPage = () => {
                     <div
                         style={{
                             ...descriptionStyle,
-                            backgroundColor: "crimson",
+                            backgroundColor: "aliceblue",
                             padding: "0.4rem 0rem",
                             borderRadius: "3px",
                             textAlign: "center",
+                            color: "black"
                         }}>
-                        <p>You will not be able to earn {mbmt} with demo avatar</p>
+                        <p>You will not be able to earn <b>$MBMT</b> with demo avatar</p>
                     </div>
                 </div>
                 <div>
@@ -97,7 +98,7 @@ const RewardsPage = () => {
                 flexBasis: "100%",
             }} />
             <section style={{
-                marginTop: "2rem",
+                marginTop: "6rem",
                 marginBottom: "2rem",
             }}>
 
