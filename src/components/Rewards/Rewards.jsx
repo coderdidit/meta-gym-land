@@ -112,6 +112,7 @@ const RewardsPage = () => {
                         gridArea: "overlap",
                         alignSelf: "center",
                         justifySelf: "center",
+                        marginTop: "-3rem",
                     }}>
                         <img src={card} alt="" />
 
@@ -121,7 +122,7 @@ const RewardsPage = () => {
                         alignSelf: "center",
                         justifySelf: "center",
                         textAlign: "center",
-                        paddingBottom: "8rem",
+                        marginTop: "-11rem",
                     }}>
                         <h1 style={{
                             ...pageTitle3Style,
