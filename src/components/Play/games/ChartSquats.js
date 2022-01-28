@@ -135,7 +135,7 @@ export class ChartSquats extends EarnableScene {
         graphics.beginPath();
         this.drawChart();
         graphics.strokePath();
-        const startingPath = graphics.closePath();
+        graphics.closePath();
 
         // all time law in chart line
         const atlline = new Phaser.Geom.Line(0, this.atl, width, this.atl);

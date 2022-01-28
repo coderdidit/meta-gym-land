@@ -88,7 +88,7 @@ export class SpaceStretchScene extends EarnableScene {
         this.graphics.fillGradientStyle(0x023246, 0x1E0338, 0x300240, 0x370232, 1)
             .fillRectShape(rect);
 
-        const ground = this.drawGround(width, height);
+        this.drawGround(width, height);
         this.shapes = new Array(45).fill(null).map(
             () => new Phaser.Geom.Circle(
                 Phaser.Math.Between(0, width),
