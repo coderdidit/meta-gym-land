@@ -13,8 +13,6 @@ import mglVideoDemoImg from "./assets/mgl_video_demo.png";
 import howItWorksImg from "./assets/how_it_works.png";
 
 
-const { Text } = Typography;
-
 const styles = {
   homeGlobal: {
     color: brightFontCol,
@@ -48,7 +46,7 @@ export default function Home() {
         <div style={{
           padding: "2rem 1rem",
         }}>
-          <div strong style={{
+          <div style={{
             ...styles.titleText,
             paddingTop: "1rem",
           }}>
@@ -113,9 +111,9 @@ export default function Home() {
         <div style={{
           padding: "0.5rem 1rem 3rem 1rem",
         }}>
-          <Text strong style={pageTitle2Style}>
+          <div style={pageTitle2Style}>
             How it works?
-          </Text>
+          </div>
         </div>
         <div>
           <Image
