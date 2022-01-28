@@ -39,6 +39,12 @@ const MiniGameCtxProvider = ({ children }) => {
 export const WebcamCtx = React.createContext();
 const WebcamCtxProvider = ({ children }) => {
   const [webcamId, setWebcamId] = useState(null);
+  // TODO keep updates for webcamIdChangeTS in 1 place
+  // maybe wrap setWebcamId around
+  // with setWebcamSeettings and export that
+  // or some better imporvement
+  // for now it is not the best code
+  // but it is product improvement
   window.webcamIdChangeTS = Date.now();
 
   return (
