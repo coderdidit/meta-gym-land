@@ -105,7 +105,7 @@ class PoseDetWebcamInner extends Component {
 };
 
 const PoseDetWebcam = ({ sizeProps, styleProps }) => {
-    const { webcamId, setWebcamId } = useContext(WebcamCtx);
+    const { webcamId, setWebcamId, webcamIdChangeTS, setWebcamIdChangeTS } = useContext(WebcamCtx);
     const { poseDetector } = useContext(PoseDetectorCtx);
     const canvasRef = useRef(null);
     const webcamRef = useRef(null);
@@ -129,6 +129,7 @@ const PoseDetWebcam = ({ sizeProps, styleProps }) => {
                 console.log('inferring current webcamId', deviceId);
                 if (deviceId) {
                     setWebcamId(deviceId);
+                    window.webcamIdChangeTS = Date.now();
                     console.log('clear checkCurWebcamId', checkCurWebcamId);
                     clearInterval(checkCurWebcamId);
                 }
@@ -150,7 +151,8 @@ const PoseDetWebcam = ({ sizeProps, styleProps }) => {
             const videoElement = webcamRef.current.video;
             const now = Date.now();
             const delta = now - then;
-            if (delta > interval) {
+            const webcamSetupTime = now - window.webcamIdChangeTS;
+            if (delta > interval && webcamSetupTime > 1000) {
                 then = now - (delta % interval);
                 try {
                     if (noCamError) await poseDetector
