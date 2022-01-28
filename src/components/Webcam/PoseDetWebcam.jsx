@@ -124,13 +124,8 @@ const PoseDetWebcam = ({ sizeProps, styleProps }) => {
         const checkCurWebcamId = setInterval(() => {
             if (!webcamId) {
                 const deviceId = getDeviceId();
-                console.log(
-                    'webcamId is empty', webcamId);
-                console.log('inferring current webcamId', deviceId);
                 if (deviceId) {
                     setWebcamId(deviceId);
-                    window.webcamIdChangeTS = Date.now();
-                    console.log('clear checkCurWebcamId', checkCurWebcamId);
                     clearInterval(checkCurWebcamId);
                 }
             }
