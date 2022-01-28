@@ -1,5 +1,4 @@
 import {
-    highlightTextColor,
     pageTitleStyle,
     pageTitle2Style,
     pageTitle3Style,
@@ -7,6 +6,7 @@ import {
     MBMT_TICKER,
     activeColor,
 } from "../../GlobalStyles";
+import card from "./card.png";
 import { useMoralis } from "react-moralis";
 
 const colName = 'mbmtBalance';
@@ -27,15 +27,16 @@ const activeBgStyle = {
 
 const RewardsPage = () => {
     const { user } = useMoralis();
-    const curXP = user && user.get && user.get(colName) ? user.get(colName) : 0;
+    const mbmtBalance = user && user.get && user.get(colName) ? user.get(colName) : 0;
     return (
         <div>
             <section
                 style={{
                     display: "grid",
                     gridTemplateColumns: "1fr 1fr",
-                    gridGap: "10rem",
-                    marginTop: "4rem",
+                    gridGap: "1rem",
+                    marginTop: "1rem",
+                    padding: "0rem 6rem",
                 }}>
                 <div>
                     <h1 style={{
@@ -66,7 +67,7 @@ const RewardsPage = () => {
                                 <div style={{
                                     padding: "1rem",
                                     display: "grid",
-                                    gridTemplateColumns: "1fr 2fr 2fr",
+                                    gridTemplateColumns: "1fr 3fr 3fr",
                                     gridGap: "10px",
                                     textAlign: "center",
                                 }}>
@@ -85,32 +86,56 @@ const RewardsPage = () => {
                     <div style={{
                         flexBasis: "100%",
                     }} />
-                    <div
-                        style={{
-                            ...descriptionStyle,
-                            backgroundColor: "aliceblue",
-                            paddingTop: "0.4rem",
-                            paddingBottom: "0.4rem",
-                            borderRadius: "30px",
-                            textAlign: "center",
-                            color: "black"
-                        }}>
+                    <div style={{
+                        ...descriptionStyle,
+                        backgroundColor: "aliceblue",
+                        padding: "0.4rem 0.1rem",
+                        borderRadius: "30px",
+                        textAlign: "center",
+                        color: "black",
+                        width: "80%",
+                    }}>
                         You will not be able to earn <b>$MBMT</b> with demo avatar
                     </div>
                 </div>
-                <div>
-                    <h1 style={{
-                        ...pageTitleStyle,
-                        textAlign: "center",
-                    }}>Your current balance:
-                    </h1>
+                <div
+                    style={{
+                        display: "grid",
+                        gridTemplateRows: "1fr",
+                        gridTemplateColumns: "1fr",
+                        gridTemplateAreas: "overlap",
+                    }}
+                >
                     <div style={{
-                        ...pageTitleStyle,
+                        gridArea: "overlap",
+                        alignSelf: "center",
+                        justifySelf: "center",
+                    }}>
+                        <img src={card} alt="" />
+
+                    </div>
+                    <div style={{
+                        gridArea: "overlap",
+                        alignSelf: "center",
+                        justifySelf: "center",
                         textAlign: "center",
-                    }}><span style={{
-                        color: honeyColor,
-                    }}>{curXP}</span>&nbsp;
-                        {mbmtWhite}
+                        paddingBottom: "8rem",
+                    }}>
+                        <h1 style={{
+                            ...pageTitle3Style,
+                            padding: "1rem",
+                        }}>Your current balance:
+                        </h1>
+                        <div style={{
+                            ...pageTitle2Style,
+                        }}><span style={{
+                            color: honeyColor,
+                        }}>
+                                {mbmtBalance}
+                            </span>
+                            &nbsp;
+                            {mbmtWhite}
+                        </div>
                     </div>
                 </div>
             </section>
@@ -122,6 +147,7 @@ const RewardsPage = () => {
                 marginBottom: "2rem",
                 color: "black",
                 backgroundColor: "white",
+                borderRadius: "30px",
                 padding: "1rem",
             }}>
 
