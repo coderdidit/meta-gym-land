@@ -89,12 +89,16 @@ export class FlyFitScene extends EarnableScene {
         hintTextBox.setScrollFactor(0, 0);
         hintTextBox.start("🤖", 50);
         roboTextTimeouts.push(setTimeout(() => {
+            if (!hintTextBox) return;
             hintTextBox.start(
                 "🤖 Look! it's flying tokens airdrop\n" +
                 "try to catch them all\n" +
                 "by moving your body like a BIRD"
                 , 50);
-            roboTextTimeouts.push(setTimeout(() => hintTextBox.start("🤖", 50), 10000));
+            roboTextTimeouts.push(setTimeout(() => {
+                if (!hintTextBox) return;
+                hintTextBox.start("🤖", 50)
+            }, 10000));
         }, 500));
 
         this.score = 0;
