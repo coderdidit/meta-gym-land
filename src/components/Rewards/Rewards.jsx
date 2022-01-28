@@ -18,7 +18,6 @@ const colName = 'mglXP';
 
 const RewardsPage = () => {
     const { user } = useMoralis();
-    console.log('RewardsPage user', user);
     const curXP = user && user.get && user.get(colName) ? user.get(colName) : 0;
     return (
         <div>
