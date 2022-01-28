@@ -39,15 +39,12 @@ const MiniGameCtxProvider = ({ children }) => {
 export const WebcamCtx = React.createContext();
 const WebcamCtxProvider = ({ children }) => {
   const [webcamId, setWebcamId] = useState(null);
-  const [webcamIdChangeTS, setWebcamIdChangeTS] = useState(Date.now());
   window.webcamIdChangeTS = Date.now();
 
   return (
     <WebcamCtx.Provider value={{
       webcamId,
       setWebcamId,
-      webcamIdChangeTS,
-      setWebcamIdChangeTS
     }}>
       {children}
     </WebcamCtx.Provider>

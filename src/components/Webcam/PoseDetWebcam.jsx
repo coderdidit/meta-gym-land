@@ -105,7 +105,7 @@ class PoseDetWebcamInner extends Component {
 };
 
 const PoseDetWebcam = ({ sizeProps, styleProps }) => {
-    const { webcamId, setWebcamId, webcamIdChangeTS, setWebcamIdChangeTS } = useContext(WebcamCtx);
+    const { webcamId, setWebcamId } = useContext(WebcamCtx);
     const { poseDetector } = useContext(PoseDetectorCtx);
     const canvasRef = useRef(null);
     const webcamRef = useRef(null);
