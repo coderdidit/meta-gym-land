@@ -83,16 +83,24 @@ export const descriptionStyle = {
     lineHeight: "28px",
 }
 
-export const pageTitleStyle = {
+const pageTitleStyleBase = {
     fontFamily: "Source Serif Pro",
-    fontSize: "40px",
     fontWeight: "bold",
 }
 
+export const pageTitleStyle = {
+    ...pageTitleStyleBase,
+    fontSize: "40px",
+}
+
 export const pageTitle2Style = {
-    fontFamily: "Source Serif Pro",
+    ...pageTitleStyleBase,
     fontSize: "30px",
-    fontWeight: "bold",
+}
+
+export const pageTitle3Style = {
+    ...pageTitleStyleBase,
+    fontSize: "25px",
 }
 
 export const pageTitleMidStyle = {

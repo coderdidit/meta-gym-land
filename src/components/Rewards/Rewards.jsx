@@ -2,18 +2,22 @@ import {
     highlightTextColor,
     pageTitleStyle,
     pageTitle2Style,
+    pageTitle3Style,
     descriptionStyle,
     MBMT_TICKER,
     activeColor,
 } from "../../GlobalStyles";
 import { useMoralis } from "react-moralis";
 
+const colName = 'mbmtBalance';
+const honeyColor = "#F8B60A";
+
 const mbmt = <span style={{ color: activeColor }}>{MBMT_TICKER}</span>;
 const mbmtWhite = <span style={{ color: "#FFF" }}>{MBMT_TICKER}</span>;
 const mgl = <span style={{ color: activeColor }}>$MGL</span>;
-const mbmtlong = <span style={{ color: "goldenrod" }}>Meta Body Movement Token</span>;
+const mbmtlong = <span style={{ color: honeyColor }}>Meta Body Movement Token</span>;
 const commingSoon = <span style={{}}>Comming Soon 🚀</span>;
-const colName = 'mbmtBalance';
+
 
 const activeBgStyle = {
     backgroundColor: activeColor,
@@ -36,16 +40,24 @@ const RewardsPage = () => {
                 <div>
                     <h1 style={{
                         ...pageTitleStyle,
-                    }}>Stretch To Earn {mbmt}</h1>
+                    }}>Stretch To Earn&nbsp;
+                        <span style={{ color: honeyColor }}>
+                            {MBMT_TICKER}
+                        </span>
+                    </h1>
                     <h2>Meta Body Movement Token</h2>
                     <div style={{ marginBottom: "2rem", }} />
                     <div style={{
                         flexBasis: "100%",
                     }} />
                     <div style={{
+                        ...pageTitle3Style,
+                    }}>
+                        With {mbmtlong} you will be able to:
+                    </div>
+                    <div style={{
                         ...descriptionStyle,
                     }}>
-                        <p>With {mbmtlong} you will be able to:</p>
                         <ul style={{
                             padding: "1.5rem",
                             listStyle: "square",
@@ -96,7 +108,7 @@ const RewardsPage = () => {
                         ...pageTitleStyle,
                         textAlign: "center",
                     }}><span style={{
-                        color: "gold",
+                        color: honeyColor,
                     }}>{curXP}</span>&nbsp;
                         {mbmtWhite}
                     </div>
