@@ -37,7 +37,7 @@ export class EarnableScene extends Phaser.Scene {
             )
             gettingTokensText.setOrigin(0.5).setDepth(1);
             gettingTokensText.start("🤖 Getting $MBMT...");
-            const saveMglXPResult = await usr.save();
+            await usr.save();
         }
     }
 }

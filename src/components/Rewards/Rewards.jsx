@@ -5,7 +5,6 @@ import {
     descriptionStyle,
     MBMT_TICKER,
 } from "../../GlobalStyles";
-import { Divider } from "antd";
 import { useMoralis } from "react-moralis";
 
 const mbmt = <span style={{ color: highlightTextColor }}>{MBMT_TICKER}</span>;
