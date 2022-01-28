@@ -64,17 +64,18 @@ const RewardsPage = () => {
                             listStyle: "square",
                         }}>
                             <li>Claim rewards like:
-                                <div style={{
+                                <ul style={{
                                     padding: "1rem",
                                     display: "grid",
                                     gridTemplateColumns: "1fr 3fr 3fr",
                                     gridGap: "10px",
                                     textAlign: "center",
+                                    listStyle: "none",
                                 }}>
-                                    <div style={activeBgStyle}>NFTs</div>
-                                    <div style={activeBgStyle}>Avatar upgrades</div>
-                                    <div style={activeBgStyle}>More to come</div>
-                                </div>
+                                    <li style={activeBgStyle}>NFTs</li>
+                                    <li style={activeBgStyle}>Avatar upgrades</li>
+                                    <li style={activeBgStyle}>More to come</li>
+                                </ul>
                             </li>
                             <li>
                                 Claim token to your wallet
