@@ -29,14 +29,15 @@ const RewardsPage = () => {
     const { user } = useMoralis();
     const mbmtBalance = user && user.get && user.get(colName) ? user.get(colName) : 0;
     return (
-        <div>
+        <div style={{
+            padding: "0rem 6rem",
+            marginTop: "1rem",
+        }}>
             <section
                 style={{
                     display: "grid",
                     gridTemplateColumns: "1fr 1fr",
                     gridGap: "1rem",
-                    marginTop: "1rem",
-                    padding: "0rem 6rem",
                 }}>
                 <div>
                     <h1 style={{
