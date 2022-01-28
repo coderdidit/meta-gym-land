@@ -77,12 +77,6 @@ export const HeaderRightBordersStyle = {
     backgroundColor: mainBgColor,
 }
 
-export const descriptionStyle = {
-    fontWeight: "400",
-    fontSize: "18px",
-    lineHeight: "28px",
-}
-
 const pageTitleStyleBase = {
     fontFamily: "Source Serif Pro",
     fontWeight: "bold",
@@ -98,16 +92,23 @@ export const pageTitle2Style = {
     fontSize: "30px",
 }
 
+export const pageTitleMidStyle = {
+    ...pageTitleStyleBase,
+    fontSize: "30px",
+}
+
 export const pageTitle3Style = {
     ...pageTitleStyleBase,
     fontSize: "25px",
 }
 
-export const pageTitleMidStyle = {
-    fontFamily: "Source Serif Pro",
-    fontSize: "30px",
-    fontWeight: "bold",
+export const descriptionStyle = {
+    fontWeight: "400",
+    fontSize: "18px",
+    lineHeight: "28px",
 }
+
+
 
 export const MBMT_TICKER = "$MBMT";
 
