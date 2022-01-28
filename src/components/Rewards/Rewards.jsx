@@ -164,7 +164,6 @@ const RewardsPage = () => {
                 borderRadius: "30px",
                 padding: "1rem",
             }}>
-
                 <div style={{
                     ...pageTitle2Style,
                     textAlign: "center",
