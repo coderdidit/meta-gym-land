@@ -86,15 +86,15 @@ class PoseDetWebcamInner extends Component {
                         id={"pose-det-webcam-canvas-cam-toggle-icon"}
                         onClick={() => {
                             const blackBgClass = 'black-bg';
+                            const grennClass = 'green-color';
                             const icon = document.getElementById("pose-det-webcam-canvas-cam-toggle-icon");
                             const webCamCanvas = document.getElementById("pose-det-webcam-canvas");
                             if (webCamCanvas.className !== blackBgClass) {
                                 webCamCanvas.className = blackBgClass;
-                                icon.className = 'green-color';
-                            }
-                            else {
+                                icon.className = grennClass;
+                            } else {
                                 webCamCanvas.className = "";
-                                icon.className = '';
+                                icon.className = "";
                             }
                         }}
                     />
