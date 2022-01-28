@@ -4,16 +4,22 @@ import {
     pageTitle2Style,
     descriptionStyle,
     MBMT_TICKER,
+    activeColor,
 } from "../../GlobalStyles";
 import { useMoralis } from "react-moralis";
 
-const mbmt = <span style={{ color: highlightTextColor }}>{MBMT_TICKER}</span>;
-const mgl = <span style={{ color: "gold" }}>$MGL</span>;
-
-const mbmtlong = <span style={{ color: "goldenrod" }}>{"<"}Meta Body Movement Token{">"}</span>;
-
-const commingSoon = <span style={{ color: "chocolate" }}>Comming Soon 🚀</span>;
+const mbmt = <span style={{ color: activeColor }}>{MBMT_TICKER}</span>;
+const mbmtWhite = <span style={{ color: "#FFF" }}>{MBMT_TICKER}</span>;
+const mgl = <span style={{ color: activeColor }}>$MGL</span>;
+const mbmtlong = <span style={{ color: "goldenrod" }}>Meta Body Movement Token</span>;
+const commingSoon = <span style={{}}>Comming Soon 🚀</span>;
 const colName = 'mbmtBalance';
+
+const activeBgStyle = {
+    backgroundColor: activeColor,
+    borderRadius: "30px",
+    padding: "0.3rem 0.6rem",
+}
 
 const RewardsPage = () => {
     const { user } = useMoralis();
@@ -45,14 +51,17 @@ const RewardsPage = () => {
                             listStyle: "square",
                         }}>
                             <li>Claim rewards like:
-                                <ul style={{
-                                    padding: "0.5rem 1.5rem",
-                                    listStyle: "none",
+                                <div style={{
+                                    padding: "1rem",
+                                    display: "grid",
+                                    gridTemplateColumns: "1fr 2fr 2fr",
+                                    gridGap: "10px",
+                                    textAlign: "center",
                                 }}>
-
-                                    <li>NFTs</li>
-                                    <li>Avatar upgrades</li>
-                                    <li>More to come</li></ul>
+                                    <div style={activeBgStyle}>NFTs</div>
+                                    <div style={activeBgStyle}>Avatar upgrades</div>
+                                    <div style={activeBgStyle}>More to come</div>
+                                </div>
                             </li>
                             <li>
                                 Claim token to your wallet
@@ -68,12 +77,13 @@ const RewardsPage = () => {
                         style={{
                             ...descriptionStyle,
                             backgroundColor: "aliceblue",
-                            padding: "0.4rem 0rem",
-                            borderRadius: "3px",
+                            paddingTop: "0.4rem",
+                            paddingBottom: "0.4rem",
+                            borderRadius: "30px",
                             textAlign: "center",
                             color: "black"
                         }}>
-                        <p>You will not be able to earn <b>$MBMT</b> with demo avatar</p>
+                        You will not be able to earn <b>$MBMT</b> with demo avatar
                     </div>
                 </div>
                 <div>
@@ -88,7 +98,7 @@ const RewardsPage = () => {
                     }}><span style={{
                         color: "gold",
                     }}>{curXP}</span>&nbsp;
-                        {mbmt}
+                        {mbmtWhite}
                     </div>
                 </div>
             </section>
@@ -98,6 +108,9 @@ const RewardsPage = () => {
             <section style={{
                 marginTop: "6rem",
                 marginBottom: "2rem",
+                color: "black",
+                backgroundColor: "white",
+                padding: "1rem",
             }}>
 
                 <div style={{
@@ -115,7 +128,7 @@ const RewardsPage = () => {
                 </div>
                 <div style={{
                     ...descriptionStyle,
-                    wordWrap: "break-word",
+                    textAlign: "center",
                 }}>
                     The {mbmt} token will attempt to reflect the energy that you would feel after doing a workout
                     <br />
@@ -132,7 +145,7 @@ const RewardsPage = () => {
                     they will be automatically burned<br />
                     <br />
                     This way {mbmt} will behave as an <span style={{
-                        color: "chartreuse",
+                        fontWeight: 700,
                     }}>
                         inflationary/deflationary algorithmic token</span>
                     <br /><br />
