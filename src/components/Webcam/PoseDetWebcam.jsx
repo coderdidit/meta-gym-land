@@ -4,7 +4,10 @@ import Webcam from "react-webcam";
 import { drawPose } from "./pose-drawing";
 import { updateGPoseState } from "../gpose/functions";
 import { BgColorsOutlined } from "@ant-design/icons";
+import { setWebcamBG, getWebcamBG } from "./state";
 
+const blackBgClass = 'black-bg';
+const grennClass = 'green-color';
 
 class PoseDetWebcamInner extends Component {
 
@@ -62,6 +65,7 @@ class PoseDetWebcamInner extends Component {
                     <canvas
                         ref={canvasRef}
                         id={"pose-det-webcam-canvas"}
+                        className={getWebcamBG()}
                         style={{
                             objectFit: "cover",
                             zIndex: 9,
@@ -84,9 +88,8 @@ class PoseDetWebcamInner extends Component {
                     }}>
                     <BgColorsOutlined
                         id={"pose-det-webcam-canvas-cam-toggle-icon"}
+                        className={getWebcamBG() != "" ? grennClass : ""}
                         onClick={() => {
-                            const blackBgClass = 'black-bg';
-                            const grennClass = 'green-color';
                             const icon = document.getElementById("pose-det-webcam-canvas-cam-toggle-icon");
                             const webCamCanvas = document.getElementById("pose-det-webcam-canvas");
                             if (webCamCanvas.className !== blackBgClass) {
@@ -96,6 +99,7 @@ class PoseDetWebcamInner extends Component {
                                 webCamCanvas.className = "";
                                 icon.className = "";
                             }
+                            setWebcamBG(webCamCanvas.className);
                         }}
                     />
                 </div>
