@@ -115,7 +115,7 @@ export const paddingLRHeaderFooter = {
     paddingLeft: paddingLRHeaderFooterV,
     paddingRight: paddingLRHeaderFooterV,
 }
-const paddingLRContentV = "2rem";
+const paddingLRContentV = "4rem";
 export const paddingLRContent = {
     paddingLeft: paddingLRContentV,
     paddingRight: paddingLRContentV,
