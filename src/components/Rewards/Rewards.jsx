@@ -201,7 +201,7 @@ const RewardsPage = () => {
                 color: "black",
                 backgroundColor: "white",
                 padding: "3rem 0rem",
-                width: "100vw",
+                // width: "100vw",
             }}>
                 <div style={{
                     ...pageTitle2Style,

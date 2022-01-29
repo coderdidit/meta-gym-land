@@ -35,9 +35,6 @@ const styles = {
     fontWeight: "500",
   },
   content: {
-    display: "flex",
-    flexWrap: "wrap",
-    justifyContent: "center",
     fontFamily: "Roboto, sans-serif",
     marginTop: "40px",
     marginBottom: "40px",
@@ -64,8 +61,6 @@ const styles = {
 
 const App = ({ isServerInfo }) => {
   const { isWeb3Enabled, enableWeb3, isAuthenticated, isWeb3EnableLoading, chainId } = useMoralis();
-  const LRPadding = "2rem";
-
   useEffect(() => {
     const connectorId = window.localStorage.getItem("connectorId");
     if (isAuthenticated && !isWeb3Enabled && !isWeb3EnableLoading) enableWeb3({ provider: connectorId });
@@ -78,8 +73,6 @@ const App = ({ isServerInfo }) => {
         background: "none",
         fontFamily: "Roboto, sans-serif",
         color: brightFontCol,
-        paddingLeft: LRPadding,
-        paddingRight: LRPadding,
       }}>
       <Router>
         <Header style={styles.header}>
