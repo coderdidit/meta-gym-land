@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/static/css/main.289c54cc.chunk.css",
-    "main.js": "/static/js/main.46b82804.chunk.js",
-    "main.js.map": "/static/js/main.46b82804.chunk.js.map",
+    "main.js": "/static/js/main.5013f3ae.chunk.js",
+    "main.js.map": "/static/js/main.5013f3ae.chunk.js.map",
     "polyfills-dom.js": "/static/js/polyfills-dom.17611a1e.chunk.js",
     "polyfills-dom.js.map": "/static/js/polyfills-dom.17611a1e.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.77c66fb7.js",
@@ -26,6 +26,8 @@
     "static/media/card.c6b6c4e7.png": "/static/media/card.c6b6c4e7.png",
     "static/media/how_it_works.3c4fc0b1.png": "/static/media/how_it_works.3c4fc0b1.png",
     "static/media/mgl_video_demo.caa45591.png": "/static/media/mgl_video_demo.caa45591.png",
+    "static/media/move_up2.34b48d45.png": "/static/media/move_up2.34b48d45.png",
+    "static/media/pump_the_price.3ab944d4.png": "/static/media/pump_the_price.3ab944d4.png",
     "static/media/wallet-connect.304e3277.svg": "/static/media/wallet-connect.304e3277.svg"
   },
   "entrypoints": [
@@ -33,6 +35,6 @@
     "static/css/3.a95be28f.chunk.css",
     "static/js/3.f3e0e42a.chunk.js",
     "static/css/main.289c54cc.chunk.css",
-    "static/js/main.46b82804.chunk.js"
+    "static/js/main.5013f3ae.chunk.js"
   ]
 }
