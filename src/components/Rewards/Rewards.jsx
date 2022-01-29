@@ -3,7 +3,6 @@ import {
     pageTitle2Style,
     pageTitle3Style,
     descriptionStyle,
-    pageTitleStyleBase,
     MBMT_TICKER,
     activeColor,
     BtnInfo,
@@ -11,7 +10,9 @@ import {
 import card from "./card.png";
 import dividerpng from "./divider.png";
 import { useMoralis } from "react-moralis";
-import { Button } from 'antd';
+import { Button, Popover } from 'antd';
+import React, { useState } from "react";
+
 
 const colName = 'mbmtBalance';
 const honeyColor = "#F8B60A";
@@ -44,6 +45,7 @@ const activeBgStyle = {
 
 const RewardsPage = () => {
     const { user } = useMoralis();
+    const [visible, setVisibility] = useState(false);
     const mbmtBalance = user && user.get && user.get(colName) ? user.get(colName) : 0;
     return (
         <div style={{
@@ -162,12 +164,36 @@ const RewardsPage = () => {
                             <div style={{
                                 padding: "1.5%",
                             }}>
-                                <Button style={{
-                                    ...BtnInfo,
-                                    width: "auto",
-                                }}>
-                                    Claim
-                                </Button>
+                                <Popover
+
+                                    placement="bottom"
+                                    title={
+                                        <div style={{
+                                            textAlign: "center",
+                                            padding: "2rem",
+                                            ...pageTitle3Style
+                                        }}>{commingSoon}</div>
+                                    } content={
+                                        <div style={{
+                                            textAlign: "center",
+                                            padding: "5rem",
+                                            ...descriptionStyle
+                                        }}>
+                                            <div>Join our social channels</div>
+                                            <div> to stay tuned:</div>
+                                            <div>...</div>
+                                        </div>
+                                    } trigger="click">
+                                    <Button style={{
+                                        ...BtnInfo,
+                                        width: "auto",
+                                    }}
+                                        onClick={() => setVisibility(true)}
+                                    >
+                                        Claim
+                                    </Button>
+                                </Popover>
+
                             </div>
                         </div>
                     </div>
