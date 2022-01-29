@@ -115,17 +115,19 @@ export class MatrixScene extends EarnableScene {
         hintTextBox.setDepth(1);
         hintTextBox.setScrollFactor(0, 0);
         hintTextBox.start(
-            "🤖 Hi, welcome in MetaGymLand Matrix\n\n" +
-            "would you like a RED PILL or the BLUE PILL?"
+            "🤖 Welcome in MetaGymLand Matrix\n\n" +
+            "choose\n" +
+            "RED PILL or BLUE PILL?\n" +
+            "You can fly in this room"
             ,
             50);
 
         // pills
         const redPill = this.physics.add
-            .sprite(width * .15, height * .25, PILL_RED)
+            .sprite(width * .15, height * .3, PILL_RED)
             .setName(PILL_RED);
         const bluePill = this.physics.add
-            .sprite(width * .85, height * .25, PILL_BLUE)
+            .sprite(width * .85, height * .3, PILL_BLUE)
             .setName(PILL_BLUE);
         const pillis = [redPill, bluePill];
 
@@ -157,12 +159,31 @@ export class MatrixScene extends EarnableScene {
                         "Good choice!\n\n" +
                         "NOW, join our social channels\n" +
                         "...\n" +
-                        "to dig deeper into\n" +
-                        "the RABBIT HOLE"
+                        "to see\n" +
+                        "how deep the rabbit hole goes"
                         ,
                         50);
             } else {
-                this.exit();
+                hintTextBox.start(
+                    "🤖", 50);
+                createTextBox(this,
+                    width / 2, height / 2,
+                    { wrapWidth: 280 },
+                    0xFFFEFE,
+                    highlightTextColorNum,
+                    "center", "#212125"
+                ).setOrigin(0.5)
+                    .setDepth(1).setScrollFactor(0, 0).start(
+                        "🤖 You choosed\n" +
+                        "the BLUE PILL\n\n" +
+                        "taking you back..."
+                        ,
+                        10);
+                setTimeout(() => {
+                    if (this.exit && this.scene.key === MATRIX) {
+                        this.exit();
+                    }
+                }, 2500);
             }
             pillis.forEach(i => i.destroy());
         };
