@@ -35,12 +35,13 @@ const activeBgStyle = {
     backgroundColor: activeColor,
     borderRadius: borderRadius,
     padding: "0.2rem",
-    display: "flex",
-    alignItems: "center",
-    justifyItems: "center",
-    justifyContent: "center",
-    textAlign: "center",
-    whiteSpace: "nowrap",
+    // display: "table-cell",
+    // display: "flex",
+    // alignItems: "center",
+    // justifyItems: "center",
+    // justifyContent: "center",
+    // textAlign: "center",
+    // whiteSpace: "nowrap",
 }
 
 const RewardsPage = () => {
@@ -54,7 +55,7 @@ const RewardsPage = () => {
                 style={{
                     display: "grid",
                     gridTemplateColumns: "50% 50%",
-                    gridGap: "1rem",
+                    alignItems: "start",
                     padding: "0rem 1rem",
                 }}>
                 <div style={{
@@ -86,11 +87,13 @@ const RewardsPage = () => {
                             <li>Claim rewards like:
                                 <ul style={{
                                     padding: "1rem",
+                                    display: "table-row",
                                     display: "grid",
                                     gridTemplateColumns: "1fr 2fr 2fr",
                                     gridGap: "1rem",
                                     textAlign: "center",
                                     listStyle: "none",
+                                    alignItems: "start",
                                 }}>
                                     <li style={activeBgStyle}>NFTs</li>
                                     <li style={activeBgStyle}>Avatar upgrades</li>
