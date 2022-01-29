@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { MiniGameCtx } from "index";
 import { MGLSmallLogo } from "Logos";
 import { SettingFilled, InfoCircleFilled } from "@ant-design/icons";
@@ -115,6 +115,16 @@ MiniGameInstructions.set(MATRIX, MiniGameInstructions.get(GYM_ROOM_SCENE));
 const SideMenu = () => {
     const { minigame } = useContext(MiniGameCtx);
 
+    useEffect(
+        () => {
+            const howToIco = document.getElementById("howto-menu-ico");
+            if (howToIco && howToIco.click) {
+                howToIco.click();
+            }
+        },
+        []
+    );
+
     const miniGameInstructions = () => {
         const i = MiniGameInstructions.get(minigame);
         return (<>
@@ -126,10 +136,12 @@ const SideMenu = () => {
                 title={i?.title}
                 content={i?.content}
                 trigger="click">
-                <div style={{
-                    textAlign: "center",
-                    cursor: "pointer",
-                }}>
+                <div
+                    id={"howto-menu-ico"}
+                    style={{
+                        textAlign: "center",
+                        cursor: "pointer",
+                    }}>
                     <InfoCircleFilled style={{
                         fontSize: "20px",
                         color: "#FFF",
