@@ -50,7 +50,7 @@ export class MatrixScene extends EarnableScene {
 
         // matrix
         const codeRain = {
-            width: 50,
+            width: 60,
             height: 40,
             cellWidth: 32,
             cellHeight: 32,
