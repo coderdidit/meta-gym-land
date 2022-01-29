@@ -176,7 +176,7 @@ const RewardsPage = () => {
                                     } content={
                                         <div style={{
                                             textAlign: "center",
-                                            padding: "5rem",
+                                            padding: "4rem",
                                             ...descriptionStyle
                                         }}>
                                             <div>Join our social channels</div>
