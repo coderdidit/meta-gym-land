@@ -49,11 +49,11 @@ export class MatrixScene extends EarnableScene {
         }, this);
 
         // matrix
-        var codeRain = {
+        const codeRain = {
             width: 50,
             height: 40,
-            cellWidth: 16,
-            cellHeight: 16,
+            cellWidth: 32,
+            cellHeight: 32,
             getPoints: function (quantity) {
                 var cols = (new Array(codeRain.width)).fill(0);
                 var lastCol = cols.length - 1;
@@ -72,7 +72,7 @@ export class MatrixScene extends EarnableScene {
                     row %= codeRain.height;
                     row |= 0;
 
-                    points[i] = new Phaser.Math.Vector2(16 * col, 16 * row);
+                    points[i] = new Phaser.Math.Vector2(32 * col, 32 * row);
                 }
 
                 return points;
