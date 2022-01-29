@@ -21,7 +21,9 @@ import pumpThePricePng from "./assets/images/pump_the_price.png";
 import moveForwPng from "./assets/images/move_forward.png";
 import turnLeftPng from "./assets/images/turn_left.png";
 import turnRightPng from "./assets/images/turn_right.png";
+import gravityPng from "./assets/images/gravity.png";
 
+const gravityImg = <img src={gravityPng} alt="" />;
 const moveUpImg = <img src={moveUpPng} alt="" />;
 const moveUp2Img = <img src={moveUp2Png} alt="" />;
 const moveDownImg = <img src={moveDownPng} alt="" />;
@@ -77,10 +79,7 @@ const MiniGameInstructions = new Map([
                     {moveUpImg}
                 </div>
                 <div style={{ padding: "0.3rem" }}>
-                    <span style={{ backgroundColor: "antiquewhite", padding: "0.2rem", borderRadius: "3px" }}>
-                        gravity</span>
-                    &nbsp;
-                    <span>MOVE DOWN</span>
+                    {gravityImg}
                 </div>
                 <div style={{ padding: "0.3rem" }}>
                     {moveLeftImg}
@@ -193,7 +192,7 @@ const SideMenu = () => {
             </Link>
         </div>
         <div style={{
-            marginTop: "14rem",
+            marginTop: "18rem",
         }}>
             {miniGameInstructions()}
         </div>
