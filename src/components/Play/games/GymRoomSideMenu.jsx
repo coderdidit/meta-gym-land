@@ -137,17 +137,23 @@ const SideMenu = () => {
         const i = MiniGameInstructions.get(minigame);
         return (<>
             <Popover
-            style={{
-                // textAlign: "right",
-            }}
+                style={{
+                    textAlign: "center",
+                }}
                 placement="right"
                 title={i?.title}
                 content={i?.content}
                 trigger="click">
-                <InfoCircleFilled style={{
-                    fontSize: "20px",
-                    color: "#FFF",
-                }} />
+                <div style={{
+                    textAlign: "center",
+                    cursor: "pointer",
+                }}>
+                    <InfoCircleFilled style={{
+                        fontSize: "20px",
+                        color: "#FFF",
+                    }} />
+                    how to
+                </div>
             </Popover>
         </>);
     }
@@ -165,7 +171,7 @@ const SideMenu = () => {
     >
         <div style={{
             width: "inherit",
-            marginLeft: "-5px",
+            marginLeft: "-3px",
             marginBottom: "1rem",
         }}>
             <Link to="/">
@@ -176,7 +182,9 @@ const SideMenu = () => {
                 />
             </Link>
         </div>
-        <div>
+        <div style={{
+            textAlign: "center",
+        }}>
             <Link to="/play-setup">
                 <SettingFilled style={{
                     fontSize: "22px",
