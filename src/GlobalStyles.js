@@ -108,7 +108,15 @@ export const descriptionStyle = {
     lineHeight: "28px",
 }
 
-
-
 export const MBMT_TICKER = "$MBMT";
 
+const paddingLRHeaderFooterV = "2rem";
+export const paddingLRHeaderFooter = {
+    paddingLeft: paddingLRHeaderFooterV,
+    paddingRight: paddingLRHeaderFooterV,
+}
+const paddingLRContentV = "2rem";
+export const paddingLRContent = {
+    paddingLeft: paddingLRContentV,
+    paddingRight: paddingLRContentV,
+};

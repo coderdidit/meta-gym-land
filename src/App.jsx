@@ -25,14 +25,20 @@ import PlaySetupPage from "components/Play/PlaySetupPage";
 import { ConnectWalletWarn, UseCorrectNetworkWarn } from "./components/Warrnings";
 import RewardsPage from "./components/Rewards";
 import { MainChainID } from "MglNftMetadata";
+import { paddingLRHeaderFooter } from "./GlobalStyles";
 
 const { Header } = Layout;
 
 const styles = {
-  homeLink: {
-    color: "inherit",
-    fontSize: "17px",
-    fontWeight: "500",
+  header: {
+    width: "100%",
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    fontFamily: "Roboto, sans-serif",
+    ...paddingLRHeaderFooter,
+    background: "none",
+    height: "60px",
   },
   content: {
     fontFamily: "Roboto, sans-serif",
@@ -40,20 +46,18 @@ const styles = {
     marginBottom: "40px",
     minHeight: "30vh",
   },
-  header: {
-    width: "100%",
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    fontFamily: "Roboto, sans-serif",
-    padding: 0,
-    background: "none",
-    height: "60px",
+  footer: {
+    ...paddingLRHeaderFooter,
   },
   headerRight: {
     display: "flex",
     gap: "8px",
     alignItems: "center",
+    fontSize: "17px",
+    fontWeight: "500",
+  },
+  homeLink: {
+    color: "inherit",
     fontSize: "17px",
     fontWeight: "500",
   },
@@ -147,7 +151,7 @@ const App = ({ isServerInfo }) => {
           </Switch>
         </div>
       </Router>
-      <AppFooter />
+      <AppFooter style={styles.footer} />
     </div>
   );
 };

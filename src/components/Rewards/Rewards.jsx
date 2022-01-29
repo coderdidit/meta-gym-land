@@ -6,6 +6,7 @@ import {
     MBMT_TICKER,
     activeColor,
     BtnInfo,
+    paddingLRContent,
 } from "../../GlobalStyles";
 import card from "./card.png";
 import dividerpng from "./divider.png";
@@ -54,6 +55,7 @@ const RewardsPage = () => {
                     gridTemplateColumns: "50% 50%",
                     alignItems: "start",
                     padding: "0rem 1rem",
+                    ...paddingLRContent,
                 }}>
                 <div style={{
                     padding: "1rem",

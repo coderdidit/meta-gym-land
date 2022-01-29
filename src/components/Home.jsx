@@ -5,7 +5,8 @@ import {
   brightFontCol,
   pageTitleStyle,
   pageTitle2Style,
-  descriptionStyle
+  descriptionStyle,
+  paddingLRContent,
 } from "GlobalStyles";
 import { Link } from "react-router-dom";
 import { BtnPrimary, BtnInfo } from "../GlobalStyles";
@@ -36,7 +37,7 @@ export default function Home() {
   return (
     <div
       style={{
-
+        ...paddingLRContent,
       }}
     >
       <section style={{
