@@ -122,7 +122,7 @@ const SideMenu = () => {
                 style={{
                     textAlign: "center",
                 }}
-                placement="right"
+                placement="topRight"
                 title={i?.title}
                 content={i?.content}
                 trigger="click">
@@ -175,7 +175,7 @@ const SideMenu = () => {
             </Link>
         </div>
         <div style={{
-            marginTop: "18rem",
+            marginTop: "2rem",
         }}>
             {miniGameInstructions()}
         </div>
