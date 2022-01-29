@@ -43,9 +43,10 @@ export default function Home() {
       <section style={{
         display: "grid",
         gridTemplateColumns: "1fr 1fr",
+        paddingLeft: "6rem",
+        paddingRight: "6rem",
       }}>
         <div style={{
-          padding: "2rem 1rem",
         }}>
           <div style={{
             ...styles.titleText,
@@ -55,7 +56,6 @@ export default function Home() {
           </div>
           <div style={{
             ...styles.text,
-            paddingTop: "1rem",
           }}>
             Follow steps below, have fun and get fit!
           </div>

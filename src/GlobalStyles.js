@@ -87,6 +87,11 @@ export const pageTitleStyle = {
     fontSize: "40px",
 }
 
+export const pageTitle35Style = {
+    ...pageTitleStyleBase,
+    fontSize: "35px",
+}
+
 export const pageTitle2Style = {
     ...pageTitleStyleBase,
     fontSize: "30px",
@@ -100,6 +105,11 @@ export const pageTitleMidStyle = {
 export const pageTitle3Style = {
     ...pageTitleStyleBase,
     fontSize: "25px",
+}
+
+export const pageTitle4Style = {
+    ...pageTitleStyleBase,
+    fontSize: "20px",
 }
 
 export const descriptionStyle = {
