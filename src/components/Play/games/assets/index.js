@@ -13,10 +13,22 @@ export const RED_WOJAK = 'red_wojak';
 export const GREEN_WOJAK = 'green_wojak';
 export const GYM_ROOM_BG = 'sky';
 export const FONT = 'font';
+export const PILL_BLUE = 'pill_blue';
+export const PILL_RED = 'pill_red';
 
 
 // Save all in game assets in the public folder
 export const assets = [
+  {
+    key: PILL_BLUE,
+    src: `assets/images/${PILL_BLUE}.png`,
+    type: 'IMAGE',
+  },
+  {
+    key: PILL_RED,
+    src: `assets/images/${PILL_RED}.png`,
+    type: 'IMAGE',
+  },
   {
     key: GYM_ROOM_BG,
     src: `assets/images/${GYM_ROOM_BG}.png`,

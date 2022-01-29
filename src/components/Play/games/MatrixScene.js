@@ -4,6 +4,8 @@ import { Player } from "./objects";
 import { PLAYER_KEY, PLAYER_SCALE, GYM_ROOM_SCENE, MATRIX } from "./shared";
 import {
     FONT,
+    PILL_BLUE,
+    PILL_RED,
 } from "./assets";
 import { createTextBox } from "./utils/text";
 import {
@@ -92,6 +94,14 @@ export class MatrixScene extends EarnableScene {
             tint: 0x0066ff00
         });
 
+        // pills
+        const redPill = this.physics.add
+            .sprite(width * .15, height * .2, PILL_RED)
+            .setName(PILL_RED);
+        const bluePill = this.physics.add
+            .sprite(width * .85, height * .2, PILL_BLUE)
+            .setName(PILL_BLUE);
+        const pillis = [redPill, bluePill];
 
         // player
         this.player = new Player({
@@ -104,7 +114,11 @@ export class MatrixScene extends EarnableScene {
         this.player.setScale(PLAYER_SCALE);
         this.player.setDepth(1);
         this.player.body.setCollideWorldBounds(true);
-
+        const onCollide = (avatar, item) => {
+            alert(item.name);
+            pillis.forEach(i => i.destroy());
+        };
+        this.physics.add.collider(this.player, pillis, onCollide, null, this);
     }
 
     update(time, delta) {
