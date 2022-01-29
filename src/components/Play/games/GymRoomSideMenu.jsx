@@ -12,10 +12,13 @@ import {
     CHART_SQUATS,
     MATRIX
 } from "./shared";
+import moveDownPng from "./assets/images/move_down.png";
+
+const moveDownImg = <img src={moveDownPng} alt="" />
 
 const MiniGameInstructions = new Map([
     [GYM_ROOM_SCENE, {
-        title: "Gym room", content: (
+        title: "MetaGym room", content: (
             <>
                 <div style={{ padding: "0.3rem" }}>
                     <span style={{ backgroundColor: "aqua", padding: "0.2rem", borderRadius: "3px" }}>
@@ -26,10 +29,7 @@ const MiniGameInstructions = new Map([
                     <span style={{ color: "crimson" }}>MOVE UP</span>
                 </div>
                 <div style={{ padding: "0.3rem" }}>
-                    <span style={{ backgroundColor: "antiquewhite", padding: "0.2rem", borderRadius: "3px" }}>
-                        left arm up</span>
-                    &nbsp;
-                    <span style={{ color: "blue" }}>MOVE DOWN</span>
+                    {moveDownImg}
                 </div>
                 <div style={{ padding: "0.3rem" }}>
                     <span style={{ backgroundColor: "aqua", padding: "0.2rem", borderRadius: "3px" }}>
