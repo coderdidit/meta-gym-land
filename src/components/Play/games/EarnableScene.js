@@ -10,6 +10,8 @@ const columnName = 'mbmtBalance';
 
 export class EarnableScene extends Phaser.Scene {
     gameUser() {
+        // add refresh data logic
+        // same in rewards page
         return this.game.registry.values?.avatar?.user;
     }
 
