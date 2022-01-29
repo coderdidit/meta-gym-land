@@ -3,16 +3,8 @@ import { getGameWidth, getGameHeight } from "./helpers";
 import { Player } from "./objects";
 import { PLAYER_KEY, PLAYER_SCALE, GYM_ROOM_SCENE, MATRIX } from "./shared";
 import {
-    BTC,
-    AIRPLANE,
+    FONT,
 } from "./assets";
-import { createTextBox } from "./utils/text";
-import party from "party-js";
-import * as gstate from "../../gpose/state";
-import * as gpose from "../../gpose/pose";
-import {
-    mainBgColor,
-} from "../../../GlobalStyles";
 import { EarnableScene } from './EarnableScene';
 
 
@@ -52,9 +44,52 @@ export class MatrixScene extends EarnableScene {
             }
         }, this);
 
+        // matrix
+        const codeRain = {
+            width: 50,
+            height: 40,
+            cellWidth: 16,
+            cellHeight: 16,
+            getPoints: function (quantity) {
+                const cols = (new Array(codeRain.width)).fill(0);
+                const lastCol = cols.length - 1;
+                const Between = Phaser.Math.Between;
+                const RND = Phaser.Math.RND;
+                const points = [];
 
-         // player
-         this.player = new Player({
+                for (let i = 0; i < quantity; i++) {
+                    const col = Between(0, lastCol);
+                    const row = (cols[col] += 1);
+
+                    if (RND.frac() < 0.01) {
+                        row *= RND.frac();
+                    }
+
+                    row %= codeRain.height;
+                    row |= 0;
+
+                    points[i] = new Phaser.Math.Vector2(16 * col, 16 * row);
+                }
+
+                return points;
+            }
+        };
+
+        this.add.particles(FONT).createEmitter({
+            alpha: { start: 1, end: 0.25, ease: 'Expo.easeOut' },
+            angle: 0,
+            blendMode: 'ADD',
+            emitZone: { source: codeRain, type: 'edge', quantity: 2000 },
+            frame: Phaser.Utils.Array.NumberArray(8, 58),
+            frequency: 100,
+            lifespan: 6000,
+            quantity: 25,
+            scale: -0.5,
+            tint: 0x0066ff00
+        });
+
+        // player
+        this.player = new Player({
             scene: this,
             x: Phaser.Math.Between(width * 0.1,
                 this.physics.world.bounds.width - 80),

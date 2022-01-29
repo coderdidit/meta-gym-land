@@ -11,8 +11,8 @@ export const PUMP_OPEN = 'pump_open';
 export const PUMP_CLOSED = 'pump_closed';
 export const RED_WOJAK = 'red_wojak';
 export const GREEN_WOJAK = 'green_wojak';
-
 export const GYM_ROOM_BG = 'sky';
+export const FONT = 'font';
 
 
 // Save all in game assets in the public folder
@@ -66,5 +66,10 @@ export const assets = [
     key: GYM_ROOM_TILESET_V2,
     src: `assets/tilemap_tiles/${GYM_ROOM_TILESET_V2}.png`,
     type: 'TILEMAP_TILES',
+  },
+  {
+    key: FONT,
+    src: `assets/fonts/${FONT}.png`,
+    type: 'SPRITESHEET',
   },
 ];
