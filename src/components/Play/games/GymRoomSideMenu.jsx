@@ -17,12 +17,21 @@ import moveUpPng from "./assets/images/move_up.png";
 import moveUp2Png from "./assets/images/move_up2.png";
 import moveLeftPng from "./assets/images/move_left.png";
 import moveRightPng from "./assets/images/move_right.png";
+import pumpThePricePng from "./assets/images/pump_the_price.png";
+import moveForwPng from "./assets/images/move_forward.png";
+import turnLeftPng from "./assets/images/turn_left.png";
+import turnRightPng from "./assets/images/turn_right.png";
 
 const moveUpImg = <img src={moveUpPng} alt="" />;
 const moveUp2Img = <img src={moveUp2Png} alt="" />;
 const moveDownImg = <img src={moveDownPng} alt="" />;
 const moveLeftImg = <img src={moveLeftPng} alt="" />;
 const moveRightImg = <img src={moveRightPng} alt="" />;
+const pumpThePriceImg = <img src={pumpThePricePng} alt="" />;
+
+const moveForwImg = <img src={moveForwPng} alt="" />;
+const turnLeftImg = <img src={turnLeftPng} alt="" />;
+const turnRightImg = <img src={turnRightPng} alt="" />;
 
 const beCreative = <div style={{ padding: "0.3rem" }}>
     <hr />
@@ -91,13 +100,13 @@ const MiniGameInstructions = new Map([
             </>), content: (
                 <>
                     <div style={{ padding: "0.3rem" }}>
-                        {moveUpImg}
+                        {moveForwImg}
                     </div>
                     <div style={{ padding: "0.3rem" }}>
-                        {moveLeftImg}
+                        {turnLeftImg}
                     </div>
                     <div style={{ padding: "0.3rem" }}>
-                        {moveRightImg}
+                        {turnRightImg}
                     </div>
                     {beCreative}
                 </>
@@ -111,15 +120,7 @@ const MiniGameInstructions = new Map([
             </>), content: (
                 <>
                     <div style={{ padding: "0.3rem" }}>
-                        <span style={{ backgroundColor: "antiquewhite", padding: "0.2rem", borderRadius: "3px" }}>
-                            do squat</span>&nbsp;
-                        <span style={{ color: "crimson" }}>PUMP THE PRICE UP</span>
-                        <div style={{ padding: "0.3rem" }}>
-                            <span style={{ backgroundColor: "aqua", padding: "0.2rem", borderRadius: "3px" }}>
-                                do nothing</span>
-                            &nbsp;
-                            <span style={{ color: "crimson" }}>PRICE WIL GO DOWN</span>
-                        </div>
+                        {pumpThePriceImg}
                     </div>
                     {beCreative}
                 </>
@@ -135,7 +136,11 @@ const SideMenu = () => {
     const miniGameInstructions = () => {
         const i = MiniGameInstructions.get(minigame);
         return (<>
-            <Popover placement="right"
+            <Popover
+            style={{
+                // textAlign: "right",
+            }}
+                placement="right"
                 title={i?.title}
                 content={i?.content}
                 trigger="click">
