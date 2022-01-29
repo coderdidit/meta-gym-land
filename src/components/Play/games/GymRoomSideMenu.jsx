@@ -104,6 +104,7 @@ const MiniGameInstructions = new Map([
             </>), content: (
                 <>
                     {pumpThePriceImg}
+                    Do squats Or Both arms up 
                     {beCreative}
                 </>
             )
