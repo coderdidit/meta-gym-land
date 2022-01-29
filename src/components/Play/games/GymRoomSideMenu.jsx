@@ -23,17 +23,24 @@ import turnLeftPng from "./assets/images/turn_left.png";
 import turnRightPng from "./assets/images/turn_right.png";
 import gravityPng from "./assets/images/gravity.png";
 
-const gravityImg = <img src={gravityPng} alt="" />;
-const moveUpImg = <img src={moveUpPng} alt="" />;
-const moveUp2Img = <img src={moveUp2Png} alt="" />;
-const moveDownImg = <img src={moveDownPng} alt="" />;
-const moveLeftImg = <img src={moveLeftPng} alt="" />;
-const moveRightImg = <img src={moveRightPng} alt="" />;
-const pumpThePriceImg = <img src={pumpThePricePng} alt="" />;
+const imgInDiv = (png) => {
+    return (
+        <div style={{ padding: "0.3rem" }}>
+            <img src={png} alt="" />
+        </div>);
+}
 
-const moveForwImg = <img src={moveForwPng} alt="" />;
-const turnLeftImg = <img src={turnLeftPng} alt="" />;
-const turnRightImg = <img src={turnRightPng} alt="" />;
+const gravityImg = imgInDiv(gravityPng);
+const moveUpImg = imgInDiv(moveUpPng);
+const moveUp2Img = imgInDiv(moveUp2Png);
+const moveDownImg = imgInDiv(moveDownPng);
+const moveLeftImg = imgInDiv(moveLeftPng);
+const moveRightImg = imgInDiv(moveRightPng);
+const pumpThePriceImg = imgInDiv(pumpThePricePng);
+
+const moveForwImg = imgInDiv(moveForwPng);
+const turnLeftImg = imgInDiv(turnLeftPng);
+const turnRightImg = imgInDiv(turnRightPng);
 
 const beCreative = <div style={{ padding: "0.3rem" }}>
     <hr />
@@ -51,18 +58,10 @@ const MiniGameInstructions = new Map([
                 <p><b>MetaGym room</b></p>
             </>), content: (
                 <>
-                    <div style={{ padding: "0.3rem" }}>
-                        {moveUp2Img}
-                    </div>
-                    <div style={{ padding: "0.3rem" }}>
-                        {moveDownImg}
-                    </div>
-                    <div style={{ padding: "0.3rem" }}>
-                        {moveLeftImg}
-                    </div>
-                    <div style={{ padding: "0.3rem" }}>
-                        {moveRightImg}
-                    </div>
+                    {moveUp2Img}
+                    {moveDownImg}
+                    {moveLeftImg}
+                    {moveRightImg}
                     {beCreative}
                 </>
             )
@@ -75,18 +74,10 @@ const MiniGameInstructions = new Map([
             </>)
         , content: (
             <>
-                <div style={{ padding: "0.3rem" }}>
-                    {moveUpImg}
-                </div>
-                <div style={{ padding: "0.3rem" }}>
-                    {gravityImg}
-                </div>
-                <div style={{ padding: "0.3rem" }}>
-                    {moveLeftImg}
-                </div>
-                <div style={{ padding: "0.3rem" }}>
-                    {moveRightImg}
-                </div>
+                {moveUpImg}
+                {gravityImg}
+                {moveLeftImg}
+                {moveRightImg}
                 {beCreative}
             </>
         )
@@ -98,15 +89,9 @@ const MiniGameInstructions = new Map([
                 <p><b>Fly fit</b></p>
             </>), content: (
                 <>
-                    <div style={{ padding: "0.3rem" }}>
-                        {moveForwImg}
-                    </div>
-                    <div style={{ padding: "0.3rem" }}>
-                        {turnLeftImg}
-                    </div>
-                    <div style={{ padding: "0.3rem" }}>
-                        {turnRightImg}
-                    </div>
+                    {moveForwImg}
+                    {turnLeftImg}
+                    {turnRightImg}
                     {beCreative}
                 </>
             )
@@ -118,9 +103,7 @@ const MiniGameInstructions = new Map([
                 <p><b>Chart squats</b></p>
             </>), content: (
                 <>
-                    <div style={{ padding: "0.3rem" }}>
-                        {pumpThePriceImg}
-                    </div>
+                    {pumpThePriceImg}
                     {beCreative}
                 </>
             )
