@@ -5,6 +5,10 @@ import { PLAYER_KEY, PLAYER_SCALE, GYM_ROOM_SCENE, MATRIX } from "./shared";
 import {
     FONT,
 } from "./assets";
+import { createTextBox } from "./utils/text";
+import {
+    mainBgColor,
+} from "../../../GlobalStyles";
 import { EarnableScene } from './EarnableScene';
 
 
@@ -45,21 +49,21 @@ export class MatrixScene extends EarnableScene {
         }, this);
 
         // matrix
-        const codeRain = {
+        var codeRain = {
             width: 50,
             height: 40,
             cellWidth: 16,
             cellHeight: 16,
             getPoints: function (quantity) {
-                const cols = (new Array(codeRain.width)).fill(0);
-                const lastCol = cols.length - 1;
-                const Between = Phaser.Math.Between;
-                const RND = Phaser.Math.RND;
-                const points = [];
+                var cols = (new Array(codeRain.width)).fill(0);
+                var lastCol = cols.length - 1;
+                var Between = Phaser.Math.Between;
+                var RND = Phaser.Math.RND;
+                var points = [];
 
-                for (let i = 0; i < quantity; i++) {
-                    const col = Between(0, lastCol);
-                    const row = (cols[col] += 1);
+                for (var i = 0; i < quantity; i++) {
+                    var col = Between(0, lastCol);
+                    var row = (cols[col] += 1);
 
                     if (RND.frac() < 0.01) {
                         row *= RND.frac();
@@ -87,6 +91,7 @@ export class MatrixScene extends EarnableScene {
             scale: -0.5,
             tint: 0x0066ff00
         });
+
 
         // player
         this.player = new Player({

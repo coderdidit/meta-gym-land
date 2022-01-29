@@ -71,5 +71,6 @@ export const assets = [
     key: FONT,
     src: `assets/fonts/${FONT}.png`,
     type: 'SPRITESHEET',
+    data: { frameWidth: 32, frameHeight: 25 },
   },
 ];
