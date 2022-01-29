@@ -65,6 +65,7 @@ const RewardsPage = () => {
                         <div>
                             <h1 style={{
                                 ...pageTitle2Style,
+                                padding: "0.5rem 0rem",
                             }}>Stretch To Earn&nbsp;
                                 <span style={{ color: honeyColor }}>
                                     {MBMT_TICKER}
