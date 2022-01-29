@@ -142,7 +142,7 @@ const RewardsPage = () => {
                         }}><span style={{
                             color: honeyColor,
                         }}>
-                                {mbmtBalance}
+                                {mbmtBalance.toFixed(4)}
                             </span>
                             &nbsp;
                             {mbmtWhite}
