@@ -33,7 +33,7 @@ const divider = (
 const activeBgStyle = {
     backgroundColor: activeColor,
     borderRadius: "30px",
-    padding: "0.3rem 0.6rem",
+    padding: "5px",
 }
 
 const RewardsPage = () => {
@@ -51,18 +51,17 @@ const RewardsPage = () => {
                     gridGap: "1rem",
                 }}>
                 <div>
-                    <h1 style={{
-                        ...pageTitleStyle,
-                    }}>Stretch To Earn&nbsp;
-                        <span style={{ color: honeyColor }}>
-                            {MBMT_TICKER}
-                        </span>
-                    </h1>
-                    <h2>Meta Body Movement Token</h2>
-                    <div style={{ marginBottom: "2rem", }} />
-                    <div style={{
-                        flexBasis: "100%",
-                    }} />
+                    <div>
+                        <h1 style={{
+                            ...pageTitleStyle,
+                        }}>Stretch To Earn&nbsp;
+                            <span style={{ color: honeyColor }}>
+                                {MBMT_TICKER}
+                            </span>
+                        </h1>
+                        <h2>Meta Body Movement Token</h2>
+                        <div style={{ marginBottom: "2rem", }} />
+                    </div>
                     <div style={{
                         ...pageTitle3Style,
                     }}>
@@ -72,15 +71,15 @@ const RewardsPage = () => {
                         ...descriptionStyle,
                     }}>
                         <ul style={{
-                            padding: "1.5rem",
+                            padding: "1rem",
                             listStyle: "square",
                         }}>
                             <li>Claim rewards like:
                                 <ul style={{
                                     padding: "1rem",
                                     display: "grid",
-                                    gridTemplateColumns: "1fr 3fr 3fr",
-                                    gridGap: "10px",
+                                    gridTemplateColumns: "1fr 2fr 2fr",
+                                    gridGap: "1rem",
                                     textAlign: "center",
                                     listStyle: "none",
                                 }}>
@@ -96,9 +95,7 @@ const RewardsPage = () => {
 
                         </ul>
                     </div>
-                    <div style={{
-                        flexBasis: "100%",
-                    }} />
+
                     <div style={{
                         ...descriptionStyle,
                         backgroundColor: "aliceblue",
@@ -153,16 +150,14 @@ const RewardsPage = () => {
                     </div>
                 </div>
             </section>
-            <div style={{
-                flexBasis: "100%",
-            }} />
+            {/* desc */}
             <section style={{
-                marginTop: "6rem",
+                marginTop: "3rem",
                 marginBottom: "2rem",
                 color: "black",
                 backgroundColor: "white",
                 borderRadius: "30px",
-                padding: "1rem",
+                padding: "3rem 0rem",
             }}>
                 <div style={{
                     ...pageTitle2Style,
