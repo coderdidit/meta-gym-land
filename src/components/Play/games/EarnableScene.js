@@ -22,7 +22,7 @@ export class EarnableScene extends Phaser.Scene {
         const inMiniGameScore = this.score;
         const usr = this.gameUser();
         if (usr && usr.set && usr.get) {
-            const xpSoFar = usr.get(columnName);
+            const xpSoFar = usr.get(columnName) || 0;
             const inMiniGameXP = inMiniGameScore * 0.1;
             const newXP = xpSoFar + inMiniGameXP;
             usr.set(columnName, newXP);

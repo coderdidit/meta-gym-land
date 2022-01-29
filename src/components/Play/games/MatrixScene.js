@@ -109,8 +109,9 @@ export class MatrixScene extends EarnableScene {
         const hintTextBox = createTextBox(this,
             (width / 2) + width / 4, height * 0.015,
             { wrapWidth: 280 },
-            mainBgColorNum,
-            highlightTextColorNum
+            0xFFFEFE,
+            highlightTextColorNum,
+            "center", "#212125"
         );
         hintTextBox.setDepth(1);
         hintTextBox.setScrollFactor(0, 0);
@@ -155,7 +156,7 @@ export class MatrixScene extends EarnableScene {
                     "center", "#63E778"
                 ).setOrigin(0.5)
                     .setDepth(1).setScrollFactor(0, 0).start(
-                        "🤖 You choosed the RED PILL\n" +
+                        "🤖 You have chosen the RED PILL\n" +
                         "Good choice!\n\n" +
                         "NOW, join our social channels\n" +
                         "...\n" +
@@ -174,7 +175,7 @@ export class MatrixScene extends EarnableScene {
                     "center", "#212125"
                 ).setOrigin(0.5)
                     .setDepth(1).setScrollFactor(0, 0).start(
-                        "🤖 You choosed\n" +
+                        "🤖 You have chosen\n" +
                         "the BLUE PILL\n\n" +
                         "taking you back..."
                         ,
@@ -183,7 +184,7 @@ export class MatrixScene extends EarnableScene {
                     if (this.exit && this.scene.key === MATRIX) {
                         this.exit();
                     }
-                }, 2500);
+                }, 3500);
             }
             pillis.forEach(i => i.destroy());
         };
