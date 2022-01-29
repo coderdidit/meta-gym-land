@@ -21,6 +21,8 @@ const PlaySetupPage = () => {
 
     return (
         <div style={{
+            display: "grid",
+            placeItems: "center",
             marginBottom: "6rem",
             ...paddingLRContent,
         }}>
