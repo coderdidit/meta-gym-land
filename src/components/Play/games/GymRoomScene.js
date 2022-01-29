@@ -68,7 +68,7 @@ export class GymRoomScene extends EarnableScene {
             this.player.y,
           )
           this.game.registry.values?.setMinigame(sceneToGoOnXclick);
-          this.scene.start('matrix');
+          this.scene.start(sceneToGoOnXclick);
         }
       },
       this
