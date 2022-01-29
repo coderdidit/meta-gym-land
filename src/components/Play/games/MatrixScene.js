@@ -96,7 +96,7 @@ export class MatrixScene extends EarnableScene {
         });
 
         createTextBox(this,
-            width * 0.05, height * 0.04,
+            width * 0.05, height * 0.015,
             { wrapWidth: 280 },
             mainBgColorNum,
             highlightTextColorNum
