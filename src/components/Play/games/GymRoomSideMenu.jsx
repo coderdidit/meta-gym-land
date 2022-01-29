@@ -13,72 +13,70 @@ import {
     MATRIX
 } from "./shared";
 import moveDownPng from "./assets/images/move_down.png";
+import moveUpPng from "./assets/images/move_up.png";
+import moveUp2Png from "./assets/images/move_up2.png";
+import moveLeftPng from "./assets/images/move_left.png";
+import moveRightPng from "./assets/images/move_right.png";
 
-const moveDownImg = <img src={moveDownPng} alt="" />
+const moveUpImg = <img src={moveUpPng} alt="" />;
+const moveUp2Img = <img src={moveUp2Png} alt="" />;
+const moveDownImg = <img src={moveDownPng} alt="" />;
+const moveLeftImg = <img src={moveLeftPng} alt="" />;
+const moveRightImg = <img src={moveRightPng} alt="" />;
+
 
 const MiniGameInstructions = new Map([
     [GYM_ROOM_SCENE, {
-        title: "MetaGym room", content: (
+        title: (
             <>
-                <div style={{ padding: "0.3rem" }}>
-                    <span style={{ backgroundColor: "aqua", padding: "0.2rem", borderRadius: "3px" }}>
-                        right arm up</span>
-                    &nbsp;|&nbsp;
-                    <span style={{ backgroundColor: "antiquewhite", padding: "0.2rem", borderRadius: "3px" }}>
-                        both arms up</span>&nbsp;
-                    <span style={{ color: "crimson" }}>MOVE UP</span>
-                </div>
-                <div style={{ padding: "0.3rem" }}>
-                    {moveDownImg}
-                </div>
-                <div style={{ padding: "0.3rem" }}>
-                    <span style={{ backgroundColor: "aqua", padding: "0.2rem", borderRadius: "3px" }}>
-                        tilt your head to left</span>
-                    &nbsp;
-                    <span style={{ color: "crimson" }}>MOVE LEFT</span>
-                </div>
-                <div style={{ padding: "0.3rem" }}>
-                    <span style={{ backgroundColor: "antiquewhite", padding: "0.2rem", borderRadius: "3px" }}>
-                        tilt your head to right</span>
-                    &nbsp;
-                    <span style={{ color: "blue" }}>MOVE RIGHT</span>
-                </div>
-                <div style={{ padding: "0.3rem" }}>
-                    Be creative!<br />
-                    Other simmilar moves will workl as well
-                </div>
-            </>
-        )
+                <p>How to play</p>
+                <p><b>MetaGym room</b></p>
+            </>), content: (
+                <>
+                    <div style={{ padding: "0.3rem" }}>
+                        {moveUp2Img}
+                    </div>
+                    <div style={{ padding: "0.3rem" }}>
+                        {moveDownImg}
+                    </div>
+                    <div style={{ padding: "0.3rem" }}>
+                        {moveLeftImg}
+                    </div>
+                    <div style={{ padding: "0.3rem" }}>
+                        {moveRightImg}
+                    </div>
+                    <hr />
+                    <div style={{ padding: "0.3rem" }}>
+                        <div><b>Be creative!</b></div>
+                        <div>Other simmilar moves</div>
+                        <div>will workl as well</div>
+                    </div>
+                </>
+            )
     }],
     [SPACE_STRETCH_SCENE, {
         title: "Space stretch", content: (
             <>
                 <div style={{ padding: "0.3rem" }}>
-                    <span style={{ backgroundColor: "antiquewhite", padding: "0.2rem", borderRadius: "3px" }}>
-                        both arms up</span>&nbsp;
-                    <span style={{ color: "crimson" }}>MOVE UP</span>
+                    {moveUpImg}
                 </div>
                 <div style={{ padding: "0.3rem" }}>
                     <span style={{ backgroundColor: "antiquewhite", padding: "0.2rem", borderRadius: "3px" }}>
                         gravity</span>
                     &nbsp;
-                    <span style={{ color: "blue" }}>MOVE DOWN</span>
+                    <span>MOVE DOWN</span>
                 </div>
                 <div style={{ padding: "0.3rem" }}>
-                    <span style={{ backgroundColor: "aqua", padding: "0.2rem", borderRadius: "3px" }}>
-                        tilt your head to left</span>
-                    &nbsp;
-                    <span style={{ color: "crimson" }}>MOVE LEFT</span>
+                    {moveLeftImg}
                 </div>
                 <div style={{ padding: "0.3rem" }}>
-                    <span style={{ backgroundColor: "antiquewhite", padding: "0.2rem", borderRadius: "3px" }}>
-                        tilt your head to right</span>
-                    &nbsp;
-                    <span style={{ color: "blue" }}>MOVE RIGHT</span>
+                    {moveRightImg}
                 </div>
+                <hr />
                 <div style={{ padding: "0.3rem" }}>
-                    Be creative!<br />
-                    Other simmilar moves will workl as well
+                    <div><b>Be creative!</b></div>
+                    <div>Other simmilar moves</div>
+                    <div>will workl as well</div>
                 </div>
             </>
         )
@@ -134,7 +132,7 @@ MiniGameInstructions.set(MATRIX, MiniGameInstructions.get(GYM_ROOM_SCENE));
 const SideMenu = () => {
     const { minigame } = useContext(MiniGameCtx);
 
-    const miniGameInstroctions = () => {
+    const miniGameInstructions = () => {
         const i = MiniGameInstructions.get(minigame);
         return (<>
             <Popover placement="right"
@@ -182,9 +180,9 @@ const SideMenu = () => {
             </Link>
         </div>
         <div style={{
-            marginTop: "7rem",
+            marginTop: "14rem",
         }}>
-            {miniGameInstroctions()}
+            {miniGameInstructions()}
         </div>
     </div>);
 }
