@@ -3,7 +3,7 @@ import {
     Telegram,
     Twitter,
     Newsletter
-} from "../SocialLinks";
+} from "../SocialLinksCfg";
 import { Button } from 'antd';
 import { BtnPrimary, BtnInfo, pageTitleStyle } from "../GlobalStyles";
 

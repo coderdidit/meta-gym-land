@@ -15,7 +15,7 @@ import howItWorksImg from "./assets/how_it_works.png";
 import { SocialsComponent } from "./SocialsPage";
 import {
   Newsletter
-} from "../SocialLinks";
+} from "../SocialLinksCfg";
 
 const styles = {
   homeGlobal: {
