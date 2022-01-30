@@ -152,7 +152,7 @@ export class MatrixScene extends EarnableScene {
                     width / 2, height / 2,
                     { wrapWidth: 280 },
                     0x010000,
-                    0x3B6A59,
+                    0x06FF00,
                     "center", "#63E778"
                 ).setOrigin(0.5)
                     .setDepth(1).setScrollFactor(0, 0).start(
