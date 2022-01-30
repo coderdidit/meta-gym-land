@@ -9,15 +9,9 @@ import { BtnPrimary, BtnInfo, pageTitleStyle } from "../GlobalStyles";
 
 const btnsPadding = "0.5rem";
 
-export const SocialsComponent = () => {
+export const SocialsLinks = () => {
     return (
-        <div>
-            <div style={{
-                ...pageTitleStyle,
-                paddingBottom: "2rem"
-            }}>
-                Join MetaGymLand community
-            </div>
+        <>
             <div style={{
                 padding: btnsPadding,
             }}>
@@ -65,6 +59,20 @@ export const SocialsComponent = () => {
                     <a href={Newsletter} target="_blank" class="button contact w-button">Sing up to newsletter</a>
                 </Button>
             </div>
+        </>
+    );
+}
+
+export const SocialsComponent = () => {
+    return (
+        <div>
+            <div style={{
+                ...pageTitleStyle,
+                paddingBottom: "2rem"
+            }}>
+                Join MetaGymLand community
+            </div>
+            <SocialsLinks />
         </div>
     );
 }
