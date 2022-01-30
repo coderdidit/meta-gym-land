@@ -14,8 +14,8 @@ import mglVideoDemoImg from "./assets/mgl_video_demo.png";
 import howItWorksImg from "./assets/how_it_works.png";
 import { SocialsComponent } from "./SocialsPage";
 import {
-  Newsletter
-} from "../SocialLinksCfg";
+  MGLSmallLogo
+} from "../Logos";
 
 const styles = {
   homeGlobal: {
@@ -155,11 +155,21 @@ export default function Home() {
             textAlign: "center",
             fontSize: "18px",
           }}>
-            <span style={{
-              opacity: 0.2,
-            }}>contact:</span>
-            &nbsp;&nbsp;
-            <span>coderdidit@gmail.com</span>
+            <MGLSmallLogo
+              width={"25"}
+              height={"25"}
+              viewBox={"0 0 16 16"}
+            />
+            <div style={{
+              opacity: 0.8,
+            }}>
+              <a style={{
+                textDecoration: "none",
+                color: brightFontCol,
+              }}
+                href="mailto:coderdidit@gmail.com">coderdidit@gmail.com</a>
+            </div>
+
           </div>
         </div>
       </section>
