@@ -186,7 +186,7 @@ const RewardsPage = () => {
                                                 ...descriptionStyle
                                             }}>
                                                 <h2>Join MetaGymLand community</h2>
-                                                <div> and stay tuned</div>
+                                                <div> And stay tuned</div>
                                                 <div style={{
                                                     paddingTop: "1rem",
                                                 }}>
