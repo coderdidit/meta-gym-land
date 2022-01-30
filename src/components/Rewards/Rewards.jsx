@@ -13,6 +13,11 @@ import card from "./card.png";
 import dividerpng from "./divider.png";
 import { useMoralis } from "react-moralis";
 import { Button, Popover } from 'antd';
+import {
+    Discord,
+    Telegram,
+    Twitter
+} from "../../SocialLinks";
 
 const colName = 'mbmtBalance';
 const honeyColor = "#F8B60A";
@@ -199,7 +204,7 @@ const RewardsPage = () => {
                                                             color: "#FFF",
                                                             width: "100%",
                                                         }}>
-                                                            <a href="https://discord.gg/kUb5z7Td" target="_blank" class="button contact w-button">Join us on Discord</a>
+                                                            <a href={Discord} target="_blank" class="button contact w-button">Join us on Discord</a>
                                                         </Button>
 
                                                         <div style={{
@@ -211,7 +216,7 @@ const RewardsPage = () => {
                                                                 color: "#FFF",
                                                                 width: "100%",
                                                             }}>
-                                                                <a href="https://t.me/metagymland" target="_blank" class="button contact w-button">Join us on Telegram</a>
+                                                                <a href={Telegram} target="_blank" class="button contact w-button">Join us on Telegram</a>
                                                             </Button>
                                                         </div>
                                                         <div style={{
@@ -223,7 +228,7 @@ const RewardsPage = () => {
                                                                 color: "#FFF",
                                                                 width: "100%",
                                                             }}>
-                                                                <a href="https://twitter.com/MetaGymLand" target="_blank" class="button contact w-button">Join us on Twitter</a>
+                                                                <a href={Twitter} target="_blank" class="button contact w-button">Join us on Twitter</a>
                                                             </Button>
                                                         </div>
                                                     </div>
