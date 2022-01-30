@@ -14,7 +14,7 @@ contract MarketPlace is ERC1155Receiver, ReentrancyGuard, Ownable {
 
     address public _owner;
 
-    // fee
+    // TODO add fee
     // uint256 listingPrice = 0.025 ether;
 
     constructor() {
