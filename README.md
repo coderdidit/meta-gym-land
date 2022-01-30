@@ -1,3 +1,5 @@
-# `Meta Gym Land POC`
+# `MetaGymLand App`
 
-Web 3 app to Gamify daily stretches with AI and blockchain
+MetaGymLand is a Web 3 app to Gamify daily stretches with AI and blockchain
+
+https://metagymland.com/
