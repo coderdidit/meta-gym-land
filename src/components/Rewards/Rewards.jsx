@@ -6,6 +6,7 @@ import {
     MBMT_TICKER,
     activeColor,
     BtnInfo,
+    BtnPrimary,
     paddingLRContent,
 } from "../../GlobalStyles";
 import card from "./card.png";
@@ -60,7 +61,7 @@ const RewardsPage = () => {
                     }}>
                     {/* text */}
                     <div style={{
-    
+
                     }}>
                         <div>
                             <h1 style={{
@@ -184,9 +185,49 @@ const RewardsPage = () => {
                                                 padding: "4rem",
                                                 ...descriptionStyle
                                             }}>
-                                                <div>Join our social channels</div>
-                                                <div> to stay tuned:</div>
-                                                <div>...</div>
+                                                <h2>Join MetaGymLand community</h2>
+                                                <div> and stay tuned</div>
+                                                <div style={{
+                                                    paddingTop: "1rem",
+                                                }}>
+                                                    <div style={{
+                                                        padding: "0.2rem",
+                                                    }}>
+                                                        <Button style={{
+                                                            ...BtnInfo,
+                                                            backgroundColor: "#5562EA",
+                                                            color: "#FFF",
+                                                            width: "100%",
+                                                        }}>
+                                                            <a href="https://discord.gg/kUb5z7Td" target="_blank" class="button contact w-button">Join us on Discord</a>
+                                                        </Button>
+
+                                                        <div style={{
+                                                            padding: "0.2rem"
+                                                        }}>
+                                                            <Button style={{
+                                                                ...BtnInfo,
+                                                                backgroundColor: "#30A9DD",
+                                                                color: "#FFF",
+                                                                width: "100%",
+                                                            }}>
+                                                                <a href="https://t.me/metagymland" target="_blank" class="button contact w-button">Join us on Telegram</a>
+                                                            </Button>
+                                                        </div>
+                                                        <div style={{
+                                                            padding: "0.2rem"
+                                                        }}>
+                                                            <Button style={{
+                                                                ...BtnInfo,
+                                                                backgroundColor: "#1C9BF0",
+                                                                color: "#FFF",
+                                                                width: "100%",
+                                                            }}>
+                                                                <a href="https://twitter.com/MetaGymLand" target="_blank" class="button contact w-button">Join us on Twitter</a>
+                                                            </Button>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         } trigger="click">
                                         <Button style={{
