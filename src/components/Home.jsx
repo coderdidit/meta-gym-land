@@ -12,6 +12,7 @@ import { Link } from "react-router-dom";
 import { BtnPrimary, BtnInfo } from "../GlobalStyles";
 import mglVideoDemoImg from "./assets/mgl_video_demo.png";
 import howItWorksImg from "./assets/how_it_works.png";
+import { SocialsComponent } from "./SocialsPage";
 import {
   Newsletter
 } from "../SocialLinks";
@@ -141,29 +142,14 @@ export default function Home() {
           alignItems: "center",
           justifyContent: "center"
         }}>
+
           <div style={{
-            textAlign: "center"
+            display: "grid",
+            placeItems: "center",
           }}>
-            <div style={{
-              ...descriptionStyle,
-            }}>
-              Want to be notified about our progress and future plans?&nbsp;&nbsp;&nbsp;
-              <Button type="primary"
-                style={BtnPrimary}
-                onClick={() =>
-                  window.open(
-                    {Newsletter},
-                    "_blank"
-                  )
-                }
-              >
-                Sing up to newsletter
-              </Button>
-            </div>
+            <SocialsComponent />
           </div>
-          <div style={{
-            flexBasis: "100%",
-          }} />
+
           <div style={{
             marginTop: "2rem",
             textAlign: "center",
