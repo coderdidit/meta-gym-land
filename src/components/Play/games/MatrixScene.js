@@ -110,7 +110,7 @@ export class MatrixScene extends EarnableScene {
             (width / 2) + width / 4, height * 0.015,
             { wrapWidth: 280 },
             0xFFFEFE,
-            0x011A06,
+            0x00FF00,
             "center", "#212125"
         );
         hintTextBox.setDepth(1);
@@ -152,7 +152,7 @@ export class MatrixScene extends EarnableScene {
                     width / 2, height / 2,
                     { wrapWidth: 280 },
                     0x010000,
-                    0x06FF00,
+                    0x3B6A59,
                     "center", "#63E778"
                 ).setOrigin(0.5)
                     .setDepth(1).setScrollFactor(0, 0).start(
