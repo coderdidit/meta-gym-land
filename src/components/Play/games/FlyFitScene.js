@@ -194,42 +194,20 @@ export class FlyFitScene extends EarnableScene {
     }
 
     handlePlayerMoves() {
-        // const player = this.player.list[1];
-        // const plain = this.player.list[0];
-
         const player = this.player;
-        player.rotation += 0.01;
+        player.body.setAngularVelocity(0);
+        player.body.setVelocity(0, 0);
+        player.body.setAcceleration(0);
 
-        // this.player.body.setAngularVelocity(0);
-        // this.player.body.setAcceleration(0);
-
-        // player.body.setAngularVelocity(0);
-        // plain.body.setAngularVelocity(0);
-        // player.body.setVelocity(0, 0);
-        // plain.body.setVelocity(0, 0);
-        // player.body.setAcceleration(0);
-        // plain.body.setAcceleration(0);
-
-        // const curPose = gstate.getPose();
-        // if (player.cursorKeys?.up.isDown || curPose === gpose.BA_UP) {
-        //     // -90 guaranties that the move will straight from head 
-        //     // otherwise it would look like moving left
-        //     player.x -= 1;
-        //     const ng = player.angle - 90;
-        //     player.setAngle(ng);
-        //     const vec = this.physics.velocityFromAngle(ng, playerSpeed)
-        //     player.body.setVelocity(vec.x, vec.y);
-        //     // plain.body.setVelocity(vec.x, vec.y);
-        // } else if (player.cursorKeys?.left.isDown || curPose === gpose.HTL) {
-        //     // player.setAngle(player.angle -1);
-        //     // player.body.setAngularVelocity(playerNgSpeed * -1);
-        //     player.rotation -= 0.01;
-        //     // plain.body.setAngularVelocity(playerNgSpeed * -1);
-        // } else if (player.cursorKeys?.right.isDown || curPose === gpose.HTR) {
-        //     player.rotation += 0.01;
-        //     // player.setAngle(player.angle +1);
-        //     // player.body.setAngularVelocity(playerNgSpeed);
-        //     // plain.body.setAngularVelocity(playerNgSpeed);
-        // }
+        const curPose = gstate.getPose();
+        if (player.list[1].cursorKeys?.up.isDown || curPose === gpose.BA_UP) {
+            const ng = player.angle - 90;
+            const vec = this.physics.velocityFromAngle(ng, playerSpeed)
+            player.body.setVelocity(vec.x, vec.y);
+        } else if (player.list[1].cursorKeys?.left.isDown || curPose === gpose.HTL) {
+            player.body.setAngularVelocity(playerNgSpeed * -1);
+        } else if (player.list[1].cursorKeys?.right.isDown || curPose === gpose.HTR) {
+            player.body.setAngularVelocity(playerNgSpeed);
+        }
     }
 }
