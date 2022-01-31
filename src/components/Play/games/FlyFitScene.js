@@ -147,11 +147,8 @@ export class FlyFitScene extends EarnableScene {
 
         this.physics.world.enableBody(this.player);
 
-        // this.player.body.setSize(
-        //     plane.width * PLAYER_SCALE,
-        //     plane.height * PLAYER_SCALE);
-
         this.player.body.setCollideWorldBounds(true);
+
         this.physics.add.overlap(plane, btcGroup, collectBtc, null, this)
         function collectBtc(avatar, btcItem) {
             btcItem.destroy()
