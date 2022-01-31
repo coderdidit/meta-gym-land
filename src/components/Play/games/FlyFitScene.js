@@ -120,7 +120,7 @@ export class FlyFitScene extends EarnableScene {
         const plane = this.add.sprite(0, 0, AIRPLANE)
             .setScale(PLAYER_SCALE * 0.8)
             .setDepth(1);
-        
+
         // player sprite inside player container
         const playerInner = new Player({
             scene: this,
@@ -130,6 +130,8 @@ export class FlyFitScene extends EarnableScene {
         }).setOrigin(0.5, 0.5)
             .setScale(PLAYER_SCALE)
             .setDepth(2);
+
+        this.cursorKeys = playerInner.cursorKeys;
 
         // this made the plane to have body element    
         this.physics.world.enable(plane);
@@ -143,19 +145,14 @@ export class FlyFitScene extends EarnableScene {
             ]
         );
 
-        // this.physics.world.enable(this.player);
         this.physics.world.enableBody(this.player);
-        // this.add.existing(this.player);
-        // this.player.body.setCollideWorldBounds(true);
-        // this.player.list[0].body.setCollideWorldBounds(true);
-        // this.player.list[1].body.setCollideWorldBounds(true);
-
-        // this.physics.add.overlap(this.player.list[1], btcGroup, collectBtc, null, this)
-        // function collectBtc(avatar, btcItem) {
-        //     btcItem.destroy()
-        //     this.score += 1
-        //     this.scoreBoard.setText(`SCORE: ${this.score}`)
-        // }
+        this.player.body.setCollideWorldBounds(true);
+        this.physics.add.overlap(this.player, btcGroup, collectBtc, null, this)
+        function collectBtc(avatar, btcItem) {
+            btcItem.destroy()
+            this.score += 1
+            this.scoreBoard.setText(`SCORE: ${this.score}`)
+        }
     }
 
     youWonMsg() {
@@ -200,13 +197,13 @@ export class FlyFitScene extends EarnableScene {
         player.body.setAcceleration(0);
 
         const curPose = gstate.getPose();
-        if (player.list[1].cursorKeys?.up.isDown || curPose === gpose.BA_UP) {
+        if (this.cursorKeys?.up.isDown || curPose === gpose.BA_UP) {
             const ng = player.angle - 90;
             const vec = this.physics.velocityFromAngle(ng, playerSpeed)
             player.body.setVelocity(vec.x, vec.y);
-        } else if (player.list[1].cursorKeys?.left.isDown || curPose === gpose.HTL) {
+        } else if (this.cursorKeys?.left.isDown || curPose === gpose.HTL) {
             player.body.setAngularVelocity(playerNgSpeed * -1);
-        } else if (player.list[1].cursorKeys?.right.isDown || curPose === gpose.HTR) {
+        } else if (this.cursorKeys?.right.isDown || curPose === gpose.HTR) {
             player.body.setAngularVelocity(playerNgSpeed);
         }
     }
