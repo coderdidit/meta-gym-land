@@ -120,6 +120,16 @@ export class FlyFitScene extends EarnableScene {
         const plane = this.add.sprite(0, 0, AIRPLANE)
             .setScale(PLAYER_SCALE * 0.8)
             .setDepth(1);
+        
+        // player sprite inside player container
+        const playerInner = new Player({
+            scene: this,
+            x: 0,
+            y: 0,
+            key: PLAYER_KEY,
+        }).setOrigin(0.5, 0.5)
+            .setScale(PLAYER_SCALE)
+            .setDepth(2);
 
         // this made the plane to have body element    
         this.physics.world.enable(plane);
@@ -129,29 +139,23 @@ export class FlyFitScene extends EarnableScene {
             height / 2,
             [
                 plane,
-                new Player({
-                    scene: this,
-                    x: 0,
-                    y: 0,
-                    key: PLAYER_KEY,
-                }).setOrigin(0.5, 0.5)
-                    .setScale(PLAYER_SCALE)
-                    .setDepth(2),
+                playerInner,
             ]
         );
 
-        this.physics.world.enable(this.player);
-        this.add.existing(this.player);
-        this.player.body.setCollideWorldBounds(true);
-        this.player.list[0].body.setCollideWorldBounds(true);
-        this.player.list[1].body.setCollideWorldBounds(true);
+        // this.physics.world.enable(this.player);
+        this.physics.world.enableBody(this.player);
+        // this.add.existing(this.player);
+        // this.player.body.setCollideWorldBounds(true);
+        // this.player.list[0].body.setCollideWorldBounds(true);
+        // this.player.list[1].body.setCollideWorldBounds(true);
 
-        this.physics.add.overlap(this.player.list[1], btcGroup, collectBtc, null, this)
-        function collectBtc(avatar, btcItem) {
-            btcItem.destroy()
-            this.score += 1
-            this.scoreBoard.setText(`SCORE: ${this.score}`)
-        }
+        // this.physics.add.overlap(this.player.list[1], btcGroup, collectBtc, null, this)
+        // function collectBtc(avatar, btcItem) {
+        //     btcItem.destroy()
+        //     this.score += 1
+        //     this.scoreBoard.setText(`SCORE: ${this.score}`)
+        // }
     }
 
     youWonMsg() {
@@ -190,30 +194,42 @@ export class FlyFitScene extends EarnableScene {
     }
 
     handlePlayerMoves() {
-        const player = this.player.list[1];
-        const plain = this.player.list[0];
+        // const player = this.player.list[1];
+        // const plain = this.player.list[0];
 
-        player.body.setAngularVelocity(0);
-        plain.body.setAngularVelocity(0);
-        player.body.setVelocity(0, 0);
-        plain.body.setVelocity(0, 0);
-        player.body.setAcceleration(0);
-        plain.body.setAcceleration(0);
+        const player = this.player;
+        player.rotation += 0.01;
 
-        const curPose = gstate.getPose();
-        if (player.cursorKeys?.up.isDown || curPose === gpose.BA_UP) {
-            // -90 guaranties that the move will straight from head 
-            // otherwise it would look like moving left
-            const ng = player.angle - 90;
-            const vec = this.physics.velocityFromAngle(ng, playerSpeed)
-            player.body.setVelocity(vec.x, vec.y);
-            plain.body.setVelocity(vec.x, vec.y);
-        } else if (player.cursorKeys?.left.isDown || curPose === gpose.HTL) {
-            player.body.setAngularVelocity(playerNgSpeed * -1);
-            plain.body.setAngularVelocity(playerNgSpeed * -1);
-        } else if (player.cursorKeys?.right.isDown || curPose === gpose.HTR) {
-            player.body.setAngularVelocity(playerNgSpeed);
-            plain.body.setAngularVelocity(playerNgSpeed);
-        }
+        // this.player.body.setAngularVelocity(0);
+        // this.player.body.setAcceleration(0);
+
+        // player.body.setAngularVelocity(0);
+        // plain.body.setAngularVelocity(0);
+        // player.body.setVelocity(0, 0);
+        // plain.body.setVelocity(0, 0);
+        // player.body.setAcceleration(0);
+        // plain.body.setAcceleration(0);
+
+        // const curPose = gstate.getPose();
+        // if (player.cursorKeys?.up.isDown || curPose === gpose.BA_UP) {
+        //     // -90 guaranties that the move will straight from head 
+        //     // otherwise it would look like moving left
+        //     player.x -= 1;
+        //     const ng = player.angle - 90;
+        //     player.setAngle(ng);
+        //     const vec = this.physics.velocityFromAngle(ng, playerSpeed)
+        //     player.body.setVelocity(vec.x, vec.y);
+        //     // plain.body.setVelocity(vec.x, vec.y);
+        // } else if (player.cursorKeys?.left.isDown || curPose === gpose.HTL) {
+        //     // player.setAngle(player.angle -1);
+        //     // player.body.setAngularVelocity(playerNgSpeed * -1);
+        //     player.rotation -= 0.01;
+        //     // plain.body.setAngularVelocity(playerNgSpeed * -1);
+        // } else if (player.cursorKeys?.right.isDown || curPose === gpose.HTR) {
+        //     player.rotation += 0.01;
+        //     // player.setAngle(player.angle +1);
+        //     // player.body.setAngularVelocity(playerNgSpeed);
+        //     // plain.body.setAngularVelocity(playerNgSpeed);
+        // }
     }
 }
