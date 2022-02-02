@@ -56,12 +56,11 @@ function NFTCollectionItems({ nftAddress, colName, colImg }) {
     const Web3API = useMoralisWeb3Api();
 
     useEffect(async () => {
-        console.log('Web3API', Web3API);
         console.log('isInitialized', isInitialized);
         if (isInitialized) {
             const res = await Web3API.token.syncNFTContract({
                 chain: "0xa869",
-                address: "0xbba97ea3912c598a39ce0802d5cd67dd3d873457"
+                address: "0xbba97ea3912c598a39ce0802d5cd67dd3d873457",
             });
             console.log('syncNFTContract', res);
         }
