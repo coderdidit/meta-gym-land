@@ -81,7 +81,7 @@ export default function Home() {
               ...BtnInfo,
             }}>
               <Link to="/demo-avatar">
-                Try with Demo Avatar
+                Try with Demo GymBuddy
               </Link>
             </Button>
           </div>
