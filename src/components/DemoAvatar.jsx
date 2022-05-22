@@ -166,11 +166,13 @@ function DemoAvatar() {
                                         }}>
                                         <Button
                                             onClick={() => {
-                                                const avatarUri = nft?.image;
+                                                const avatarUri = resolveNftSprite(nft);
+                                                const coverUri = nft?.image;
                                                 const avatarTokenAddress = nft?.token_address;
                                                 const avatarTokenId = nft?.token_id;
                                                 setAvatar({
                                                     uri: avatarUri,
+                                                    coverUri: coverUri,
                                                     tokenAddress: avatarTokenAddress,
                                                     tokenId: avatarTokenId,
                                                     user: null,
@@ -193,3 +195,12 @@ function DemoAvatar() {
 }
 
 export default DemoAvatar;
+
+// handle previus data structure
+const resolveNftSprite = (nft) => {
+    if(nft?.sprite) {
+        if (nft?.sprite?.image) return nft?.sprite?.image;
+        return nft?.sprite;
+    }
+    return nft?.image;
+}
