@@ -40,7 +40,6 @@ const styles = {
         height: "100px",
         width: "100px",
         borderRadius: "50%",
-        border: "solid 4px white",
         margin: "0 1rem",
     },
 };
