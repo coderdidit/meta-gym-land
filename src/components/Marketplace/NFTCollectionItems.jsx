@@ -273,7 +273,7 @@ function NFTCollectionItems({ nftAddress, colName, colImg }) {
                 </div>
                 <Divider style={{ backgroundColor: brightFontCol }} />
                 <div style={NFTsDiv}>
-                    {NFTTokenIds?.result
+                    {NFTTokenIds && shuffle(NFTTokenIds.result)
                         .map((nft, index) => {
                             //Verify Metadata
                             nft = verifyMetadata(nft);
@@ -470,3 +470,9 @@ function NFTCollectionItems({ nftAddress, colName, colImg }) {
 }
 
 export default NFTCollectionItems;
+
+const shuffle = (arr) => {
+    return arr.map(value => ({ value, sort: Math.random() }))
+        .sort((a, b) => a.sort - b.sort)
+        .map(({ value }) => value)
+}
