@@ -29,7 +29,7 @@ import { AllowedNftContracts } from "../../MglNftMetadata";
 import { MainChainID } from "../../MglNftMetadata";
 import { chainIdToNameAndLogo } from "../Chains/Chains";
 import Loader from "../Loader";
-
+import { shuffle } from "../../helpers/nft-list-utils";
 
 const styles = {
     banner: {
@@ -469,9 +469,3 @@ function NFTCollectionItems({ nftAddress, colName, colImg }) {
 }
 
 export default NFTCollectionItems;
-
-const shuffle = (arr) => {
-    return arr.map(value => ({ value, sort: Math.random() }))
-        .sort((a, b) => a.sort - b.sort)
-        .map(({ value }) => value)
-}

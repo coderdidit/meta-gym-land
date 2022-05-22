@@ -4,7 +4,6 @@ import { Modal, Button, Card, Image, Tooltip, Skeleton } from "antd";
 import {
   FileSearchOutlined,
   // eslint-disable-next-line no-unused-vars
-  ShoppingCartOutlined,
   SkinFilled
 } from "@ant-design/icons";
 import { getExplorer } from "helpers/networks";
@@ -22,6 +21,8 @@ import { NFTCardStyle, NFTsDiv, NFTImg, BtnPrimary, NFTImgWrapperStyle } from ".
 import { AllowedNftContracts } from "../MglNftMetadata";
 import { AvatarCtx } from "index";
 import Loader from "./Loader";
+import { resolveNftSprite, resolveBGColor } from "../helpers/nft-props-resolvers";
+import { shuffle } from "../helpers/nft-list-utils";
 
 const { Meta } = Card;
 
@@ -308,26 +309,5 @@ function NFTBalance() {
 
 export default NFTBalance;
 
-const shuffle = (arr) => {
-  return arr.map(value => ({ value, sort: Math.random() }))
-    .sort((a, b) => a.sort - b.sort)
-    .map(({ value }) => value)
-}
 
-const resolveBGColor = (nft) => {
-  if (nft?.background_color) {
-    return `#${nft.background_color}`;
-  } else {
-    return "none";
-  }
-}
-
-// handle previus data structure
-const resolveNftSprite = (nft) => {
-  if (nft?.sprite) {
-    if (nft?.sprite?.image) return nft?.sprite?.image;
-    return nft?.sprite;
-  }
-  return nft?.image;
-}
 

@@ -10,6 +10,7 @@ import { useNFTTokenIds } from "hooks/useNFTTokenIds";
 import { useVerifyMetadata } from "hooks/useVerifyMetadata";
 import { MainChainID } from "../MglNftMetadata";
 import { chainIdToNameAndLogo } from "../components/Chains/Chains";
+import { resolveNftSprite } from "../helpers/nft-props-resolvers";
 import {
     pageTitleStyle,
     descriptionStyle,
@@ -196,11 +197,3 @@ function DemoAvatar() {
 
 export default DemoAvatar;
 
-// handle previus data structure
-const resolveNftSprite = (nft) => {
-    if(nft?.sprite) {
-        if (nft?.sprite?.image) return nft?.sprite?.image;
-        return nft?.sprite;
-    }
-    return nft?.image;
-}
