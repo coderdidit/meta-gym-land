@@ -34,7 +34,7 @@ export const NFTImg = {
     paddingRight: NFTImgPadding,
     paddingTop: NFTImgPadding,
     paddingBottom: NFTImgPadding,
-    minHeight: "280px",
+    minHeight: "305px",
     width: "auto",
     borderRadius: "1rem 1rem 0 0",
 }

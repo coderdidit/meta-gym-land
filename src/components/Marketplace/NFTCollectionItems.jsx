@@ -80,7 +80,9 @@ function NFTCollectionItems({ nftAddress, colName, colImg }) {
             return query
                 .equalTo("sold", false)
                 .equalTo("confirmed", true)
-                .equalTo("nftContract", AllowedNftContracts.get(marketPlaceChainId)?.toLowerCase());
+                .containedIn("nftContract",
+                    AllowedNftContracts.get(chainId)?.map(c => c.toLowerCase())
+                );
         });
     const fetchMarketItems = JSON.parse(
         JSON.stringify(queryMarketItems.data, [

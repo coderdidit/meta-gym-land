@@ -1,5 +1,3 @@
-import { AllowedNftContracts } from "../../MglNftMetadata";
-
 const AvaxTestnetChainID = "0xa869";
 
 export const networkCollections = new Map([
@@ -7,8 +5,15 @@ export const networkCollections = new Map([
     [
       {
         image: "https://ipfs.moralis.io:2053/ipfs/QmVF53rCjFiFSXyJd64NgeGioQG93gegdsymyMWtJLG9Ev/cover.gif",
+        name: "Moralis Avalanche Hackaton 2022 Test Drop",
+        addrs: "0xbba97ea3912c598a39ce0802d5cd67dd3d873457",
+      },
+    ],
+    [
+      {
+        image: "https://ipfs.moralis.io:2053/ipfs/QmVF53rCjFiFSXyJd64NgeGioQG93gegdsymyMWtJLG9Ev/cover.gif",
         name: "GymBuddies 2022 Test Drop",
-        addrs: AllowedNftContracts.get(AvaxTestnetChainID),
+        addrs: "0x31c9a4d361fD82C291486B18715e8eAB26D2Bef9",
       },
     ]
   ],
