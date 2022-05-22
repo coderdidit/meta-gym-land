@@ -163,7 +163,7 @@ function NFTBalance() {
                                 style={NFTImg}
                                 wrapperStyle={{
                                   ...NFTImgWrapperStyle,
-                                  backgroundColor: "#" + nft?.background_color,
+                                  backgroundColor: resolveBGColor(nft),
                                 }}
                               />
                             }
@@ -296,4 +296,12 @@ const shuffle = (arr) => {
   return arr.map(value => ({ value, sort: Math.random() }))
     .sort((a, b) => a.sort - b.sort)
     .map(({ value }) => value)
+}
+
+const resolveBGColor = (nft) => {
+  if (nft?.background_color) {
+    return `#${nft.background_color}`;
+  } else {
+    "none";
+  }
 }
