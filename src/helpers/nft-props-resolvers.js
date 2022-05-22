@@ -1,5 +1,5 @@
 
-// handle previus data structure
+// to handle legacy data structures
 export const resolveNftSprite = (nft) => {
     if (nft?.sprite) {
         if (nft?.sprite?.image) return nft?.sprite?.image;
