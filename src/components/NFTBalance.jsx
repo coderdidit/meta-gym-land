@@ -308,6 +308,3 @@ function NFTBalance() {
 }
 
 export default NFTBalance;
-
-
-
