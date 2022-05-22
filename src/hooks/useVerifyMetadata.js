@@ -40,11 +40,6 @@ export const useVerifyMetadata = () => {
         if (!NFT.token_uri || !NFT.token_uri.includes('://')) {
             return;
         }
-        // UNCOMMENT IF THERE WILL BE BAD CACHEING
-        // const gymBuddiesMetadataCIDFromPiniata = 'QmVM2UpxbR1a9MdBSW7c4C6pZmhxcji8wsAsUEM2Jkezrt';
-        // if (NFT.token_uri.includes(gymBuddiesMetadataCIDFromPiniata)) {
-        //     NFT.token_uri = NFT.token_uri.replace('https://ipfs.moralis.io:2053', 'https://gateway.pinata.cloud');
-        // }
         //Get Metadata
         fetch(NFT.token_uri)
             .then(res => res.json())

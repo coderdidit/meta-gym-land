@@ -8,7 +8,7 @@ export const useNFTTokenIds = (addr, limit = 10, forceToChainId) => {
     const { token } = useMoralisWeb3Api();
     const { chainId } = useMoralis();
     const { resolveLink } = useIPFS();
-    // TODO fix GymBuddies deployemtn to start from id 0
+    // TODO fix GymBuddies deployment to start from id 0
     const resovleOffset = (_addr) => {
         return _addr.toLowerCase() == TestGymBuddiesContract.toLowerCase() ? 1 : 0;
     }
