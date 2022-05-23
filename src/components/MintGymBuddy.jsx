@@ -14,6 +14,32 @@ import {
     useWeb3ExecuteFunction
 } from "react-moralis";
 
+/**
+ * TODO
+ * this is very dummy implementation of random mint
+ * replace with chainlink VRF
+*/
+////////////////////////////////////
+let rngAttempts = 0;
+const mintedGymBuddies = new Set();
+const minGbId = 1;
+const maxGbId = 3;
+const getRandomGymBuddyIdHelper = () => {
+    return Math.floor(Math.random() * (maxGbId - minGbId + 1)) + minGbId;
+}
+const getRandomGymBuddyId = () => {
+    const rgGymBuddyId = getRandomGymBuddyIdHelper();
+    if (rngAttempts > 100) return rgGymBuddyId;
+    if (!mintedGymBuddies.has(rgGymBuddyId)) {
+        rngAttempts = 0;
+        mintedGymBuddies.add(rgGymBuddyId);
+        return rgGymBuddyId;
+    }
+    rngAttempts += 1;
+    return getRandomGymBuddyId();
+}
+////////////////////////////////////
+
 const MintGymBuddyPage = () => {
 
     const contractProcessor = useWeb3ExecuteFunction();
