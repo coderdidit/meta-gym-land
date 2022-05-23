@@ -45,7 +45,7 @@ const mintPrice = 0.001;
 
 const MintGymBuddyPage = () => {
 
-    const { chainId, isAuthenticated } = useMoralis();
+    const { chainId, isAuthenticated, Moralis } = useMoralis();
     const userChainId = chainId;
     const contractProcessor = useWeb3ExecuteFunction();
     const contractAddress = TestGymBuddiesContract;
@@ -87,7 +87,8 @@ const MintGymBuddyPage = () => {
             params: {
                 gbId: gymBuddyId,
             },
-            // msgValue: mintPrice,
+            // TODO: make smart contract payable
+            // msgValue: Moralis.Units.ETH(mintPrice),
         }
         await contractProcessor.fetch({
             params: ops,
