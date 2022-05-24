@@ -12,7 +12,7 @@ function MenuItems() {
       style={{
         display: "flex",
         fontSize: "17px",
-        fontWeight: "400",
+        fontWeight: "700",
         width: "100%",
         justifyContent: "right",
         background: "none",

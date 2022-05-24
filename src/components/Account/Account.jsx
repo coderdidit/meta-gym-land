@@ -24,7 +24,7 @@ const styles = {
     ...HeaderRightBordersStyle,
   },
   text: {
-    color: "#21BF96",
+    color: "#408CFD",
     width: "6rem",
   },
   connector: {
