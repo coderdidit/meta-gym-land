@@ -141,7 +141,7 @@ function Account() {
           style={{
             width: "100%",
             marginTop: "10px",
-            borderRadius: "0.5rem",
+            borderRadius: "20px",
             fontSize: "16px",
             fontWeight: "500",
           }}
