@@ -1,4 +1,3 @@
-import { Divider } from "antd";
 import React from "react";
 import { Button, Image } from 'antd';
 import { PlaySquareOutlined } from "@ant-design/icons";
@@ -7,7 +6,6 @@ import {
   pageTitleStyle,
   pageTitle2Style,
   descriptionStyle,
-  paddingLRContent,
   BtnSecondary,
   secondaryBgColor,
   gradientBg2,
@@ -47,11 +45,7 @@ const howItWorksImagesSize = "70%";
 
 export default function Home() {
   return (
-    <div
-      style={{
-        ...paddingLRContent,
-      }}
-    >
+    <div>
       <section style={{
         display: "grid",
         gridTemplateColumns: "1fr 1fr",
@@ -201,9 +195,7 @@ export default function Home() {
       <div style={{
         flexBasis: "100%",
       }} />
-      <Divider style={{
-        backgroundColor: "#032139",
-      }}></Divider>
+
       <section>
         <div style={{
           marginTop: "3rem",

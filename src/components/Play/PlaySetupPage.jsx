@@ -11,7 +11,6 @@ import {
     NFTImg,
     BreakFlexDiv,
     mainBgColorDarker,
-    paddingLRContent
 } from "../../GlobalStyles";
 import SelectWebcam from "components/Webcam/SelectWebcam";
 import { WebcamCtx } from "index";
@@ -31,7 +30,6 @@ const PlaySetupPage = () => {
             display: "grid",
             placeItems: "center",
             marginBottom: "6rem",
-            ...paddingLRContent,
         }}>
             <div style={{
                 boxShadow: "0 0 20px 2px #020811",

@@ -3,7 +3,10 @@ import { Button, Card, Image, Tooltip, Alert, Badge } from "antd";
 import { FileSearchOutlined, SmileFilled } from "@ant-design/icons";
 import { getExplorer } from "helpers/networks";
 import { Link } from "react-router-dom";
-import { NFTCardStyle, NFTsDiv, NFTImg, BtnPrimary, BtnInfo, NFTImgWrapperStyle } from "../GlobalStyles";
+import {
+    NFTCardStyle, NFTsDiv,
+    NFTImg, BtnPrimary, BtnInfo, NFTImgWrapperStyle
+} from "../GlobalStyles";
 import { DemoNFTContracts } from "../MglNftMetadata";
 import { AvatarCtx } from "index";
 import { useNFTTokenIds } from "hooks/useNFTTokenIds";
@@ -14,7 +17,6 @@ import { resolveNftSprite } from "../helpers/nft-props-resolvers";
 import {
     pageTitleStyle,
     descriptionStyle,
-    paddingLRContent,
 } from "GlobalStyles";
 import Loader from "./Loader";
 
@@ -38,7 +40,6 @@ function DemoAvatar() {
 
         return (
             <div style={{
-                ...paddingLRContent,
                 textAlign: "center",
             }}>
                 <div style={{
