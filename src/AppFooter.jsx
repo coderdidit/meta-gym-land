@@ -73,14 +73,14 @@ export const AppFooter = ({ style }) => {
                                 rel="noopener noreferrer"
                                 href="https://www.tensorflow.org/js"
                             >
-                                <TfJSLogo textFill={"#FFF"} />
+                                <TfJSLogo textFill={"#595959"} />
                             </a>&nbsp;&nbsp;
                             <a
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 href="https://mediapipe.dev"
                             >
-                                <MediaPipeLogo textFill={"#FFF"} />
+                                <MediaPipeLogo textFill={"#595959"} />
                             </a></div>
                     </div>
                 </div>
