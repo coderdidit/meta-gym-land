@@ -32,6 +32,15 @@ function MenuItems() {
       <Menu.Item key="/rewards">
         <NavLink to="/rewards">Rewards</NavLink>
       </Menu.Item>
+      <Menu.Item
+        onClick={() =>
+          window.open(
+            "https://docs.metagymland.com/",
+            "_blank"
+          )
+        }
+      >Whitepaper
+      </Menu.Item>
     </Menu>
   );
 }
