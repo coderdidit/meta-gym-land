@@ -1,6 +1,7 @@
 import { Divider } from "antd";
 import React from "react";
 import { Button, Image } from 'antd';
+import { PlaySquareOutlined } from "@ant-design/icons";
 import {
   brightFontCol,
   pageTitleStyle,
@@ -10,8 +11,10 @@ import {
 } from "GlobalStyles";
 import { Link } from "react-router-dom";
 import { BtnPrimary, BtnInfo } from "../GlobalStyles";
-import mglVideoDemoImg from "./assets/mgl_video_demo.png";
-import howItWorksImg from "./assets/how_it_works.png";
+import homePageImg from "./assets/home_page/home_page_img.png";
+import howItWorks1 from "./assets/home_page/how_it_works_1.png";
+import howItWorks2 from "./assets/home_page/how_it_works_2.png";
+import howItWorks3 from "./assets/home_page/how_it_works_3.png";
 import { SocialsComponent } from "./SocialsPage";
 import {
   MGLSmallLogo
@@ -35,6 +38,8 @@ const styles = {
     lineHeight: "0.8",
   }
 };
+
+const howItWorksImagesSize = "70%";
 
 export default function Home() {
   return (
@@ -87,46 +92,108 @@ export default function Home() {
           </div>
         </div>
 
-        <div>
-          <Image
-            preview={false}
-            src={mglVideoDemoImg}
-            alt=""
-            className="demo-video"
-            style={{
-              width: "100%",
-              padding: "0px",
-              margin: "0px",
-            }}
-            onClick={() =>
-              window.open(
-                `https://www.youtube.com/watch?v=KDhVAucOtOg`,
-                "_blank"
-              )
-            }
-          />
-        </div>
+        <Image
+          preview={false}
+          src={homePageImg}
+          alt=""
+          className="demo-video"
+          style={{
+            width: "100%",
+            padding: "0px",
+            margin: "0px",
+          }}
+        />
       </section>
 
-      <div style={{
-        flexBasis: "100%",
-      }} />
       <section>
         <div style={{
-          padding: "0.5rem 1rem 3rem 1rem",
+          textAlign: "center",
+          padding: "1rem 1rem 1rem 1rem",
         }}>
           <div style={pageTitle2Style}>
             How it works?
           </div>
-        </div>
-        <div>
-          <Image
-            preview={false}
-            src={howItWorksImg}
-            alt=""
+
+          <Button
             style={{
+              ...BtnInfo,
+              margin: "1rem",
             }}
-          />
+            onClick={() =>
+              window.open(
+                "https://www.youtube.com/watch?v=KDhVAucOtOg",
+                "_blank"
+              )
+            }
+          >
+            <PlaySquareOutlined /> Watch video
+          </Button>
+        </div>
+        <div style={{
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr 1fr",
+          justifyContent: "center",
+          textAlign: "center",
+          ...descriptionStyle,
+        }}>
+          <div>
+            <Image
+              preview={false}
+              src={howItWorks1}
+              alt=""
+              className="demo-video"
+              style={{
+                padding: "0px",
+                margin: "0px",
+              }}
+            />
+            <p style={{
+              fontWeight: 500,
+              // marginBottom: "1rem",
+            }}>1. Connect your wallet</p>
+            <p>Currently, we are on Avalanche fuji testnet.</p>
+          </div>
+          <div>
+            <Image
+              preview={false}
+              src={howItWorks2}
+              alt=""
+              className="demo-video"
+              style={{
+                
+                padding: "0px",
+                margin: "0px",
+              }}
+            />
+            <p style={{
+              fontWeight: 500,
+              marginBottom: "1rem",
+            }}>2. Buy or mint your GymBuddy</p>
+            <p>You can buy your GymBuddy in</p>
+            <p>'Marketplace' or Mint on 'Mint' page</p>
+            <p>Play with your existing GymBuddies</p>
+            <p>or try MetaGymLand with Free demo GymBuddy</p>
+          </div>
+          <div>
+            <Image
+              preview={false}
+              src={howItWorks3}
+              alt=""
+              className="demo-video"
+              style={{
+                padding: "0px",
+                margin: "0px",
+              }}
+            />
+            <p style={{
+              fontWeight: 500,
+              marginBottom: "1rem",
+            }}>3. Enable your Webcam and join MetaGymLand</p>
+
+            <p>Click 'Play with me' on selected GymBuddy</p>
+            <p>and decide which Webcam you would like</p>
+            <p>to enable to play MetaGymLand</p>
+          </div>
         </div>
       </section>
       <div style={{

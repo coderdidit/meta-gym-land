@@ -215,6 +215,7 @@ const RewardsPage = () => {
                 color: "black",
                 backgroundColor: "white",
                 padding: "3rem 0rem",
+                minHeight: "20vh",
                 // width: "100vw",
             }}>
                 <div style={{
