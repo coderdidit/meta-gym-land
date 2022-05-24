@@ -10,7 +10,7 @@ import { getExplorer } from "helpers/networks";
 import { useVerifyMetadata } from "hooks/useVerifyMetadata";
 import {
   mainFontColor,
-  highlightTextColor,
+  BtnInfo,
   pageTitleStyle,
   descriptionStyle
 } from "GlobalStyles";
@@ -268,40 +268,47 @@ function NFTBalance() {
                 marginBottom: "2rem",
                 marginTop: "1rem",
               }}>
-                <p>It looks like you have no avatars. Dont worry!</p>
-                Simply get one of the awesome avatars from
-                &nbsp;&nbsp;
-                <Button
-                  style={{
-                    ...BtnPrimary,
-                    color: mainFontColor,
-                  }}
-                >
-                  <Link to="/marketplace">
-                    Marketplace{" "}🚀
-                  </Link>
-                </Button>
-                &nbsp;&nbsp;
-                and start your&nbsp;
-                <span style={{ color: highlightTextColor }}>MetaGymLand Metaverse</span>
-                &nbsp;
-                adventure.
-                <p><b>Have fun!</b></p>
-              </div>
+                <p>
+                  It looks like you have no avatars. <b>Dont worry!</b>
+                </p>
+                <br />
+                <p>Simply mint your first GymBuddy or visit Marketplace</p>
+                <p>and start your MetaGymLand Metaverse adventure!</p>
 
-              <Button
-                type="primary"
-                style={{
-                  ...BtnPrimary,
-                }}
-              >
-                <Link to="/marketplace">Browse avatars</Link>
-              </Button>
-              <div style={{
-                ...descriptionStyle,
-                marginTop: "2rem",
-              }}>
-                If this is not right? <b>Refresh the page</b>
+                <section style={{
+                  display: "grid",
+                  justifyContent: "center",
+                  alignContent: "center",
+                }}>
+                  <br />
+                  <div style={{
+                    display: "grid",
+                    gridTemplateColumns: "1fr 1fr",
+                    gap: "2rem",
+                  }}>
+                    <Button
+                      type="primary"
+                      style={{
+                        ...BtnPrimary,
+                      }}
+                    >
+                      <Link to="/mint">
+                        Mint
+                      </Link>
+                    </Button>
+                    <Button
+                      type="primary"
+                      style={BtnInfo}
+                    >
+                      <Link to="/marketplace">
+                        Marketplace{" "}🚀
+                      </Link>
+                    </Button>
+                  </div>
+
+                </section>
+                <br />
+                <b>If this is not right? Refresh the page</b>
               </div>
             </section>
           )

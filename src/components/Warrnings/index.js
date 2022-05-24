@@ -65,9 +65,8 @@ const UseCorrectNetworkWarn = () => {
                 <p style={{
                     ...descriptionStyle,
                 }}>To see your&nbsp;
-                    <span style={{ color: highlightTextColor }}>
-                        MetaGymLAnd NFTs
-                    </span>
+
+                    MetaGymLAnd NFTs
                 </p>
                 <p style={{
                     ...pageTitle3Style,

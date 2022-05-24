@@ -117,8 +117,6 @@ function DemoAvatar() {
                             </div>
 
                         </section>
-
-
                     </div>
                 </div>
                 {
