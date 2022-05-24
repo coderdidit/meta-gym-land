@@ -234,9 +234,20 @@ const RewardsPage = () => {
                     ...descriptionStyle,
                     textAlign: "center",
                 }}>
-                    Checkout our Whitepaper 👇
-                    <br />
-                    <a target="_blank" href="https://docs.metagymland.com/game-fi/overview"><b>LINK</b></a>
+                    Checkout our <Button style={{
+                        ...BtnInfo,
+                        backgroundColor: "#408CFD",
+                        color: "#FFFFFF",
+                        width: "auto",
+                    }}
+                        onClick={() =>
+                            window.open(
+                                "https://docs.metagymland.com/game-fi/overview",
+                                "_blank"
+                            )
+                        } >
+                        Whitepaper
+                    </Button>
                 </div>
             </section >
         </div >
