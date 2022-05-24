@@ -133,6 +133,7 @@ const MintGymBuddyPage = () => {
     } else {
         return (
             <div style={{
+                marginTop: "3rem",
                 textAlign: "center",
             }}>
                 <section style={{

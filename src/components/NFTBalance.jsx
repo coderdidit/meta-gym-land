@@ -105,6 +105,7 @@ function NFTBalance() {
   } else {
     return (
       <div style={{
+        marginTop: "3rem",
         padding: "0 14%",
         width: "100%",
         background: "none",

@@ -41,14 +41,14 @@ const styles = {
   }
 };
 
-const howItWorksImagesSize = "70%";
-
 export default function Home() {
   return (
     <div>
       <section style={{
         display: "grid",
         gridTemplateColumns: "1fr 1fr",
+        paddingTop: "6rem",
+        paddingBottom: "6rem",
         paddingLeft: "6rem",
         paddingRight: "6rem",
         background: gradientBg2,
@@ -107,7 +107,7 @@ export default function Home() {
       <section>
         <div style={{
           textAlign: "center",
-          padding: "1rem 1rem 1rem 1rem",
+          padding: "1.5rem 1rem 1rem 1rem",
         }}>
           <div style={pageTitle2Style}>
             How it works?
@@ -157,7 +157,7 @@ export default function Home() {
               src={howItWorks2}
               alt=""
               style={{
-                
+
                 padding: "0px",
                 margin: "0px",
               }}
@@ -196,43 +196,42 @@ export default function Home() {
         flexBasis: "100%",
       }} />
 
-      <section>
+      <section style={{
+        marginTop: "3rem",
+        marginBottom: "3rem",
+        padding: "2.8rem",
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: secondaryBgColor,
+      }}>
+
         <div style={{
-          marginTop: "3rem",
-          marginBottom: "3rem",
-          alignItems: "center",
-          justifyContent: "center",
-          backgroundColor: secondaryBgColor,
+          display: "grid",
+          placeItems: "center",
         }}>
+          <SocialsComponent />
+        </div>
 
+        <div style={{
+          marginTop: "2rem",
+          textAlign: "center",
+          fontSize: "18px",
+        }}>
+          <MGLSmallLogo
+            width={"25"}
+            height={"25"}
+            viewBox={"0 0 16 16"}
+          />
           <div style={{
-            display: "grid",
-            placeItems: "center",
+            opacity: 0.8,
           }}>
-            <SocialsComponent />
+            <a style={{
+              textDecoration: "none",
+              color: mainFontColor,
+            }}
+              href="mailto:metagymland@gmail.com">metagymland@gmail.com</a>
           </div>
 
-          <div style={{
-            marginTop: "2rem",
-            textAlign: "center",
-            fontSize: "18px",
-          }}>
-            <MGLSmallLogo
-              width={"25"}
-              height={"25"}
-              viewBox={"0 0 16 16"}
-            />
-            <div style={{
-              opacity: 0.8,
-            }}>
-              <a style={{
-                textDecoration: "none",
-                color: mainFontColor,
-              }}
-                href="mailto:metagymland@gmail.com">metagymland@gmail.com</a>
-            </div>
-
-          </div>
         </div>
       </section>
     </div>

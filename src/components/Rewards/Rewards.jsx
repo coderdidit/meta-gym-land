@@ -38,7 +38,7 @@ const RewardsPage = () => {
     const mbmtBalance = user && user.get && user.get(colName) ? user.get(colName) : 0;
     return (
         <div style={{
-            marginTop: "1rem",
+            marginTop: "4rem",
         }}>
             <section style={{
                 ...paddingLRContent,

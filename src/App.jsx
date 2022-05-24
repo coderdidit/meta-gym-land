@@ -43,7 +43,7 @@ const styles = {
   },
   content: {
     fontFamily: "Roboto, sans-serif",
-    marginTop: "40px",
+    marginTop: "10px",
     marginBottom: "40px",
     minHeight: "30vh",
   },
