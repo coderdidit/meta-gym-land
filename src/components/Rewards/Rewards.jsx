@@ -9,7 +9,6 @@ import {
     paddingLRContent,
 } from "../../GlobalStyles";
 import card from "./card.png";
-import dividerpng from "./divider.png";
 import { useMoralis } from "react-moralis";
 import { Button, Popover } from 'antd';
 import { SocialsLinks } from "../SocialsPage";
@@ -17,23 +16,10 @@ import { SocialsLinks } from "../SocialsPage";
 const colName = 'mbmtBalance';
 const honeyColor = "#F8B60A";
 
-const mbmt = <span style={{ color: activeColor, fontWeight: 550, }}>{MMT_TICKER}</span>;
 const mbmtWhite = <span style={{ color: "#FFF" }}>{MMT_TICKER}</span>;
-const mgl = <span style={{ color: "blue", fontWeight: 550, }}>$MGL</span>;
 const mbmtlong = <span style={{ color: honeyColor }}>Meta Moves Token</span>;
 const commingSoon = <span style={{}}>Comming Soon 🚀</span>;
 const borderRadius = "3rem";
-
-const divider = (
-    <div style={{
-        display: "grid",
-        gridTemplateColumns: "1fr",
-        gridTemplateRows: "3rem",
-        alignItems: "center",
-        justifyItems: "center",
-    }}>
-        <img src={dividerpng} alt="divider" />
-    </div>);
 
 const activeBgStyle = {
     backgroundColor: activeColor,
