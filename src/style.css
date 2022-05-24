@@ -8,9 +8,9 @@
 }
 
 :root {
-  --main-bg-color: #012E51;
-  --main-text-color: #FFF;
-  --active-color: #F96F0B;
+  --main-bg-color: #FFFFFF;
+  --main-text-color: #595959;
+  --active-color: #FFA2C4;
 }
 
 h1, h2, h3, h4, h5, h6 {

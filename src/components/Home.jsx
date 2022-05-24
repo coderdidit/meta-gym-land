@@ -3,11 +3,14 @@ import React from "react";
 import { Button, Image } from 'antd';
 import { PlaySquareOutlined } from "@ant-design/icons";
 import {
-  brightFontCol,
+  mainFontColor,
   pageTitleStyle,
   pageTitle2Style,
   descriptionStyle,
   paddingLRContent,
+  BtnSecondary,
+  secondaryBgColor,
+  gradientBg2,
 } from "GlobalStyles";
 import { Link } from "react-router-dom";
 import { BtnPrimary, BtnInfo } from "../GlobalStyles";
@@ -22,19 +25,20 @@ import {
 
 const styles = {
   homeGlobal: {
-    color: brightFontCol,
+    color: mainFontColor,
   },
   titleText: {
     ...pageTitleStyle,
   },
   text: {
     ...descriptionStyle,
+    color: "#FFFFFF",
   },
   card: {
     border: "none",
     borderBottom: "none",
     background: "none",
-    color: brightFontCol,
+    color: mainFontColor,
     lineHeight: "0.8",
   }
 };
@@ -53,12 +57,14 @@ export default function Home() {
         gridTemplateColumns: "1fr 1fr",
         paddingLeft: "6rem",
         paddingRight: "6rem",
+        background: gradientBg2,
       }}>
         <div style={{
         }}>
           <div style={{
             ...styles.titleText,
             paddingTop: "1rem",
+            color: "#FFFFFF",
           }}>
             Ready to get started?
           </div>
@@ -96,7 +102,6 @@ export default function Home() {
           preview={false}
           src={homePageImg}
           alt=""
-          className="demo-video"
           style={{
             width: "100%",
             padding: "0px",
@@ -116,7 +121,7 @@ export default function Home() {
 
           <Button
             style={{
-              ...BtnInfo,
+              ...BtnSecondary,
               margin: "1rem",
             }}
             onClick={() =>
@@ -141,7 +146,6 @@ export default function Home() {
               preview={false}
               src={howItWorks1}
               alt=""
-              className="demo-video"
               style={{
                 padding: "0px",
                 margin: "0px",
@@ -158,7 +162,6 @@ export default function Home() {
               preview={false}
               src={howItWorks2}
               alt=""
-              className="demo-video"
               style={{
                 
                 padding: "0px",
@@ -179,7 +182,6 @@ export default function Home() {
               preview={false}
               src={howItWorks3}
               alt=""
-              className="demo-video"
               style={{
                 padding: "0px",
                 margin: "0px",
@@ -207,7 +209,8 @@ export default function Home() {
           marginTop: "3rem",
           marginBottom: "3rem",
           alignItems: "center",
-          justifyContent: "center"
+          justifyContent: "center",
+          backgroundColor: secondaryBgColor,
         }}>
 
           <div style={{
@@ -232,7 +235,7 @@ export default function Home() {
             }}>
               <a style={{
                 textDecoration: "none",
-                color: brightFontCol,
+                color: mainFontColor,
               }}
                 href="mailto:metagymland@gmail.com">metagymland@gmail.com</a>
             </div>

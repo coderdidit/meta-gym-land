@@ -1,13 +1,16 @@
-export const mainBackground = "linear-gradient(135deg , #040225, #132890 80%, #470d85)";
-export const mainBgColor = "#0B1456";
-export const mainBgColorDarker = "#131b5e";
+// export const mainBackground = "linear-gradient(135deg , #040225, #132890 80%, #470d85)";
+export const mainBgColor = "#FFFFFF";
+export const secondaryBgColor = "#F8F8F8";
+export const mainBgColorDarker = "#FFFFFF";
 export const mainBgColorNum = 0x0B1456;
 export const activeColor = "#F96F0A";
 
-export const brightFontCol = "#fff";
+export const mainFontColor = "#595959";
 export const highlightTextColor = "#01FFFE";
 export const highlightTextColorNum = 0x01FFFE;
 
+export const gradientBg1 = "linear-gradient(180deg, rgba(182, 220, 255, 0.32) 0%, rgba(255, 215, 215, 0.23) 100%)";
+export const gradientBg2 = "linear-gradient(180deg, #5740C1 0%, #988ACB 21.88%, #FFA3C4 63.54%, #74F8F0 100%)";
 
 export const NFTCardStyle = {
     width: 240,
@@ -44,15 +47,23 @@ const BtnBase = {
     paddingTop: "8px",
     paddingBottom: "31px",
     border: "none",
+    color: "#FFFFFF",
+    borderRadius: "20px",
 }
 
 export const BtnInfo = {
     ...BtnBase,
+    backgroundColor: "#408CFD",
 }
 
 export const BtnPrimary = {
     ...BtnBase,
-    backgroundColor: "#f96f0b",
+    backgroundColor: "#FF74A6",
+}
+
+export const BtnSecondary = {
+    ...BtnBase,
+    backgroundColor: "#AD9BFF",
 }
 
 export const BreakFlexDiv = {

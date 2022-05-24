@@ -9,7 +9,7 @@ import {
 import { getExplorer } from "helpers/networks";
 import { useVerifyMetadata } from "hooks/useVerifyMetadata";
 import {
-  brightFontCol,
+  mainFontColor,
   highlightTextColor,
   pageTitleStyle,
   descriptionStyle
@@ -108,7 +108,7 @@ function NFTBalance() {
         padding: "0 14%",
         width: "100%",
         background: "none",
-        color: brightFontCol,
+        color: mainFontColor,
         textAlign: "center",
       }}>
         <section style={{
@@ -125,10 +125,10 @@ function NFTBalance() {
                 marginTop: "1rem",
               }}>
                 <p>Click&nbsp;
-                  <span style={{ color: highlightTextColor }}>Play with me</span>
+                  <span style={{ fontWeight: 500 }}>Play with me</span>
                   &nbsp;
                   button on selected Avatar and start your&nbsp;
-                  <span style={{ color: highlightTextColor }}>MetaGymLand Metaverse</span>
+                  <span style={{ fontWeight: 500 }}>MetaGymLand Metaverse</span>
                   &nbsp;
                   adventure.</p>
                 <p><b>Have fun!</b></p>
@@ -274,7 +274,7 @@ function NFTBalance() {
                 <Button
                   style={{
                     ...BtnPrimary,
-                    color: brightFontCol,
+                    color: mainFontColor,
                   }}
                 >
                   <Link to="/marketplace">
