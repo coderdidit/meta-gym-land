@@ -18,7 +18,8 @@ export const AppFooter = ({ style }) => {
             <Divider style={{
                 ...style,
                 backgroundColor: mainFontColor,
-                marginBottom: "2rem",
+                marginTop: 0
+                // marginBottom: "2rem",
             }} />
 
             <footer style={{
@@ -26,6 +27,7 @@ export const AppFooter = ({ style }) => {
                 display: "grid",
                 gap: "2rem",
                 gridTemplateColumns: "9fr 1fr 1fr 1fr 1fr",
+                lineHeight: 2
             }}>
                 <div style={{
                     textAlign: "left",
@@ -45,16 +47,37 @@ export const AppFooter = ({ style }) => {
                         ...descriptionStyle,
                         textDecoration: "none",
                         color: mainFontColor,
-                    }} href="/">Home</a>
+                    }}
+                        href="/#"
+                    >
+                        Home
+                    </a>
                     <br />
                     <a style={{
                         ...descriptionStyle,
                         textDecoration: "none",
                         color: mainFontColor,
-                    }} href="https://metagymland.com/" target="_blank" >About</a>
+                    }}
+                        href="https://metagymland.com/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >About</a>
+                    <br />
+                    <a style={{
+                        ...descriptionStyle,
+                        textDecoration: "none",
+                        color: mainFontColor,
+                    }}
+                        href="https://docs.metagymland.com/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        Whitepaper</a>
                 </div>
 
-                <div>
+                <div style={{
+                    textAlign: "center",
+                }}>
                     <div style={{
                         fontSize: "18px",
                         fontWeight: 700,
