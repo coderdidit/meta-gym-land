@@ -1,9 +1,10 @@
-const AvaxTestnetChainID = "0xa869";
+import gymBuddiesCollectionGif from "../assets/marketplace/gym_buddies_collection.gif";
 
+const AvaxTestnetChainID = "0xa869";
 
 const AvaxTestChainColelctions = [
   {
-    image: "https://gateway.pinata.cloud/ipfs/QmPUQSULAxGXK321PMJKE5Qcs3xHvRuxDzDUjoB8g9cmzD/gbpx11.png",
+    image: gymBuddiesCollectionGif,
     name: "GymBuddies 2022 [ERC721] Test Drop",
     addrs: "0x31c9a4d361fD82C291486B18715e8eAB26D2Bef9",
   },
