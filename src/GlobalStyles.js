@@ -14,14 +14,15 @@ export const gradientBg2 = "linear-gradient(180deg, #5740C1 0%, #988ACB 21.88%, 
 
 export const NFTCardStyle = {
     width: 240,
-    border: "3px solid #d3d3d3",
-    borderRadius: "1rem 1rem 0 0",
-    color: "black",
+    textAlign: "left",
+    boxShadow: "0 0 10px 2px #a19f9f",
+    borderRadius: "20px",
+    color: mainFontColor,
 }
 
 // const NFTImgPadding = "0.5rem";
 export const NFTImgWrapperStyle = {
-    borderRadius: "1rem 1rem 0 0",
+    borderRadius: "20px 20px 0 0",
 }
 
 export const NFTsDiv = {
@@ -33,7 +34,7 @@ export const NFTsDiv = {
 }
 
 export const NFTImg = {
-    borderRadius: "1rem 1rem 0 0",
+    borderRadius: "20px 20px 0px 0px",
 }
 
 const BtnSidesPadding = "12px";
