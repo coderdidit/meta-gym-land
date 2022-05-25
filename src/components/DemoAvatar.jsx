@@ -85,8 +85,8 @@ function DemoAvatar() {
                         </p>
 
                         <br />
-                        <p> If you dont have your awesome GymBuddy yet</p>
-                        <p>Simply mint your first GymBuddy or visit Marketplace</p>
+                        <p> If you dont have your awesome GymBuddy yet,</p>
+                        <p>simply mint your first GymBuddy or visit Marketplace</p>
                         <p> and start your MetaGymLand Metaverse adventure!</p>
                         <section style={{
                             display: "grid",
@@ -114,7 +114,7 @@ function DemoAvatar() {
                                     style={BtnInfo}
                                 >
                                     <Link to="/marketplace">
-                                        Marketplace{" "}🚀
+                                        Marketplace
                                     </Link>
                                 </Button>
                             </div>
@@ -176,7 +176,7 @@ function DemoAvatar() {
                                         />
                                         <Badge.Ribbon
                                             text="I will disappear soon"
-                                            color="red"
+                                            color="#5740C1"
                                             style={{
                                                 paddingRight: "5px",
                                                 paddingLeft: "5px",
