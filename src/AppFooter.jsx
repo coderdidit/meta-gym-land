@@ -19,7 +19,6 @@ export const AppFooter = ({ style }) => {
                 ...style,
                 backgroundColor: mainFontColor,
                 marginTop: 0
-                // marginBottom: "2rem",
             }} />
 
             <footer style={{
