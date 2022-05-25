@@ -23,6 +23,7 @@ export const NFTCardStyle = {
 // const NFTImgPadding = "0.5rem";
 export const NFTImgWrapperStyle = {
     borderRadius: "20px 20px 0 0",
+    minHeight: 320,
 }
 
 export const NFTsDiv = {
@@ -30,7 +31,7 @@ export const NFTsDiv = {
     flexWrap: "wrap",
     WebkitBoxPack: "start",
     justifyContent: "center",
-    gap: "10px",
+    gap: "14px",
 }
 
 export const NFTImg = {
