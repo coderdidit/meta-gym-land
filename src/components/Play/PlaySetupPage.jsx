@@ -29,11 +29,11 @@ const PlaySetupPage = () => {
         <div style={{
             display: "grid",
             placeItems: "center",
+            marginTop: "3rem",
             marginBottom: "6rem",
         }}>
             <div style={{
                 boxShadow: "0 0 20px 2px #020811",
-                backgroundColor: mainBgColorDarker,
                 borderRadius: "1rem",
                 padding: "3rem 3rem",
                 marginTop: "1.5rem",
@@ -49,7 +49,7 @@ const PlaySetupPage = () => {
                             fontFamily: "Source Serif Pro",
                             fontSize: "25px",
                         }}>
-                            <b>Welcome!</b>
+                            <b>Setup your webcam</b>
                         </h1>
                         <div style={{
                             textAlign: "center",

@@ -266,7 +266,11 @@ function NFTCollectionItems({ nftAddress, colName, colImg }) {
                         {colName}
                     </div>
                 </div>
-                <Divider style={{ color: mainFontColor }} />
+                <Divider style={{ 
+                    color: mainFontColor,
+                    marginTop: "0", 
+                    marginBottom: "3rem", 
+                }} />
                 <div style={NFTsDiv}>
                     {NFTTokenIds && shuffle(NFTTokenIds.result)
                         .map((nft, index) => {

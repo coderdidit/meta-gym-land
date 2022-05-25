@@ -42,6 +42,7 @@ function DemoAvatar() {
             <div style={{
                 textAlign: "center",
                 marginTop: "3rem",
+                marginBottom: "3rem",
             }}>
                 <div style={{
                     marginTop: "1rem",
