@@ -5,12 +5,12 @@ const AvaxTestnetChainID = "0xa869";
 const AvaxTestChainColelctions = [
   {
     image: gymBuddiesCollectionGif,
-    name: "GymBuddies 2022 Test Drop",
+    name: "GymBuddies May 2022",
     addrs: "0x31c9a4d361fD82C291486B18715e8eAB26D2Bef9",
   },
   {
     image: "https://ipfs.moralis.io:2053/ipfs/QmVF53rCjFiFSXyJd64NgeGioQG93gegdsymyMWtJLG9Ev/cover.gif",
-    name: "Moralis Avalanche 2021 Hackaton Test Avatars",
+    name: "Moralis Avalanche Hackaton 2021 Avatars",
     addrs: "0xbba97ea3912c598a39ce0802d5cd67dd3d873457",
   },
 ];
