@@ -75,13 +75,10 @@ const MintGymBuddyPage = () => {
                         <p>You minted your GymBuddy&nbsp;🎉</p>
                         <br />
                         <p>Check your GymBuddies tab</p>
-                        <p>Bear in mind it may take few minutes</p>
-                        <p>until your newle minted GymBuddy appear</p>
+                        <p>Bear in mind it may take a few minutes</p>
+                        <p>until your newly minted GymBuddy appear</p>
                     </div>,
                 })
-                setTimeout(() => {
-                    modal.destroy();
-                }, secondsToGo * 1000)
             },
             onError: (error) => {
                 console.error(error);
@@ -91,9 +88,6 @@ const MintGymBuddyPage = () => {
                     title: "Oops, something went worng",
                     content: error,
                 })
-                setTimeout(() => {
-                    modal.destroy();
-                }, secondsToGo * 1000)
             },
         })
     }
