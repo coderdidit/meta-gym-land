@@ -230,6 +230,11 @@ function NFTBalance() {
                                       Play with me
                                     </Link>
                                   </Button>
+                                  <Button
+                                    onClick={() => handleListForSaleClick(nft)}
+                                  >
+                                    list
+                                  </Button>
                                 </div>
                               </section>
                             </div>
