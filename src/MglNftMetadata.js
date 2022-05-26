@@ -5,8 +5,6 @@ export const AllowedNftContracts = new Map([
     ["0xa869", // AVAX fuji testnet
         [
             TestGymBuddiesContract,
-            // AvaxMoralis2021HackatonNfts,
-            DemoNFT,
         ],
     ]
 ]);
