@@ -74,25 +74,24 @@ const MintGymBuddyPage = () => {
         const gymBuddyId = getRandomGymBuddyId();
         const ops = {
             contractAddress,
-            functionName: "createToken",
+            functionName: "requestNft",
             abi: [{
-                "inputs": [
+                "inputs": [],
+                "name": "requestNft",
+                "outputs": [
                     {
-                        "internalType": "uint32",
-                        "name": "gbId",
-                        "type": "uint32"
+                        "internalType": "uint256",
+                        "name": "requestId",
+                        "type": "uint256"
                     }
                 ],
-                "name": "createToken",
-                "outputs": [],
-                "stateMutability": "nonpayable",
+                "stateMutability": "payable",
                 "type": "function"
             }],
             params: {
                 gbId: gymBuddyId,
             },
-            // TODO: make smart contract payable
-            // msgValue: Moralis.Units.ETH(mintPrice),
+            msgValue: Moralis.Units.ETH(mintPrice),
         }
         await contractProcessor.fetch({
             params: ops,
