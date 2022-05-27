@@ -119,7 +119,7 @@ const App = ({ isServerInfo }) => {
             <Route path="/demo-avatar">
               <DemoAvatar />
             </Route>
-            <Route path="/gym-buddy-details">
+            <Route path="/gym-buddy-details/:address/:id">
               <GymBuddyDetails />
             </Route>
             <Route path="/play">
