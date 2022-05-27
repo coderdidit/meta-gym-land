@@ -9,7 +9,7 @@ import {
     descriptionStyle,
 } from "../GlobalStyles";
 import { useNFTMetadata } from "hooks/useNFTMetadata";
-import { MainChainID } from "../MglNftMetadata";
+import { MainChainID, TestGymBuddiesContract } from "../MglNftMetadata";
 import Loader from "./Loader";
 import { useParams } from 'react-router';
 import { LeftOutlined } from "@ant-design/icons";
@@ -160,15 +160,31 @@ function GymBuddyDetails() {
         return (<Loader />);
     } else {
 
+        if (address != TestGymBuddiesContract) {
+            return (<div style={{
+                textAlign: "center",
+                padding: "6rem"
+            }}>
+                <Alert
+                    message="Incorrect NFT contract!"
+                    type="warning"
+                />
+                <div style={{ marginBottom: "10px" }}></div>
+            </div>);
+        }
+
         if (NFTsFetchError) {
             return (
-                <>
+                <div style={{
+                    textAlign: "center",
+                    padding: "6rem"
+                }}>
                     <Alert
                         message="Unable to fetch NFT. We are searching for a solution, please try again later!"
                         type="warning"
                     />
                     <div style={{ marginBottom: "10px" }}></div>
-                </>
+                </div>
             )
         }
         return NFTTokenMetadata && (
