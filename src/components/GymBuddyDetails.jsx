@@ -48,8 +48,14 @@ function GymBuddyDetails() {
     }
 
     const displayAttributes = (attr) => {
+        const attrSorted = attr.sort((a, _) => {
+            if (a.trait_type === "name" || a.trait_type === "level") {
+                return -1;
+            }
+            return 1;
+        })
         return (<List
-            dataSource={attr}
+            dataSource={attrSorted}
             renderItem={a => (
                 <List.Item
                     style={{
