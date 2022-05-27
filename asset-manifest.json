@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/static/css/main.9d175c1b.chunk.css",
-    "main.js": "/static/js/main.be71f0fd.chunk.js",
-    "main.js.map": "/static/js/main.be71f0fd.chunk.js.map",
+    "main.js": "/static/js/main.6c2061ce.chunk.js",
+    "main.js.map": "/static/js/main.6c2061ce.chunk.js.map",
     "polyfills-dom.js": "/static/js/polyfills-dom.1d08de64.chunk.js",
     "polyfills-dom.js.map": "/static/js/polyfills-dom.1d08de64.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.f8bc3b60.js",
     "runtime-main.js.map": "/static/js/runtime-main.f8bc3b60.js.map",
     "static/css/3.a95be28f.chunk.css": "/static/css/3.a95be28f.chunk.css",
-    "static/js/3.1a542d8e.chunk.js": "/static/js/3.1a542d8e.chunk.js",
-    "static/js/3.1a542d8e.chunk.js.map": "/static/js/3.1a542d8e.chunk.js.map",
+    "static/js/3.01e0d621.chunk.js": "/static/js/3.01e0d621.chunk.js",
+    "static/js/3.01e0d621.chunk.js.map": "/static/js/3.01e0d621.chunk.js.map",
     "static/js/4.383e9eb1.chunk.js": "/static/js/4.383e9eb1.chunk.js",
     "static/js/4.383e9eb1.chunk.js.map": "/static/js/4.383e9eb1.chunk.js.map",
     "static/js/5.1650e703.chunk.js": "/static/js/5.1650e703.chunk.js",
@@ -17,14 +17,14 @@
     "index.html": "/index.html",
     "static/css/3.a95be28f.chunk.css.map": "/static/css/3.a95be28f.chunk.css.map",
     "static/css/main.9d175c1b.chunk.css.map": "/static/css/main.9d175c1b.chunk.css.map",
-    "static/js/3.1a542d8e.chunk.js.LICENSE.txt": "/static/js/3.1a542d8e.chunk.js.LICENSE.txt",
+    "static/js/3.01e0d621.chunk.js.LICENSE.txt": "/static/js/3.01e0d621.chunk.js.LICENSE.txt",
     "static/js/polyfills-dom.1d08de64.chunk.js.LICENSE.txt": "/static/js/polyfills-dom.1d08de64.chunk.js.LICENSE.txt",
     "static/media/Coin98.1e4e4073.png": "/static/media/Coin98.1e4e4073.png",
     "static/media/MathWallet.19212234.svg": "/static/media/MathWallet.19212234.svg",
     "static/media/SafePal.e7068bbc.svg": "/static/media/SafePal.e7068bbc.svg",
     "static/media/TokenPocket.0ba48742.svg": "/static/media/TokenPocket.0ba48742.svg",
     "static/media/card.41742a40.png": "/static/media/card.41742a40.png",
-    "static/media/gym-buddies.8dda7aeb.gif": "/static/media/gym-buddies.8dda7aeb.gif",
+    "static/media/gym-buddies.69d61529.gif": "/static/media/gym-buddies.69d61529.gif",
     "static/media/gym_buddies_collection.c176dfe0.gif": "/static/media/gym_buddies_collection.c176dfe0.gif",
     "static/media/home_page_img.ce4583d9.png": "/static/media/home_page_img.ce4583d9.png",
     "static/media/how_it_works_1.e1f1931a.png": "/static/media/how_it_works_1.e1f1931a.png",
@@ -37,8 +37,8 @@
   "entrypoints": [
     "static/js/runtime-main.f8bc3b60.js",
     "static/css/3.a95be28f.chunk.css",
-    "static/js/3.1a542d8e.chunk.js",
+    "static/js/3.01e0d621.chunk.js",
     "static/css/main.9d175c1b.chunk.css",
-    "static/js/main.be71f0fd.chunk.js"
+    "static/js/main.6c2061ce.chunk.js"
   ]
 }
