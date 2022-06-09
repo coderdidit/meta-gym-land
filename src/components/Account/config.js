@@ -5,6 +5,7 @@ import MathWallet from "./WalletIcons/MathWallet.svg";
 import TokenPocket from "./WalletIcons/TokenPocket.svg";
 import SafePal from "./WalletIcons/SafePal.svg";
 import TrustWallet from "./WalletIcons/TrustWallet.png";
+import BitKeepWallet from "./WalletIcons/bkWallet.png";
 
 export const connectors = [
   {
@@ -24,6 +25,15 @@ export const connectors = [
     icon: TrustWallet,
     connectorId: "injected",
     priority: 3,
+  },
+  // willl require custom connector
+  // https://docs.moralis.io/moralis-dapp/users/web3-login/custom-auth-any-eip1193-provider
+  // https://forum.moralis.io/t/trust-wallet-integration/1382
+  {
+    title: "BitKeep Wallet",
+    icon: BitKeepWallet,
+    connectorId: "injected",
+    priority: 4,
   },
   {
     title: "MathWallet",
