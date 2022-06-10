@@ -9,6 +9,7 @@ class NoEthereumProviderError extends Error {
 
 function getProvider() {
     if (!window.isBitKeep) {
+        window.open('https://bitkeep.com/download?type=2');
         return null
     }
     return window.bitkeep.ethereum
@@ -25,10 +26,6 @@ function fromDecimalToHex(number) {
 function verifyChainId(chainId) {
     if (typeof chainId === 'number') chainId = fromDecimalToHex(chainId);
     return chainId;
-}
-
-function isBitKeepInstalled() {
-    return window.isBitKeep && window.bitkeep.ethereum;
 }
 
 class BitKeepConnector extends AbstractWeb3Connector {
