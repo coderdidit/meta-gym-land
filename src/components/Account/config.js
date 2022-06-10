@@ -21,12 +21,6 @@ export const connectors = [
     connectorId: "walletconnect",
     priority: 2,
   },
-  {
-    title: "Trust Wallet",
-    icon: TrustWallet,
-    connectorId: "injected",
-    priority: 3,
-  },
   // willl require custom connector
   // https://docs.moralis.io/moralis-dapp/users/web3-login/custom-auth-any-eip1193-provider
   // https://forum.moralis.io/t/trust-wallet-integration/1382
@@ -35,8 +29,14 @@ export const connectors = [
   {
     title: "BitKeep Wallet",
     icon: BitKeepWallet,
-    connectorId: "injected",
+    connectorId: "bitkeep",
     customConnector: BitKeepConnector,
+    priority: 3,
+  },
+  {
+    title: "Trust Wallet",
+    icon: TrustWallet,
+    connectorId: "injected",
     priority: 4,
   },
   {
