@@ -1,11 +1,4 @@
-import { AbstractWeb3Connector, verifyChainId } from "moralis";
-
-export const InjectedEvents = Object.freeze({
-    ACCOUNTS_CHANGED: 'accountsChanged',
-    CHAIN_CHANGED: 'chainChanged',
-    CONNECT: 'connect',
-    DISCONNECT: 'disconnect',
-});
+import { AbstractWeb3Connector } from "moralis";
 
 class NoEthereumProviderError extends Error {
     constructor() {
@@ -19,6 +12,19 @@ function getProvider() {
         return null
     }
     return window.bitkeep.ethereum
+}
+
+function fromDecimalToHex(number) {
+    if (typeof number !== 'number') throw 'The input provided should be a number';
+    return `0x${number.toString(16)}`;
+}
+
+/**
+ * Converts chainId to a hex if it is a number
+ */
+function verifyChainId(chainId) {
+    if (typeof chainId === 'number') chainId = fromDecimalToHex(chainId);
+    return chainId;
 }
 
 function isBitKeepInstalled() {
@@ -35,7 +41,6 @@ class BitKeepConnector extends AbstractWeb3Connector {
     }
 
     async activate() {
-        console.log('---activate------BitKeepConnector------', isBitKeepInstalled());
         this.verifyEthereumBrowser();
 
         const provider = getProvider();
@@ -63,7 +68,9 @@ class BitKeepConnector extends AbstractWeb3Connector {
         const currentNetwork = this.chainId;
         if (currentNetwork === chainId) return;
 
-        await window.ethereum.request({
+        const provider = getProvider();
+
+        await provider.request({
             method: 'wallet_switchEthereumChain',
             params: [{ chainId }],
         });
@@ -73,7 +80,9 @@ class BitKeepConnector extends AbstractWeb3Connector {
         this.verifyEthereumBrowser();
 
         const newchainId = verifyChainId(chainId);
-        await window.ethereum.request({
+        const provider = getProvider();
+
+        await provider.request({
             method: 'wallet_addEthereumChain',
             params: [
                 {
