@@ -6,6 +6,7 @@ import TokenPocket from "./WalletIcons/TokenPocket.svg";
 import SafePal from "./WalletIcons/SafePal.svg";
 import TrustWallet from "./WalletIcons/TrustWallet.png";
 import BitKeepWallet from "./WalletIcons/bkWallet.png";
+import BitKeepConnector from "./BitKeepConnector";
 
 export const connectors = [
   {
@@ -35,6 +36,7 @@ export const connectors = [
     title: "BitKeep Wallet",
     icon: BitKeepWallet,
     connectorId: "injected",
+    customConnector: BitKeepConnector,
     priority: 4,
   },
   {
