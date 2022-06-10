@@ -29,7 +29,7 @@ function verifyChainId(chainId) {
 }
 
 class BitKeepConnector extends AbstractWeb3Connector {
-    type = 'injected';
+    type = 'bitkeep';
 
     verifyEthereumBrowser() {
         if (!window?.ethereum) {

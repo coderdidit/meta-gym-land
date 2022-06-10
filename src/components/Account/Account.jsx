@@ -84,7 +84,7 @@ function Account() {
                 onClick={async () => {
                   try {
                     if (customConnector) {
-                      await authenticate({ connector: customConnector });
+                      await authenticate({ connector: customConnector, provider: connectorId });
                     } else {
                       await authenticate({ provider: connectorId });
                     }
