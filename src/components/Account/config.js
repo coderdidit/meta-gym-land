@@ -21,11 +21,6 @@ export const connectors = [
     connectorId: "walletconnect",
     priority: 2,
   },
-  // willl require custom connector
-  // https://docs.moralis.io/moralis-dapp/users/web3-login/custom-auth-any-eip1193-provider
-  // https://forum.moralis.io/t/trust-wallet-integration/1382
-  // https://docs.metamask.io/guide/ethereum-provider.html#table-of-contents
-  // https://docs.bitkeep.com/guide/how-to-connect.html
   {
     title: "BitKeep Wallet",
     icon: BitKeepWallet,
