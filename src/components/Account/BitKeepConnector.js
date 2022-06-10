@@ -44,12 +44,12 @@ class BitKeepConnector extends AbstractWeb3Connector {
 
         const [accounts, chainId] = await Promise.all([
             provider.request({ method: 'eth_requestAccounts' }),
-            window.ethereum.request({ method: 'eth_chainId' }),
+            provider.request({ method: 'eth_chainId' }),
         ]);
 
         const account = accounts[0] ? accounts[0].toLowerCase() : null;
 
-        this.chainId = chainId;
+        this.chainId = verifyChainId(chainId);
         this.account = account;
         this.provider = provider;
 
