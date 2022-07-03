@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
-import { Button, Card, Image, Tooltip, Alert, Badge, Modal } from "antd";
+import { Button, Card, Image, Tooltip, Alert, Badge } from "antd";
 import { FileSearchOutlined, SmileFilled } from "@ant-design/icons";
 import { getExplorer } from "helpers/networks";
 import { Link } from "react-router-dom";
@@ -21,7 +21,7 @@ import { resolveNftSprite } from "../helpers/nft-props-resolvers";
 import { pageTitleStyle, descriptionStyle } from "GlobalStyles";
 import Loader from "./Loader";
 import QRCode from "qrcode";
-import { SnapChatLogo } from "../Logos";
+import SnapArBtn from "./SnapArBtn";
 import { isSnapArEnabled } from "./feature-flags";
 
 const fallbackImg =
@@ -219,57 +219,7 @@ function DemoAvatar() {
                         />
                       </div>
                       {isSnapArEnabled() && (
-                        <div
-                          className="snap-btn"
-                          style={{
-                            backgroundColor: "#F6F403",
-                            color: "black",
-                            zIndex: "2",
-                            margin: "1rem",
-                            padding: "0.5rem",
-                            borderRadius: "50%",
-                            border: "1px solid black",
-                            height: "42px",
-                            width: "42px",
-                            // grid props
-                            gridArea: "overlap",
-                            alignSelf: "start",
-                            justifySelf: "end",
-                          }}
-                          onClick={() => {
-                            Modal.info({
-                              title: "Try me in Snapchat",
-                              centered: true,
-                              bodyStyle: {
-                                textAlign: "center",
-                              },
-                              okText: "close",
-                              icon: <SnapChatLogo />,
-                              content: (
-                                <div
-                                  style={{
-                                    textAlign: "center",
-                                  }}
-                                >
-                                  <div>
-                                    <p>Grab your phone</p>
-                                    <p>and scan the QR code</p>
-                                  </div>
-                                  <div
-                                    style={{
-                                      display: "flex",
-                                      justifyContent: "center",
-                                    }}
-                                  >
-                                    <img src={snapQRCodeDataURI} />
-                                  </div>
-                                </div>
-                              ),
-                            });
-                          }}
-                        >
-                          <SnapChatLogo width={24} height={24} />
-                        </div>
+                        <SnapArBtn snapQRCodeDataURI={snapQRCodeDataURI} />
                       )}
                     </div>
                     <Badge.Ribbon
