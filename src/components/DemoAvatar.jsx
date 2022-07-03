@@ -191,17 +191,60 @@ function DemoAvatar() {
                 style={NFTCardStyle}
                 cover={
                   <>
-                    <Image
-                      preview={false}
-                      src={nft.image || "error"}
-                      fallback={fallbackImg}
-                      alt=""
-                      style={NFTImg}
-                      wrapperStyle={{
-                        backgroundColor: "#" + nft?.background_color,
-                        ...NFTImgWrapperStyle,
+                    <div
+                      style={{
+                        display: "grid",
+                        gridTemplateRows: "1fr",
+                        gridTemplateColumns: "1fr",
+                        gridTemplateAreas: "overlap",
                       }}
-                    />
+                    >
+                      <div
+                        style={{
+                          // grid props
+                          gridArea: "overlap",
+                          alignSelf: "center",
+                          justifySelf: "center",
+                        }}
+                      >
+                        <Image
+                          preview={false}
+                          src={nft.image || "error"}
+                          fallback={fallbackImg}
+                          alt=""
+                          style={{
+                            ...NFTImg,
+                            // grid props
+                            gridArea: "overlap",
+                            alignSelf: "center",
+                            justifySelf: "center",
+                          }}
+                          wrapperStyle={{
+                            backgroundColor: "#" + nft?.background_color,
+                            ...NFTImgWrapperStyle,
+                          }}
+                        />
+                      </div>
+                      <div
+                        style={{
+                          backgroundColor: "#F6F403",
+                          color: "black",
+                          zIndex: "2",
+                          margin: "1rem",
+                          padding: "0.5rem",
+                          borderRadius: "50%",
+                          border: "1px solid black",
+                          height: "42px",
+                          width: "42px",
+                          // grid props
+                          gridArea: "overlap",
+                          alignSelf: "start",
+                          justifySelf: "end",
+                        }}
+                      >
+                        <SnapChatLogo width={24} height={24} />
+                      </div>
+                    </div>
                     <Badge.Ribbon
                       text="I will disappear soon"
                       color="#5740C1"
