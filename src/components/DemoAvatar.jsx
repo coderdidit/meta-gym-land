@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext } from "react";
 import { Button, Card, Image, Tooltip, Alert, Badge } from "antd";
 import { FileSearchOutlined, SmileFilled } from "@ant-design/icons";
 import { getExplorer } from "helpers/networks";
@@ -20,7 +20,6 @@ import { chainIdToNameAndLogo } from "../components/Chains/Chains";
 import { resolveNftSprite } from "../helpers/nft-props-resolvers";
 import { pageTitleStyle, descriptionStyle } from "GlobalStyles";
 import Loader from "./Loader";
-import QRCode from "qrcode";
 import SnapArBtn from "./SnapArBtn";
 import { isSnapArEnabled } from "./feature-flags";
 
@@ -40,15 +39,9 @@ function DemoAvatar() {
     isLoading,
   } = useNFTTokenIds(demoNFTContract, 3, chainId);
   const { verifyMetadata } = useVerifyMetadata();
-  const [snapQRCodeDataURI, setSnapQRCodeDataURI] = useState(null);
 
-  useEffect(() => {
-    const snapARLink =
-      "https://www.snapchat.com/unlock/?type=SNAPCODE&uuid=c890d0e0b700469598bb86f34b6c4b64&metadata=01";
-    QRCode.toDataURL(snapARLink).then((data) => {
-      setSnapQRCodeDataURI(data);
-    });
-  });
+  const snapARLink =
+    "https://www.snapchat.com/unlock/?type=SNAPCODE&uuid=c890d0e0b700469598bb86f34b6c4b64&metadata=01";
 
   if (isLoading) {
     return <Loader />;
@@ -219,7 +212,7 @@ function DemoAvatar() {
                         />
                       </div>
                       {isSnapArEnabled() && (
-                        <SnapArBtn snapQRCodeDataURI={snapQRCodeDataURI} />
+                        <SnapArBtn snapARLink={snapARLink} />
                       )}
                     </div>
                     <Badge.Ribbon
