@@ -12,7 +12,9 @@ import {
 } from "./Globals";
 import { MMT_TICKER } from "../../../GlobalStyles";
 import { EarnableScene } from "./EarnableScene";
-// import QRCode from "qrcode";
+import { Modal } from "antd";
+import { SnapChatLogo } from "../../../Logos";
+import QRCode from "qrcode";
 
 const debugCollisons = false;
 
@@ -35,6 +37,39 @@ const miniGamesMapping = new Map([
 
 let sceneToGoOnXclick = null;
 const roboTextTimeouts = [];
+
+const showSnapchatModal = async (snapARLink) => {
+  const qrCodeData = await QRCode.toDataURL(snapARLink);
+  Modal.info({
+    title: "Try me in Snapchat",
+    centered: true,
+    bodyStyle: {
+      textAlign: "center",
+    },
+    okText: "close",
+    icon: <SnapChatLogo />,
+    content: (
+      <div
+        style={{
+          textAlign: "center",
+        }}
+      >
+        <div>
+          <p>Grab your phone</p>
+          <p>and scan the QR code</p>
+        </div>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <img src={qrCodeData} />
+        </div>
+      </div>
+    ),
+  });
+};
 
 export class GymRoomScene extends EarnableScene {
   constructor() {
@@ -59,8 +94,8 @@ export class GymRoomScene extends EarnableScene {
         if (sceneToGoOnXclick && code === Phaser.Input.Keyboard.KeyCodes.X) {
           roboTextTimeouts.forEach((t) => clearTimeout(t));
           setMainRoomPlayerExitPos(this.player.x, this.player.y);
-          if (sceneToGoOnXclick === "Snapchat") {
-            console.log("Snapchat");
+          if (sceneToGoOnXclick === "snap") {
+            showSnapchatModal("test");
           } else {
             this.game.registry.values?.setMinigame(sceneToGoOnXclick);
             this.scene.start(sceneToGoOnXclick);
