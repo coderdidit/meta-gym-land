@@ -12,6 +12,7 @@ import {
 } from "./Globals";
 import { MMT_TICKER } from "../../../GlobalStyles";
 import { EarnableScene } from "./EarnableScene";
+// import QRCode from "qrcode";
 
 const debugCollisons = false;
 
@@ -27,6 +28,7 @@ const tileMapSizing = 32;
 const miniGamesMapping = new Map([
   ["space_stretch", "Space Mat"],
   ["fly_fit", "Sky Mat"],
+  ["snap", "Snapchat"],
   ["chart_squats", "Chart Squats Mat"],
   ["matrix", "Mystery Mat"],
 ]);
@@ -57,8 +59,12 @@ export class GymRoomScene extends EarnableScene {
         if (sceneToGoOnXclick && code === Phaser.Input.Keyboard.KeyCodes.X) {
           roboTextTimeouts.forEach((t) => clearTimeout(t));
           setMainRoomPlayerExitPos(this.player.x, this.player.y);
-          this.game.registry.values?.setMinigame(sceneToGoOnXclick);
-          this.scene.start(sceneToGoOnXclick);
+          if (sceneToGoOnXclick === "Snapchat") {
+            console.log("Snapchat");
+          } else {
+            this.game.registry.values?.setMinigame(sceneToGoOnXclick);
+            this.scene.start(sceneToGoOnXclick);
+          }
         }
       },
       this,
@@ -190,10 +196,17 @@ export class GymRoomScene extends EarnableScene {
         matRectangle.setFillStyle(0x33dd33, 0.3);
         roboTextTimeouts.forEach((t) => clearTimeout(t));
         sceneToGoOnXclick = objName;
-        hintTextBox.start(
-          `🤖 press X to train on\n${miniGamesMapping.get(objName)} 🚀`,
-          50,
-        );
+        if (objName === "snap") {
+          hintTextBox.start(
+            `🤖 press X to let your GymBuddy enter Snapchat 🚀`,
+            50,
+          );
+        } else {
+          hintTextBox.start(
+            `🤖 press X to train on\n${miniGamesMapping.get(objName)} 🚀`,
+            50,
+          );
+        }
       }
     };
 
