@@ -95,7 +95,7 @@ export class GymRoomScene extends EarnableScene {
           roboTextTimeouts.forEach((t) => clearTimeout(t));
           setMainRoomPlayerExitPos(this.player.x, this.player.y);
           if (sceneToGoOnXclick === "snap") {
-            showSnapchatModal("test");
+            showSnapchatModal(this.selectedAvatar.snapARLink);
           } else {
             this.game.registry.values?.setMinigame(sceneToGoOnXclick);
             this.scene.start(sceneToGoOnXclick);

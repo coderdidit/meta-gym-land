@@ -40,9 +40,6 @@ function DemoAvatar() {
   } = useNFTTokenIds(demoNFTContract, 3, chainId);
   const { verifyMetadata } = useVerifyMetadata();
 
-  const snapARLink =
-    "https://www.snapchat.com/unlock/?type=SNAPCODE&uuid=c890d0e0b700469598bb86f34b6c4b64&metadata=01";
-
   if (isLoading) {
     return <Loader />;
   } else {
@@ -212,7 +209,9 @@ function DemoAvatar() {
                         />
                       </div>
                       {isSnapArEnabled() && (
-                        <SnapArBtn snapARLink={snapARLink} />
+                        <SnapArBtn
+                          snapARLink={nft?.snap_ar_miniature_link ?? ""}
+                        />
                       )}
                     </div>
                     <Badge.Ribbon
@@ -244,6 +243,7 @@ function DemoAvatar() {
                       const avatarTokenId = nft?.token_id;
                       setAvatar({
                         uri: avatarUri,
+                        snapARLink: nft?.snap_ar_link ?? "",
                         coverUri: coverUri,
                         tokenAddress: avatarTokenAddress,
                         tokenId: avatarTokenId,
