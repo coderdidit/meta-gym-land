@@ -9,7 +9,7 @@ import {
   descriptionStyle,
 } from "../GlobalStyles";
 import { useNFTMetadata } from "hooks/useNFTMetadata";
-import { MainChainID, TestGymBuddiesContract } from "../MglNftMetadata";
+import { MainChainID, AllowedNftContracts } from "../MglNftMetadata";
 import Loader from "./Loader";
 import { useParams } from "react-router";
 import { LeftOutlined } from "@ant-design/icons";
@@ -195,11 +195,12 @@ function GymBuddyDetails() {
     error: NFTsFetchError,
     isLoading,
   } = useNFTMetadata(options.address, options.token_id, options.chain);
-
+  const allowedNftContracts =
+    AllowedNftContracts.get(chainId).map((c) => c.toLowerCase()) ?? [];
   if (isLoading) {
     return <Loader />;
   } else {
-    if (address != TestGymBuddiesContract) {
+    if (!allowedNftContracts.includes(address.toLowerCase())) {
       return (
         <div
           style={{
