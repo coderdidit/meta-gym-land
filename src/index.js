@@ -17,7 +17,11 @@ const SERVER_URL = process.env.REACT_APP_MORALIS_SERVER_URL;
 // Avatar global state
 export const AvatarCtx = React.createContext();
 const AvatarCtxProvider = ({ children }) => {
-  const [avatar, setAvatar] = useState(null);
+  const lastUsedAvatarRaw = window.localStorage.getItem("avatar");
+  const lastUsedAvatar = lastUsedAvatarRaw
+    ? JSON.parse(lastUsedAvatarRaw)
+    : null;
+  const [avatar, setAvatar] = useState(lastUsedAvatar);
   return (
     <AvatarCtx.Provider value={[avatar, setAvatar]}>
       {children}

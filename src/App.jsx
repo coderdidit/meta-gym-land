@@ -144,7 +144,7 @@ const App = ({ isServerInfo }) => {
             <Route path="/gym-buddy-details/:address/:id">
               <GymBuddyDetails />
             </Route>
-            <Route path="/play">
+            <Route path="/play/:miniGameId?">
               <PlayPage />
             </Route>
             <Route path="/sandbox-play/:miniGameId?">

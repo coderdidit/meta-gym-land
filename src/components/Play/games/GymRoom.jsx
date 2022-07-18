@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
+import { useMoralis } from "react-moralis";
 import Phaser from "phaser";
 import { IonPhaser } from "@ion-phaser/react";
 import { GymRoomScene } from "./GymRoomScene";
@@ -69,6 +70,7 @@ const GymRoom = ({ avatar, useWebcam = true, miniGameId = null }) => {
   const [initialised, setInitialised] = useState(true);
   const [config, setConfig] = useState();
   const { setMinigame } = useContext(MiniGameCtx);
+  const { user } = useMoralis();
 
   const startGame = () => {
     setConfig({
@@ -81,6 +83,7 @@ const GymRoom = ({ avatar, useWebcam = true, miniGameId = null }) => {
             avatar,
             setMinigame,
             pickedMiniGame: miniGameId,
+            user,
           });
         },
       },
