@@ -64,7 +64,7 @@ const getConfig = (mainScene) => {
   };
 };
 
-const GymRoom = ({ avatar, useWebcam = true }) => {
+const GymRoom = ({ avatar, useWebcam = true, miniGameId = null }) => {
   // run game
   const [initialised, setInitialised] = useState(true);
   const [config, setConfig] = useState();
@@ -80,6 +80,7 @@ const GymRoom = ({ avatar, useWebcam = true }) => {
           game.registry.merge({
             avatar,
             setMinigame,
+            pickedMiniGame: miniGameId,
           });
         },
       },
@@ -88,7 +89,6 @@ const GymRoom = ({ avatar, useWebcam = true }) => {
 
   useEffect(() => {
     startGame();
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
