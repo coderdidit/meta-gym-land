@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext } from "react";
-import { useMoralis } from "react-moralis";
 import Phaser from "phaser";
 import { IonPhaser } from "@ion-phaser/react";
 import { GymRoomScene } from "./GymRoomScene";
@@ -65,12 +64,16 @@ const getConfig = (mainScene) => {
   };
 };
 
-const GymRoom = ({ avatar, useWebcam = true, miniGameId = null }) => {
+const GymRoom = ({
+  avatar,
+  useWebcam = true,
+  miniGameId = null,
+  user = null,
+}) => {
   // run game
   const [initialised, setInitialised] = useState(true);
   const [config, setConfig] = useState();
   const { setMinigame } = useContext(MiniGameCtx);
-  const { user } = useMoralis();
 
   const startGame = () => {
     setConfig({
@@ -93,7 +96,7 @@ const GymRoom = ({ avatar, useWebcam = true, miniGameId = null }) => {
   useEffect(() => {
     startGame();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [user]);
 
   return (
     <IonPhaser
