@@ -1,14 +1,12 @@
-import React, { useState, useEffect, useMemo, StrictMode } from "react";
+import React, { useState, useEffect, StrictMode } from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 import { MoralisProvider } from "react-moralis";
 import "./index.css";
 import Home from "components/Home";
-import { Pose } from "@mediapipe/pose";
-import * as mpPose from "@mediapipe/pose";
-import { ConfidenceScore } from "./AIConfig";
 import { GYM_ROOM_SCENE } from "./components/Play/games/shared";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
+import { MglPoseDetector } from "./ai/MglPoseDetector";
 
 // Moralis vals
 const APP_ID = process.env.REACT_APP_MORALIS_APPLICATION_ID;
@@ -65,26 +63,7 @@ const WebcamCtxProvider = ({ children }) => {
 // PoseDetector global var
 export const PoseDetectorCtx = React.createContext();
 const PoseDetectorCtxProvider = ({ children }) => {
-  console.log("init ml");
-  const poseDetector = useMemo(
-    () =>
-      new Pose({
-        locateFile: (file) => {
-          const path = `https://cdn.jsdelivr.net/npm/@mediapipe/pose@${mpPose.VERSION}/${file}`;
-          return path;
-        },
-      }),
-    [],
-  );
-  poseDetector.setOptions({
-    modelComplexity: 1,
-    smoothLandmarks: true,
-    selfieMode: true,
-    //   enableSegmentation: true,
-    // smoothSegmentation: true,
-    minDetectionConfidence: ConfidenceScore,
-    minTrackingConfidence: ConfidenceScore,
-  });
+  const poseDetector = new MglPoseDetector();
 
   useEffect(() => {
     poseDetector.initialize();
