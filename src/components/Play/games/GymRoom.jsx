@@ -76,6 +76,9 @@ const GymRoom = ({
   const { setMinigame } = useContext(MiniGameCtx);
 
   const startGame = () => {
+    if (miniGameId) {
+      setMinigame(miniGameId);
+    }
     setConfig({
       ...getConfig(GymRoomScene),
       callbacks: {
