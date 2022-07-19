@@ -4,7 +4,7 @@ import { AvatarCtx } from "index";
 import { Redirect } from "react-router";
 import GymRoom from "./games/GymRoom";
 
-const PlayPage = ({ user = null }) => {
+const PlayPage = () => {
   const [avatar] = useContext(AvatarCtx);
   const { miniGameId } = useParams();
   if (!avatar) {
@@ -12,7 +12,7 @@ const PlayPage = ({ user = null }) => {
   }
   return (
     <>
-      <GymRoom avatar={avatar} miniGameId={miniGameId} user={user} />
+      <GymRoom avatar={avatar} miniGameId={miniGameId} />
     </>
   );
 };

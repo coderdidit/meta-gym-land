@@ -74,7 +74,6 @@ const App = ({ isServerInfo }) => {
     isAuthenticated,
     isWeb3EnableLoading,
     chainId,
-    user,
   } = useMoralis();
   useEffect(() => {
     const connectorId = window.localStorage.getItem("connectorId");
@@ -146,7 +145,7 @@ const App = ({ isServerInfo }) => {
               <GymBuddyDetails />
             </Route>
             <Route path="/play/:miniGameId?">
-              <PlayPage user={user} />
+              <PlayPage />
             </Route>
             <Route path="/sandbox-play/:miniGameId?">
               <GymRoomSandbox />
