@@ -12,7 +12,7 @@ export class SceneInMetaGymRoom extends EarnableScene {
     this.scene.start(GYM_ROOM_SCENE);
   }
 
-  handleExit({ thisSceneKey }) {
+  handleExit({ thisSceneKey, callbackOnExit }) {
     // constrols
     this.input.keyboard.on(
       "keydown",
@@ -22,6 +22,9 @@ export class SceneInMetaGymRoom extends EarnableScene {
           code === Phaser.Input.Keyboard.KeyCodes.ESC ||
           code === Phaser.Input.Keyboard.KeyCodes.X
         ) {
+          if (callbackOnExit) {
+            callbackOnExit();
+          }
           await this.updateXP();
         }
         if (code === Phaser.Input.Keyboard.KeyCodes.X) {
