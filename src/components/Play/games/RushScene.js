@@ -1,10 +1,10 @@
 import Phaser from "phaser";
 import { getGameWidth, getGameHeight } from "./helpers";
 import { PlayerWithName } from "./objects";
-import { GYM_ROOM_SCENE, RUSH } from "./shared";
+import { RUSH } from "./shared";
 import { createTextBox } from "./utils/text";
 import { mainBgColorNum, highlightTextColorNum } from "../../../GlobalStyles";
-import { EarnableScene } from "./EarnableScene";
+import { SceneInMetaGymRoom } from "./scene-in-metagym-room";
 import * as gstate from "../../gpose/state";
 import * as gpose from "../../gpose/pose";
 import { RUSH_BG } from "./assets";
@@ -16,18 +16,9 @@ const SceneConfig = {
   key: RUSH,
 };
 
-export class RushScene extends EarnableScene {
+export class RushScene extends SceneInMetaGymRoom {
   constructor() {
     super(SceneConfig);
-  }
-
-  init = (data) => {
-    this.selectedAvatar = data.selectedAvatar;
-  };
-
-  exit() {
-    this.game.registry.values?.setMinigame(GYM_ROOM_SCENE);
-    this.scene.start(GYM_ROOM_SCENE);
   }
 
   create() {
@@ -35,31 +26,15 @@ export class RushScene extends EarnableScene {
     const width = getGameWidth(this);
     const height = getGameHeight(this);
 
+    // basics
+    this.handleExit({
+      thisSceneKey: RUSH,
+    });
+
     // bg
     this.bgTile = this.add
       .tileSprite(width / 2, height / 2, width, height, RUSH_BG)
       .setScrollFactor(0);
-
-    // constrols
-    this.input.keyboard.on(
-      "keydown",
-      async (event) => {
-        const code = event.keyCode;
-        if (
-          code === Phaser.Input.Keyboard.KeyCodes.ESC ||
-          code === Phaser.Input.Keyboard.KeyCodes.X
-        ) {
-          await this.updateXP();
-        }
-        if (code === Phaser.Input.Keyboard.KeyCodes.X) {
-          this.scene.start(RUSH);
-        }
-        if (code === Phaser.Input.Keyboard.KeyCodes.ESC) {
-          this.exit();
-        }
-      },
-      this,
-    );
 
     this.createTextBoxes();
 
