@@ -85,6 +85,12 @@ export class RushScene extends EarnableScene {
     // camera
     this.cameras.main.setOrigin(0.48, 0.88);
     this.cameras.main.startFollow(this.player);
+
+    // vals needed for speed calc
+    this.lastSpeeds = new Map();
+    this.distanceTraveledInInterval = 0;
+    this.intervalStartTime = Date.now();
+    this.curMovingSpeed = 0;
   }
 
   createPlayerOuterGraphics() {
@@ -113,9 +119,62 @@ export class RushScene extends EarnableScene {
       .fillCircle(width - width * 0.54, graphicsBottomY, 15);
   }
 
+  calculateCurrentSpeed() {
+    const timeElapsed = (Date.now() - this.intervalStartTime) / 1000;
+    const vel =
+      this.distanceTraveledInInterval / timeElapsed;
+    this.lastSpeeds.set(Date.now(), vel);
+    this.intervalStartTime = Date.now();
+    this.distanceTraveledInInterval = 0;
+
+    const _median = (vals) => {
+      const sorted = vals.sort((a, b) => a - b);
+      const half = Math.floor(sorted.length / 2);
+
+      if (sorted.length % 2) return sorted[half];
+
+      return (sorted[half - 1] + sorted[half]) / 2.0;
+    };
+
+    const medianVel = this.lastSpeeds.size
+      ? _median(Array.from(this.lastSpeeds.values()))
+      : 0.0;
+
+    let speedLabel = "IDLE";
+    if (medianVel > 0 && medianVel < 0.8) {
+      speedLabel = "SLOWLY";
+    } else if (medianVel > 0.8 && medianVel < 1.8) {
+      speedLabel = "MEDIUM";
+    } else if (medianVel > 1.8) {
+      speedLabel = "FAST";
+    } else if (medianVel > 2.8) {
+      speedLabel = "VERY_FAST";
+    }
+    const factor = medianVel ? medianVel * 2 : 0;
+    let boost = 1;
+    if (speedLabel === "MEDIUM") {
+      boost = 2;
+    } else if (speedLabel === "FAST") {
+      boost = 3;
+    }
+
+    // cleanup
+    for (const ts of this.lastSpeeds.keys()) {
+      const secondsAgo = (Date.now() - ts) / 1000;
+      if (secondsAgo > 3) {
+        this.lastSpeeds.delete(ts);
+      }
+    }
+    
+    return factor * boost;
+  }
+
   // eslint-disable-next-line no-unused-vars
   update(time, delta) {
-    // this.obstacleGraphics.setVelocityY(50);
+    if ((Date.now() - this.intervalStartTime) / 1000 > 3) {
+      this.curMovingSpeed = this.calculateCurrentSpeed();
+      this.statsBox.start(`Current speed: ${this.curMovingSpeed}`, 0);
+    }
 
     this.leftButtomCircle.setAlpha(0.2);
     this.rightButtomCircle.setAlpha(0.2);
@@ -130,42 +189,49 @@ export class RushScene extends EarnableScene {
       case this.cursorKeys?.left.isDown || curPose === gpose.HTL:
         velocity.x -= 1;
         this.leftButtomCircle.setAlpha(0.8);
-        // this.anims.play('left', true);
         break;
       case this.cursorKeys?.right.isDown || curPose === gpose.HTR:
         velocity.x += 1;
         this.rightButtomCircle.setAlpha(0.8);
-        // this.anims.play('right', true);
         break;
       default:
       // do nothing
     }
 
     // Vertical movement
+    let movedUp = false;
     switch (true) {
       case this.cursorKeys?.down.isDown || curPose === gpose.LA_UP:
-        velocity.y -= 1;
         this.leftUpCircle.setAlpha(0.8);
-        // this.anims.play('idle', false);
+        movedUp = true;
         break;
       case this.cursorKeys?.up.isDown ||
         curPose === gpose.RA_UP ||
         curPose === gpose.BA_UP:
-        velocity.y -= 1;
         this.rightUpCircle.setAlpha(0.8);
-        // this.anims.play('up', true);
+        movedUp = true;
         break;
       default:
+        this.flipFlop = false;
       // do nothing
     }
 
-    const speed = 150;
+    if (movedUp) {
+      velocity.y -= 1;
+      if (!this.flipFlop) {
+        this.flipFlop = true;
+        this.distanceTraveledInInterval += 1;
+      }
+    }
+
+    const speed = this.curMovingSpeed ? 150 * this.curMovingSpeed : 150;
 
     // We normalize the velocity so that the player is always moving at the same speed, regardless of direction.
     const normalizedVelocity = velocity.normalize();
+    const normalizedYVelocity = this.curMovingSpeed ? -1 : normalizedVelocity.y;
     this.player.body.setVelocity(
       normalizedVelocity.x * speed,
-      normalizedVelocity.y * speed,
+      normalizedYVelocity * speed,
     );
 
     this.bgTile.tilePositionY = this.cameras.main.scrollY;
@@ -208,5 +274,17 @@ export class RushScene extends EarnableScene {
     hintTextBox.setDepth(1);
     hintTextBox.setScrollFactor(0, 0);
     hintTextBox.start("🤖 Welcome in MetaGymLand RUSH minigame", 50);
+
+    // stats
+    this.statsBox = createTextBox(
+      this,
+      width * 0.05,
+      height * 0.09,
+      { wrapWidth: 280 },
+      0xfffefe,
+      0x00ff00,
+      "left",
+      "#212125"
+    ).setScrollFactor(0, 0).start("Current speed: 0", 0)
   }
 }

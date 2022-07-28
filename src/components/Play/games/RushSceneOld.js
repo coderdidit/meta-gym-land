@@ -190,6 +190,46 @@ export class RushScene extends EarnableScene {
     this.blinkStartTime = Date.now();
   }
 
+  calculateCurrentSpeed() {
+    const vel =
+      this.distanceTraveledInInterval / ((Date.now() - this.intervalStartTime) / 1000);
+    this.lastSpeeds.set(Date.now(), vel);
+    this.intervalStartTime = Date.now();
+    this.distanceTraveledInInterval = 0;
+
+    const _median = (vals) => {
+      const sorted = vals.sort((a, b) => a - b);
+      const half = Math.floor(sorted.length / 2);
+
+      if (sorted.length % 2) return sorted[half];
+
+      return (sorted[half - 1] + sorted[half]) / 2.0;
+    };
+
+    const medianVel = this.lastSpeeds.size
+      ? _median(Array.from(this.lastSpeeds.values()))
+      : 0.0;
+
+    let speedLabel = "IDLE";
+    if (medianVel > 0 && medianVel < 0.8) {
+      speedLabel = "SLOWLY";
+    } else if (medianVel > 0.8 && medianVel < 1.8) {
+      speedLabel = "MEDIUM";
+    } else if (medianVel > 1.8) {
+      speedLabel = "FAST";
+    } else if (medianVel > 2.8) {
+      speedLabel = "VERY_FAST";
+    }
+    const factor = medianVel ? medianVel * 2 : 0;
+    let boost = 1;
+    if (speedLabel === "MEDIUM") {
+      boost = 2;
+    } else if (speedLabel === "FAST") {
+      boost = 3;
+    }
+    return factor * boost;
+  }
+
   // eslint-disable-next-line no-unused-vars
   update(time, delta) {
     this.obstacleGraphics.setVelocityY(50);
@@ -223,7 +263,7 @@ export class RushScene extends EarnableScene {
     } else if (medianVel > 1.8) {
       speedLabel = "FAST";
     } else if (medianVel > 2.8) {
-      speedLabel = "VERY FAST";
+      speedLabel = "VERY_FAST";
     }
 
     //  Scroll the background
@@ -302,10 +342,10 @@ export class RushScene extends EarnableScene {
       const medianDeltasBetweenLast5Moves = this.last5Ups.medianDeltas() / 1000;
       this.scoreBoard2.setText(
         `last move seconds ago: ${lastMoveTimeAgo.toFixed(2)}` +
-          "\n" +
-          `median gap between last 5 moves ${medianDeltasBetweenLast5Moves.toFixed(
-            2,
-          )}`,
+        "\n" +
+        `median gap between last 5 moves ${medianDeltasBetweenLast5Moves.toFixed(
+          2,
+        )}`,
       );
     }
 
