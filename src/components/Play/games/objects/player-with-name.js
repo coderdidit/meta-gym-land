@@ -36,6 +36,7 @@ export class PlayerWithName extends Phaser.GameObjects.Container {
     // physics
     scene.physics.world.enable(this);
     scene.add.existing(this);
+    // this.body.setImmovable(true);
 
     // input
     this.cursorKeys = scene.input.keyboard.createCursorKeys();
