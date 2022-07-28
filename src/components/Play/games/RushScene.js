@@ -1,6 +1,6 @@
 import Phaser from "phaser";
 import { getGameWidth, getGameHeight } from "./helpers";
-import { PlayerWithName, RectObstacle } from "./objects";
+import { PlayerWithName } from "./objects";
 import { GYM_ROOM_SCENE, RUSH } from "./shared";
 import { createTextBox } from "./utils/text";
 import { mainBgColorNum, highlightTextColorNum } from "../../../GlobalStyles";
@@ -8,6 +8,7 @@ import { EarnableScene } from "./EarnableScene";
 import * as gstate from "../../gpose/state";
 import * as gpose from "../../gpose/pose";
 import { RUSH_BG } from "./assets";
+import { MovesSpeedCaluclator } from "./moves-speed-caluclator";
 
 const SceneConfig = {
   active: false,
@@ -70,27 +71,20 @@ export class RushScene extends EarnableScene {
       name: this.selectedAvatar?.name,
     });
 
-    // graphics
+    // player moves indicator graphics
     this.createPlayerOuterGraphics();
 
+    // cursorKeys for debug
     this.cursorKeys = this.player.cursorKeys;
-
-    this.obstacleGraphics = new RectObstacle({
-      scene: this,
-      x: width / 2,
-      y: height / 2,
-    });
-    this.obstacleGraphics.collideWith(this.player);
 
     // camera
     this.cameras.main.setOrigin(0.48, 0.88);
     this.cameras.main.startFollow(this.player);
 
-    // vals needed for speed calc
-    this.lastSpeeds = new Map();
-    this.distanceTraveledInInterval = 0;
-    this.intervalStartTime = Date.now();
-    this.curMovingSpeed = 0;
+    // speed calculation
+    this.movesSpeedCaluclator = new MovesSpeedCaluclator({
+      timeNow: Date.now(),
+    });
   }
 
   createPlayerOuterGraphics() {
@@ -119,60 +113,24 @@ export class RushScene extends EarnableScene {
       .fillCircle(width - width * 0.54, graphicsBottomY, 15);
   }
 
-  calculateCurrentSpeed() {
-    const timeElapsed = (Date.now() - this.intervalStartTime) / 1000;
-    const vel = this.distanceTraveledInInterval / timeElapsed;
-    this.lastSpeeds.set(Date.now(), vel);
-    this.intervalStartTime = Date.now();
-    this.distanceTraveledInInterval = 0;
-
-    const _median = (vals) => {
-      const sorted = vals.sort((a, b) => a - b);
-      const half = Math.floor(sorted.length / 2);
-
-      if (sorted.length % 2) return sorted[half];
-
-      return (sorted[half - 1] + sorted[half]) / 2.0;
-    };
-
-    const medianVel = this.lastSpeeds.size
-      ? _median(Array.from(this.lastSpeeds.values()))
-      : 0.0;
-
-    let speedLabel = "IDLE";
-    if (medianVel > 0 && medianVel < 0.8) {
-      speedLabel = "SLOWLY";
-    } else if (medianVel > 0.8 && medianVel < 1.8) {
-      speedLabel = "MEDIUM";
-    } else if (medianVel > 1.8) {
-      speedLabel = "FAST";
-    } else if (medianVel > 2.8) {
-      speedLabel = "VERY_FAST";
-    }
-    const factor = medianVel ? medianVel * 2 : 0;
-    let boost = 1;
-    if (speedLabel === "MEDIUM") {
-      boost = 2;
-    } else if (speedLabel === "FAST") {
-      boost = 3;
-    }
-
-    // cleanup
-    for (const ts of this.lastSpeeds.keys()) {
-      const secondsAgo = (Date.now() - ts) / 1000;
-      if (secondsAgo > 3) {
-        this.lastSpeeds.delete(ts);
-      }
-    }
-
-    return factor * boost;
-  }
-
   // eslint-disable-next-line no-unused-vars
   update(time, delta) {
-    if ((Date.now() - this.intervalStartTime) / 1000 > 3) {
-      this.curMovingSpeed = this.calculateCurrentSpeed();
-      this.statsBox.start(`Current speed: ${this.curMovingSpeed}`, 0);
+    if (
+      this.movesSpeedCaluclator.secondsPassed({
+        timeNow: Date.now(),
+        seconds: 2,
+      })
+    ) {
+      this.movesSpeedCaluclator.calculateCurrentSpeedAndBoost({
+        timeNow: Date.now(),
+      });
+      const currentSpeedLabel = this.movesSpeedCaluclator.currentSpeedLabel;
+      const averageMovesPerSecond =
+        this.movesSpeedCaluclator.averageMovesPerSecond;
+      this.statsBox.start(
+        `Current speed: ${currentSpeedLabel}\nAverage moves per second:\n${averageMovesPerSecond}`,
+        0,
+      );
     }
 
     this.leftButtomCircle.setAlpha(0.2);
@@ -219,15 +177,18 @@ export class RushScene extends EarnableScene {
       velocity.y -= 1;
       if (!this.flipFlop) {
         this.flipFlop = true;
-        this.distanceTraveledInInterval += 1;
+        this.movesSpeedCaluclator.incrementDistanceTraveled();
       }
     }
 
-    const speed = this.curMovingSpeed ? 150 * this.curMovingSpeed : 150;
+    const speed = this.movesSpeedCaluclator.resolveSpeed({
+      baseSpeed: 150,
+    });
 
     // We normalize the velocity so that the player is always moving at the same speed, regardless of direction.
     const normalizedVelocity = velocity.normalize();
-    const normalizedYVelocity = this.curMovingSpeed ? -1 : normalizedVelocity.y;
+    const normalizedYVelocity =
+      this.movesSpeedCaluclator.resolvePlayerYVelocity(normalizedVelocity);
     this.player.body.setVelocity(
       normalizedVelocity.x * speed,
       normalizedYVelocity * speed,
@@ -282,7 +243,7 @@ export class RushScene extends EarnableScene {
       { wrapWidth: 280 },
       0xfffefe,
       0x00ff00,
-      "left",
+      "center",
       "#212125",
     )
       .setScrollFactor(0, 0)
