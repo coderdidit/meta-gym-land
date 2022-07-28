@@ -115,7 +115,7 @@ export class RushScene extends EarnableScene {
 
   // eslint-disable-next-line no-unused-vars
   update(time, delta) {
-    this.obstacleGraphics.setVelocityY(50);
+    // this.obstacleGraphics.setVelocityY(50);
 
     this.leftButtomCircle.setAlpha(0.2);
     this.rightButtomCircle.setAlpha(0.2);
@@ -144,7 +144,7 @@ export class RushScene extends EarnableScene {
     // Vertical movement
     switch (true) {
       case this.cursorKeys?.down.isDown || curPose === gpose.LA_UP:
-        velocity.y += 1;
+        velocity.y -= 1;
         this.leftUpCircle.setAlpha(0.8);
         // this.anims.play('idle', false);
         break;
