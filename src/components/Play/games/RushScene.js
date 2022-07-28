@@ -121,8 +121,7 @@ export class RushScene extends EarnableScene {
 
   calculateCurrentSpeed() {
     const timeElapsed = (Date.now() - this.intervalStartTime) / 1000;
-    const vel =
-      this.distanceTraveledInInterval / timeElapsed;
+    const vel = this.distanceTraveledInInterval / timeElapsed;
     this.lastSpeeds.set(Date.now(), vel);
     this.intervalStartTime = Date.now();
     this.distanceTraveledInInterval = 0;
@@ -165,7 +164,7 @@ export class RushScene extends EarnableScene {
         this.lastSpeeds.delete(ts);
       }
     }
-    
+
     return factor * boost;
   }
 
@@ -284,7 +283,9 @@ export class RushScene extends EarnableScene {
       0xfffefe,
       0x00ff00,
       "left",
-      "#212125"
-    ).setScrollFactor(0, 0).start("Current speed: 0", 0)
+      "#212125",
+    )
+      .setScrollFactor(0, 0)
+      .start("Current speed: 0", 0);
   }
 }

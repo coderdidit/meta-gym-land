@@ -192,7 +192,8 @@ export class RushScene extends EarnableScene {
 
   calculateCurrentSpeed() {
     const vel =
-      this.distanceTraveledInInterval / ((Date.now() - this.intervalStartTime) / 1000);
+      this.distanceTraveledInInterval /
+      ((Date.now() - this.intervalStartTime) / 1000);
     this.lastSpeeds.set(Date.now(), vel);
     this.intervalStartTime = Date.now();
     this.distanceTraveledInInterval = 0;
@@ -342,10 +343,10 @@ export class RushScene extends EarnableScene {
       const medianDeltasBetweenLast5Moves = this.last5Ups.medianDeltas() / 1000;
       this.scoreBoard2.setText(
         `last move seconds ago: ${lastMoveTimeAgo.toFixed(2)}` +
-        "\n" +
-        `median gap between last 5 moves ${medianDeltasBetweenLast5Moves.toFixed(
-          2,
-        )}`,
+          "\n" +
+          `median gap between last 5 moves ${medianDeltasBetweenLast5Moves.toFixed(
+            2,
+          )}`,
       );
     }
 
