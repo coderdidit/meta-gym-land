@@ -12,6 +12,7 @@ import { RushScene } from "../../games/minigames/RushScene";
 import { MiniGameCtx } from "index";
 import PoseDetWebcam from "components/Webcam/PoseDetWebcam";
 import SideMenu from "./GymRoomSideMenu";
+import { InvadersScene } from "games/minigames/invaders/InvadersScene";
 
 const menuHeight = 0;
 
@@ -28,6 +29,7 @@ const setWidthAndHeight = () => {
   return [width, height - menuHeight];
 };
 
+// TODO move this function to games module
 const getConfig = (mainScene) => {
   const [width, height] = setWidthAndHeight();
   const Scenes = [
@@ -38,6 +40,7 @@ const getConfig = (mainScene) => {
     ChartSquats,
     MatrixScene,
     RushScene,
+    InvadersScene,
   ];
 
   return {
