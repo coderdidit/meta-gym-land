@@ -17,7 +17,6 @@ export class RectObstacle extends Phaser.GameObjects.Rectangle {
     );
     this.scene.physics.world.enable([this.obstacleGraphics]);
 
-    // this.obstacleGraphics.body.setVelocityY(50)
     this.obstacleGraphics.body.setImmovable(true);
   }
 
