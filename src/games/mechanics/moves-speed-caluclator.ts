@@ -23,7 +23,7 @@ const FAST_BOOST = 12;
 const VERY_FAST = "VERY FAST";
 const VERY_FAST_BOOST = 19;
 
-export const normalizeSpeedAndBoost = (medianVel) => {
+export const normalizeSpeedAndBoost = (medianVel: number) => {
   if (medianVel > 0 && medianVel < 0.6) {
     return {
       speedLabel: SLOWLY,
@@ -52,7 +52,7 @@ export const normalizeSpeedAndBoost = (medianVel) => {
   }
 };
 
-const median = (vals) => {
+const median = (vals: number[]) => {
   const sorted = vals.sort((a, b) => a - b);
   const half = Math.floor(sorted.length / 2);
 
@@ -61,8 +61,21 @@ const median = (vals) => {
   return (sorted[half - 1] + sorted[half]) / 2.0;
 };
 
+type timeNowAndMaxAge = {
+  timeNow: number;
+  maxAgeOnSecondsInLastSpeeds: number;
+};
+
 class MovesSpeedCaluclator {
-  constructor({ timeNow, maxAgeOnSecondsInLastSpeeds }) {
+  _maxAgeOnSecondsInLastSpeeds: number;
+  _lastSpeeds: Map<number, number>;
+  _distanceTraveledInInterval: number;
+  _intervalStartTime: number;
+  _curSpeedBoost: number;
+  _averageMovesPerSecond: number;
+  _currentSpeedLabel: string;
+
+  constructor({ timeNow, maxAgeOnSecondsInLastSpeeds }: timeNowAndMaxAge) {
     if (!timeNow) {
       throw Error(
         "[MovesSpeedCaluclator] you need to pass timeNow parama as Date.now()",
@@ -82,7 +95,7 @@ class MovesSpeedCaluclator {
     this._currentSpeedLabel = IDLE_SPEED;
   }
 
-  calculateCurrentSpeedAndBoost({ timeNow }) {
+  calculateCurrentSpeedAndBoost({ timeNow }: { timeNow: number }) {
     if (!timeNow) {
       throw Error(
         "[MovesSpeedCaluclator] you need to pass timeNow parama as Date.now()",
@@ -119,7 +132,7 @@ class MovesSpeedCaluclator {
     this._distanceTraveledInInterval += 1;
   }
 
-  secondsPassed({ seconds, timeNow }) {
+  secondsPassed({ seconds, timeNow }: { seconds: number; timeNow: number }) {
     if (!timeNow) {
       throw Error(
         "[MovesSpeedCaluclator] you need to pass timeNow parama as Date.now()",
@@ -131,14 +144,14 @@ class MovesSpeedCaluclator {
     return (timeNow - this._intervalStartTime) / 1000 >= seconds;
   }
 
-  resolveSpeed({ baseSpeed }) {
+  resolveSpeed({ baseSpeed }: { baseSpeed: number }) {
     if (!baseSpeed) {
       throw Error("[MovesSpeedCaluclator] you need to pass baseSpeed parama");
     }
     return this._curSpeedBoost ? baseSpeed * this._curSpeedBoost : baseSpeed;
   }
 
-  resolvePlayerYVelocity(normalizedVelocityVector) {
+  resolvePlayerYVelocity(normalizedVelocityVector: Phaser.Math.Vector2) {
     if (!normalizedVelocityVector) {
       throw Error(
         "[MovesSpeedCaluclator] you need to pass normalizedVelocityVector parama",
