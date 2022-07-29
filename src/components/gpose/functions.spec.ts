@@ -203,4 +203,8 @@ const testMediaPipeResutls = {
   poseWorldLandmarks: [],
 };
 
-// TODO add tests with this test dataset
+describe("testing boilerplate for pose detection", () => {
+  it("should pass", () => {
+    expect(true).toBeTruthy();
+  });
+});
