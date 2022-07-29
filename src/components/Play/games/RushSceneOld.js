@@ -15,7 +15,8 @@ const SceneConfig = {
   key: RUSH,
 };
 
-export class RushScene extends EarnableScene {
+// kept for reference
+export class RushSceneOld extends EarnableScene {
   constructor() {
     super(SceneConfig);
   }
