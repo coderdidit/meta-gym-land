@@ -1,10 +1,14 @@
 import {
   MovesSpeedCaluclator,
-  IDLE,
+  IDLE_SPEED,
   SLOWLY,
   MEDIUM,
   FAST,
   VERY_FAST,
+  SLOWLY_BOOST,
+  MEDIUM_BOOST,
+  FAST_BOOST,
+  VERY_FAST_BOOST,
 } from "./moves-speed-caluclator";
 
 describe(MovesSpeedCaluclator.name, () => {
@@ -28,7 +32,7 @@ describe(MovesSpeedCaluclator.name, () => {
       });
       expect(movesSpeedCaluclator.maxAgeOnSecondsInLastSpeeds).toEqual(3);
       expect(movesSpeedCaluclator.averageMovesPerSecond).toEqual(0);
-      expect(movesSpeedCaluclator.currentSpeedLabel).toEqual(IDLE);
+      expect(movesSpeedCaluclator.currentSpeedLabel).toEqual(IDLE_SPEED);
       expect(
         movesSpeedCaluclator.resolvePlayerYVelocity(idleVelocityVec),
       ).toEqual(0);
@@ -51,7 +55,7 @@ describe(MovesSpeedCaluclator.name, () => {
       });
 
       expect(movesSpeedCaluclator.averageMovesPerSecond).toEqual(0);
-      expect(movesSpeedCaluclator.currentSpeedLabel).toEqual(IDLE);
+      expect(movesSpeedCaluclator.currentSpeedLabel).toEqual(IDLE_SPEED);
       expect(
         movesSpeedCaluclator.resolvePlayerYVelocity(idleVelocityVec),
       ).toEqual(0);
@@ -78,7 +82,7 @@ describe(MovesSpeedCaluclator.name, () => {
         movesSpeedCaluclator.resolvePlayerYVelocity(idleVelocityVec),
       ).toEqual(-1);
       expect(movesSpeedCaluclator.resolveSpeed({ baseSpeed: 150 })).toEqual(
-        150,
+        150 * SLOWLY_BOOST,
       );
     });
 
@@ -102,7 +106,7 @@ describe(MovesSpeedCaluclator.name, () => {
         movesSpeedCaluclator.resolvePlayerYVelocity(idleVelocityVec),
       ).toEqual(-1);
       expect(movesSpeedCaluclator.resolveSpeed({ baseSpeed: 150 })).toEqual(
-        450,
+        150 * MEDIUM_BOOST,
       );
     });
 
@@ -127,7 +131,7 @@ describe(MovesSpeedCaluclator.name, () => {
         movesSpeedCaluclator.resolvePlayerYVelocity(idleVelocityVec),
       ).toEqual(-1);
       expect(movesSpeedCaluclator.resolveSpeed({ baseSpeed: 150 })).toEqual(
-        450,
+        150 * MEDIUM_BOOST,
       );
     });
 
@@ -153,7 +157,7 @@ describe(MovesSpeedCaluclator.name, () => {
         movesSpeedCaluclator.resolvePlayerYVelocity(idleVelocityVec),
       ).toEqual(-1);
       expect(movesSpeedCaluclator.resolveSpeed({ baseSpeed: 150 })).toEqual(
-        900,
+        150 * FAST_BOOST,
       );
     });
 
@@ -181,7 +185,7 @@ describe(MovesSpeedCaluclator.name, () => {
         movesSpeedCaluclator.resolvePlayerYVelocity(idleVelocityVec),
       ).toEqual(-1);
       expect(movesSpeedCaluclator.resolveSpeed({ baseSpeed: 150 })).toEqual(
-        1350,
+        150 * VERY_FAST_BOOST,
       );
     });
   });

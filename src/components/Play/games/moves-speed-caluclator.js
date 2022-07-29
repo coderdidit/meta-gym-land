@@ -1,36 +1,53 @@
-export { MovesSpeedCaluclator, IDLE, SLOWLY, MEDIUM, FAST, VERY_FAST };
+export {
+  MovesSpeedCaluclator,
+  IDLE_SPEED,
+  SLOWLY,
+  MEDIUM,
+  FAST,
+  VERY_FAST,
+  IDLE_BOOST,
+  SLOWLY_BOOST,
+  MEDIUM_BOOST,
+  FAST_BOOST,
+  VERY_FAST_BOOST,
+};
 
-const IDLE = "IDLE";
+const IDLE_SPEED = "IDLE";
+const IDLE_BOOST = 0;
 const SLOWLY = "SLOWLY";
+const SLOWLY_BOOST = 1;
 const MEDIUM = "MEDIUM";
+const MEDIUM_BOOST = 5;
 const FAST = "FAST";
+const FAST_BOOST = 12;
 const VERY_FAST = "VERY FAST";
+const VERY_FAST_BOOST = 19;
 
-const normalizeSpeedAndBoost = (medianVel) => {
+export const normalizeSpeedAndBoost = (medianVel) => {
   if (medianVel > 0 && medianVel < 0.6) {
     return {
       speedLabel: SLOWLY,
-      boost: 1,
+      boost: SLOWLY_BOOST,
     };
   } else if (medianVel > 0.6 && medianVel < 1.6) {
     return {
       speedLabel: MEDIUM,
-      boost: 3,
+      boost: MEDIUM_BOOST,
     };
   } else if (medianVel > 1.6 && medianVel < 2.4) {
     return {
       speedLabel: FAST,
-      boost: 6,
+      boost: FAST_BOOST,
     };
   } else if (medianVel > 2.4) {
     return {
       speedLabel: VERY_FAST,
-      boost: 9,
+      boost: VERY_FAST_BOOST,
     };
   } else {
     return {
-      speedLabel: IDLE,
-      boost: 0,
+      speedLabel: IDLE_SPEED,
+      boost: IDLE_BOOST,
     };
   }
 };
@@ -62,7 +79,7 @@ class MovesSpeedCaluclator {
     this._intervalStartTime = timeNow;
     this._curSpeedBoost = 0;
     this._averageMovesPerSecond = 0.0;
-    this._currentSpeedLabel = IDLE;
+    this._currentSpeedLabel = IDLE_SPEED;
   }
 
   calculateCurrentSpeedAndBoost({ timeNow }) {

@@ -70,11 +70,6 @@ export const assets = [
     type: "IMAGE",
   },
   {
-    key: RUSH_BG,
-    src: `assets/images/${RUSH_BG}.png`,
-    type: "IMAGE",
-  },
-  {
     key: GYM_ROOM_MAP,
     src: "assets/tilemap_map/gym_room.json",
     type: "TILEMAP_MAP",

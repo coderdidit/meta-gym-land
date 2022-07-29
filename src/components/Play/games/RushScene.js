@@ -21,6 +21,10 @@ export class RushScene extends SceneInMetaGymRoom {
     super(SceneConfig);
   }
 
+  preload() {
+    this.load.image(RUSH_BG, `assets/images/${RUSH_BG}.png`);
+  }
+
   create() {
     // basic props
     const width = getGameWidth(this);
