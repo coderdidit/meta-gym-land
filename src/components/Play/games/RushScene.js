@@ -59,6 +59,7 @@ export class RushScene extends SceneInMetaGymRoom {
     // speed calculation
     this.movesSpeedCaluclator = new MovesSpeedCaluclator({
       timeNow: Date.now(),
+      maxAgeOnSecondsInLastSpeeds: 3,
     });
   }
 
@@ -103,7 +104,9 @@ export class RushScene extends SceneInMetaGymRoom {
       const averageMovesPerSecond =
         this.movesSpeedCaluclator.averageMovesPerSecond;
       this.statsBox.start(
-        `Current speed: ${currentSpeedLabel}\nAverage moves per second:\n${averageMovesPerSecond}`,
+        `Current speed: ${currentSpeedLabel}` +
+          "\n" +
+          `Average moves per second:\n${averageMovesPerSecond.toFixed(2)}`,
         0,
       );
     }

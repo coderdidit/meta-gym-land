@@ -45,19 +45,38 @@ const median = (vals) => {
 };
 
 class MovesSpeedCaluclator {
-  constructor({ timeNow }) {
+  constructor({ timeNow, maxAgeOnSecondsInLastSpeeds }) {
+    if (!timeNow) {
+      throw Error(
+        "[MovesSpeedCaluclator] you need to pass timeNow parama as Date.now()",
+      );
+    }
+    if (!maxAgeOnSecondsInLastSpeeds) {
+      throw Error(
+        "[MovesSpeedCaluclator] you need to pass maxAgeOnSecondsInLastSpeeds parama as number",
+      );
+    }
+    this._maxAgeOnSecondsInLastSpeeds = maxAgeOnSecondsInLastSpeeds;
     this._lastSpeeds = new Map();
     this._distanceTraveledInInterval = 0;
     this._intervalStartTime = timeNow;
     this._curSpeedBoost = 0;
-    this._averageMovesPerSecond = 0;
+    this._averageMovesPerSecond = 0.0;
     this._currentSpeedLabel = IDLE;
   }
 
   calculateCurrentSpeedAndBoost({ timeNow }) {
+    if (!timeNow) {
+      throw Error(
+        "[MovesSpeedCaluclator] you need to pass timeNow parama as Date.now()",
+      );
+    }
     const timeElapsedInseconds = (timeNow - this._intervalStartTime) / 1000;
-    const vel = this._distanceTraveledInInterval / timeElapsedInseconds;
-    this._lastSpeeds.set(timeNow, vel);
+    if (timeElapsedInseconds === 0) {
+      return;
+    }
+    const curVelocity = this._distanceTraveledInInterval / timeElapsedInseconds;
+    this._lastSpeeds.set(timeNow, curVelocity);
     this._intervalStartTime = timeNow;
     this._distanceTraveledInInterval = 0;
 
@@ -70,29 +89,44 @@ class MovesSpeedCaluclator {
     this._currentSpeedLabel = speedLabel;
 
     // cleanup lastSpeeds
-    for (const ts of this._lastSpeeds.keys()) {
-      const secondsAgo = (timeNow - ts) / 1000;
-      if (secondsAgo > 3) {
-        this._lastSpeeds.delete(ts);
+    for (const timeOfPrevMove of this.lastSpeeds.keys()) {
+      const secondsAgo = (timeNow - timeOfPrevMove) / 1000;
+      if (secondsAgo > this.maxAgeOnSecondsInLastSpeeds) {
+        this._lastSpeeds.delete(timeOfPrevMove);
       }
     }
     this._curSpeedBoost = boost;
-    return boost;
   }
 
   incrementDistanceTraveled() {
     this._distanceTraveledInInterval += 1;
   }
 
-  secondsPassed({ timeNow, seconds }) {
+  secondsPassed({ seconds, timeNow }) {
+    if (!timeNow) {
+      throw Error(
+        "[MovesSpeedCaluclator] you need to pass timeNow parama as Date.now()",
+      );
+    }
+    if (!seconds) {
+      throw Error("[MovesSpeedCaluclator] you need to pass seconds parama");
+    }
     return (timeNow - this._intervalStartTime) / 1000 >= seconds;
   }
 
   resolveSpeed({ baseSpeed }) {
+    if (!baseSpeed) {
+      throw Error("[MovesSpeedCaluclator] you need to pass baseSpeed parama");
+    }
     return this._curSpeedBoost ? baseSpeed * this._curSpeedBoost : baseSpeed;
   }
 
   resolvePlayerYVelocity(normalizedVelocityVector) {
+    if (!normalizedVelocityVector) {
+      throw Error(
+        "[MovesSpeedCaluclator] you need to pass normalizedVelocityVector parama",
+      );
+    }
     return this._curSpeedBoost ? -1 : normalizedVelocityVector.y;
   }
 
@@ -102,5 +136,13 @@ class MovesSpeedCaluclator {
 
   get currentSpeedLabel() {
     return this._currentSpeedLabel;
+  }
+
+  get lastSpeeds() {
+    return this._lastSpeeds;
+  }
+
+  get maxAgeOnSecondsInLastSpeeds() {
+    return this._maxAgeOnSecondsInLastSpeeds;
   }
 }

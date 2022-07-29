@@ -17,10 +17,16 @@ describe(MovesSpeedCaluclator.name, () => {
     y: -1,
   };
   describe("calculateCurrentSpeedAndBoost", () => {
-    it("should init values correctly", () => {
+    it("should init default values correctly", () => {
+      const timeNow = new Date("2022-01-01 10:00:00");
       const movesSpeedCaluclator = new MovesSpeedCaluclator({
-        timeNow: Date.now(),
+        timeNow: timeNow,
+        maxAgeOnSecondsInLastSpeeds: 3,
       });
+      movesSpeedCaluclator.calculateCurrentSpeedAndBoost({
+        timeNow,
+      });
+      expect(movesSpeedCaluclator.maxAgeOnSecondsInLastSpeeds).toEqual(3);
       expect(movesSpeedCaluclator.averageMovesPerSecond).toEqual(0);
       expect(movesSpeedCaluclator.currentSpeedLabel).toEqual(IDLE);
       expect(
@@ -37,6 +43,7 @@ describe(MovesSpeedCaluclator.name, () => {
       const timeNow = new Date("2022-01-01 10:00:00");
       const movesSpeedCaluclator = new MovesSpeedCaluclator({
         timeNow,
+        maxAgeOnSecondsInLastSpeeds: 3,
       });
       const time2SecondsLater = new Date("2022-01-01 10:00:02");
       movesSpeedCaluclator.calculateCurrentSpeedAndBoost({
@@ -57,6 +64,7 @@ describe(MovesSpeedCaluclator.name, () => {
       const timeNow = new Date("2022-01-01 10:00:00");
       const movesSpeedCaluclator = new MovesSpeedCaluclator({
         timeNow,
+        maxAgeOnSecondsInLastSpeeds: 3,
       });
       movesSpeedCaluclator.incrementDistanceTraveled();
       const time2SecondsLater = new Date("2022-01-01 10:00:02");
@@ -78,6 +86,7 @@ describe(MovesSpeedCaluclator.name, () => {
       const timeNow = new Date("2022-01-01 10:00:00");
       const movesSpeedCaluclator = new MovesSpeedCaluclator({
         timeNow,
+        maxAgeOnSecondsInLastSpeeds: 3,
       });
       movesSpeedCaluclator.incrementDistanceTraveled();
       movesSpeedCaluclator.incrementDistanceTraveled();
@@ -101,6 +110,7 @@ describe(MovesSpeedCaluclator.name, () => {
       const timeNow = new Date("2022-01-01 10:00:00");
       const movesSpeedCaluclator = new MovesSpeedCaluclator({
         timeNow,
+        maxAgeOnSecondsInLastSpeeds: 3,
       });
       movesSpeedCaluclator.incrementDistanceTraveled();
       movesSpeedCaluclator.incrementDistanceTraveled();
@@ -125,6 +135,7 @@ describe(MovesSpeedCaluclator.name, () => {
       const timeNow = new Date("2022-01-01 10:00:00");
       const movesSpeedCaluclator = new MovesSpeedCaluclator({
         timeNow,
+        maxAgeOnSecondsInLastSpeeds: 3,
       });
       movesSpeedCaluclator.incrementDistanceTraveled();
       movesSpeedCaluclator.incrementDistanceTraveled();
@@ -150,6 +161,7 @@ describe(MovesSpeedCaluclator.name, () => {
       const timeNow = new Date("2022-01-01 10:00:00");
       const movesSpeedCaluclator = new MovesSpeedCaluclator({
         timeNow,
+        maxAgeOnSecondsInLastSpeeds: 3,
       });
       movesSpeedCaluclator.incrementDistanceTraveled();
       movesSpeedCaluclator.incrementDistanceTraveled();
@@ -178,6 +190,7 @@ describe(MovesSpeedCaluclator.name, () => {
     const timeNow = new Date("2022-01-01 10:00:00");
     const movesSpeedCaluclator = new MovesSpeedCaluclator({
       timeNow,
+      maxAgeOnSecondsInLastSpeeds: 3,
     });
     const time2SecondsLater = new Date("2022-01-01 10:00:02");
     expect(
@@ -205,5 +218,51 @@ describe(MovesSpeedCaluclator.name, () => {
         seconds: 2,
       }),
     ).toBeTruthy();
+  });
+
+  describe("lastSpeeds", () => {
+    it("should handle lastSpeeds list correctly", () => {
+      const timeNow = new Date("2022-01-01 10:00:00");
+      const movesSpeedCaluclator = new MovesSpeedCaluclator({
+        timeNow,
+        maxAgeOnSecondsInLastSpeeds: 3,
+      });
+
+      expect(movesSpeedCaluclator.lastSpeeds.size).toEqual(0);
+
+      // assuming the update happense every 1 second
+      const time1SecondsLater = new Date("2022-01-01 10:00:01");
+      const time2SecondsLater = new Date("2022-01-01 10:00:02");
+      const time3SecondsLater = new Date("2022-01-01 10:00:03");
+      const time4SecondsLater = new Date("2022-01-01 10:00:04");
+      const time5SecondsLater = new Date("2022-01-01 10:00:04");
+
+      // no diff in time, no new speed was recorded
+      // to avoid division by 0
+      movesSpeedCaluclator.calculateCurrentSpeedAndBoost({
+        timeNow: timeNow,
+      });
+      expect(movesSpeedCaluclator.lastSpeeds.size).toEqual(0);
+
+      // first last time recorded
+      movesSpeedCaluclator.calculateCurrentSpeedAndBoost({
+        timeNow: time1SecondsLater,
+      });
+      expect(movesSpeedCaluclator.lastSpeeds.size).toEqual(1);
+
+      movesSpeedCaluclator.calculateCurrentSpeedAndBoost({
+        timeNow: time2SecondsLater,
+      });
+      movesSpeedCaluclator.calculateCurrentSpeedAndBoost({
+        timeNow: time3SecondsLater,
+      });
+      movesSpeedCaluclator.calculateCurrentSpeedAndBoost({
+        timeNow: time4SecondsLater,
+      });
+      movesSpeedCaluclator.calculateCurrentSpeedAndBoost({
+        timeNow: time5SecondsLater,
+      });
+      expect(movesSpeedCaluclator.lastSpeeds.size).toEqual(4);
+    });
   });
 });
