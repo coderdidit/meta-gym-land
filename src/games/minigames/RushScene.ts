@@ -4,11 +4,12 @@ import { PlayerWithName } from "../objects";
 import { RUSH } from "../shared";
 import { createTextBox } from "../utils/text";
 import { mainBgColorNum, highlightTextColorNum } from "../../GlobalStyles";
-import { SceneInMetaGymRoom } from "../base-scenes/scene-in-metagym-room";
+import { SceneInMetaGymRoom } from "../base-scenes/ts/scene-in-metagym-room";
 import * as gstate from "../../components/gpose/state";
 import * as gpose from "../../components/gpose/pose";
 import { RUSH_BG } from "../gym-room-boot/assets";
 import { MovesSpeedCaluclator } from "../mechanics/moves-speed-caluclator";
+import TextBox from "phaser3-rex-plugins/templates/ui/textbox/TextBox";
 
 const SceneConfig = {
   active: false,
@@ -17,6 +18,17 @@ const SceneConfig = {
 };
 
 export class RushScene extends SceneInMetaGymRoom {
+  player: any; // TODO define type
+  bgTile: Phaser.GameObjects.TileSprite;
+  cursorKeys: Phaser.Types.Input.Keyboard.CursorKeys;
+  movesSpeedCaluclator: MovesSpeedCaluclator;
+  leftUpCircle: Phaser.GameObjects.Graphics;
+  rightUpCircle: Phaser.GameObjects.Graphics;
+  rightButtomCircle: Phaser.GameObjects.Graphics;
+  leftButtomCircle: Phaser.GameObjects.Graphics;
+  statsBox: TextBox;
+  flipFlop: boolean;
+
   constructor() {
     super(SceneConfig);
   }
@@ -94,7 +106,7 @@ export class RushScene extends SceneInMetaGymRoom {
   }
 
   // eslint-disable-next-line no-unused-vars
-  update(time, delta) {
+  update(time: number, delta: number) {
     if (
       this.movesSpeedCaluclator.secondsPassed({
         timeNow: Date.now(),

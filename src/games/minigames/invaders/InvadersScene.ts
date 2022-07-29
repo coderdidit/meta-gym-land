@@ -13,8 +13,7 @@ const SceneConfig = {
 };
 
 export class InvadersScene extends SceneInMetaGymRoom {
-  // TODO define type
-  player: any;
+  player: any; // TODO define type
 
   constructor() {
     super(SceneConfig);
