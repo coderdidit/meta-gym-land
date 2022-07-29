@@ -4,7 +4,7 @@ import { PlayerWithName } from "../../objects";
 import { INVADERS } from "../../shared";
 import { createTextBox } from "../../utils/text";
 import { mainBgColorNum, highlightTextColorNum } from "../../../GlobalStyles";
-import { SceneInMetaGymRoom } from "../../base-scenes/scene-in-metagym-room";
+import { SceneInMetaGymRoom } from "../../base-scenes/ts/scene-in-metagym-room";
 
 const SceneConfig = {
   active: false,
@@ -13,6 +13,9 @@ const SceneConfig = {
 };
 
 export class InvadersScene extends SceneInMetaGymRoom {
+  // TODO define type
+  player: any;
+
   constructor() {
     super(SceneConfig);
   }
