@@ -66,7 +66,7 @@ export class InvadersScene extends SceneInMetaGymRoom {
   }
 
   // eslint-disable-next-line no-unused-vars
-  update(time, delta) {
+  update(time: number, delta: number) {
     this.player?.update();
   }
 }

@@ -10,7 +10,7 @@ type handleExitParams = {
 export class SceneInMetaGymRoom extends EarnableScene {
   selectedAvatar: any;
 
-  init = (data) => {
+  init = (data: any) => {
     this.selectedAvatar = data.selectedAvatar;
   };
 
@@ -23,7 +23,7 @@ export class SceneInMetaGymRoom extends EarnableScene {
     // constrols
     this.input.keyboard.on(
       "keydown",
-      async (event) => {
+      async (event: any) => {
         const code = event.keyCode;
         if (
           code === Phaser.Input.Keyboard.KeyCodes.ESC ||

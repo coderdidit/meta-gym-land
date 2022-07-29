@@ -1,12 +1,12 @@
 import Phaser from "phaser";
-import { highlightTextColorNum, mainBgColorNum } from "../../GlobalStyles";
-import { getGameWidth, getGameHeight } from "../helpers";
-import { createTextBox } from "../utils/text";
+import { highlightTextColorNum, mainBgColorNum } from "../../../GlobalStyles";
+import { getGameWidth, getGameHeight } from "../../helpers";
+import { createTextBox } from "../../utils/text";
 
 const columnName = "mbmtBalance";
 
 export class EarnableScene extends Phaser.Scene {
-  score: number;
+  score = 0;
 
   gameUser() {
     // add refresh data logic
