@@ -11,7 +11,11 @@ import {
 } from "../gym-room-boot/assets";
 import { createTextBox } from "../utils/text";
 import party, { sources } from "party-js";
-import { highlightTextColorNum, mainBgColorNum } from "../../GlobalStyles";
+import {
+  highlightTextColorNum,
+  InGameFont,
+  mainBgColorNum,
+} from "../../GlobalStyles";
 import * as gstate from "../../ai/gpose/state";
 import * as gpose from "../../ai/gpose/pose";
 import { SceneInMetaGymRoom } from "../base-scenes/scene-in-metagym-room";
@@ -135,17 +139,15 @@ export class ChartSquats extends SceneInMetaGymRoom {
     }).start("press ESC to go back", 10);
 
     const escTextY = height * 0.015;
-    this.scoreBoard = createTextBox({
-      scene: this,
-      x: width * 0.05,
-      y: escTextY + escText.width * 1.85,
-      config: { wrapWidth: 280 },
-      bg: 0xfffefe,
-      stroke: highlightTextColorNum,
-      align: "center",
-      txtColor: "#212125",
-      padding: 3,
-    }).start("SCORE: 0", 10);
+    this.scoreBoard = this.add.text(
+      width * 0.055,
+      escTextY + escText.width * 2.1,
+      "SCORE: 0",
+      {
+        font: `500 17px ${InGameFont}`,
+        color: "#FFFFFF",
+      },
+    );
 
     // generate stock data
     this.generateFakeStocksData();
@@ -332,7 +334,7 @@ export class ChartSquats extends SceneInMetaGymRoom {
         ) as sources.DynamicSourceType;
         this.cameras.main.backgroundColor.setTo(32, 191, 150);
         this.score += 1;
-        this.scoreBoard.start(`SCORE: ${this.score}`);
+        this.scoreBoard.setText(`SCORE: ${this.score}`);
         this.add.image(width * 0.8, height * 0.5, GREEN_WOJAK).setDepth(5);
         if (canvasParent) party.confetti(canvasParent);
         intervals.push(

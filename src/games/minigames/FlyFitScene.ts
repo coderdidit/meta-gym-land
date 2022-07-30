@@ -56,10 +56,12 @@ export class FlyFitScene extends SceneInMetaGymRoom {
 
     // text
     this.scoreBoard = this.add.text(width * 0.05, height * 0.015, "SCORE: 0", {
-      font: `900 20px ${InGameFont}`,
+      font: `500 20px ${InGameFont}`,
+      color: "#ba3a3a",
     });
     this.add.text(width * 0.05, height * 0.04, "press ESC to go back", {
-      font: `900 17px ${InGameFont}`,
+      font: `500 17px ${InGameFont}`,
+      color: "#202020",
     });
 
     // hint

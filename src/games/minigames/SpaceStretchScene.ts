@@ -154,11 +154,11 @@ export class SpaceStretchScene extends SceneInMetaGymRoom {
     // Add the scoreboard in
     this.scoreBoard = this.add.text(width * 0.05, height * 0.015, "SCORE: 0", {
       color: highlightTextColor,
-      font: `900 20px ${InGameFont}`,
+      font: `500 20px ${InGameFont}`,
     });
     this.add.text(width * 0.05, height * 0.04, "press ESC to go back", {
       color: "#FFBE59",
-      font: `900 17px ${InGameFont}`,
+      font: `500 17px ${InGameFont}`,
     });
 
     const asteroidGroupProps = {
