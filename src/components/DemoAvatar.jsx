@@ -20,7 +20,6 @@ import { AvatarCtx } from "index";
 import { useNFTTokenIds } from "hooks/useNFTTokenIds";
 import { useVerifyMetadata } from "hooks/useVerifyMetadata";
 import { MainChainID } from "../MglNftMetadata";
-import { chainIdToNameAndLogo } from "../components/Chains/Chains";
 import { resolveNftSprite } from "../helpers/nft-props-resolvers";
 import { pageTitleStyle, descriptionStyle } from "GlobalStyles";
 import Loader from "./Loader";
