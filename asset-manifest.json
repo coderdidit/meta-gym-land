@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/static/css/main.5ec410c5.css",
-    "main.js": "/static/js/main.230e04bd.js",
+    "main.css": "/static/css/main.47cee26c.css",
+    "main.js": "/static/js/main.94dd5bcd.js",
     "polyfills-dom.js": "/static/js/polyfills-dom.c5971dae.chunk.js",
     "polyfills-core-js.js": "/static/js/polyfills-core-js.dfe3610a.chunk.js",
     "static/js/340.06454d93.chunk.js": "/static/js/340.06454d93.chunk.js",
     "static/media/gym-buddies.gif": "/static/media/gym-buddies.69d615296299b980a9cf.gif",
-    "static/media/home_page_img.png": "/static/media/home_page_img.ce4583d9451281d375f8.png",
     "static/media/card.png": "/static/media/card.41742a40432f08fc9691.png",
+    "static/media/home_page_img.png": "/static/media/home_page_img.28db05a891d22deb2b58.png",
     "static/media/how_it_works_2.png": "/static/media/how_it_works_2.c1f5b87b2c7417b12fdc.png",
     "static/media/how_it_works_1.png": "/static/media/how_it_works_1.15e82802e4a84030769e.png",
     "static/media/how_it_works_3.png": "/static/media/how_it_works_3.0f5a8e1a691e406ed962.png",
@@ -21,14 +21,14 @@
     "static/media/MathWallet.svg": "/static/media/MathWallet.19212234cfaec388ea6f339d0cea9df9.svg",
     "SafePal.svg": "/e7068bbce0757878c2ef3e30191ce580.svg",
     "index.html": "/index.html",
-    "main.5ec410c5.css.map": "/static/css/main.5ec410c5.css.map",
-    "main.230e04bd.js.map": "/static/js/main.230e04bd.js.map",
+    "main.47cee26c.css.map": "/static/css/main.47cee26c.css.map",
+    "main.94dd5bcd.js.map": "/static/js/main.94dd5bcd.js.map",
     "polyfills-dom.c5971dae.chunk.js.map": "/static/js/polyfills-dom.c5971dae.chunk.js.map",
     "polyfills-core-js.dfe3610a.chunk.js.map": "/static/js/polyfills-core-js.dfe3610a.chunk.js.map",
     "340.06454d93.chunk.js.map": "/static/js/340.06454d93.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.5ec410c5.css",
-    "static/js/main.230e04bd.js"
+    "static/css/main.47cee26c.css",
+    "static/js/main.94dd5bcd.js"
   ]
 }
