@@ -124,6 +124,7 @@ const PoseDetWebcam = ({ sizeProps, styleProps }) => {
   const predictionsStarted = useRef(false);
 
   useEffect(() => {
+    // TODO: add debounce on starting the predictions
     const doPredictions = () => {
       if (!predictionsStarted.current) {
         if (isInDebug()) {

@@ -29,10 +29,6 @@ const SceneConfig = {
 
 const asteroidScale = 1;
 const maxAsteroidPlatformsCnt = 7;
-const scoreBoardTextStyle = {
-  fill: highlightTextColor,
-  font: `900 20px ${InGameFont}`,
-};
 const roboTextTimeouts = [];
 const playerSpeed = 100;
 
@@ -146,12 +142,10 @@ export class SpaceStretchScene extends SceneInMetaGymRoom {
     );
 
     // Add the scoreboard in
-    this.scoreBoard = this.add.text(
-      width * 0.05,
-      height * 0.015,
-      "SCORE: 0",
-      scoreBoardTextStyle,
-    );
+    this.scoreBoard = this.add.text(width * 0.05, height * 0.015, "SCORE: 0", {
+      fill: highlightTextColor,
+      font: `900 20px ${InGameFont}`,
+    });
     this.add.text(width * 0.05, height * 0.04, "press ESC to go back", {
       fill: "#FFBE59",
       font: `900 17px ${InGameFont}`,
@@ -212,7 +206,6 @@ export class SpaceStretchScene extends SceneInMetaGymRoom {
         asteroids.setImmovable(false);
         asteroids.setVelocityY(600);
         this.scoreBoard.setText(`SCORE: ${this.score}`);
-        this.scoreBoard.setStyle(scoreBoardTextStyle);
       }
     };
 

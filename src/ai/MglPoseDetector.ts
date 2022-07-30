@@ -1,7 +1,17 @@
 import * as mpPose from "@mediapipe/pose";
-import { Pose, ResultsListener, InputMap } from "@mediapipe/pose";
+import { Pose, ResultsListener, InputMap, Options } from "@mediapipe/pose";
 import { isInDebug } from "dev-utils/debug";
 import { ConfidenceScore } from "./AIConfig";
+
+const PoseDetectorSettings: Options = {
+  modelComplexity: 1,
+  smoothLandmarks: true,
+  selfieMode: true,
+  // enableSegmentation: true,
+  // smoothSegmentation: true,
+  minDetectionConfidence: ConfidenceScore,
+  minTrackingConfidence: ConfidenceScore,
+};
 
 export class MglPoseDetector {
   mediaPipePoseDetector: Pose;
@@ -17,15 +27,7 @@ export class MglPoseDetector {
       },
     });
 
-    this.mediaPipePoseDetector.setOptions({
-      modelComplexity: 1,
-      smoothLandmarks: true,
-      selfieMode: true,
-      //   enableSegmentation: true,
-      // smoothSegmentation: true,
-      minDetectionConfidence: ConfidenceScore,
-      minTrackingConfidence: ConfidenceScore,
-    });
+    this.mediaPipePoseDetector.setOptions(PoseDetectorSettings);
 
     console.log("[MglPoseDetector] create new Pose object");
   }
@@ -40,15 +42,7 @@ export class MglPoseDetector {
       },
     });
 
-    this.mediaPipePoseDetector.setOptions({
-      modelComplexity: 1,
-      smoothLandmarks: true,
-      selfieMode: true,
-      //   enableSegmentation: true,
-      // smoothSegmentation: true,
-      minDetectionConfidence: ConfidenceScore,
-      minTrackingConfidence: ConfidenceScore,
-    });
+    this.mediaPipePoseDetector.setOptions(PoseDetectorSettings);
 
     console.log("[MglPoseDetector] re-create new Pose object");
   }
