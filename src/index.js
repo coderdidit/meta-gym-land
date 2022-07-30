@@ -1,5 +1,5 @@
-import React, { useState, useEffect, StrictMode } from "react";
-import ReactDOM from "react-dom";
+import React, { useState, useEffect, useRef, StrictMode } from "react";
+import ReactDOM from "react-dom/client";
 import App from "./App";
 import { MoralisProvider } from "react-moralis";
 import "./index.css";
@@ -59,16 +59,24 @@ const WebcamCtxProvider = ({ children }) => {
   );
 };
 
+const poseDetector = new MglPoseDetector();
 // PoseDetector global var
 export const PoseDetectorCtx = React.createContext();
 const PoseDetectorCtxProvider = ({ children }) => {
-  const poseDetector = new MglPoseDetector();
+  const poseDetectorInitialized = useRef(false);
 
   useEffect(() => {
     const initPoseDetector = async () => {
       await poseDetector.initialize();
     };
-    initPoseDetector().catch(console.error);
+    if (!poseDetectorInitialized.current) {
+      initPoseDetector().catch(console.error);
+      poseDetectorInitialized.current = true;
+    }
+
+    return () => {
+      poseDetector.reset();
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -109,9 +117,9 @@ const Application = () => {
   }
 };
 
-ReactDOM.render(
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(
   <StrictMode>
     <Application />
   </StrictMode>,
-  document.getElementById("root"),
 );

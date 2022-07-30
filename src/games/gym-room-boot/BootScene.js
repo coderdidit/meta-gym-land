@@ -35,6 +35,7 @@ export class BootScene extends Phaser.Scene {
     this.pickedMiniGame = this.game.registry.values.pickedMiniGame;
 
     // Listener that triggers when an asset has loaded
+    // TODO investigate, this is called twice
     this.load.on(
       "filecomplete",
       (key) => {
