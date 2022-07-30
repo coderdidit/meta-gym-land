@@ -317,6 +317,8 @@ export class ChartSquats extends SceneInMetaGymRoom {
         this.add.image(width * 0.8, height * 0.5, RED_WOJAK).setDepth(5);
         this.cameras.main.setBackgroundColor("#4a0909");
         this.btc.setTint(0x3d3d3d);
+        this.score -= 1;
+        this.scoreBoard.setText(`SCORE: ${this.score}`);
         const msg =
           "🤖 You have been liquidated 😢\n\n" +
           "BTC price had a MASSIVE dip" +
