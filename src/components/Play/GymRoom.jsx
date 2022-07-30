@@ -37,7 +37,12 @@ const GymRoom = ({ avatar, useWebcam = true, miniGameId = null }) => {
   };
 
   useEffect(() => {
-    startGame();
+    const timeout = setTimeout(() => {
+      startGame();
+    }, 500);
+    return () => {
+      clearTimeout(timeout);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
