@@ -65,7 +65,10 @@ const PoseDetectorCtxProvider = ({ children }) => {
   const poseDetector = new MglPoseDetector();
 
   useEffect(() => {
-    poseDetector.initialize();
+    const initPoseDetector = async () => {
+      await poseDetector.initialize();
+    };
+    initPoseDetector().catch(console.error);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

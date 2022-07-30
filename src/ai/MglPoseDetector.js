@@ -21,7 +21,7 @@ export class MglPoseDetector {
       minTrackingConfidence: ConfidenceScore,
     });
 
-    console.log("init Machine Learning");
+    console.log("Create MglPoseDetector");
   }
 
   onResults(onResults) {
@@ -29,7 +29,7 @@ export class MglPoseDetector {
   }
 
   async send({ image }) {
-    this.mediaPipePoseDetector.send({ image });
+    await this.mediaPipePoseDetector.send({ image });
   }
 
   close() {
@@ -40,7 +40,8 @@ export class MglPoseDetector {
     this.mediaPipePoseDetector.reset();
   }
 
-  initialize() {
-    this.mediaPipePoseDetector.initialize();
+  async initialize() {
+    console.log("Init Machine Learning");
+    await this.mediaPipePoseDetector.initialize();
   }
 }
