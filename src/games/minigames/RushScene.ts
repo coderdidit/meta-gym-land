@@ -4,7 +4,7 @@ import { PlayerWithName } from "../objects";
 import { RUSH } from "../shared";
 import { createTextBox } from "../utils/text";
 import { mainBgColorNum, highlightTextColorNum } from "../../GlobalStyles";
-import { SceneInMetaGymRoom } from "../base-scenes/ts/scene-in-metagym-room";
+import { SceneInMetaGymRoom } from "../base-scenes/scene-in-metagym-room";
 import * as gstate from "../../ai/gpose/state";
 import * as gpose from "../../ai/gpose/pose";
 import { RUSH_BG } from "../gym-room-boot/assets";
@@ -205,42 +205,42 @@ export class RushScene extends SceneInMetaGymRoom {
     const width = getGameWidth(this);
     const height = getGameHeight(this);
 
-    createTextBox(
-      this,
-      width * 0.05,
-      height * 0.015,
-      { wrapWidth: 280 },
-      mainBgColorNum,
-      highlightTextColorNum,
-    )
+    createTextBox({
+      scene: this,
+      x: width * 0.05,
+      y: height * 0.015,
+      config: { wrapWidth: 280 },
+      bg: mainBgColorNum,
+      stroke: highlightTextColorNum,
+    })
       .start("press ESC to go back", 10)
       .setScrollFactor(0, 0);
 
-    const hintTextBox = createTextBox(
-      this,
-      width / 2 + width / 4,
-      height * 0.015,
-      { wrapWidth: 280 },
-      0xfffefe,
-      0x00ff00,
-      "center",
-      "#212125",
-    );
+    const hintTextBox = createTextBox({
+      scene: this,
+      x: width / 2 + width / 4,
+      y: height * 0.015,
+      config: { wrapWidth: 280 },
+      bg: 0xfffefe,
+      stroke: 0x00ff00,
+      align: "center",
+      txtColor: "#212125",
+    });
     hintTextBox.setDepth(1);
     hintTextBox.setScrollFactor(0, 0);
     hintTextBox.start("🤖 Welcome in MetaGymLand RUSH minigame", 50);
 
     // stats
-    this.statsBox = createTextBox(
-      this,
-      width * 0.05,
-      height * 0.09,
-      { wrapWidth: 280 },
-      0xfffefe,
-      0x00ff00,
-      "center",
-      "#212125",
-    )
+    this.statsBox = createTextBox({
+      scene: this,
+      x: width * 0.05,
+      y: height * 0.09,
+      config: { wrapWidth: 280 },
+      bg: 0xfffefe,
+      stroke: 0x00ff00,
+      align: "center",
+      txtColor: "#212125",
+    })
       .setScrollFactor(0, 0)
       .start("Current speed: 0", 0);
   }

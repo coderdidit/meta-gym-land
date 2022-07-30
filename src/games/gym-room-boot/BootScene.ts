@@ -14,12 +14,13 @@ const sceneConfig = {
  * The initial scene that loads all necessary assets to the game.
  */
 export class BootScene extends Phaser.Scene {
-  assetsLoaded;
-  selectedAvatar;
+  assetsLoaded!: boolean;
+  selectedAvatar!: { uri: any };
   loadIndex;
-  progressBarContainer;
-  progressBar;
-  loadingText;
+  progressBarContainer!: Phaser.GameObjects.Rectangle;
+  progressBar!: Phaser.GameObjects.Rectangle;
+  loadingText!: Phaser.GameObjects.Text;
+  pickedMiniGame!: string;
 
   constructor() {
     super(sceneConfig);
@@ -38,7 +39,7 @@ export class BootScene extends Phaser.Scene {
     // TODO investigate, this is called twice
     this.load.on(
       "filecomplete",
-      (key) => {
+      (key: string) => {
         // As the spritesheet is the last asset to load in, we can attempt to start the game
         if (key === PLAYER_KEY) {
           this.assetsLoaded = true;
@@ -62,7 +63,7 @@ export class BootScene extends Phaser.Scene {
   /**
    * If all the assets are loaded in, start game
    */
-  startGame = (miniGameId) => {
+  startGame = (miniGameId: string) => {
     if (this.assetsLoaded) {
       const resolveMiniGame = () => {
         if (MINI_GAMES.includes(miniGameId)) {
@@ -115,7 +116,7 @@ export class BootScene extends Phaser.Scene {
   /**
    * Iterates through each file in the assets array
    */
-  loadNextFile = (index) => {
+  loadNextFile = (index: number) => {
     const file = assets[index];
     this.loadIndex++;
 

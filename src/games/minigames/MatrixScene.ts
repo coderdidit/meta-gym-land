@@ -14,6 +14,8 @@ const SceneConfig = {
 };
 
 export class MatrixScene extends SceneInMetaGymRoom {
+  player: any;
+
   constructor() {
     super(SceneConfig);
   }
@@ -34,16 +36,16 @@ export class MatrixScene extends SceneInMetaGymRoom {
       height: 40,
       cellWidth: 32,
       cellHeight: 32,
-      getPoints: function (quantity) {
-        var cols = new Array(codeRain.width).fill(0);
-        var lastCol = cols.length - 1;
-        var Between = Phaser.Math.Between;
-        var RND = Phaser.Math.RND;
-        var points = [];
+      getPoints: function (quantity: number) {
+        const cols = new Array(codeRain.width).fill(0);
+        const lastCol = cols.length - 1;
+        const Between = Phaser.Math.Between;
+        const RND = Phaser.Math.RND;
+        const points = [];
 
-        for (var i = 0; i < quantity; i++) {
-          var col = Between(0, lastCol);
-          var row = (cols[col] += 1);
+        for (let i = 0; i < quantity; i++) {
+          const col = Between(0, lastCol);
+          let row = (cols[col] += 1);
 
           if (RND.frac() < 0.01) {
             row *= RND.frac();
@@ -72,25 +74,25 @@ export class MatrixScene extends SceneInMetaGymRoom {
       tint: 0x0066ff00,
     });
 
-    createTextBox(
-      this,
-      width * 0.05,
-      height * 0.015,
-      { wrapWidth: 280 },
-      mainBgColorNum,
-      highlightTextColorNum,
-    ).start("press ESC to go back", 10);
+    createTextBox({
+      scene: this,
+      x: width * 0.05,
+      y: height * 0.015,
+      config: { wrapWidth: 280 },
+      bg: mainBgColorNum,
+      stroke: highlightTextColorNum,
+    }).start("press ESC to go back", 10);
 
-    const hintTextBox = createTextBox(
-      this,
-      width / 2 + width / 4,
-      height * 0.015,
-      { wrapWidth: 280 },
-      0xfffefe,
-      0x00ff00,
-      "center",
-      "#212125",
-    );
+    const hintTextBox = createTextBox({
+      scene: this,
+      x: width / 2 + width / 4,
+      y: height * 0.015,
+      config: { wrapWidth: 280 },
+      bg: 0xfffefe,
+      stroke: 0x00ff00,
+      align: "center",
+      txtColor: "#212125",
+    });
     hintTextBox.setDepth(1);
     hintTextBox.setScrollFactor(0, 0);
     hintTextBox.start(
@@ -121,20 +123,20 @@ export class MatrixScene extends SceneInMetaGymRoom {
     this.player.setDepth(1);
     this.player.body.setCollideWorldBounds(true);
 
-    const onCollide = (avatar, item) => {
+    const onCollide = (avatar: any, item: { name: string }) => {
       if (item.name === PILL_RED) {
         this.cameras.main.setBackgroundColor("#23BD32");
         hintTextBox.start("🤖", 50);
-        const info = createTextBox(
-          this,
-          width / 2,
-          height / 2,
-          { wrapWidth: 280 },
-          0x010000,
-          0x3b6a59,
-          "center",
-          "#63E778",
-        )
+        const info = createTextBox({
+          scene: this,
+          x: width / 2,
+          y: height / 2,
+          config: { wrapWidth: 280 },
+          bg: 0x010000,
+          stroke: 0x3b6a59,
+          align: "center",
+          txtColor: "#63E778",
+        })
           .setOrigin(0.5)
           .setDepth(1)
           .setScrollFactor(0, 0)
@@ -150,16 +152,16 @@ export class MatrixScene extends SceneInMetaGymRoom {
         info.on("pointerdown", openExternalLink, this);
       } else {
         hintTextBox.start("🤖", 50);
-        createTextBox(
-          this,
-          width / 2,
-          height / 2,
-          { wrapWidth: 280 },
-          0xfffefe,
-          highlightTextColorNum,
-          "center",
-          "#212125",
-        )
+        createTextBox({
+          scene: this,
+          x: width / 2,
+          y: height / 2,
+          config: { wrapWidth: 280 },
+          bg: 0xfffefe,
+          stroke: highlightTextColorNum,
+          align: "center",
+          txtColor: "#212125",
+        })
           .setOrigin(0.5)
           .setDepth(1)
           .setScrollFactor(0, 0)
@@ -175,11 +177,11 @@ export class MatrixScene extends SceneInMetaGymRoom {
       }
       pillis.forEach((i) => i.destroy());
     };
-    this.physics.add.collider(this.player, pillis, onCollide, null, this);
+    this.physics.add.collider(this.player, pillis, onCollide, undefined, this);
   }
 
   // eslint-disable-next-line no-unused-vars
-  update(time, delta) {
+  update(time: any, delta: any) {
     this.player?.update();
   }
 }

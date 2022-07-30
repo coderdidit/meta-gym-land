@@ -16,9 +16,7 @@ import {
 } from "../utils/Globals";
 import { MMT_TICKER } from "../../GlobalStyles";
 import { EarnableScene } from "../base-scenes/EarnableScene";
-import { Modal } from "antd";
-import { SnapChatLogo } from "../../Logos";
-import QRCode from "qrcode";
+import { showSnapchatModal } from "./snapchat";
 
 const debugCollisons = false;
 
@@ -39,72 +37,17 @@ const miniGamesMapping = new Map([
   ["matrix", "Mystery Mat"],
 ]);
 
-let sceneToGoOnXclick = null;
-const roboTextTimeouts = [];
-
-const showSnapchatModal = async (snapARLink) => {
-  if (snapARLink === "") {
-    Modal.info({
-      title: "Mint GymBuddy with Snap",
-      centered: true,
-      bodyStyle: {
-        textAlign: "center",
-      },
-      okText: "close",
-      icon: <SnapChatLogo />,
-      content: (
-        <div
-          style={{
-            textAlign: "center",
-          }}
-        >
-          <div>
-            <p>Your GymBuddy does not have a Snap Lens :(</p>
-            <p>Go mint one in our mint Page :)</p>
-          </div>
-        </div>
-      ),
-    });
-  } else {
-    const qrCodeData = await QRCode.toDataURL(snapARLink);
-    Modal.info({
-      title: "Try me in Snapchat",
-      centered: true,
-      bodyStyle: {
-        textAlign: "center",
-      },
-      okText: "close",
-      icon: <SnapChatLogo />,
-      content: (
-        <div
-          style={{
-            textAlign: "center",
-          }}
-        >
-          <div>
-            <p>Grab your phone</p>
-            <p>and scan the QR code</p>
-          </div>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-            }}
-          >
-            <img src={qrCodeData} />
-          </div>
-        </div>
-      ),
-    });
-  }
-};
+let sceneToGoOnXclick: string | Phaser.Scene | null | undefined = null;
+const roboTextTimeouts: NodeJS.Timeout[] = [];
 
 export class GymRoomScene extends EarnableScene {
+  selectedAvatar: any;
+  player: any;
   constructor() {
     super(SceneConfig);
   }
 
-  init = (data) => {
+  init = (data: { selectedAvatar: any }) => {
     this.selectedAvatar = data.selectedAvatar;
   };
 
@@ -117,7 +60,7 @@ export class GymRoomScene extends EarnableScene {
     // constrols
     this.input.keyboard.on(
       "keydown",
-      (event) => {
+      (event: { keyCode: any }) => {
         const code = event.keyCode;
         if (sceneToGoOnXclick && code === Phaser.Input.Keyboard.KeyCodes.X) {
           roboTextTimeouts.forEach((t) => clearTimeout(t));
@@ -172,15 +115,20 @@ export class GymRoomScene extends EarnableScene {
         return getMainRoomPlayerExitPos();
       }
       const playerObjLayer = map.getObjectLayer("player");
+      const obj = playerObjLayer.objects[0];
+      if (!obj.x || !obj.y) {
+        throw Error(
+          `player object x or y are undefined ${JSON.stringify(obj)}`,
+        );
+      }
       return {
-        x: playerObjLayer.objects[0].x * mapScale,
-        y: playerObjLayer.objects[0].y * mapScale,
+        x: obj.x * mapScale,
+        y: obj.y * mapScale,
       };
     };
     this.player = new Player({
       scene: this,
       ...resolvePlayerXY(),
-      key: PLAYER_KEY,
     });
     this.player.setScale(PLAYER_SCALE);
     this.player.setDepth(1);
@@ -204,12 +152,12 @@ export class GymRoomScene extends EarnableScene {
     this.physics.add.collider(this.player, itemsLayer);
 
     // text
-    const hintTextBox = createTextBox(
-      this,
-      width / 2 + width / 4,
-      height * 0.015,
-      { wrapWidth: 280 },
-    );
+    const hintTextBox = createTextBox({
+      scene: this,
+      x: width / 2 + width / 4,
+      y: height * 0.015,
+      config: { wrapWidth: 280 },
+    });
 
     hintTextBox.setDepth(1);
     hintTextBox.setScrollFactor(0, 0);
@@ -231,14 +179,21 @@ export class GymRoomScene extends EarnableScene {
       );
     }
 
-    const trainingMats = [];
+    const trainingMats: Phaser.GameObjects.Rectangle[] = [];
     const miniGamesLayer = map.getObjectLayer("mini_games");
     miniGamesLayer.objects.forEach((object) => {
+      if (!object.x || !object.y || !object.width || !object.height) {
+        throw Error(
+          `player object has undefined values (x, y, width, height) ${JSON.stringify(
+            object,
+          )}`,
+        );
+      }
       const x = object.x * mapScale;
       const y = object.y * mapScale;
       const objWidth = object.width * mapScale;
       const objHeight = object.height * mapScale;
-      let trainingMatRect = this.add
+      const trainingMatRect = this.add
         .rectangle(x, y, objWidth, objHeight)
         .setName(object.name)
         .setOrigin(0);
@@ -249,7 +204,7 @@ export class GymRoomScene extends EarnableScene {
       trainingMats.push(trainingMatRect);
     });
 
-    const playerMatHandelOverlap = (player, matRectangle) => {
+    const playerMatHandelOverlap = (player: any, matRectangle: any) => {
       const objName = matRectangle.name;
       if (
         player.body.touching.none &&
@@ -277,7 +232,7 @@ export class GymRoomScene extends EarnableScene {
       this.player,
       trainingMats,
       playerMatHandelOverlap,
-      null,
+      undefined,
       this,
     );
     this.player.on("overlapend", function () {
@@ -295,16 +250,16 @@ export class GymRoomScene extends EarnableScene {
     });
 
     // MBMT inventory
-    const mbmtEarnedInventory = createTextBox(
-      this,
-      width * 0.05,
-      height * 0.015,
-      { wrapWidth: 280 },
-      0xffd7d7,
-      0xffffff,
-      "center",
-      "#FD377E",
-    );
+    const mbmtEarnedInventory = createTextBox({
+      scene: this,
+      x: width * 0.05,
+      y: height * 0.015,
+      config: { wrapWidth: 280 },
+      bg: 0xffd7d7,
+      stroke: 0xffffff,
+      align: "center",
+      txtColor: "#FD377E",
+    });
     mbmtEarnedInventory.setScrollFactor(0, 0);
     const formattedBalance = () => {
       if (this.currentXPBalance()) return this.currentXPBalance().toFixed(4);
@@ -318,7 +273,7 @@ export class GymRoomScene extends EarnableScene {
   }
 
   // eslint-disable-next-line no-unused-vars
-  update(time, delta) {
+  update(time: any, delta: any) {
     // overlapend event
     const touching = !this.player.body.touching.none;
     const wasTouching = !this.player.body.wasTouching.none;

@@ -13,31 +13,40 @@ const COLOR_LIGHT = 0x7b5e57;
 
 const GetValue = Phaser.Utils.Objects.GetValue;
 
-const createTextBox = function (
-  scene,
-  x,
-  y,
-  config,
-  bg = COLOR_PRIMARY,
-  stroke = COLOR_LIGHT,
-  align = "center",
-  txtColor = "white",
-) {
-  var wrapWidth = GetValue(config, "wrapWidth", 0);
-  var fixedWidth = GetValue(config, "fixedWidth", 0);
-  var fixedHeight = GetValue(config, "fixedHeight", 0);
+type createTextBoxParams = {
+  scene: Phaser.Scene;
+  x: number;
+  y: number;
+  config: object;
+  bg?: number;
+  stroke?: number;
+  align?: "left" | "center" | "right";
+  txtColor?: string;
+  padding?: number;
+};
+
+const createTextBox = function (params: createTextBoxParams) {
+  const { scene, x, y, config, bg, stroke, align, txtColor, padding } = params;
+  const wrapWidth = GetValue(config, "wrapWidth", 0);
+  const fixedWidth = GetValue(config, "fixedWidth", 0);
+  const fixedHeight = GetValue(config, "fixedHeight", 0);
 
   const tBoxCfg = {
     x: x,
     y: y,
-    background: getRoundRectangle(scene, bg, stroke),
+    background: getRoundRectangle(
+      scene,
+      bg ?? COLOR_PRIMARY,
+      stroke ?? COLOR_LIGHT,
+    ),
     text: getBBcodeText(
       scene,
       wrapWidth,
       fixedWidth,
       fixedHeight,
-      align,
-      txtColor,
+      align ?? "center",
+      txtColor ?? "white",
+      padding ?? 10,
     ),
     // draggable: true,
     space: {
@@ -55,7 +64,11 @@ const createTextBox = function (
   return textBox;
 };
 
-const getRoundRectangle = function (scene, bg, stroke) {
+const getRoundRectangle = function (
+  scene: Phaser.Scene,
+  bg: number,
+  stroke: number,
+) {
   const rect = new RoundRectangle(scene, 0, 0, 2, 2, 20, bg);
   rect.setStrokeStyle(4, stroke);
   scene.add.existing(rect);
@@ -63,14 +76,15 @@ const getRoundRectangle = function (scene, bg, stroke) {
 };
 
 const getBBcodeText = function (
-  scene,
-  wrapWidth,
-  fixedWidth,
-  fixedHeight,
-  align,
-  txtColor,
+  scene: Phaser.Scene,
+  wrapWidth: number,
+  fixedWidth: number,
+  fixedHeight: number,
+  align: "left" | "center" | "right",
+  txtColor: null | string | number,
+  padding: number,
 ) {
-  const bbTextCfg = {
+  const bbTextCfg: BBCodeText.TextStyle = {
     fixedWidth: fixedWidth,
     fixedHeight: fixedHeight,
     fontFamily: InGameFont,
@@ -82,10 +96,10 @@ const getBBcodeText = function (
       width: wrapWidth,
     },
     padding: {
-      left: 10,
-      right: 10,
-      top: 10,
-      bottom: 10,
+      left: padding,
+      right: padding,
+      top: padding,
+      bottom: padding,
     },
     color: txtColor,
     maxLines: 10,

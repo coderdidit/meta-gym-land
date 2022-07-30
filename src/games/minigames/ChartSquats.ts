@@ -10,11 +10,11 @@ import {
   GREEN_WOJAK,
 } from "../gym-room-boot/assets";
 import { createTextBox } from "../utils/text";
-import party from "party-js";
+import party, { sources } from "party-js";
 import {
   highlightTextColorNum,
-  mainBgColorNum,
   InGameFont,
+  mainBgColorNum,
 } from "../../GlobalStyles";
 import * as gstate from "../../ai/gpose/state";
 import * as gpose from "../../ai/gpose/pose";
@@ -39,18 +39,36 @@ const changeFactor = 0.3;
 const longColor = 0x00ff00;
 const shortColor = 0xaa0000;
 
-let intervals = [];
+const intervals: NodeJS.Timer[] = [];
 
 export class ChartSquats extends SceneInMetaGymRoom {
+  graphics: any;
+  createTime!: number;
+  frameTime!: number;
+  wonState!: number;
+  score!: number;
+  scoreBoard: any;
+  allTimeHigh!: number;
+  btc!: Phaser.GameObjects.Image;
+  pump!: Phaser.GameObjects.Sprite;
+  player!: Player;
+  playerInitialY: any;
+  hintTextBox: any;
+  x1Pos: any;
+  chartStopX: any;
+  x2Pos: any;
+  priceData!: { x: number; y: number }[];
+  curPrice: any;
+  startingPrice: any;
   constructor() {
     super(SceneConfig);
   }
 
-  init = (data) => {
+  init = (data: { selectedAvatar: any }) => {
     this.selectedAvatar = data.selectedAvatar;
   };
 
-  drawGround(width, height) {
+  drawGround(width: number | undefined, height: number) {
     const groundHeight = height * 0.02;
     const rect = new Phaser.Geom.Rectangle(
       0,
@@ -70,7 +88,7 @@ export class ChartSquats extends SceneInMetaGymRoom {
     return rect;
   }
 
-  create(data) {
+  create(data: { score: number }) {
     const webCamContainer = document.getElementById(
       "pose-det-webcam-container",
     );
@@ -109,19 +127,27 @@ export class ChartSquats extends SceneInMetaGymRoom {
     const ground = this.drawGround(width, height);
 
     // Add the scoreboard
+    // how to esc hint
+    const escText = createTextBox({
+      scene: this,
+      x: width * 0.05,
+      y: height * 0.015,
+      config: { wrapWidth: 280 },
+      bg: mainBgColorNum,
+      stroke: highlightTextColorNum,
+      padding: 5,
+    }).start("press ESC to go back", 10);
+
+    const escTextY = height * 0.015;
     this.scoreBoard = this.add.text(
-      width * 0.05,
-      height * 0.015,
-      `SCORE: ${this.score}`,
+      width * 0.055,
+      escTextY + escText.width * 2.1,
+      "SCORE: 0",
       {
-        fill: "#FFF",
-        font: `900 20px ${InGameFont}`,
+        font: `500 17px ${InGameFont}`,
+        color: "#FFFFFF",
       },
     );
-    this.add.text(width * 0.05, height * 0.04, "press ESC to go back", {
-      fill: "#FFF",
-      font: `900 17px ${InGameFont}`,
-    });
 
     // generate stock data
     this.generateFakeStocksData();
@@ -133,7 +159,12 @@ export class ChartSquats extends SceneInMetaGymRoom {
     graphics.closePath();
 
     // all time law in chart line
-    const atlline = new Phaser.Geom.Line(0, this.atl, width, this.atl);
+    const atlline = new Phaser.Geom.Line(
+      0,
+      this.allTimeHigh,
+      width,
+      this.allTimeHigh,
+    );
     graphics.lineStyle(1, 0x848484, 0.8);
     graphics.strokeLineShape(atlline);
 
@@ -151,7 +182,7 @@ export class ChartSquats extends SceneInMetaGymRoom {
     this.pump.y = ground.y - this.pump.height * pumpScale;
 
     // player
-    this.player = new Player({ scene: this, x: 0, y: 0, key: PLAYER_KEY })
+    this.player = new Player({ scene: this, x: 0, y: 0 })
       .setDepth(2)
       .setOrigin(0.5, 1)
       .setScale(playerScale);
@@ -160,14 +191,14 @@ export class ChartSquats extends SceneInMetaGymRoom {
     this.playerInitialY = this.player.y;
 
     // hint text
-    this.hintTextBox = createTextBox(
-      this,
-      width / 2,
-      height / 2,
-      { wrapWidth: 280 },
-      mainBgColorNum,
-      highlightTextColorNum,
-    ).setOrigin(0.5);
+    this.hintTextBox = createTextBox({
+      scene: this,
+      x: width / 2,
+      y: height / 2,
+      config: { wrapWidth: 280 },
+      bg: mainBgColorNum,
+      stroke: highlightTextColorNum,
+    }).setOrigin(0.5);
     const hintTextBox = this.hintTextBox;
     hintTextBox.setDepth(1);
     hintTextBox.setScrollFactor(0, 0);
@@ -182,18 +213,18 @@ export class ChartSquats extends SceneInMetaGymRoom {
     this.x2Pos = this.x1Pos + chartLineWidth;
   }
 
-  youWonOrLosenMsg(msg, bgcolor = mainBgColorNum) {
+  youWonOrLosenMsg(msg: string, bgcolor = mainBgColorNum) {
     const width = getGameWidth(this);
     const height = getGameHeight(this);
 
-    const youWonText = createTextBox(
-      this,
-      width / 2,
-      height / 2,
-      { wrapWidth: 280 },
-      bgcolor,
-      highlightTextColorNum,
-    );
+    const youWonText = createTextBox({
+      scene: this,
+      x: width / 2,
+      y: height / 2,
+      config: { wrapWidth: 280 },
+      bg: bgcolor,
+      stroke: highlightTextColorNum,
+    });
     youWonText.setOrigin(0.5).setDepth(3).setScrollFactor(0, 0);
     youWonText.start(msg, 10);
   }
@@ -218,8 +249,8 @@ export class ChartSquats extends SceneInMetaGymRoom {
       const rnd = Math.random();
       let changePercent = 2 * volatility * rnd;
       if (changePercent > volatility) changePercent -= 2 * volatility;
-      let oldPrice = priceData[i].y;
-      let changeAmount = oldPrice * changePercent;
+      const oldPrice = priceData[i].y;
+      const changeAmount = oldPrice * changePercent;
       let newPrice = oldPrice + changeAmount;
 
       // if price range is to far set it to middle
@@ -231,8 +262,8 @@ export class ChartSquats extends SceneInMetaGymRoom {
         y: newPrice,
       });
     }
-    const prices = priceData.map((p) => p.y);
-    this.atl = Math.max.apply(Math, prices);
+    const prices = priceData.map((p: { y: any }) => p.y);
+    this.allTimeHigh = Math.max(...prices);
     this.curPrice = priceData[priceData.length - 1].y;
     this.startingPrice = this.curPrice;
   }
@@ -244,7 +275,7 @@ export class ChartSquats extends SceneInMetaGymRoom {
   }
 
   // eslint-disable-next-line no-unused-vars
-  update(time, delta) {
+  update(time: any, delta: any) {
     const initilaHintDealy = 4000;
     const timeFromCreation = Date.now() - this.createTime;
     // counter
@@ -286,6 +317,8 @@ export class ChartSquats extends SceneInMetaGymRoom {
         this.add.image(width * 0.8, height * 0.5, RED_WOJAK).setDepth(5);
         this.cameras.main.setBackgroundColor("#4a0909");
         this.btc.setTint(0x3d3d3d);
+        this.score -= 1;
+        this.scoreBoard.setText(`SCORE: ${this.score}`);
         const msg =
           "🤖 You have been liquidated 😢\n\n" +
           "BTC price had a MASSIVE dip" +
@@ -298,7 +331,9 @@ export class ChartSquats extends SceneInMetaGymRoom {
 
       if (this.curPrice <= 0) {
         this.wonState = wonState;
-        const canvasParent = document.querySelector("#phaser-app canvas");
+        const canvasParent = document.querySelector(
+          "#phaser-app canvas",
+        ) as sources.DynamicSourceType;
         this.cameras.main.backgroundColor.setTo(32, 191, 150);
         this.score += 1;
         this.scoreBoard.setText(`SCORE: ${this.score}`);
@@ -347,7 +382,7 @@ export class ChartSquats extends SceneInMetaGymRoom {
 
       const x1Pos = this.x1Pos;
       const x2Pos = this.x2Pos;
-      if (this.curPrice > this.atl) {
+      if (this.curPrice > this.allTimeHigh) {
         this.graphics.lineStyle(chartLineWidth, shortColor);
       } else {
         this.graphics.lineStyle(chartLineWidth, longColor);

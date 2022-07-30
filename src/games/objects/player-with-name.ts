@@ -1,15 +1,24 @@
 import Phaser from "phaser";
 import { Player } from "./player";
-import { PLAYER_KEY, PLAYER_SCALE } from "../shared";
+import { PLAYER_SCALE } from "../shared";
 import * as gstate from "../../ai/gpose/state";
 import * as gpose from "../../ai/gpose/pose";
 import { InGameFont } from "../../GlobalStyles";
 
+type playerWithNameConstructorParams = {
+  scene: Phaser.Scene;
+  x: number;
+  y: number;
+  name: string;
+};
+
 export class PlayerWithName extends Phaser.GameObjects.Container {
   cursorKeys;
   speed = 150;
+  playerSprite: Player;
 
-  constructor({ scene, x, y, name }) {
+  constructor(params: playerWithNameConstructorParams) {
+    const { scene, x, y, name } = params;
     const playerUsername = scene.add
       .text(0, 0, name ?? "", {
         fontFamily: InGameFont,
@@ -25,7 +34,6 @@ export class PlayerWithName extends Phaser.GameObjects.Container {
       scene,
       x: 0,
       y: 0,
-      key: PLAYER_KEY,
     });
     playerSprite.setScale(PLAYER_SCALE);
     super(scene, x - playerSprite.width / 2, y - playerSprite.height / 2, [
@@ -81,7 +89,8 @@ export class PlayerWithName extends Phaser.GameObjects.Container {
 
     // We normalize the velocity so that the player is always moving at the same speed, regardless of direction.
     const normalizedVelocity = velocity.normalize();
-    this.body.setVelocity(
+    const body = this.body as Phaser.Physics.Arcade.Body;
+    body.setVelocity(
       normalizedVelocity.x * this.speed,
       normalizedVelocity.y * this.speed,
     );

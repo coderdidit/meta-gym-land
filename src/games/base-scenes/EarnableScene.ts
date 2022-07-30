@@ -1,7 +1,7 @@
 import Phaser from "phaser";
-import { highlightTextColorNum, mainBgColorNum } from "../../../GlobalStyles";
-import { getGameWidth, getGameHeight } from "../../helpers";
-import { createTextBox } from "../../utils/text";
+import { highlightTextColorNum, mainBgColorNum } from "../../GlobalStyles";
+import { getGameWidth, getGameHeight } from "../helpers";
+import { createTextBox } from "../utils/text";
 
 const columnName = "mbmtBalance";
 
@@ -34,14 +34,14 @@ export class EarnableScene extends Phaser.Scene {
       usr.set(columnName, newXP);
       const width = getGameWidth(this);
       const height = getGameHeight(this);
-      const gettingTokensText = createTextBox(
-        this,
-        width / 2,
-        height / 2,
-        { wrapWidth: 280 },
-        mainBgColorNum,
-        highlightTextColorNum,
-      );
+      const gettingTokensText = createTextBox({
+        scene: this,
+        x: width / 2,
+        y: height / 2,
+        config: { wrapWidth: 280 },
+        bg: mainBgColorNum,
+        stroke: highlightTextColorNum,
+      });
       gettingTokensText.setOrigin(0.5).setDepth(1);
       gettingTokensText.start("🤖 Getting $MBMT...");
       await usr.save();
