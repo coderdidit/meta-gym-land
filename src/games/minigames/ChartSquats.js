@@ -16,8 +16,8 @@ import {
   mainBgColorNum,
   InGameFont,
 } from "../../GlobalStyles";
-import * as gstate from "../../components/gpose/state";
-import * as gpose from "../../components/gpose/pose";
+import * as gstate from "../../ai/gpose/state";
+import * as gpose from "../../ai/gpose/pose";
 import { SceneInMetaGymRoom } from "../base-scenes/scene-in-metagym-room";
 
 const SceneConfig = {

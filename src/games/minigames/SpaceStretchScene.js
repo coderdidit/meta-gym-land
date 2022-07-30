@@ -4,8 +4,8 @@ import { Player } from "../objects";
 import { PLAYER_KEY, PLAYER_SCALE, SPACE_STRETCH_SCENE } from "../shared";
 import { createTextBox } from "../utils/text";
 import { ASTEROIDS } from "../gym-room-boot/assets";
-import * as gstate from "../../components/gpose/state";
-import * as gpose from "../../components/gpose/pose";
+import * as gstate from "../../ai/gpose/state";
+import * as gpose from "../../ai/gpose/pose";
 import {
   highlightTextColorNum,
   mainBgColorNum,

@@ -5,9 +5,9 @@ import {
   POSE_LANDMARKS_RIGHT,
   POSE_LANDMARKS_NEUTRAL,
 } from "@mediapipe/pose";
-import { ConfidenceScore } from "../../AIConfig";
-import * as gstate from "../gpose/state";
-import * as gpose from "../gpose/pose";
+import { ConfidenceScore } from "./AIConfig";
+import * as gstate from "./gpose/state";
+import * as gpose from "./gpose/pose";
 
 // const IDLE_POSE_LANDMARKS_COLOR = "#FF0000";
 const IDLE_POSE_LINES_COLOR = "#00FF00";

@@ -1,8 +1,8 @@
 import React, { useContext, useRef, useEffect, Component } from "react";
 import { WebcamCtx, PoseDetectorCtx } from "index";
 import Webcam from "react-webcam";
-import { drawPose } from "./pose-drawing";
-import { updateGPoseState } from "../gpose/functions";
+import { drawPose } from "../../ai/pose-drawing";
+import { updateGPoseState } from "../../ai/gpose/functions";
 import { BgColorsOutlined } from "@ant-design/icons";
 import { setWebcamBG, getWebcamBG } from "./state";
 
