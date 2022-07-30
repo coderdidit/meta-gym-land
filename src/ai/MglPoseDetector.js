@@ -32,8 +32,8 @@ export class MglPoseDetector {
     await this.mediaPipePoseDetector.send({ image });
   }
 
-  close() {
-    this.mediaPipePoseDetector.close();
+  async close() {
+    await this.mediaPipePoseDetector.close();
   }
 
   reset() {
