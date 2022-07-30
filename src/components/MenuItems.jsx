@@ -5,6 +5,35 @@ import { NavLink } from "react-router-dom";
 function MenuItems() {
   const { pathname } = useLocation();
 
+  const menuItems = [
+    {
+      key: "/avatars",
+      label: <NavLink to="/avatars">Your GymBuddies</NavLink>,
+    },
+    {
+      key: "/mint",
+      label: <NavLink to="/mint">Mint</NavLink>,
+    },
+    {
+      key: "/marketplace",
+      label: <NavLink to="/marketplace">Marketplace</NavLink>,
+    },
+    {
+      key: "/rewards",
+      label: <NavLink to="/rewards">Rewards</NavLink>,
+    },
+    {
+      key: "/whitepaper",
+      label: (
+        <div
+          onClick={() => window.open("https://docs.metagymland.com/", "_blank")}
+        >
+          Whitepaper
+        </div>
+      ),
+    },
+  ];
+
   return (
     <Menu
       theme="light"
@@ -19,26 +48,8 @@ function MenuItems() {
         padding: "0",
       }}
       selectedKeys={[pathname]}
-    >
-      <Menu.Item key="/avatars">
-        <NavLink to="/avatars">Your GymBuddies</NavLink>
-      </Menu.Item>
-      <Menu.Item key="/mint">
-        <NavLink to="/mint">Mint</NavLink>
-      </Menu.Item>
-      <Menu.Item key="/marketplace" id="marketplace-many-item">
-        <NavLink to="/marketplace">Marketplace</NavLink>
-      </Menu.Item>
-      <Menu.Item key="/rewards">
-        <NavLink to="/rewards">Rewards</NavLink>
-      </Menu.Item>
-      <Menu.Item
-        key="/whitepaper"
-        onClick={() => window.open("https://docs.metagymland.com/", "_blank")}
-      >
-        Whitepaper
-      </Menu.Item>
-    </Menu>
+      items={menuItems}
+    />
   );
 }
 
