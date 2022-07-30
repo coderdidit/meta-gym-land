@@ -5,8 +5,8 @@ import { PLAYER_KEY, PLAYER_SCALE, FLY_FIT_SCENE } from "../shared";
 import { BTC, AIRPLANE } from "../gym-room-boot/assets";
 import { createTextBox } from "../utils/text";
 import party from "party-js";
-import * as gstate from "../../components/gpose/state";
-import * as gpose from "../../components/gpose/pose";
+import * as gstate from "../../ai/gpose/state";
+import * as gpose from "../../ai/gpose/pose";
 import { mainBgColor, InGameFont } from "../../GlobalStyles";
 import { SceneInMetaGymRoom } from "../base-scenes/scene-in-metagym-room";
 

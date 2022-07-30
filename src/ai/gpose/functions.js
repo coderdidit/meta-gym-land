@@ -1,4 +1,4 @@
-import { ConfidenceScore } from "../../AIConfig";
+import { ConfidenceScore } from "../AIConfig";
 import { getAngleBetween } from "./angles";
 import * as pose from "./pose";
 import * as gstate from "./state";

@@ -5,8 +5,8 @@ import { PLAYER_KEY, PLAYER_SCALE, GYM_ROOM_SCENE, RUSH } from "../shared";
 import { createTextBox } from "./utils/text";
 import { mainBgColorNum, highlightTextColorNum } from "../../GlobalStyles";
 import { EarnableScene } from "./base-scenes/EarnableScene";
-import * as gstate from "../../components/gpose/state";
-import * as gpose from "../../components/gpose/pose";
+import * as gstate from "../../ai/gpose/state";
+import * as gpose from "../../ai/gpose/pose";
 import { RUSH_BG } from "../gym-room-boot/assets";
 
 const SceneConfig = {

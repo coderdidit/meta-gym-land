@@ -1,6 +1,6 @@
 import * as mpPose from "@mediapipe/pose";
 import { Pose } from "@mediapipe/pose";
-import { ConfidenceScore } from "../AIConfig";
+import { ConfidenceScore } from "./AIConfig";
 
 export class MglPoseDetector {
   constructor() {
