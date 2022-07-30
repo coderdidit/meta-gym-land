@@ -133,36 +133,36 @@ const App = ({ isServerInfo }) => {
 
         <div style={styles.content}>
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/avatars" element={resolveAvatarsRouteElement()} />
-            <Route path="/mint" element={<MintGymBuddyPage />} />
-            <Route path="/marketplace" element={<Marketplace />} />
-            <Route path="/rewards" element={<RewardsPage />} />
+            <Route index element={<Home />} />
+            <Route path="avatars" element={resolveAvatarsRouteElement()} />
+            <Route path="mint" element={<MintGymBuddyPage />} />
+            <Route path="marketplace" element={<Marketplace />} />
+            <Route path="rewards" element={<RewardsPage />} />
 
-            <Route path="/demo-avatar" element={<DemoAvatar />} />
+            <Route path="demo-avatar" element={<DemoAvatar />} />
             <Route
-              path="/gym-buddy-details/:address/:id"
+              path="gym-buddy-details/:address/:id"
               element={<GymBuddyDetails />}
             />
 
-            <Route path="/play" element={<PlayPage />}>
+            <Route path="play" element={<PlayPage />}>
               <Route index element={<PlayPage />} />
               <Route path=":miniGameId" element={<PlayPage />} />
             </Route>
-            <Route path="/sandbox-play" element={<GymRoomSandbox />}>
+            <Route path="sandbox-play" element={<GymRoomSandbox />}>
               <Route index element={<GymRoomSandbox />} />
               <Route path=":miniGameId" element={<GymRoomSandbox />} />
             </Route>
-            <Route path="/play-setup" element={<PlaySetupPage />}>
+            <Route path="play-setup" element={<PlaySetupPage />}>
               <Route index element={<PlaySetupPage />} />
               <Route path=":miniGameId" element={<PlaySetupPage />} />
             </Route>
 
-            <Route path="/socials" element={<SocialsPage />} />
-            <Route path="/loader" element={<LoaderTest />} />
+            <Route path="socials" element={<SocialsPage />} />
+            <Route path="loader" element={<LoaderTest />} />
 
             <Route
-              path="/nonauthenticated"
+              path="nonauthenticated"
               element={<>Please login using the "Authenticate" button</>}
             />
           </Routes>
