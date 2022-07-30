@@ -12,8 +12,8 @@ import {
   highlightTextColor,
   InGameFont,
 } from "../../GlobalStyles";
-import party from "party-js";
-import { SceneInMetaGymRoom } from "../base-scenes/scene-in-metagym-room";
+import party, { sources } from "party-js";
+import { SceneInMetaGymRoom } from "../base-scenes/ts/scene-in-metagym-room";
 
 const SceneConfig = {
   active: false,
@@ -29,28 +29,38 @@ const SceneConfig = {
 
 const asteroidScale = 1;
 const maxAsteroidPlatformsCnt = 7;
-const roboTextTimeouts = [];
+const roboTextTimeouts: NodeJS.Timeout[] = [];
 const playerSpeed = 100;
 
 export class SpaceStretchScene extends SceneInMetaGymRoom {
+  shapes: any;
+  graphics: any;
+  won!: boolean;
+  lastMovetime!: number;
+  score!: number;
+  cursors!: Phaser.Types.Input.Keyboard.CursorKeys;
+  landingAcceleration!: number;
+  scoreBoard!: Phaser.GameObjects.Text;
+  placedAsteroidPlatforms!: number;
+  player: any; // specify type later
   constructor() {
     super(SceneConfig);
   }
 
   // eslint-disable-next-line no-unused-vars
-  color(i) {
+  color(i: any) {
     return 0xffffff;
     // keeping for reference
     // return 0x001100 * (i % 15) + 0x000033 * (i % 5);
   }
 
   draw() {
-    this.shapes.forEach((shape, i) => {
+    this.shapes.forEach((shape: any, i: any) => {
       this.graphics.fillStyle(this.color(i), 0.5).fillCircleShape(shape);
     }, this);
   }
 
-  drawGround(width, height) {
+  drawGround(width: number | undefined, height: number) {
     const groundHeight = height * 0.02;
     const rect = new Phaser.Geom.Rectangle(
       0,
@@ -110,14 +120,14 @@ export class SpaceStretchScene extends SceneInMetaGymRoom {
 
     // openingText
     // hint
-    const hintTextBox = createTextBox(
-      this,
-      width / 2 + width / 4,
-      height * 0.015,
-      { wrapWidth: 280 },
-      mainBgColorNum,
-      highlightTextColorNum,
-    );
+    const hintTextBox = createTextBox({
+      scene: this,
+      x: width / 2 + width / 4,
+      y: height * 0.015,
+      config: { wrapWidth: 280 },
+      bg: mainBgColorNum,
+      stroke: highlightTextColorNum,
+    });
     hintTextBox.setDepth(1);
     hintTextBox.setScrollFactor(0, 0);
     hintTextBox.start("🤖", 50);
@@ -143,11 +153,11 @@ export class SpaceStretchScene extends SceneInMetaGymRoom {
 
     // Add the scoreboard in
     this.scoreBoard = this.add.text(width * 0.05, height * 0.015, "SCORE: 0", {
-      fill: highlightTextColor,
+      color: highlightTextColor,
       font: `900 20px ${InGameFont}`,
     });
     this.add.text(width * 0.05, height * 0.04, "press ESC to go back", {
-      fill: "#FFBE59",
+      color: "#FFBE59",
       font: `900 17px ${InGameFont}`,
     });
 
@@ -199,7 +209,7 @@ export class SpaceStretchScene extends SceneInMetaGymRoom {
 
     // this.physics.add.collider(this.player, ground);
 
-    const onCollide = (avatar, asteroids) => {
+    const onCollide = (avatar: any, asteroids: any) => {
       if (avatar.body.onFloor()) {
         this.score += 1;
         asteroids.setTint("0x4f4f4f");
@@ -209,11 +219,19 @@ export class SpaceStretchScene extends SceneInMetaGymRoom {
       }
     };
 
-    this.physics.add.collider(this.player, asteroids, onCollide, null, this);
+    this.physics.add.collider(
+      this.player,
+      asteroids,
+      onCollide,
+      undefined,
+      this,
+    );
   }
 
   youWonMsg() {
-    const canvasParent = document.querySelector("#phaser-app canvas");
+    const canvasParent = document.querySelector(
+      "#phaser-app canvas",
+    ) as sources.DynamicSourceType;
     if (canvasParent) party.confetti(canvasParent);
     // setInterval(() => {
     //     party.confetti(canvasParent);
@@ -228,20 +246,20 @@ export class SpaceStretchScene extends SceneInMetaGymRoom {
       "Press X to 🎮 restart\n" +
       "Press ESC to exit";
 
-    const youWonText = createTextBox(
-      this,
-      width / 2,
-      height / 2,
-      { wrapWidth: 280 },
-      mainBgColorNum,
-      highlightTextColorNum,
-    );
+    const youWonText = createTextBox({
+      scene: this,
+      x: width / 2,
+      y: height / 2,
+      config: { wrapWidth: 280 },
+      bg: mainBgColorNum,
+      stroke: highlightTextColorNum,
+    });
     youWonText.setOrigin(0.5).setDepth(1).setScrollFactor(0, 0);
     youWonText.start(msg, 50);
   }
 
   // eslint-disable-next-line no-unused-vars
-  update(time, delta) {
+  update(time: any, delta: any) {
     if (!this.won && this.score === this.placedAsteroidPlatforms) {
       this.won = true;
       this.youWonMsg();
