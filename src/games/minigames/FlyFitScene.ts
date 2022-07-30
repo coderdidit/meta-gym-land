@@ -8,7 +8,7 @@ import party, { sources } from "party-js";
 import * as gstate from "../../ai/gpose/state";
 import * as gpose from "../../ai/gpose/pose";
 import { mainBgColor, InGameFont } from "../../GlobalStyles";
-import { SceneInMetaGymRoom } from "../base-scenes/ts/scene-in-metagym-room";
+import { SceneInMetaGymRoom } from "../base-scenes/scene-in-metagym-room";
 
 const SceneConfig = {
   active: false,

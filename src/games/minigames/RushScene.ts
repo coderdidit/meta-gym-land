@@ -4,7 +4,7 @@ import { PlayerWithName } from "../objects";
 import { RUSH } from "../shared";
 import { createTextBox } from "../utils/text";
 import { mainBgColorNum, highlightTextColorNum } from "../../GlobalStyles";
-import { SceneInMetaGymRoom } from "../base-scenes/ts/scene-in-metagym-room";
+import { SceneInMetaGymRoom } from "../base-scenes/scene-in-metagym-room";
 import * as gstate from "../../ai/gpose/state";
 import * as gpose from "../../ai/gpose/pose";
 import { RUSH_BG } from "../gym-room-boot/assets";

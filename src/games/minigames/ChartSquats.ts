@@ -14,7 +14,7 @@ import party, { sources } from "party-js";
 import { highlightTextColorNum, mainBgColorNum } from "../../GlobalStyles";
 import * as gstate from "../../ai/gpose/state";
 import * as gpose from "../../ai/gpose/pose";
-import { SceneInMetaGymRoom } from "../base-scenes/ts/scene-in-metagym-room";
+import { SceneInMetaGymRoom } from "../base-scenes/scene-in-metagym-room";
 
 const SceneConfig = {
   active: false,
