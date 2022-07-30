@@ -4,7 +4,7 @@ import { Player } from "../objects";
 import { PLAYER_KEY, PLAYER_SCALE, FLY_FIT_SCENE } from "../shared";
 import { BTC, AIRPLANE } from "../gym-room-boot/assets";
 import { createTextBox } from "../utils/text";
-import party from "party-js";
+import party, { sources } from "party-js";
 import * as gstate from "../../ai/gpose/state";
 import * as gpose from "../../ai/gpose/pose";
 import { mainBgColor, InGameFont } from "../../GlobalStyles";
@@ -16,13 +16,19 @@ const SceneConfig = {
   key: FLY_FIT_SCENE,
 };
 
-const roboTextTimeouts = [];
+const roboTextTimeouts: NodeJS.Timeout[] = [];
 const playerNgSpeed = 30;
 const playerSpeed = 80;
 const btcScale = 0.11;
 const btcCnt = 12;
 
 export class FlyFitScene extends SceneInMetaGymRoom {
+  won!: boolean;
+  graphics!: Phaser.GameObjects.Graphics;
+  scoreBoard!: Phaser.GameObjects.Text;
+  score!: number;
+  cursorKeys: any;
+  player!: any; // specify type later
   constructor() {
     super(SceneConfig);
   }
@@ -50,21 +56,19 @@ export class FlyFitScene extends SceneInMetaGymRoom {
 
     // text
     this.scoreBoard = this.add.text(width * 0.05, height * 0.015, "SCORE: 0", {
-      fill: "#ba3a3a",
       font: `900 20px ${InGameFont}`,
     });
     this.add.text(width * 0.05, height * 0.04, "press ESC to go back", {
-      fill: mainBgColor,
       font: `900 17px ${InGameFont}`,
     });
 
     // hint
-    const hintTextBox = createTextBox(
-      this,
-      width / 2 + width / 4,
-      height * 0.015,
-      { wrapWidth: 280 },
-    );
+    const hintTextBox = createTextBox({
+      scene: this,
+      x: width / 2 + width / 4,
+      y: height * 0.015,
+      config: { wrapWidth: 280 },
+    });
     hintTextBox.setDepth(1);
     hintTextBox.setScrollFactor(0, 0);
     hintTextBox.start("🤖", 50);
@@ -99,12 +103,13 @@ export class FlyFitScene extends SceneInMetaGymRoom {
       height * 0.13,
       width - width * 0.04,
       height - height * 0.13,
-      0x4e342e,
     );
     // for degub
     // this.graphics.fillGradientStyle(0x023246, 0x1E0338, 0x300240, 0x370232, 1)
     //     .fillRectShape(btcRect);
-    btcGroup.getChildren().forEach((dog) => dog.setScale(btcScale).setDepth(1));
+    btcGroup.getChildren().forEach((item) => {
+      item.body.gameObject?.setScale(btcScale).setDepth(1);
+    });
     Phaser.Actions.RandomRectangle(btcGroup.getChildren(), btcRect);
 
     // player elements
@@ -138,16 +143,19 @@ export class FlyFitScene extends SceneInMetaGymRoom {
 
     this.player.body.setCollideWorldBounds(true);
 
-    this.physics.add.overlap(plane, btcGroup, collectBtc, null, this);
-    function collectBtc(avatar, btcItem) {
+    const collectBtc = (_avatar: any, btcItem: { destroy: () => void }) => {
       btcItem.destroy();
       this.score += 1;
       this.scoreBoard.setText(`SCORE: ${this.score}`);
-    }
+    };
+
+    this.physics.add.overlap(plane, btcGroup, collectBtc, undefined, this);
   }
 
   youWonMsg() {
-    const canvasParent = document.querySelector("#phaser-app canvas");
+    const canvasParent = document.querySelector(
+      "#phaser-app canvas",
+    ) as sources.DynamicSourceType;
     if (canvasParent) party.confetti(canvasParent);
     // setInterval(() => {
     //     party.confetti(canvasParent);
@@ -163,15 +171,18 @@ export class FlyFitScene extends SceneInMetaGymRoom {
       "Press X to 🎮 restart\n" +
       "Press ESC to exit";
 
-    const youWonText = createTextBox(this, width / 2, height / 2, {
-      wrapWidth: 280,
+    const youWonText = createTextBox({
+      scene: this,
+      x: width / 2,
+      y: height / 2,
+      config: { wrapWidth: 280 },
     });
     youWonText.setOrigin(0.5).setDepth(1).setScrollFactor(0, 0);
     youWonText.start(msg, 50);
   }
 
   // eslint-disable-next-line no-unused-vars
-  update(time, delta) {
+  update(_time: any, _delta: any) {
     if (!this.won && this.score === btcCnt) {
       this.won = true;
       this.youWonMsg();
