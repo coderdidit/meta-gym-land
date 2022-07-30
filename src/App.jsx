@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useMoralis } from "react-moralis";
 import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import Account from "components/Account/Account";
-import Chains from "components/Chains";
+import Chains from "components/Chains/Chains";
 import NFTBalance from "components/NFTBalance";
 import DemoAvatar from "components/DemoAvatar";
 import GymBuddyDetails from "components/GymBuddyDetails";
