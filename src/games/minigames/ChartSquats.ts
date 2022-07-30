@@ -14,7 +14,7 @@ import party, { sources } from "party-js";
 import { highlightTextColorNum, mainBgColorNum } from "../../GlobalStyles";
 import * as gstate from "../../ai/gpose/state";
 import * as gpose from "../../ai/gpose/pose";
-import { SceneInMetaGymRoom } from "../base-scenes/scene-in-metagym-room";
+import { SceneInMetaGymRoom } from "../base-scenes/ts/scene-in-metagym-room";
 
 const SceneConfig = {
   active: false,
@@ -180,7 +180,7 @@ export class ChartSquats extends SceneInMetaGymRoom {
     this.pump.y = ground.y - this.pump.height * pumpScale;
 
     // player
-    this.player = new Player({ scene: this, x: 0, y: 0, key: PLAYER_KEY })
+    this.player = new Player({ scene: this, x: 0, y: 0 })
       .setDepth(2)
       .setOrigin(0.5, 1)
       .setScale(playerScale);

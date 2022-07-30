@@ -1,13 +1,20 @@
 import Phaser from "phaser";
 import * as gstate from "../../ai/gpose/state";
 import * as gpose from "../../ai/gpose/pose";
+import { PLAYER_KEY } from "../shared";
 
+type playerConstructorParams = {
+  scene: Phaser.Scene;
+  x: number;
+  y: number;
+};
 export class Player extends Phaser.Physics.Arcade.Sprite {
   cursorKeys;
   speed = 150;
 
-  constructor({ scene, x, y, key }) {
-    super(scene, x, y, key);
+  constructor(params: playerConstructorParams) {
+    const { scene, x, y } = params;
+    super(scene, x, y, PLAYER_KEY);
 
     // this.add.co
 
@@ -69,7 +76,8 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
 
     // We normalize the velocity so that the player is always moving at the same speed, regardless of direction.
     const normalizedVelocity = velocity.normalize();
-    this.body.setVelocity(
+    const body = this.body as Phaser.Physics.Arcade.Body;
+    body.setVelocity(
       normalizedVelocity.x * this.speed,
       normalizedVelocity.y * this.speed,
     );

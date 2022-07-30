@@ -123,7 +123,6 @@ export class FlyFitScene extends SceneInMetaGymRoom {
       scene: this,
       x: 0,
       y: 0,
-      key: PLAYER_KEY,
     })
       .setOrigin(0.5, 0.5)
       .setScale(PLAYER_SCALE)

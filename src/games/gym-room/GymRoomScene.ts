@@ -15,7 +15,7 @@ import {
   playerHasExitPos,
 } from "../utils/Globals";
 import { MMT_TICKER } from "../../GlobalStyles";
-import { EarnableScene } from "../base-scenes/EarnableScene";
+import { EarnableScene } from "../base-scenes/ts/EarnableScene";
 import { showSnapchatModal } from "./snapchat";
 
 const debugCollisons = false;

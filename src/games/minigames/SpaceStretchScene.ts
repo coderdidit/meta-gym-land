@@ -201,7 +201,6 @@ export class SpaceStretchScene extends SceneInMetaGymRoom {
       scene: this,
       x: Phaser.Math.Between(width * 0.1, this.physics.world.bounds.width - 80),
       y: this.physics.world.bounds.height,
-      key: PLAYER_KEY,
     });
     this.player.setScale(PLAYER_SCALE);
     this.player.setDepth(1);
