@@ -140,17 +140,17 @@ const App = ({ isServerInfo }) => {
               path="/gym-buddy-details/:address/:id"
               element={<GymBuddyDetails />}
             />
-            <Route path="/play/:miniGameId?" element={<PlayPage />} />
+            <Route path="/play" element={<PlayPage />} />
+            <Route path="/play/:miniGameId" element={<PlayPage />} />
+            <Route path="/sandbox-play" element={<GymRoomSandbox />} />
             <Route
-              path="/sandbox-play/:miniGameId?"
+              path="/sandbox-play/:miniGameId"
               element={<GymRoomSandbox />}
             />
             <Route path="/socials" element={<SocialsPage />} />
             <Route path="/loader" element={<LoaderTest />} />
-            <Route
-              path="/play-setup/:miniGameId?"
-              element={<PlaySetupPage />}
-            />
+            <Route path="/play-setup" element={<PlaySetupPage />} />
+            <Route path="/play-setup/:miniGameId" element={<PlaySetupPage />} />
             <Route path="/rewards" element={<RewardsPage />} />
             <Route path="/mint" element={<MintGymBuddyPage />} />
             <Route path="/marketplace" element={<Marketplace />} />
