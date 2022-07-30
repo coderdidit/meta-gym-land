@@ -1,16 +1,26 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useMoralis } from "react-moralis";
-import { IonPhaser } from "@ion-phaser/react";
-import { GymRoomScene } from "../../games/gym-room/GymRoomScene";
+import { GameInstance, IonPhaser } from "@ion-phaser/react";
 import { MiniGameCtx } from "index";
 import PoseDetWebcam from "components/Webcam/PoseDetWebcam";
 import SideMenu from "./GymRoomSideMenu";
 import { getGameConfig, preBoot } from "games/game";
 
-const GymRoom = ({ avatar, useWebcam = true, miniGameId = null }) => {
+type ionGameInstance = GameInstance | undefined;
+
+const GymRoom = ({
+  avatar,
+  useWebcam = true,
+  miniGameId = null,
+}: {
+  avatar: any;
+  useWebcam: boolean;
+  miniGameId: string | null;
+}) => {
   // run game
   const [initialised, setInitialised] = useState(true);
-  const [config, setConfig] = useState();
+  // needs to be undefined at start, otherwise 2 game canvases will load
+  const [config, setConfig] = useState(undefined as ionGameInstance);
   const { setMinigame } = useContext(MiniGameCtx);
   const { user } = useMoralis();
 
@@ -18,10 +28,11 @@ const GymRoom = ({ avatar, useWebcam = true, miniGameId = null }) => {
     if (miniGameId) {
       setMinigame(miniGameId);
     }
-    setConfig({
-      ...getGameConfig({ mainScene: GymRoomScene }),
+
+    const ionGameConfig = {
+      ...getGameConfig(),
       callbacks: {
-        preBoot: (game) => {
+        preBoot: (game: Phaser.Game) => {
           // Makes sure the game doesnt create another game on rerender
           setInitialised(false);
           preBoot({
@@ -33,7 +44,8 @@ const GymRoom = ({ avatar, useWebcam = true, miniGameId = null }) => {
           });
         },
       },
-    });
+    } as ionGameInstance;
+    setConfig(ionGameConfig);
   };
 
   useEffect(() => {

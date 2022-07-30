@@ -129,7 +129,6 @@ export class GymRoomScene extends EarnableScene {
     this.player = new Player({
       scene: this,
       ...resolvePlayerXY(),
-      key: PLAYER_KEY,
     });
     this.player.setScale(PLAYER_SCALE);
     this.player.setDepth(1);

@@ -1,6 +1,6 @@
-let _mainRoomPlayerExitPos;
+let _mainRoomPlayerExitPos: { x: number; y: number };
 
-export const setMainRoomPlayerExitPos = (_x, _y) => {
+export const setMainRoomPlayerExitPos = (_x: number, _y: number) => {
   _mainRoomPlayerExitPos = {
     x: _x,
     y: _y,

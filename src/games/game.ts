@@ -6,17 +6,17 @@ import { BootScene } from "./gym-room-boot/BootScene";
 import { MatrixScene } from "./minigames/MatrixScene";
 import { RushScene } from "./minigames/RushScene";
 import { InvadersScene } from "./minigames/invaders/InvadersScene";
+import { GymRoomScene } from "./gym-room/GymRoomScene";
+
+import Moralis from "moralis/types";
 
 export { getGameConfig, preBoot };
 
-const getGameConfig = ({ mainScene }) => {
-  if (!mainScene) {
-    throw Error("[game] mainScene param must be passed");
-  }
+const getGameConfig = () => {
   const [width, height] = setWidthAndHeight();
   const Scenes = [
     BootScene,
-    mainScene,
+    GymRoomScene,
     SpaceStretchScene,
     FlyFitScene,
     ChartSquats,
@@ -47,11 +47,11 @@ const getGameConfig = ({ mainScene }) => {
     fps: {
       target: 60,
     },
-  };
+  } as Phaser.Types.Core.GameConfig;
 };
 
 const setWidthAndHeight = () => {
-  let width = window.innerWidth;
+  const width = window.innerWidth;
   // let height = width / 1.778;
   let height = window.innerHeight;
 
@@ -63,7 +63,15 @@ const setWidthAndHeight = () => {
   return [width, height];
 };
 
-const preBoot = ({ game, avatar, setMinigame, pickedMiniGame, user }) => {
+type preBootParams = {
+  game: Phaser.Game;
+  avatar: any;
+  setMinigame: React.Dispatch<React.SetStateAction<string>>;
+  pickedMiniGame: string | null;
+  user: Moralis.User<Moralis.Attributes> | null;
+};
+const preBoot = (params: preBootParams) => {
+  const { game, avatar, setMinigame, pickedMiniGame, user } = params;
   game.registry.merge({
     avatar,
     setMinigame,
