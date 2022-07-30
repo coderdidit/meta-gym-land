@@ -12,6 +12,11 @@ export {
   VERY_FAST_BOOST,
 };
 
+interface Vector2 {
+  x: number;
+  y: number;
+}
+
 const IDLE_SPEED = "IDLE";
 const IDLE_BOOST = 0;
 const SLOWLY = "SLOWLY";
@@ -151,7 +156,7 @@ class MovesSpeedCaluclator {
     return this._curSpeedBoost ? baseSpeed * this._curSpeedBoost : baseSpeed;
   }
 
-  resolvePlayerYVelocity(normalizedVelocityVector: Phaser.Math.Vector2) {
+  resolvePlayerYVelocity(normalizedVelocityVector: Vector2) {
     if (!normalizedVelocityVector) {
       throw Error(
         "[MovesSpeedCaluclator] you need to pass normalizedVelocityVector parama",

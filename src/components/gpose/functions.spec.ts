@@ -1,3 +1,5 @@
+export {}; // remove it later, added to resolve compiler issues
+
 const testMediaPipeResutls = {
   image: null, // normally this is canvas object
   poseLandmarks: [
