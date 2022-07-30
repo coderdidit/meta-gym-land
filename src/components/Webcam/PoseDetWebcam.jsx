@@ -5,6 +5,7 @@ import { drawPose } from "../../ai/pose-drawing";
 import { updateGPoseState } from "../../ai/gpose/functions";
 import { BgColorsOutlined } from "@ant-design/icons";
 import { setWebcamBG, getWebcamBG } from "./state";
+import { isInDebug } from "../../dev-utils/debug";
 
 const blackBgClass = "black-bg";
 const grennClass = "green-color";
@@ -120,10 +121,21 @@ const PoseDetWebcam = ({ sizeProps, styleProps }) => {
   const { poseDetector } = useContext(PoseDetectorCtx);
   const canvasRef = useRef(null);
   const webcamRef = useRef(null);
+  const predictionsStarted = useRef(false);
 
   useEffect(() => {
-    poseDetector.onResults(onResults);
-    startPredictions();
+    const doPredictions = () => {
+      if (!predictionsStarted.current) {
+        if (isInDebug()) {
+          console.log("[PoseDetWebcamInner] startPredictions useEffect");
+        }
+        poseDetector.onResults(onResults);
+        startPredictions();
+        predictionsStarted.current = true;
+      }
+    };
+
+    doPredictions();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -140,8 +152,20 @@ const PoseDetWebcam = ({ sizeProps, styleProps }) => {
           setWebcamId(deviceId);
           clearInterval(checkCurWebcamId);
         }
+      } else {
+        clearInterval(checkCurWebcamId);
+      }
+      if (isInDebug()) {
+        console.log("[PoseDetWebcamInner] checkCurWebcamId", {
+          webcamId,
+          getDeviceId: getDeviceId(),
+        });
       }
     }, 1000);
+
+    return () => {
+      clearInterval(checkCurWebcamId);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
