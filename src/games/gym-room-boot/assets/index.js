@@ -1,8 +1,7 @@
 export const GYM_ROOM_MAP = "gym_room";
-export const GYM_ROOM_TILES = "gym_room_tiles";
 
 // NEW
-export const GYM_ROOM_TILESET_V2 = "gym_room_tileset";
+export const GYM_ROOM_TILESET = "gym_room_tileset";
 
 export const ASTEROIDS = "asteroids";
 export const AIRPLANE = "airplane";
@@ -75,8 +74,8 @@ export const assets = [
     type: "TILEMAP_MAP",
   },
   {
-    key: GYM_ROOM_TILESET_V2,
-    src: `assets/tilemap_tiles/${GYM_ROOM_TILESET_V2}.png`,
+    key: GYM_ROOM_TILESET,
+    src: `assets/tilemap_tiles/${GYM_ROOM_TILESET}.png`,
     type: "TILEMAP_TILES",
   },
   // for particle emmiter

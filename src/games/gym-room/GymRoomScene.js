@@ -4,7 +4,7 @@ import { Player } from "../objects";
 import { PLAYER_KEY, PLAYER_SCALE, GYM_ROOM_SCENE } from "../shared";
 import {
   GYM_ROOM_MAP,
-  GYM_ROOM_TILESET_V2,
+  GYM_ROOM_TILESET,
   GYM_ROOM_BG,
 } from "../gym-room-boot/assets";
 import { createTextBox } from "../utils/text";
@@ -147,8 +147,8 @@ export class GymRoomScene extends EarnableScene {
     bg.setDisplaySize(map.widthInPixels * 1.5, map.heightInPixels * 1.5);
 
     const tileset_main_v2 = map.addTilesetImage(
-      GYM_ROOM_TILESET_V2, // ? filename ?? name of the tileset in json file
-      GYM_ROOM_TILESET_V2, // key
+      GYM_ROOM_TILESET, // ? filename ?? name of the tileset in json file
+      GYM_ROOM_TILESET, // key
       tileMapSizing,
       tileMapSizing,
     );
