@@ -86,7 +86,7 @@ const App = ({ isServerInfo }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated, isWeb3Enabled]);
 
-  const resolveAvatarsPageRedirects = () => {
+  const resolveAvatarsRouteElement = () => {
     if (isAuthenticated && chainId === MainChainID) {
       return <NFTBalance />;
     } else if (isAuthenticated && chainId !== MainChainID) {
@@ -134,7 +134,7 @@ const App = ({ isServerInfo }) => {
         <div style={styles.content}>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/avatars" element={resolveAvatarsPageRedirects()} />
+            <Route path="/avatars" element={resolveAvatarsRouteElement()} />
             <Route path="/demo-avatar" element={<DemoAvatar />} />
             <Route
               path="/gym-buddy-details/:address/:id"
