@@ -19,15 +19,15 @@ const SceneConfig = {
 
 export class RushScene extends SceneInMetaGymRoom {
   player: any; // TODO define type
-  bgTile: Phaser.GameObjects.TileSprite;
-  cursorKeys: Phaser.Types.Input.Keyboard.CursorKeys;
-  movesSpeedCaluclator: MovesSpeedCaluclator;
-  leftUpCircle: Phaser.GameObjects.Graphics;
-  rightUpCircle: Phaser.GameObjects.Graphics;
-  rightButtomCircle: Phaser.GameObjects.Graphics;
-  leftButtomCircle: Phaser.GameObjects.Graphics;
-  statsBox: TextBox;
-  flipFlop: boolean;
+  lanes!: Phaser.GameObjects.TileSprite;
+  cursorKeys!: Phaser.Types.Input.Keyboard.CursorKeys;
+  movesSpeedCaluclator!: MovesSpeedCaluclator;
+  leftUpCircle!: Phaser.GameObjects.Graphics;
+  rightUpCircle!: Phaser.GameObjects.Graphics;
+  rightButtomCircle!: Phaser.GameObjects.Graphics;
+  leftButtomCircle!: Phaser.GameObjects.Graphics;
+  statsBox!: TextBox;
+  flipFlop = false;
 
   constructor() {
     super(SceneConfig);
@@ -48,7 +48,7 @@ export class RushScene extends SceneInMetaGymRoom {
     });
 
     // bg
-    this.bgTile = this.add
+    this.lanes = this.add
       .tileSprite(width / 2, height / 2, width, height, RUSH_BG)
       .setScrollFactor(0);
 
@@ -79,7 +79,7 @@ export class RushScene extends SceneInMetaGymRoom {
     });
   }
 
-  createPlayerOuterGraphics() {
+  private createPlayerOuterGraphics() {
     const width = getGameWidth(this);
     const height = getGameHeight(this);
 
@@ -188,8 +188,9 @@ export class RushScene extends SceneInMetaGymRoom {
       normalizedYVelocity * speed,
     );
 
-    this.bgTile.tilePositionY = this.cameras.main.scrollY;
-    this.bgTile.tilePositionX = this.cameras.main.scrollX;
+    this.lanes.tilePositionY = this.cameras.main.scrollY;
+    this.lanes.tilePositionX = this.cameras.main.scrollX;
+
     this.leftButtomCircle.y = this.cameras.main.scrollY;
     this.leftButtomCircle.x = this.cameras.main.scrollX;
     this.rightButtomCircle.y = this.cameras.main.scrollY;
