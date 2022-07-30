@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { useMoralis } from "react-moralis";
-import { HashRouter as Router, Switch, Route } from "react-router-dom";
+import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import Account from "components/Account/Account";
-import Chains from "components/Chains";
+import Chains from "components/Chains/Chains";
 import NFTBalance from "components/NFTBalance";
 import DemoAvatar from "components/DemoAvatar";
 import GymBuddyDetails from "components/GymBuddyDetails";
@@ -15,7 +15,6 @@ import SocialsPage from "components/SocialsPage";
 import Marketplace from "components/Marketplace";
 import MintGymBuddyPage from "components/MintGymBuddy";
 import LoaderTest from "components/LoaderTest";
-import Contract from "components/Contract/Contract";
 import MenuItems from "./components/MenuItems";
 import { Link } from "react-router-dom";
 import { mainFontColor } from "GlobalStyles";
@@ -87,6 +86,16 @@ const App = ({ isServerInfo }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated, isWeb3Enabled]);
 
+  const resolveAvatarsRouteElement = () => {
+    if (isAuthenticated && chainId === MainChainID) {
+      return <NFTBalance />;
+    } else if (isAuthenticated && chainId !== MainChainID) {
+      return <UseCorrectNetworkWarn />;
+    } else {
+      return <ConnectWalletWarn />;
+    }
+  };
+
   return (
     <div
       style={{
@@ -123,58 +132,40 @@ const App = ({ isServerInfo }) => {
         </Header>
 
         <div style={styles.content}>
-          <Switch>
-            <Route exact path="/">
-              <Home />
+          <Routes>
+            <Route index element={<Home />} />
+            <Route path="avatars" element={resolveAvatarsRouteElement()} />
+            <Route path="mint" element={<MintGymBuddyPage />} />
+            <Route path="marketplace" element={<Marketplace />} />
+            <Route path="rewards" element={<RewardsPage />} />
+
+            <Route path="demo-avatar" element={<DemoAvatar />} />
+            <Route
+              path="gym-buddy-details/:address/:id"
+              element={<GymBuddyDetails />}
+            />
+
+            <Route path="play" element={<PlayPage />}>
+              <Route index element={<PlayPage />} />
+              <Route path=":miniGameId" element={<PlayPage />} />
             </Route>
-            <Route path="/avatars">
-              {(() => {
-                if (isAuthenticated && chainId === MainChainID) {
-                  return <NFTBalance />;
-                } else if (isAuthenticated && chainId !== MainChainID) {
-                  return <UseCorrectNetworkWarn />;
-                } else {
-                  return <ConnectWalletWarn />;
-                }
-              })()}
+            <Route path="sandbox-play" element={<GymRoomSandbox />}>
+              <Route index element={<GymRoomSandbox />} />
+              <Route path=":miniGameId" element={<GymRoomSandbox />} />
             </Route>
-            <Route path="/demo-avatar">
-              <DemoAvatar />
+            <Route path="play-setup" element={<PlaySetupPage />}>
+              <Route index element={<PlaySetupPage />} />
+              <Route path=":miniGameId" element={<PlaySetupPage />} />
             </Route>
-            <Route path="/gym-buddy-details/:address/:id">
-              <GymBuddyDetails />
-            </Route>
-            <Route path="/play/:miniGameId?">
-              <PlayPage />
-            </Route>
-            <Route path="/sandbox-play/:miniGameId?">
-              <GymRoomSandbox />
-            </Route>
-            <Route path="/socials">
-              <SocialsPage />
-            </Route>
-            <Route path="/loader">
-              <LoaderTest />
-            </Route>
-            <Route path="/play-setup/:miniGameId?">
-              <PlaySetupPage />
-            </Route>
-            <Route path="/rewards">
-              <RewardsPage />
-            </Route>
-            <Route path="/mint">
-              <MintGymBuddyPage />
-            </Route>
-            <Route path="/marketplace">
-              <Marketplace />
-            </Route>
-            <Route path="/contract">
-              <Contract />
-            </Route>
-            <Route path="/nonauthenticated">
-              <>Please login using the "Authenticate" button</>
-            </Route>
-          </Switch>
+
+            <Route path="socials" element={<SocialsPage />} />
+            <Route path="loader" element={<LoaderTest />} />
+
+            <Route
+              path="nonauthenticated"
+              element={<>Please login using the "Authenticate" button</>}
+            />
+          </Routes>
         </div>
       </Router>
       <AppFooter style={styles.footer} />

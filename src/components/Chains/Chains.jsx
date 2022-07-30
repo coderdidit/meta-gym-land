@@ -97,15 +97,18 @@ const menuItems = [
   },
 ];
 
-function Chains() {
+const Chains = () => {
   const { switchNetwork, chainId } = useChain();
   const { isAuthenticated } = useMoralis();
   const [selected, setSelected] = useState({});
 
   useEffect(() => {
-    if (!chainId) return null;
-    const newSelected = menuItems.find((item) => item.key === chainId);
-    setSelected(newSelected);
+    const fn = () => {
+      if (!chainId) return null;
+      const newSelected = menuItems.find((item) => item.key === chainId);
+      setSelected(newSelected);
+    };
+    fn();
   }, [chainId]);
 
   const handleMenuClick = (e) => {
@@ -139,6 +142,6 @@ function Chains() {
       </Dropdown>
     </div>
   );
-}
+};
 
 export default Chains;

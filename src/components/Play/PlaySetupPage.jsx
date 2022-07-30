@@ -1,7 +1,7 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { useParams } from "react-router";
 import { AvatarCtx } from "index";
-import { Redirect } from "react-router";
+import { Navigate } from "react-router-dom";
 import { Image, Button } from "antd";
 import { RightOutlined, LeftOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
@@ -22,7 +22,7 @@ const PlaySetupPage = () => {
   const { webcamId } = useContext(WebcamCtx);
 
   if (!avatar) {
-    return <Redirect to="/avatars" />;
+    return <Navigate to="/avatars" />;
   }
 
   const linkToJoinMetaGymLand = () => {
