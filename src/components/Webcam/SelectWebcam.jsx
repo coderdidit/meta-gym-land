@@ -24,7 +24,7 @@ const SelectWebcam = ({ width = "auto" }) => {
     navigator.mediaDevices
       .getUserMedia({ video: true, audio: false })
       // eslint-disable-next-line no-unused-vars
-      .then((s) => {
+      .then((_s) => {
         navigator.mediaDevices.enumerateDevices().then(handleDevices);
       });
   }, [handleDevices]);
