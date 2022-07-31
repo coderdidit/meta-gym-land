@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.14e0a0d0.css",
-    "main.js": "/static/js/main.35616bb2.js",
+    "main.js": "/static/js/main.ff4658f5.js",
     "polyfills-dom.js": "/static/js/polyfills-dom.c5971dae.chunk.js",
     "polyfills-core-js.js": "/static/js/polyfills-core-js.dfe3610a.chunk.js",
     "static/js/340.06454d93.chunk.js": "/static/js/340.06454d93.chunk.js",
@@ -21,13 +21,13 @@
     "SafePal.svg": "/e7068bbce0757878c2ef3e30191ce580.svg",
     "index.html": "/index.html",
     "main.14e0a0d0.css.map": "/static/css/main.14e0a0d0.css.map",
-    "main.35616bb2.js.map": "/static/js/main.35616bb2.js.map",
+    "main.ff4658f5.js.map": "/static/js/main.ff4658f5.js.map",
     "polyfills-dom.c5971dae.chunk.js.map": "/static/js/polyfills-dom.c5971dae.chunk.js.map",
     "polyfills-core-js.dfe3610a.chunk.js.map": "/static/js/polyfills-core-js.dfe3610a.chunk.js.map",
     "340.06454d93.chunk.js.map": "/static/js/340.06454d93.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.14e0a0d0.css",
-    "static/js/main.35616bb2.js"
+    "static/js/main.ff4658f5.js"
   ]
 }
