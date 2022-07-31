@@ -89,7 +89,7 @@ const PoseDetWebcam = ({ sizeProps, styleProps }: PoseDetWebcamProps) => {
       // and webcam change happened 1 second ago
       if (delta > interval && webcamSetupTime > 1000) {
         then = now - (delta % interval);
-        const videoElement = webcamRef.current.video;
+        const videoElement = webcamRef!.current!.video;
         try {
           if (noCamError) await poseDetector.send({ image: videoElement });
         } catch (error) {
@@ -136,15 +136,15 @@ const PoseDetWebcam = ({ sizeProps, styleProps }: PoseDetWebcamProps) => {
 
   const doPredictionsCanvasSetup = () => {
     // Get Video Properties
-    const videoWidth = webcamRef.current.video.videoWidth;
-    const videoHeight = webcamRef.current.video.videoHeight;
+    const videoWidth = webcamRef!.current!.video!.videoWidth;
+    const videoHeight = webcamRef!.current!.video!.videoHeight;
 
     // Set video width
-    webcamRef.current.video.width = videoWidth;
-    webcamRef.current.video.height = videoHeight;
+    webcamRef!.current!.video!.width = videoWidth;
+    webcamRef!.current!.video!.height = videoHeight;
     // Set canvas height and width
-    canvasRef.current.width = videoWidth;
-    canvasRef.current.height = videoHeight;
+    canvasRef!.current!.width = videoWidth;
+    canvasRef!.current!.height = videoHeight;
   };
 
   const getVideoConstraints = (): MediaTrackSettings => {
