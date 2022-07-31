@@ -91,7 +91,9 @@ export class InvadersScene extends SceneInMetaGymRoom {
   }
 
   update() {
+    // scroll background
     this.starfield.tilePositionY -= 1;
+
     this._shipKeyboardHandler();
     if (this.time.now > this.firingTimer) {
       this._enemyFires();
@@ -116,6 +118,7 @@ export class InvadersScene extends SceneInMetaGymRoom {
   private _shipKeyboardHandler() {
     const playerBody = this.player.body as Phaser.Physics.Arcade.Body;
     playerBody.setVelocity(0, 0);
+
     if (this.cursors.left.isDown) {
       playerBody.setVelocityX(-200);
     } else if (this.cursors.right.isDown) {
@@ -133,7 +136,7 @@ export class InvadersScene extends SceneInMetaGymRoom {
     alien.kill(explosion);
     this.scoreManager.increaseScore();
     if (!this.alienManager.hasAliveAliens) {
-      this.scoreManager.increaseScore(1000);
+      this.scoreManager.increaseScore(10);
       this.scoreManager.setWinText();
       this.state = GameState.Win;
     }

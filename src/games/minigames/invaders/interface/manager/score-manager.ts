@@ -112,7 +112,7 @@ export class ScoreManager {
     this.scoreText.setText(`${this.padding(this.score)}`);
   }
 
-  increaseScore(step = 10) {
+  increaseScore(step = 1) {
     this.score += step;
     this.print();
   }
