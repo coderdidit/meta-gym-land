@@ -124,8 +124,6 @@ export class InvadersScene extends SceneInMetaGymRoom {
 
     const curPose = gstate.getPose();
 
-    console.log("---curPose--------", curPose);
-
     if (this.cursors.left.isDown || curPose === gpose.HTL) {
       playerBody.setVelocityX(-200);
     } else if (this.cursors.right.isDown || curPose === gpose.HTR) {
