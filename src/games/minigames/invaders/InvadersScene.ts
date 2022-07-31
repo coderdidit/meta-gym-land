@@ -37,6 +37,7 @@ export class InvadersScene extends SceneInMetaGymRoom {
   alienManager!: AlienManager;
   cursors!: Phaser.Types.Input.Keyboard.CursorKeys;
   fireKey!: Phaser.Input.Keyboard.Key;
+  flipFlop = false;
 
   constructor() {
     super(SceneConfig);
@@ -123,6 +124,8 @@ export class InvadersScene extends SceneInMetaGymRoom {
 
     const curPose = gstate.getPose();
 
+    console.log("---curPose--------", curPose);
+
     if (this.cursors.left.isDown || curPose === gpose.HTL) {
       playerBody.setVelocityX(-200);
     } else if (this.cursors.right.isDown || curPose === gpose.HTR) {
@@ -134,7 +137,14 @@ export class InvadersScene extends SceneInMetaGymRoom {
       curPose === gpose.LA_UP ||
       curPose === gpose.RA_UP
     ) {
-      this._fireBullet();
+      if (!this.flipFlop) {
+        this._fireBullet();
+        this.flipFlop = true;
+      }
+    }
+
+    if (curPose === gpose.IDLE) {
+      this.flipFlop = false;
     }
   }
 
