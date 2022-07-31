@@ -5,7 +5,10 @@ import { Alien } from "./interface/alien";
 import { AssetType } from "./interface/assets";
 import { Bullet } from "./interface/bullet";
 import { EnemyBullet } from "./interface/enemy-bullet";
-import { AnimationFactory } from "./interface/factory/animation-factory";
+import {
+  AnimationFactory,
+  AnimationType,
+} from "./interface/factory/animation-factory";
 import { GameState } from "./interface/game-state";
 import { Kaboom } from "./interface/kaboom";
 import { AlienManager } from "./interface/manager/alien-manager";
@@ -145,6 +148,7 @@ export class InvadersScene extends SceneInMetaGymRoom {
     }
 
     explosion.setPosition(this.player.x, this.player.y);
+    explosion.play(AnimationType.Kaboom);
 
     if (this.scoreManager.noMoreLives) {
       this.scoreManager.setGameOverText();

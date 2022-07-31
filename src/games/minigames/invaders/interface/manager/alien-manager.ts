@@ -35,7 +35,7 @@ export class AlienManager {
     const height = getGameHeight(this._scene);
 
     const ORIGIN_X = width / 3.5;
-    const ORIGIN_Y = height / 3;
+    const ORIGIN_Y = height / 2.5;
 
     this.aliens.clear(true, true);
     for (let y = 0; y < 4; y++) {
