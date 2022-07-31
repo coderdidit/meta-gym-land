@@ -93,6 +93,10 @@ const PoseDetWebcam = ({ sizeProps, styleProps }: PoseDetWebcamProps) => {
           window.cancelAnimationFrame(id);
         }
       };
+      // this is super important to do
+      // cancelAllAnimationFrames on webcamId change
+      // otherwise ML model will sart crashing
+      // from corrupted data form not ready webcam
       cancelAllAnimationFrames();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps

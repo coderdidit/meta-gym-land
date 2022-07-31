@@ -42,6 +42,10 @@ const SelectWebcam = ({ width = "auto" }) => {
         window.cancelAnimationFrame(id);
       }
     };
+    // this is super important to do
+    // cancelAllAnimationFrames on webcamId change
+    // otherwise ML model will sart crashing
+    // from corrupted data form not ready webcam
     cancelAllAnimationFrames();
     setWebcamId(selecteDeviceId);
   };
