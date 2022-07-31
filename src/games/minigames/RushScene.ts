@@ -162,14 +162,17 @@ export class RushScene extends SceneInMetaGymRoom {
         this.rightUpCircle.setAlpha(0.8);
         movedUp = true;
         break;
-      default:
+      case curPose === gpose.IDLE:
         this.flipFlop = false;
+        break;
+      default:
       // do nothing
     }
 
     if (movedUp) {
-      velocity.y -= 1;
       if (!this.flipFlop) {
+        // TODO think if this velocity base on flip flop is good
+        velocity.y -= 5;
         this.flipFlop = true;
         this.movesSpeedCaluclator.incrementDistanceTraveled();
       }
