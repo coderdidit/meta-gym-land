@@ -85,24 +85,26 @@ export class RushScene extends SceneInMetaGymRoom {
 
     const graphicsUpY = height / 1.15;
     const graphicsBottomY = height - height * 0.06;
+    const leftX = width - width * 0.56;
+    const rightX = width - width * 0.44;
     this.leftUpCircle = this.add
       .graphics()
       .fillStyle(0x06ff00, 0.8)
-      .fillCircle(width - width * 0.54, graphicsUpY, 15);
+      .fillCircle(leftX, graphicsUpY, 15);
 
     this.rightUpCircle = this.add
       .graphics()
       .fillStyle(0x06ff00, 0.8)
-      .fillCircle(width - width * 0.46, graphicsUpY, 15);
+      .fillCircle(rightX, graphicsUpY, 15);
 
     this.rightButtomCircle = this.add
       .graphics()
       .fillStyle(0xff0000, 0.8)
-      .fillCircle(width - width * 0.46, graphicsBottomY, 15);
+      .fillCircle(leftX, graphicsBottomY, 15);
     this.leftButtomCircle = this.add
       .graphics()
       .fillStyle(0xff0000, 0.8)
-      .fillCircle(width - width * 0.54, graphicsBottomY, 15);
+      .fillCircle(rightX, graphicsBottomY, 15);
   }
 
   // eslint-disable-next-line no-unused-vars
@@ -170,9 +172,12 @@ export class RushScene extends SceneInMetaGymRoom {
     }
 
     if (movedUp) {
+      velocity.y -= 1;
+      // here flipFlop is used for aceleration only
+      // not moves itself
+      // this is why velocity.y -= 1
+      // is called regardles of the below if statement
       if (!this.flipFlop) {
-        // TODO think if this velocity base on flip flop is good
-        velocity.y -= 5;
         this.flipFlop = true;
         this.movesSpeedCaluclator.incrementDistanceTraveled();
       }
@@ -204,20 +209,35 @@ export class RushScene extends SceneInMetaGymRoom {
     this.leftUpCircle.y = this.cameras.main.scrollY;
   }
 
-  createTextBoxes() {
+  private createTextBoxes() {
     const width = getGameWidth(this);
     const height = getGameHeight(this);
 
-    createTextBox({
+    const escTextBoxY = height * 0.015;
+    const escTextBox = createTextBox({
       scene: this,
       x: width * 0.05,
-      y: height * 0.015,
+      y: escTextBoxY,
       config: { wrapWidth: 280 },
       bg: mainBgColorNum,
       stroke: highlightTextColorNum,
     })
       .start("press ESC to go back", 10)
       .setScrollFactor(0, 0);
+
+    // stats
+    this.statsBox = createTextBox({
+      scene: this,
+      x: width * 0.05,
+      y: escTextBoxY + escTextBox.height * 1.8,
+      config: { wrapWidth: 280 },
+      bg: 0xfffefe,
+      stroke: 0x00ff00,
+      align: "center",
+      txtColor: "#212125",
+    })
+      .setScrollFactor(0, 0)
+      .start("Current speed: IDLE", 0);
 
     const hintTextBox = createTextBox({
       scene: this,
@@ -232,19 +252,5 @@ export class RushScene extends SceneInMetaGymRoom {
     hintTextBox.setDepth(1);
     hintTextBox.setScrollFactor(0, 0);
     hintTextBox.start("🤖 Welcome in MetaGymLand RUSH minigame", 50);
-
-    // stats
-    this.statsBox = createTextBox({
-      scene: this,
-      x: width * 0.05,
-      y: height * 0.09,
-      config: { wrapWidth: 280 },
-      bg: 0xfffefe,
-      stroke: 0x00ff00,
-      align: "center",
-      txtColor: "#212125",
-    })
-      .setScrollFactor(0, 0)
-      .start("Current speed: 0", 0);
   }
 }
