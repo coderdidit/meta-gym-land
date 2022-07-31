@@ -12,6 +12,7 @@ import { AlienManager } from "./interface/manager/alien-manager";
 import { AssetManager } from "./interface/manager/asset-manager";
 import { ScoreManager } from "./interface/manager/score-manager";
 import { Ship } from "./interface/ship";
+import { getGameWidth, getGameHeight } from "games/helpers";
 
 const SceneConfig = {
   active: false,
@@ -53,10 +54,18 @@ export class InvadersScene extends SceneInMetaGymRoom {
   }
 
   create() {
+    const width = getGameWidth(this);
+    const height = getGameHeight(this);
+
     this.state = GameState.Playing;
-    this.starfield = this.add
-      .tileSprite(0, 0, 800, 600, AssetType.Starfield)
-      .setOrigin(0, 0);
+    this.starfield = this.add.tileSprite(
+      width / 2,
+      height / 2,
+      width,
+      height,
+      AssetType.Starfield,
+    );
+
     this.assetManager = new AssetManager(this);
     this.animationFactory = new AnimationFactory(this);
     this.cursors = this.input.keyboard.createCursorKeys();

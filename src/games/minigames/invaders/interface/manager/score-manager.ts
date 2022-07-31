@@ -1,3 +1,4 @@
+import { getGameWidth, getGameHeight } from "games/helpers";
 import { AssetType } from "../assets";
 
 export class ScoreManager {
@@ -19,7 +20,6 @@ export class ScoreManager {
   }
 
   private _init() {
-    const { width: SIZE_X, height: SIZE_Y } = this._scene.game.canvas;
     const textConfig = {
       fontFamily: `'Arial', sans-serif`,
       fill: "#ffffff",
@@ -34,17 +34,25 @@ export class ScoreManager {
       fontSize: "36px",
     };
 
-    this._scene.add.text(16, 16, `SCORE`, normalTextConfig);
-    this.scoreText = this._scene.add.text(22, 32, "", normalTextConfig);
+    // basic props
+    const width = getGameWidth(this._scene);
+    const height = getGameHeight(this._scene);
+
+    const scoreX = width * 0.06;
+    this._scene.add.text(scoreX, 16, `SCORE`, normalTextConfig);
+    this.scoreText = this._scene.add.text(scoreX, 32, "", normalTextConfig);
+
+    // ending text
     this.line1Text = this._scene.add
-      .text(SIZE_X / 2, 320, "", bigTextConfig)
+      .text(width / 2, 320, "", bigTextConfig)
       .setOrigin(0.5);
 
     this.line2Text = this._scene.add
-      .text(SIZE_X / 2, 400, "", bigTextConfig)
+      .text(width / 2, 400, "", bigTextConfig)
       .setOrigin(0.5);
 
-    this._setLivesText(SIZE_X, normalTextConfig);
+    // lives text
+    this._setLivesText(width, normalTextConfig);
   }
 
   private _setLivesText(
@@ -60,7 +68,7 @@ export class ScoreManager {
   }
 
   resetLives() {
-    const SIZE_X = this._scene.game.canvas.width;
+    const SIZE_X = getGameWidth(this._scene);
     this.lives.clear(true, true);
     for (let i = 0; i < 3; i++) {
       const ship: Phaser.GameObjects.Sprite = this.lives.create(
