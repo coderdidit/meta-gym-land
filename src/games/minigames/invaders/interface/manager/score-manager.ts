@@ -1,4 +1,5 @@
 import { getGameWidth } from "games/helpers";
+import { InGameFont } from "GlobalStyles";
 import { AssetType } from "../assets";
 
 export class ScoreManager {
@@ -21,7 +22,7 @@ export class ScoreManager {
 
   private _init() {
     const textConfig = {
-      fontFamily: `'Arial', sans-serif`,
+      fontFamily: InGameFont,
       fill: "#ffffff",
     };
     const normalTextConfig = {
