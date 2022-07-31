@@ -121,30 +121,13 @@ const PoseDetWebcam = ({ sizeProps, styleProps }) => {
   const { poseDetector } = useContext(PoseDetectorCtx);
   const canvasRef = useRef(null);
   const webcamRef = useRef(null);
-  const predictionsStarted = useRef(false);
-
-  useEffect(() => {
-    // TODO: add debounce on starting the predictions
-    const doPredictions = () => {
-      if (!predictionsStarted.current) {
-        if (isInDebug()) {
-          console.log("[PoseDetWebcamInner] startPredictions useEffect");
-        }
-        poseDetector.onResults(onResults);
-        startPredictions();
-        predictionsStarted.current = true;
-      }
-    };
-
-    doPredictions();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   const getDeviceId = () => {
     return webcamRef?.current?.stream?.getVideoTracks()?.[0]?.getSettings()
       ?.deviceId;
   };
 
+  // make sure camera is setup
   useEffect(() => {
     const checkCurWebcamId = setInterval(() => {
       if (!webcamId) {
@@ -170,6 +153,26 @@ const PoseDetWebcam = ({ sizeProps, styleProps }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // start pose estimation loop
+  const predictionsStarted = useRef(false);
+  useEffect(() => {
+    // TODO: add debounce on starting the predictions
+    const doPredictions = () => {
+      if (!predictionsStarted.current) {
+        if (isInDebug()) {
+          console.log("[PoseDetWebcamInner] startPredictions useEffect");
+        }
+        poseDetector.onResults(onResults);
+        startPredictions();
+        predictionsStarted.current = true;
+      }
+    };
+
+    doPredictions();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // pose estimation loop logic start
   let then = Date.now();
   const fps = 15;
   const interval = 1000 / fps;
@@ -217,6 +220,7 @@ const PoseDetWebcam = ({ sizeProps, styleProps }) => {
       }
     }
   };
+  // pose estimation loop componenets end
 
   const webCamAndCanvasAreInit = () => {
     return (
