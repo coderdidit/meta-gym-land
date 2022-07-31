@@ -1,5 +1,5 @@
 import { getGameHeight, getGameWidth } from "games/helpers";
-import { AssetType } from "./assets";
+import { PLAYER_KEY } from "games/shared";
 
 export class Ship {
   static create(scene: Phaser.Scene): Phaser.Physics.Arcade.Sprite {
@@ -10,7 +10,7 @@ export class Ship {
     const ship = scene.physics.add.sprite(
       width / 2,
       height - height * 0.05,
-      AssetType.Ship,
+      PLAYER_KEY,
     );
     ship.setCollideWorldBounds(true);
     return ship;

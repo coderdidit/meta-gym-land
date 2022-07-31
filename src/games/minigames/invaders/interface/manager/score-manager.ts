@@ -1,6 +1,6 @@
 import { getGameWidth } from "games/helpers";
 import { InGameFont } from "GlobalStyles";
-import { AssetType } from "../assets";
+import { PLAYER_KEY } from "games/shared";
 
 export class ScoreManager {
   scoreText!: Phaser.GameObjects.Text;
@@ -72,12 +72,13 @@ export class ScoreManager {
     this.lives.clear(true, true);
     for (let i = 0; i < 3; i++) {
       const ship: Phaser.GameObjects.Sprite = this.lives.create(
-        SIZE_X - 100 + 30 * i,
+        SIZE_X - 125 + 45 * i,
         60,
-        AssetType.Ship,
+        PLAYER_KEY,
       );
+      ship.setScale(0.5);
       ship.setOrigin(0.5, 0.5);
-      ship.setAngle(90);
+      // ship.setAngle(90);
       ship.setAlpha(0.6);
     }
   }

@@ -49,6 +49,7 @@ export class InvadersScene extends SceneInMetaGymRoom {
       frameWidth: 32,
       frameHeight: 32,
     });
+
     this.load.image(AssetType.Ship, "/images/player.png");
     this.load.spritesheet(AssetType.Kaboom, "/images/explode.png", {
       frameWidth: 128,
