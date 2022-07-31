@@ -7,7 +7,10 @@ import { PoseDetWebcamInner } from "./PoseDetWebcamInner";
 import Webcam from "react-webcam";
 import { Results } from "@mediapipe/pose";
 import { WindowWithProps } from "window-with-props";
-import { startPoseEstimationLoop } from "./pose-estimation-loop";
+import {
+  startPoseEstimationLoop,
+  lastAnimationTimerId,
+} from "./pose-estimation-loop";
 
 declare let window: WindowWithProps;
 
@@ -80,24 +83,14 @@ const PoseDetWebcam = ({ sizeProps, styleProps }: PoseDetWebcamProps) => {
         console.log("[PoseDetWebcam] exit");
       }
       clearTimeout(startPoseEstimationDebounce);
-
-      const cancelAllAnimationFrames = () => {
-        let id = window.requestAnimationFrame(() => {
-          if (isInDebug()) {
-            console.log(
-              "[PoseDetWebcam] start cancelAllAnimationFrames on exit",
-            );
-          }
-        });
-        while (id--) {
-          window.cancelAnimationFrame(id);
-        }
-      };
       // this is super important to do
-      // cancelAllAnimationFrames on webcamId change
+      // cancelAnimationFrame on webcamId change
+      // for lastAnimationTimerId
       // otherwise ML model will sart crashing
-      // from corrupted data form not ready webcam
-      cancelAllAnimationFrames();
+      // from corrupted data from not ready webcam
+      if (lastAnimationTimerId > -1) {
+        cancelAnimationFrame(lastAnimationTimerId);
+      }
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [webcamId]);

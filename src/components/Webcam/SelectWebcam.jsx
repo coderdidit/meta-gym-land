@@ -30,23 +30,6 @@ const SelectWebcam = ({ width = "auto" }) => {
   }, [handleDevices]);
 
   const handleChange = (selecteDeviceId) => {
-    const cancelAllAnimationFrames = () => {
-      let id = window.requestAnimationFrame(() => {
-        if (isInDebug()) {
-          console.log(
-            "[SelectWebcam] cancelAllAnimationFrames on camera change",
-          );
-        }
-      });
-      while (id--) {
-        window.cancelAnimationFrame(id);
-      }
-    };
-    // this is super important to do
-    // cancelAllAnimationFrames on webcamId change
-    // otherwise ML model will sart crashing
-    // from corrupted data form not ready webcam
-    cancelAllAnimationFrames();
     setWebcamId(selecteDeviceId);
   };
 

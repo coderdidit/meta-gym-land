@@ -3,7 +3,9 @@ import { isInDebug } from "dev-utils/debug";
 import Webcam from "react-webcam";
 import { WindowWithProps } from "window-with-props";
 
-export { startPoseEstimationLoop };
+export { startPoseEstimationLoop, lastAnimationTimerId };
+
+let lastAnimationTimerId = -1;
 
 type startPoseEstimationLoopParams = {
   poseDetector: MglPoseDetector;
@@ -40,20 +42,21 @@ const startPoseEstimationLoop = (
         // reset pose detector
         // and debounce next runPoseEstimation loop start
         poseDetector.reset();
-        const waitMillis = 500;
+        const waitMillis = 1000;
         console.error(
           `[PoseDetector] error catched, resetting the AI ` +
             `and waiting for ${waitMillis / 1000} seconds before next call`,
           { poseEstimationError },
         );
         setTimeout(() => {
-          requestAnimationFrame(runPoseEstimation);
+          lastAnimationTimerId = requestAnimationFrame(runPoseEstimation);
         }, waitMillis);
+        return;
       }
     }
 
     // keep the loop
-    return requestAnimationFrame(runPoseEstimation);
+    lastAnimationTimerId = requestAnimationFrame(runPoseEstimation);
   };
 
   // start the loop
