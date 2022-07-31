@@ -92,12 +92,27 @@ export class ScoreManager {
   }
 
   hideText() {
-    this._setBigText("", "");
+    this.line1Text.setText("").setPadding(0).setDepth(0);
+    this.line2Text.setText("").setPadding(0).setDepth(0);
   }
 
   private _setBigText(line1: string, line2: string) {
-    this.line1Text.setText(line1);
-    this.line2Text.setText(line2);
+    const depth = 2;
+    const bgColor = "#FFFFFF";
+    const textColor = "#030404";
+    const padding = 8;
+    this.line1Text
+      .setText(line1)
+      .setBackgroundColor(bgColor)
+      .setColor(textColor)
+      .setPadding(padding)
+      .setDepth(depth);
+    this.line2Text
+      .setText(line2)
+      .setBackgroundColor(bgColor)
+      .setColor(textColor)
+      .setPadding(padding)
+      .setDepth(depth);
   }
 
   setHighScore() {
