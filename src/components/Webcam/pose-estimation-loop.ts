@@ -12,9 +12,7 @@ type startPoseEstimationLoopParams = {
   webcamRef: React.MutableRefObject<Webcam | null>;
   window: WindowWithProps;
 };
-const startPoseEstimationLoop = (
-  params: startPoseEstimationLoopParams,
-): number => {
+const startPoseEstimationLoop = (params: startPoseEstimationLoopParams) => {
   const targetFps = 15;
   const oneSecondMillis = 100;
   const interval = oneSecondMillis / targetFps;
@@ -60,7 +58,7 @@ const startPoseEstimationLoop = (
   };
 
   // start the loop
-  return requestAnimationFrame(runPoseEstimation);
+  requestAnimationFrame(runPoseEstimation);
 };
 
 type sendVideoToPoseDetectorParams = {
