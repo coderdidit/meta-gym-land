@@ -16,6 +16,8 @@ import { AssetManager } from "./interface/manager/asset-manager";
 import { ScoreManager } from "./interface/manager/score-manager";
 import { Ship } from "./interface/ship";
 import { getGameWidth, getGameHeight } from "games/helpers";
+import * as gstate from "../../../ai/gpose/state";
+import * as gpose from "../../../ai/gpose/pose";
 
 const SceneConfig = {
   active: false,
@@ -119,13 +121,19 @@ export class InvadersScene extends SceneInMetaGymRoom {
     const playerBody = this.player.body as Phaser.Physics.Arcade.Body;
     playerBody.setVelocity(0, 0);
 
-    if (this.cursors.left.isDown) {
+    const curPose = gstate.getPose();
+
+    if (this.cursors.left.isDown || curPose === gpose.HTL) {
       playerBody.setVelocityX(-200);
-    } else if (this.cursors.right.isDown) {
+    } else if (this.cursors.right.isDown || curPose === gpose.HTR) {
       playerBody.setVelocityX(200);
     }
 
-    if (this.fireKey.isDown) {
+    if (
+      this.fireKey.isDown ||
+      curPose === gpose.LA_UP ||
+      curPose === gpose.RA_UP
+    ) {
       this._fireBullet();
     }
   }
