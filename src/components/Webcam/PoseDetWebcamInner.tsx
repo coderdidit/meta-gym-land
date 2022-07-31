@@ -6,9 +6,24 @@ import { setWebcamBG, getWebcamBG } from "./state";
 const blackBgClass = "black-bg";
 const grennClass = "green-color";
 
-export class PoseDetWebcamInner extends Component {
+interface videoConstraints {
+  deviceId: string;
+}
+
+interface PoseDetWebcamInnerProps {
+  videoConstraints: videoConstraints;
+  sizeProps: any;
+  styleProps: any;
+  webcamRef: any;
+  canvasRef: any;
+}
+
+export class PoseDetWebcamInner extends Component<
+  PoseDetWebcamInnerProps,
+  unknown
+> {
   // eslint-disable-next-line no-unused-vars
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate(nextProps: PoseDetWebcamInnerProps, _nextState: any) {
     // fixing unnecessary webcam re-render
     const curDeviceId = this.props.videoConstraints?.deviceId;
     const nextDeviceId = nextProps.videoConstraints?.deviceId;
@@ -96,14 +111,16 @@ export class PoseDetWebcamInner extends Component {
               const webCamCanvas = document.getElementById(
                 "pose-det-webcam-canvas",
               );
-              if (webCamCanvas.className !== blackBgClass) {
-                webCamCanvas.className = blackBgClass;
-                icon.className = grennClass;
-              } else {
-                webCamCanvas.className = "";
-                icon.className = "";
+              if (webCamCanvas && icon) {
+                if (webCamCanvas.className !== blackBgClass) {
+                  webCamCanvas.className = blackBgClass;
+                  icon.className = grennClass;
+                } else {
+                  webCamCanvas.className = "";
+                  icon.className = "";
+                }
+                setWebcamBG(webCamCanvas.className);
               }
-              setWebcamBG(webCamCanvas.className);
             }}
           />
         </div>
