@@ -82,25 +82,34 @@ const PoseDetWebcam = ({ sizeProps, styleProps }: PoseDetWebcamProps) => {
     if (webCamAndCanvasAreInit()) {
       const now = Date.now();
       const delta = now - then;
+      // for waiting ~1 second if webcam was switched
       const webcamSetupTime = window.webcamIdChangeTS
         ? now - window.webcamIdChangeTS
-        : 2000; // TODO double check if this is necessary
+        : 2000;
       // if time change is greater then defined interval
       // and webcam change happened 1 second ago
       if (delta > interval && webcamSetupTime > 1000) {
         then = now - (delta % interval);
-        const videoElement = webcamRef!.current!.video;
+        const videoElement = webcamRef?.current?.video;
         try {
-          if (noCamError) await poseDetector.send({ image: videoElement });
+          if (noCamError && videoElement) {
+            camErrCnt = 0;
+            await poseDetector.send({ image: videoElement });
+          }
         } catch (error) {
           poseDetector.reset();
           noCamError = false;
           camErrCnt += 1;
           const wait = 500 * camErrCnt;
           console.error(
-            `error catched, resetting the AI 
-                        and waiting for ${wait / 1000} seconds`,
-            error,
+            `error catched, resetting the AI` +
+              `and waiting for ${wait / 1000} seconds`,
+            {
+              error,
+              camErrCnt,
+              wait,
+              noCamError,
+            },
           );
           setTimeout(() => {
             noCamError = true;
