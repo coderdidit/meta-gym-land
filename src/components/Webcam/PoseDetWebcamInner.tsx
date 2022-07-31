@@ -6,12 +6,8 @@ import { setWebcamBG, getWebcamBG } from "./state";
 const blackBgClass = "black-bg";
 const grennClass = "green-color";
 
-interface videoConstraints {
-  deviceId: string;
-}
-
 interface PoseDetWebcamInnerProps {
-  videoConstraints: videoConstraints;
+  videoConstraints: MediaTrackSettings;
   sizeProps: any;
   styleProps: any;
   webcamRef: any;

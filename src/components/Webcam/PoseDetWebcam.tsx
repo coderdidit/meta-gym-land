@@ -4,16 +4,24 @@ import { drawPose } from "../../ai/pose-drawing";
 import { updateGPoseState } from "../../ai/gpose/functions";
 import { isInDebug } from "../../dev-utils/debug";
 import { PoseDetWebcamInner } from "./PoseDetWebcamInner";
+import Webcam from "react-webcam";
+import { Results } from "@mediapipe/pose";
+import { WindowWithProps } from "window-with-props";
 
-const PoseDetWebcam = ({ sizeProps, styleProps }) => {
+declare let window: WindowWithProps;
+
+type PoseDetWebcamProps = { sizeProps: any; styleProps: any };
+const PoseDetWebcam = ({ sizeProps, styleProps }: PoseDetWebcamProps) => {
   const { webcamId, setWebcamId } = useContext(WebcamCtx);
   const { poseDetector } = useContext(PoseDetectorCtx);
-  const canvasRef = useRef(null);
-  const webcamRef = useRef(null);
+  const canvasRef: React.MutableRefObject<HTMLCanvasElement | null> =
+    useRef(null);
+  const webcamRef: React.MutableRefObject<Webcam | null> = useRef(null);
 
-  const getDeviceId = () => {
-    return webcamRef?.current?.stream?.getVideoTracks()?.[0]?.getSettings()
-      ?.deviceId;
+  const getDeviceId = (): string | undefined => {
+    const webCamSettings: MediaTrackSettings | undefined =
+      webcamRef?.current?.stream?.getVideoTracks()?.[0]?.getSettings();
+    return webCamSettings?.deviceId;
   };
 
   // make sure camera is setup
@@ -74,7 +82,9 @@ const PoseDetWebcam = ({ sizeProps, styleProps }) => {
     if (webCamAndCanvasAreInit()) {
       const now = Date.now();
       const delta = now - then;
-      const webcamSetupTime = now - window.webcamIdChangeTS; // TODO double check if this is necessary
+      const webcamSetupTime = window.webcamIdChangeTS
+        ? now - window.webcamIdChangeTS
+        : 2000; // TODO double check if this is necessary
       // if time change is greater then defined interval
       // and webcam change happened 1 second ago
       if (delta > interval && webcamSetupTime > 1000) {
@@ -101,7 +111,7 @@ const PoseDetWebcam = ({ sizeProps, styleProps }) => {
   };
 
   // HERE: handle game logic events driven by poses
-  const onResults = (results) => {
+  const onResults = (results: Results) => {
     if (webCamAndCanvasAreInit()) {
       doPredictionsCanvasSetup();
       drawPose(canvasRef, results);
@@ -113,13 +123,14 @@ const PoseDetWebcam = ({ sizeProps, styleProps }) => {
   };
   // pose estimation loop componenets end
 
-  const webCamAndCanvasAreInit = () => {
-    return (
+  const webCamAndCanvasAreInit = (): boolean => {
+    return Boolean(
       webcamRef &&
-      webcamRef.current &&
-      webcamRef.current.video.readyState === 4 &&
-      canvasRef &&
-      canvasRef.current
+        webcamRef.current &&
+        webcamRef.current.video &&
+        webcamRef.current.video.readyState === 4 &&
+        canvasRef &&
+        canvasRef.current,
     );
   };
 
@@ -136,7 +147,7 @@ const PoseDetWebcam = ({ sizeProps, styleProps }) => {
     canvasRef.current.height = videoHeight;
   };
 
-  const getVideoConstraints = () => {
+  const getVideoConstraints = (): MediaTrackSettings => {
     // if it is the same device do not force re-render
     if (webcamId && webcamId === getDeviceId()) {
       return {};
