@@ -1,4 +1,4 @@
-import { getGameWidth, getGameHeight } from "games/helpers";
+import { getGameWidth } from "games/helpers";
 import { AssetType } from "../assets";
 
 export class ScoreManager {
@@ -36,7 +36,6 @@ export class ScoreManager {
 
     // basic props
     const width = getGameWidth(this._scene);
-    const height = getGameHeight(this._scene);
 
     const scoreX = width * 0.06;
     this._scene.add.text(scoreX, 16, `SCORE`, normalTextConfig);
