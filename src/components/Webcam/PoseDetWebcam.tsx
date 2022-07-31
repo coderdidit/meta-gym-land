@@ -54,7 +54,6 @@ const PoseDetWebcam = ({ sizeProps, styleProps }: PoseDetWebcamProps) => {
   // start pose estimation loop
   const predictionsStarted = useRef(false);
   useEffect(() => {
-    let estimationLoopTimer = -1;
     const startPoseEstimationDebounce = setTimeout(() => {
       if (!predictionsStarted.current) {
         if (isInDebug()) {
@@ -63,7 +62,7 @@ const PoseDetWebcam = ({ sizeProps, styleProps }: PoseDetWebcamProps) => {
         // consume estimations
         poseDetector.onResults(onResults);
         // produce estimations
-        estimationLoopTimer = startPoseEstimationLoop({
+        startPoseEstimationLoop({
           poseDetector,
           webcamRef,
           window,
@@ -72,25 +71,31 @@ const PoseDetWebcam = ({ sizeProps, styleProps }: PoseDetWebcamProps) => {
       }
     }, 500);
 
-    () => {
+    return () => {
       if (isInDebug()) {
         console.log("[PoseDetWebcam] exit");
       }
       clearTimeout(startPoseEstimationDebounce);
-      if (estimationLoopTimer > -1) {
-        cancelAnimationFrame(estimationLoopTimer);
-      }
+
+      const cancelAllAnimationFrames = () => {
+        let id = window.requestAnimationFrame(() => {
+          if (isInDebug()) {
+            console.log(
+              "[PoseDetWebcam] start cancelAllAnimationFrames on exit",
+            );
+          }
+        });
+        while (id--) {
+          window.cancelAnimationFrame(id);
+        }
+      };
+      cancelAllAnimationFrames();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // HERE: handle game logic events driven by poses
   const onResults = (results: Results) => {
-    if (isInDebug()) {
-      console.log("[PoseDetWebcam] onResults", {
-        results,
-      });
-    }
     if (webCamAndCanvasAreInit()) {
       doPredictionsCanvasSetup();
       drawPose(canvasRef, results);
