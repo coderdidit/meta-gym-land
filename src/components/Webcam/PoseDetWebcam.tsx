@@ -52,10 +52,14 @@ const PoseDetWebcam = ({ sizeProps, styleProps }: PoseDetWebcamProps) => {
   }, []);
 
   // start pose estimation loop
-  const predictionsStarted = useRef(false);
   useEffect(() => {
+    if (isInDebug()) {
+      console.log("[PoseDetWebcam] useEffect on startPoseEstimation", {
+        webcamId,
+      });
+    }
     const startPoseEstimationDebounce = setTimeout(() => {
-      if (!predictionsStarted.current) {
+      if (webcamId) {
         if (isInDebug()) {
           console.log("[PoseDetWebcam] startPredictions useEffect");
         }
@@ -67,7 +71,7 @@ const PoseDetWebcam = ({ sizeProps, styleProps }: PoseDetWebcamProps) => {
           webcamRef,
           window,
         });
-        predictionsStarted.current = true;
+        // predictionsStarted.current = true;
       }
     }, 500);
 
@@ -92,7 +96,7 @@ const PoseDetWebcam = ({ sizeProps, styleProps }: PoseDetWebcamProps) => {
       cancelAllAnimationFrames();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [webcamId]);
 
   // HERE: handle game logic events driven by poses
   const onResults = (results: Results) => {
