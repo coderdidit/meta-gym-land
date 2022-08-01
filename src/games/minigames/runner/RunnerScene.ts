@@ -2,6 +2,8 @@ import { SceneInMetaGymRoom } from "games/base-scenes/scene-in-metagym-room";
 import { InGameFont } from "GlobalStyles";
 import Phaser from "phaser";
 import { RUNNER_ACTUAL } from "../../shared";
+import * as gstate from "../../../ai/gpose/state";
+import * as gpose from "../../../ai/gpose/pose";
 
 export { RunnerScene };
 
@@ -50,6 +52,9 @@ class RunnerScene extends SceneInMetaGymRoom {
     // exit or restart
     this.handleExit({
       thisSceneKey: RUNNER_ACTUAL,
+      callbackOnExit: () => {
+        this.restartGame();
+      },
     });
 
     const { width, height } = this.gameDimentions();
@@ -68,7 +73,7 @@ class RunnerScene extends SceneInMetaGymRoom {
     this.dino = this.physics.add
       .sprite(bottomPositionX, this.bottomPositionY, "dino-idle")
       .setCollideWorldBounds(true)
-      .setGravityY(5000)
+      .setGravityY(3000)
       .setBodySize(44, 92)
       .setDepth(1)
       .setOrigin(0, 1);
@@ -266,7 +271,13 @@ class RunnerScene extends SceneInMetaGymRoom {
   }
 
   handleInputsOnUpdate() {
-    if (this.cursorKeys?.space.isDown) {
+    const curPose = gstate.getPose();
+
+    if (
+      this.cursorKeys?.space.isDown ||
+      curPose === gpose.LA_UP ||
+      curPose === gpose.RA_UP
+    ) {
       if (!this.dino.body.onFloor() || this.dino.body.velocity.x > 0) {
         return;
       }
@@ -277,20 +288,23 @@ class RunnerScene extends SceneInMetaGymRoom {
       this.dino.setTexture("dino", 0);
     }
 
-    if (this.cursorKeys?.down.isDown) {
+    if (
+      this.cursorKeys?.down.isDown ||
+      curPose === gpose.HTL ||
+      curPose === gpose.HTR
+    ) {
       if (!this.dino.body.onFloor() || !this.isGameRunning) {
         return;
       }
 
-      this.dino.body.setSize(this.dino.body.width, 58);
+      this.dino.body.setSize(undefined, 58);
       this.dino.body.offset.y = 34;
     }
-    if (this.cursorKeys?.down.isUp) {
+    if (curPose === gpose.IDLE) {
       if (this.score !== 0 && !this.isGameRunning) {
         return;
       }
-
-      this.dino.body.setSize(this.dino.body.width, 92);
+      this.dino.body.setSize(undefined, 92);
       this.dino.body.offset.y = 0;
     }
   }
