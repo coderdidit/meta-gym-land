@@ -4,6 +4,9 @@ import { RUNNER_ACTUAL } from "../../shared";
 
 export { RunnerScene };
 
+const gameXPercentageOffsett = 0.1;
+const gameYPercentageOffsett = 0.05;
+
 const SceneConfig = {
   active: false,
   visible: false,
@@ -29,6 +32,7 @@ class RunnerScene extends Phaser.Scene {
   restart!: Phaser.GameObjects.Image;
   obsticles!: Phaser.Physics.Arcade.Group;
   cursorKeys!: Phaser.Types.Input.Keyboard.CursorKeys;
+  bottomPositionY!: number;
   constructor() {
     super(SceneConfig);
   }
@@ -49,11 +53,14 @@ class RunnerScene extends Phaser.Scene {
     this.hitSound = this.sound.add("hit", { volume: 0.2 });
     this.reachSound = this.sound.add("reach", { volume: 0.2 });
 
-    const bottomPositionY = height;
-    const bottomPositionX = width * 0.05;
+    this.bottomPositionY = height - height * gameYPercentageOffsett;
+    const bottomPositionX = width * gameXPercentageOffsett;
+
+    // TODO: improve it later
+    this.physics.world.setBounds(0, 0, width, this.bottomPositionY);
 
     this.dino = this.physics.add
-      .sprite(bottomPositionX, bottomPositionY, "dino-idle")
+      .sprite(bottomPositionX, this.bottomPositionY, "dino-idle")
       .setCollideWorldBounds(true)
       .setGravityY(5000)
       .setBodySize(44, 92)
@@ -61,11 +68,16 @@ class RunnerScene extends Phaser.Scene {
       .setOrigin(0, 1);
 
     this.ground = this.add
-      .tileSprite(bottomPositionX, bottomPositionY, 88, 26, "ground")
+      .tileSprite(bottomPositionX, this.bottomPositionY, 88, 26, "ground")
       .setOrigin(0, 1);
 
     this.startTrigger = this.physics.add
-      .sprite(bottomPositionX, bottomPositionY - this.dino.height * 1.5, "")
+      .sprite(
+        bottomPositionX,
+        this.bottomPositionY - this.dino.height * 1.5,
+        "",
+      )
+      .setAlpha(0)
       .setOrigin(0, 1)
       .setImmovable();
 
@@ -89,9 +101,9 @@ class RunnerScene extends Phaser.Scene {
 
     this.environment = this.add.group();
     this.environment.addMultiple([
-      this.add.image(width / 2, 170, "cloud"),
-      this.add.image(width - 80, 80, "cloud"),
-      this.add.image(width / 1.3, 100, "cloud"),
+      this.add.image(width / 2, this.bottomPositionY / 4, "cloud"),
+      this.add.image(width / 1.3, this.bottomPositionY / 3, "cloud"),
+      this.add.image(width - 80, this.bottomPositionY / 2, "cloud"),
     ]);
     this.environment.setAlpha(0);
 
@@ -147,6 +159,7 @@ class RunnerScene extends Phaser.Scene {
 
   initStartTrigger() {
     const { width, height } = this.gameDimentions();
+    const groundEnd = width - width * (gameXPercentageOffsett * 1.5);
     this.physics.add.overlap(
       this.startTrigger,
       this.dino,
@@ -171,7 +184,7 @@ class RunnerScene extends Phaser.Scene {
             }
 
             if (this.ground.width >= 1000) {
-              this.ground.width = width;
+              this.ground.width = groundEnd;
               this.isGameRunning = true;
               this.dino.setVelocityX(0);
               this.scoreText.setAlpha(1);
@@ -307,8 +320,7 @@ class RunnerScene extends Phaser.Scene {
       obsticle = this.obsticles
         .create(
           this.gameDimentions().width + distance,
-          this.gameDimentions().height -
-            enemyHeight[Math.floor(Math.random() * 2)],
+          this.bottomPositionY - enemyHeight[Math.floor(Math.random() * 2)],
           `enemy-bird`,
         )
         .setOrigin(0, 1);
@@ -318,7 +330,7 @@ class RunnerScene extends Phaser.Scene {
       obsticle = this.obsticles
         .create(
           this.gameDimentions().width + distance,
-          this.gameDimentions().height,
+          this.bottomPositionY,
           `obsticle-${obsticleNum}`,
         )
         .setOrigin(0, 1);
