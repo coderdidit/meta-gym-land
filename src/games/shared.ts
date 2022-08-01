@@ -8,6 +8,7 @@ export const CHART_SQUATS = "chart_squats";
 export const MATRIX = "matrix";
 export const RUSH = "rush";
 export const INVADERS = "invaders";
+export const RUNNER = "runner";
 
 export const MINI_GAMES = [
   SPACE_STRETCH_SCENE,
@@ -16,4 +17,5 @@ export const MINI_GAMES = [
   MATRIX,
   RUSH,
   INVADERS,
+  RUNNER,
 ];

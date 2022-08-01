@@ -6,6 +6,9 @@ import { BootScene } from "./gym-room-boot/BootScene";
 import { MatrixScene } from "./minigames/MatrixScene";
 import { RushScene } from "./minigames/RushScene";
 import { InvadersScene } from "./minigames/invaders/InvadersScene";
+import { RunnerScene } from "./minigames/runner/RunnerScene";
+import { RunnerPreloadScene } from "./minigames/runner/RunnerPreloadScene";
+
 import { GymRoomScene } from "./gym-room/GymRoomScene";
 
 import Moralis from "moralis/types";
@@ -23,6 +26,8 @@ const getGameConfig = () => {
     MatrixScene,
     RushScene,
     InvadersScene,
+    RunnerPreloadScene,
+    RunnerScene,
   ];
 
   return {
