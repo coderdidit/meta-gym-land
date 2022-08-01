@@ -1,9 +1,14 @@
 import { SceneInMetaGymRoom } from "games/base-scenes/scene-in-metagym-room";
-import { InGameFont } from "GlobalStyles";
+import {
+  highlightTextColorNum,
+  InGameFont,
+  mainBgColorNum,
+} from "GlobalStyles";
 import Phaser from "phaser";
 import { RUNNER_ACTUAL } from "../../shared";
 import * as gstate from "../../../ai/gpose/state";
 import * as gpose from "../../../ai/gpose/pose";
+import { createTextBox } from "games/utils/text";
 
 export { RunnerScene };
 
@@ -123,6 +128,7 @@ class RunnerScene extends SceneInMetaGymRoom {
 
     this.obsticles = this.physics.add.group();
 
+    this.createTextBoxes();
     this.initAnims();
     this.initStartTrigger();
     this.initColliders();
@@ -131,7 +137,37 @@ class RunnerScene extends SceneInMetaGymRoom {
     this.handleScore();
   }
 
-  initColliders() {
+  private createTextBoxes() {
+    const { width, height } = this.gameDimentions();
+
+    const escTextBoxY = height * 0.015;
+    const escTextBox = createTextBox({
+      scene: this,
+      x: width * 0.05,
+      y: escTextBoxY,
+      config: { wrapWidth: 280 },
+      bg: mainBgColorNum,
+      stroke: highlightTextColorNum,
+    })
+      .start("press ESC to go back", 3)
+      .setScrollFactor(0, 0);
+
+    // hints
+    createTextBox({
+      scene: this,
+      x: width * 0.05,
+      y: escTextBoxY + escTextBox.height * 1.8,
+      config: { wrapWidth: 280 },
+      bg: 0xfffefe,
+      stroke: 0x00ff00,
+      align: "center",
+      txtColor: "#212125",
+    })
+      .setScrollFactor(0, 0)
+      .start("🤖 Move your hands up to start", 3);
+  }
+
+  private initColliders() {
     this.physics.add.collider(
       this.dino,
       this.obsticles,
@@ -164,7 +200,7 @@ class RunnerScene extends SceneInMetaGymRoom {
     );
   }
 
-  initStartTrigger() {
+  private initStartTrigger() {
     const { width, height } = this.gameDimentions();
     const groundEnd = width - width * (gameXPercentageOffsett * 1.5);
     this.physics.add.overlap(
@@ -206,7 +242,7 @@ class RunnerScene extends SceneInMetaGymRoom {
     );
   }
 
-  initAnims() {
+  private initAnims() {
     this.anims.create({
       key: "dino-run",
       frames: this.anims.generateFrameNumbers("dino", { start: 2, end: 3 }),
@@ -235,7 +271,7 @@ class RunnerScene extends SceneInMetaGymRoom {
     });
   }
 
-  handleScore() {
+  private handleScore() {
     this.time.addEvent({
       delay: 1000 / 10,
       loop: true,
@@ -270,7 +306,7 @@ class RunnerScene extends SceneInMetaGymRoom {
     });
   }
 
-  handleInputsOnUpdate() {
+  private handleInputsOnUpdate() {
     const curPose = gstate.getPose();
 
     if (
@@ -309,7 +345,7 @@ class RunnerScene extends SceneInMetaGymRoom {
     }
   }
 
-  handleInputs() {
+  private handleInputs() {
     this.restart.on(
       "pointerdown",
       () => {
@@ -319,7 +355,7 @@ class RunnerScene extends SceneInMetaGymRoom {
     );
   }
 
-  restartGame() {
+  private restartGame() {
     this.dino.setVelocityY(0);
     this.dino.body.setSize(this.dino.body.width, 92);
     this.dino.body.offset.y = 0;
@@ -330,7 +366,7 @@ class RunnerScene extends SceneInMetaGymRoom {
     this.anims.resumeAll();
   }
 
-  placeObsticle() {
+  private placeObsticle() {
     const obsticleNum = Math.floor(Math.random() * 7) + 1;
     const distance = Phaser.Math.Between(600, 900);
     const { width } = this.gameDimentions();
@@ -351,11 +387,7 @@ class RunnerScene extends SceneInMetaGymRoom {
       obsticle.body.height = obsticle.body.height / 1.5;
     } else {
       obsticle = this.obsticles
-        .create(
-          obsticleX,
-          this.bottomPositionY,
-          `obsticle-${obsticleNum}`,
-        )
+        .create(obsticleX, this.bottomPositionY, `obsticle-${obsticleNum}`)
         .setOrigin(0, 1);
 
       obsticle.body.offset.y = +10;
