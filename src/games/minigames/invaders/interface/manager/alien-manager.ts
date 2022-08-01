@@ -34,8 +34,8 @@ export class AlienManager {
     const width = getGameWidth(this._scene);
     const height = getGameHeight(this._scene);
 
-    const ORIGIN_X = width / 3.5;
-    const ORIGIN_Y = height / 2.5;
+    const ORIGIN_X = width / 6;
+    const ORIGIN_Y = height / 3;
 
     this.aliens.clear(true, true);
     for (let y = 0; y < 4; y++) {
@@ -57,8 +57,8 @@ export class AlienManager {
       this._scene.tweens.add({
         targets: c,
         ease: "Linear",
-        duration: 2000,
-        x: `+=${width / 5}`,
+        duration: 4000,
+        x: `+=${width / 2}`,
         paused: false,
         delay: 0,
         yoyo: true,

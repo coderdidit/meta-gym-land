@@ -18,6 +18,8 @@ import { Ship } from "./interface/ship";
 import { getGameWidth, getGameHeight } from "games/helpers";
 import * as gstate from "../../../ai/gpose/state";
 import * as gpose from "../../../ai/gpose/pose";
+import { createTextBox } from "games/utils/text";
+import { highlightTextColorNum, mainBgColorNum } from "GlobalStyles";
 
 const SceneConfig = {
   active: false,
@@ -38,6 +40,7 @@ export class InvadersScene extends SceneInMetaGymRoom {
   cursors!: Phaser.Types.Input.Keyboard.CursorKeys;
   fireKey!: Phaser.Input.Keyboard.Key;
   flipFlop = false;
+  escTextBox: any;
 
   constructor() {
     super(SceneConfig);
@@ -87,6 +90,7 @@ export class InvadersScene extends SceneInMetaGymRoom {
     this.player = Ship.create(this);
     this.alienManager = new AlienManager(this);
     this.scoreManager = new ScoreManager(this);
+    this.createTextBoxes();
 
     this.fireKey.on("down", () => {
       switch (this.state) {
@@ -96,6 +100,23 @@ export class InvadersScene extends SceneInMetaGymRoom {
           break;
       }
     });
+  }
+
+  private createTextBoxes() {
+    const width = getGameWidth(this);
+    const height = getGameHeight(this);
+
+    const escTextBoxY = height * 0.015;
+    this.escTextBox = createTextBox({
+      scene: this,
+      x: width * 0.05,
+      y: escTextBoxY,
+      config: { wrapWidth: 280 },
+      bg: mainBgColorNum,
+      stroke: highlightTextColorNum,
+    })
+      .start("press ESC to go back", 3)
+      .setScrollFactor(0, 0);
   }
 
   update() {
