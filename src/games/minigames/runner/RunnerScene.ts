@@ -10,30 +10,46 @@ const SceneConfig = {
 };
 
 class RunnerScene extends Phaser.Scene {
+  gameSpeed = 10;
+  isGameRunning = false;
+  respawnTime = 0;
+  score = 0;
+  jumpSound!: Phaser.Sound.BaseSound;
+  hitSound!: Phaser.Sound.BaseSound;
+  reachSound!: Phaser.Sound.BaseSound;
+  startTrigger!: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody;
+  ground!: Phaser.GameObjects.TileSprite;
+  dino!: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody;
+  scoreText!: Phaser.GameObjects.Text;
+  highScoreText!: Phaser.GameObjects.Text;
+  environment!: Phaser.GameObjects.Group;
+  gameOverScreen!: Phaser.GameObjects.Container;
+  gameOverText!: Phaser.GameObjects.Image;
+  restart!: Phaser.GameObjects.Image;
+  obsticles!: Phaser.Physics.Arcade.Group;
+  cursorKeys!: Phaser.Types.Input.Keyboard.CursorKeys;
   constructor() {
     super(SceneConfig);
   }
 
-  gameDimentions() {
+  gameDimentions(): {
+    width: number;
+    height: number;
+  } {
     const { width, height } = this.game.config;
-    return { width, height };
+    return { width: Number(width), height: Number(height) };
   }
 
   create() {
     const { width, height } = this.gameDimentions();
     this.cameras.main.setBackgroundColor(0xbababa);
 
-    this.gameSpeed = 10;
-    this.isGameRunning = false;
-    this.respawnTime = 0;
-    this.score = 0;
-
     this.jumpSound = this.sound.add("jump", { volume: 0.2 });
     this.hitSound = this.sound.add("hit", { volume: 0.2 });
     this.reachSound = this.sound.add("reach", { volume: 0.2 });
 
     this.startTrigger = this.physics.add
-      .sprite(0, 10)
+      .sprite(0, 10, "")
       .setOrigin(0, 1)
       .setImmovable();
     this.ground = this.add
@@ -49,7 +65,7 @@ class RunnerScene extends Phaser.Scene {
 
     this.scoreText = this.add
       .text(width, 0, "00000", {
-        fill: "#535353",
+        color: "#535353",
         font: "900 35px Courier",
         resolution: 5,
       })
@@ -58,7 +74,7 @@ class RunnerScene extends Phaser.Scene {
 
     this.highScoreText = this.add
       .text(0, 0, "00000", {
-        fill: "#535353",
+        color: "#535353",
         font: "900 35px Courier",
         resolution: 5,
       })
@@ -118,7 +134,7 @@ class RunnerScene extends Phaser.Scene {
         this.score = 0;
         this.hitSound.play();
       },
-      null,
+      undefined,
       this,
     );
   }
@@ -142,7 +158,7 @@ class RunnerScene extends Phaser.Scene {
           callbackScope: this,
           callback: () => {
             this.dino.setVelocityX(80);
-            this.dino.play("dino-run", 1);
+            this.dino.play("dino-run", true);
 
             if (this.ground.width < width) {
               this.ground.width += 17 * 2;
@@ -159,7 +175,7 @@ class RunnerScene extends Phaser.Scene {
           },
         });
       },
-      null,
+      undefined,
       this,
     );
   }
@@ -234,7 +250,7 @@ class RunnerScene extends Phaser.Scene {
         return;
       }
       this.jumpSound.play();
-      this.dino.body.height = 92;
+      this.dino.body.setSize(this.dino.body.width, 92);
       this.dino.body.offset.y = 0;
       this.dino.setVelocityY(-1600);
       this.dino.setTexture("dino", 0);
@@ -245,7 +261,7 @@ class RunnerScene extends Phaser.Scene {
         return;
       }
 
-      this.dino.body.height = 58;
+      this.dino.body.setSize(this.dino.body.width, 58);
       this.dino.body.offset.y = 34;
     }
     if (this.cursorKeys?.down.isUp) {
@@ -253,7 +269,7 @@ class RunnerScene extends Phaser.Scene {
         return;
       }
 
-      this.dino.body.height = 92;
+      this.dino.body.setSize(this.dino.body.width, 92);
       this.dino.body.offset.y = 0;
     }
   }
@@ -263,7 +279,7 @@ class RunnerScene extends Phaser.Scene {
       "pointerdown",
       () => {
         this.dino.setVelocityY(0);
-        this.dino.body.height = 92;
+        this.dino.body.setSize(this.dino.body.width, 92);
         this.dino.body.offset.y = 0;
         this.physics.resume();
         this.obsticles.clear(true, true);
@@ -307,7 +323,7 @@ class RunnerScene extends Phaser.Scene {
     obsticle.setImmovable();
   }
 
-  update(time, delta) {
+  update(_time: number, delta: number) {
     this.handleInputsOnUpdate();
 
     if (!this.isGameRunning) {
@@ -324,13 +340,13 @@ class RunnerScene extends Phaser.Scene {
       this.respawnTime = 0;
     }
 
-    this.obsticles.getChildren().forEach((obsticle) => {
+    this.obsticles.getChildren().forEach((obsticle: any) => {
       if (obsticle.getBounds().right < 0) {
         this.obsticles.killAndHide(obsticle);
       }
     });
 
-    this.environment.getChildren().forEach((env) => {
+    this.environment.getChildren().forEach((env: any) => {
       if (env.getBounds().right < 0) {
         env.x = this.gameDimentions().width + 30;
       }

@@ -41,8 +41,8 @@ const getGameConfig = () => {
     },
     scale: {
       mode: Phaser.Scale.NONE,
-      width,
-      height,
+      width: 1000,
+      height: 340,
     },
     scene: Scenes,
     // audio: {
