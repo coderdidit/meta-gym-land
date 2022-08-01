@@ -36,13 +36,13 @@ const getGameConfig = () => {
       default: "arcade",
       arcade: {
         gravity: { y: 0 },
-        // debug: "debug",
+        debug: true,
       },
     },
     scale: {
       mode: Phaser.Scale.NONE,
-      width: 1000,
-      height: 340,
+      width,
+      height,
     },
     scene: Scenes,
     // audio: {

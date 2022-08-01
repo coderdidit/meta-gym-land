@@ -1,3 +1,4 @@
+import { InGameFont } from "GlobalStyles";
 import Phaser from "phaser";
 import { RUNNER_ACTUAL } from "../../shared";
 
@@ -10,7 +11,7 @@ const SceneConfig = {
 };
 
 class RunnerScene extends Phaser.Scene {
-  gameSpeed = 10;
+  gameSpeed = 8;
   isGameRunning = false;
   respawnTime = 0;
   score = 0;
@@ -48,25 +49,30 @@ class RunnerScene extends Phaser.Scene {
     this.hitSound = this.sound.add("hit", { volume: 0.2 });
     this.reachSound = this.sound.add("reach", { volume: 0.2 });
 
-    this.startTrigger = this.physics.add
-      .sprite(0, 10, "")
-      .setOrigin(0, 1)
-      .setImmovable();
-    this.ground = this.add
-      .tileSprite(0, height, 88, 26, "ground")
-      .setOrigin(0, 1);
+    const bottomPositionY = height;
+    const bottomPositionX = width * 0.05;
+
     this.dino = this.physics.add
-      .sprite(0, height, "dino-idle")
+      .sprite(bottomPositionX, bottomPositionY, "dino-idle")
       .setCollideWorldBounds(true)
       .setGravityY(5000)
       .setBodySize(44, 92)
       .setDepth(1)
       .setOrigin(0, 1);
 
+    this.ground = this.add
+      .tileSprite(bottomPositionX, bottomPositionY, 88, 26, "ground")
+      .setOrigin(0, 1);
+
+    this.startTrigger = this.physics.add
+      .sprite(bottomPositionX, bottomPositionY - this.dino.height * 1.5, "")
+      .setOrigin(0, 1)
+      .setImmovable();
+
     this.scoreText = this.add
       .text(width, 0, "00000", {
         color: "#535353",
-        font: "900 35px Courier",
+        font: `900 35px ${InGameFont}`,
         resolution: 5,
       })
       .setOrigin(1, 0)
@@ -75,7 +81,7 @@ class RunnerScene extends Phaser.Scene {
     this.highScoreText = this.add
       .text(0, 0, "00000", {
         color: "#535353",
-        font: "900 35px Courier",
+        font: `900 35px ${InGameFont}`,
         resolution: 5,
       })
       .setOrigin(1, 0)
