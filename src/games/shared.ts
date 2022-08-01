@@ -8,6 +8,8 @@ export const CHART_SQUATS = "chart_squats";
 export const MATRIX = "matrix";
 export const RUSH = "rush";
 export const INVADERS = "invaders";
+export const RUNNER = "runner"; // preload
+export const RUNNER_ACTUAL = "runner_actual";
 
 export const MINI_GAMES = [
   SPACE_STRETCH_SCENE,
@@ -16,4 +18,5 @@ export const MINI_GAMES = [
   MATRIX,
   RUSH,
   INVADERS,
+  RUNNER,
 ];

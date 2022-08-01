@@ -38,9 +38,9 @@ export class ScoreManager {
     // basic props
     const width = getGameWidth(this._scene);
 
-    const scoreX = width * 0.06;
-    this._scene.add.text(scoreX, 16, `SCORE`, normalTextConfig);
-    this.scoreText = this._scene.add.text(scoreX, 32, "", normalTextConfig);
+    const scoreX = width - 100;
+    this._scene.add.text(scoreX, 88, `SCORE`, normalTextConfig);
+    this.scoreText = this._scene.add.text(scoreX, 104, "", normalTextConfig);
 
     // ending text
     this.line1Text = this._scene.add
