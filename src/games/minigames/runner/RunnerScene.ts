@@ -1,3 +1,4 @@
+import { SceneInMetaGymRoom } from "games/base-scenes/scene-in-metagym-room";
 import { InGameFont } from "GlobalStyles";
 import Phaser from "phaser";
 import { RUNNER_ACTUAL } from "../../shared";
@@ -5,7 +6,7 @@ import { RUNNER_ACTUAL } from "../../shared";
 export { RunnerScene };
 
 const gameXPercentageOffsett = 0.1;
-const gameYPercentageOffsett = 0.05;
+const gameYPercentageOffsett = 0.1;
 
 const SceneConfig = {
   active: false,
@@ -13,7 +14,7 @@ const SceneConfig = {
   key: RUNNER_ACTUAL,
 };
 
-class RunnerScene extends Phaser.Scene {
+class RunnerScene extends SceneInMetaGymRoom {
   gameSpeed = 8;
   isGameRunning = false;
   respawnTime = 0;
@@ -46,6 +47,11 @@ class RunnerScene extends Phaser.Scene {
   }
 
   create() {
+    // exit or restart
+    this.handleExit({
+      thisSceneKey: RUNNER_ACTUAL,
+    });
+
     const { width, height } = this.gameDimentions();
     this.cameras.main.setBackgroundColor(0xbababa);
 
@@ -72,11 +78,7 @@ class RunnerScene extends Phaser.Scene {
       .setOrigin(0, 1);
 
     this.startTrigger = this.physics.add
-      .sprite(
-        bottomPositionX,
-        this.bottomPositionY - this.dino.height * 1.5,
-        "",
-      )
+      .sprite(this.dino.x, this.bottomPositionY - this.dino.height * 1.5, "")
       .setAlpha(0)
       .setOrigin(0, 1)
       .setImmovable();
@@ -101,9 +103,9 @@ class RunnerScene extends Phaser.Scene {
 
     this.environment = this.add.group();
     this.environment.addMultiple([
-      this.add.image(width / 2, this.bottomPositionY / 4, "cloud"),
-      this.add.image(width / 1.3, this.bottomPositionY / 3, "cloud"),
-      this.add.image(width - 80, this.bottomPositionY / 2, "cloud"),
+      this.add.image(width / 2, this.bottomPositionY / 2.7, "cloud"),
+      this.add.image(width / 1.3, this.bottomPositionY / 2, "cloud"),
+      this.add.image(width - 80, this.bottomPositionY / 1.5, "cloud"),
     ]);
     this.environment.setAlpha(0);
 
@@ -297,17 +299,21 @@ class RunnerScene extends Phaser.Scene {
     this.restart.on(
       "pointerdown",
       () => {
-        this.dino.setVelocityY(0);
-        this.dino.body.setSize(this.dino.body.width, 92);
-        this.dino.body.offset.y = 0;
-        this.physics.resume();
-        this.obsticles.clear(true, true);
-        this.isGameRunning = true;
-        this.gameOverScreen.setAlpha(0);
-        this.anims.resumeAll();
+        this.restartGame();
       },
       this,
     );
+  }
+
+  restartGame() {
+    this.dino.setVelocityY(0);
+    this.dino.body.setSize(this.dino.body.width, 92);
+    this.dino.body.offset.y = 0;
+    this.physics.resume();
+    this.obsticles.clear(true, true);
+    this.isGameRunning = true;
+    this.gameOverScreen.setAlpha(0);
+    this.anims.resumeAll();
   }
 
   placeObsticle() {

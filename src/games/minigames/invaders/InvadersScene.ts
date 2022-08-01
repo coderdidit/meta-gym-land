@@ -61,6 +61,11 @@ export class InvadersScene extends SceneInMetaGymRoom {
   }
 
   create() {
+    // exit or restart
+    this.handleExit({
+      thisSceneKey: INVADERS,
+    });
+
     const width = getGameWidth(this);
     const height = getGameHeight(this);
 
