@@ -1,11 +1,12 @@
 import Phaser from "phaser";
+import { RUNNER_ACTUAL } from "../../shared";
 
 export { RunnerScene };
 
 const SceneConfig = {
   active: false,
   visible: false,
-  key: "RUNNER_ACTUAL_SCENNE",
+  key: RUNNER_ACTUAL,
 };
 
 class RunnerScene extends Phaser.Scene {

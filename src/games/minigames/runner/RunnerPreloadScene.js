@@ -1,5 +1,5 @@
 import Phaser from "phaser";
-import { RUNNER } from "../../shared";
+import { RUNNER, RUNNER_ACTUAL } from "../../shared";
 
 export { RunnerPreloadScene };
 
@@ -61,6 +61,6 @@ class RunnerPreloadScene extends Phaser.Scene {
   }
 
   create() {
-    this.scene.start("RUNNER_ACTUAL_SCENNE");
+    this.scene.start(RUNNER_ACTUAL);
   }
 }
