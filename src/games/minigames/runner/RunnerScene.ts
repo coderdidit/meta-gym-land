@@ -333,13 +333,16 @@ class RunnerScene extends SceneInMetaGymRoom {
   placeObsticle() {
     const obsticleNum = Math.floor(Math.random() * 7) + 1;
     const distance = Phaser.Math.Between(600, 900);
+    const { width } = this.gameDimentions();
+
+    const obsticleX = width + distance;
 
     let obsticle;
     if (obsticleNum > 6) {
       const enemyHeight = [20, 50];
       obsticle = this.obsticles
         .create(
-          this.gameDimentions().width + distance,
+          obsticleX,
           this.bottomPositionY - enemyHeight[Math.floor(Math.random() * 2)],
           `enemy-bird`,
         )
@@ -349,7 +352,7 @@ class RunnerScene extends SceneInMetaGymRoom {
     } else {
       obsticle = this.obsticles
         .create(
-          this.gameDimentions().width + distance,
+          obsticleX,
           this.bottomPositionY,
           `obsticle-${obsticleNum}`,
         )
@@ -373,7 +376,8 @@ class RunnerScene extends SceneInMetaGymRoom {
     Phaser.Actions.IncX(this.environment.getChildren(), -0.5);
 
     this.respawnTime += delta * this.gameSpeed * 0.08;
-    if (this.respawnTime >= 1500) {
+    // obsticles freequency
+    if (this.respawnTime >= 2000) {
       this.placeObsticle();
       this.respawnTime = 0;
     }
