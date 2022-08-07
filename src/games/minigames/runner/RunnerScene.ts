@@ -336,7 +336,8 @@ class RunnerScene extends SceneInMetaGymRoom {
     if (
       this.cursorKeys?.space.isDown ||
       curPose === gpose.LA_UP ||
-      curPose === gpose.RA_UP
+      curPose === gpose.RA_UP ||
+      curPose === gpose.BA_UP
     ) {
       if (!this.dino.body.onFloor() || this.dino.body.velocity.x > 0) {
         return;
