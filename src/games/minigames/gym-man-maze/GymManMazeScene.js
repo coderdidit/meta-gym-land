@@ -52,79 +52,11 @@ class GymManMazeScene extends SceneInMetaGymRoom {
 
   setupAnims() {
     const spritesheet = "pacman-spritesheet";
-    this.anims.create({
-      key: Animation.Player.Eat,
-      frames: this.anims.generateFrameNumbers(spritesheet, {
-        start: 9,
-        end: 13,
-      }),
-      frameRate: 10,
-      repeat: -1,
-    });
 
     this.anims.create({
       key: Animation.Player.Stay,
       frames: [{ key: spritesheet, frame: 9 }],
       frameRate: 20,
-    });
-
-    this.anims.create({
-      key: Animation.Player.Die,
-      frames: this.anims.generateFrameNumbers(spritesheet, {
-        start: 6,
-        end: 8,
-      }),
-      frameRate: 1,
-    });
-
-    this.anims.create({
-      key: Animation.Ghost.Blue.Move,
-      frames: this.anims.generateFrameNumbers(spritesheet, {
-        start: 0,
-        end: 1,
-      }),
-      frameRate: 10,
-      repeat: -1,
-    });
-
-    this.anims.create({
-      key: Animation.Ghost.Orange.Move,
-      frames: this.anims.generateFrameNumbers(spritesheet, {
-        start: 4,
-        end: 5,
-      }),
-      frameRate: 10,
-      repeat: -1,
-    });
-
-    this.anims.create({
-      key: Animation.Ghost.White.Move,
-      frames: this.anims.generateFrameNumbers(spritesheet, {
-        start: 4,
-        end: 5,
-      }),
-      frameRate: 10,
-      repeat: -1,
-    });
-
-    this.anims.create({
-      key: Animation.Ghost.Pink.Move,
-      frames: this.anims.generateFrameNumbers(spritesheet, {
-        start: 14,
-        end: 15,
-      }),
-      frameRate: 10,
-      repeat: -1,
-    });
-
-    this.anims.create({
-      key: Animation.Ghost.Red.Move,
-      frames: this.anims.generateFrameNumbers(spritesheet, {
-        start: 16,
-        end: 17,
-      }),
-      frameRate: 10,
-      repeat: -1,
     });
   }
   create() {

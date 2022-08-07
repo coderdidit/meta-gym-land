@@ -11,7 +11,6 @@ class Player {
     this.sprite.body.setSize(this.sprite.width * 0.6, this.sprite.height * 0.6);
     this.spawnPoint = position;
     this.anim = anim;
-    this.dieCallback = dieCallback;
     this.speed = 95;
     this.moveTo = new Phaser.Geom.Point();
     this.sprite.angle = 180;
@@ -47,29 +46,10 @@ class Player {
     this.playing = false;
   }
 
-  die() {
-    this.active = false;
-    this.playing = false;
-    this.life--;
-    this.moveTo = new Phaser.Geom.Point();
-    this.sprite.anims.play(this.anim.Die, true);
-  }
-
   animComplete(animation, frame) {
     if (animation.key == this.anim.Die) {
       this.dieCallback();
     }
-  }
-
-  respawn() {
-    this.active = true;
-    this.playing = false;
-    this.sprite.setPosition(this.spawnPoint.x, this.spawnPoint.y);
-    this.moveTo = new Phaser.Geom.Point();
-    this.sprite.anims.play(this.anim.Stay, true);
-    this.sprite.angle = 180;
-    this.turning = Phaser.NONE;
-    this.current = Phaser.NONE;
   }
 
   moveLeft() {
