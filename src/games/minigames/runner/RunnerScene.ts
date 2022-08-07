@@ -9,6 +9,7 @@ import { RUNNER_ACTUAL } from "../../shared";
 import * as gstate from "../../../ai/gpose/state";
 import * as gpose from "../../../ai/gpose/pose";
 import { createTextBox } from "games/utils/text";
+import Key from "ts-key-namespace";
 
 export { RunnerScene };
 
@@ -127,22 +128,22 @@ class RunnerScene extends SceneInMetaGymRoom {
     this.initColliders();
 
     this.handleScore();
-    this.handleRestart();
+    this.handleExitRestart();
   }
 
-  private handleRestart() {
+  private handleExitRestart() {
     // exit or restart
-    // this.handleExit({
-    //   thisSceneKey: RUNNER_ACTUAL,
-    //   callbackOnExit: (() => {
-    //     this.restartGame();
-    //   }).bind(this),
-    // });
-
     this.input.keyboard.on(
-      "keydown-X",
-      () => {
-        this.restartGame();
+      "keydown",
+      async (event: KeyboardEvent) => {
+        const key = event.key;
+        if (key === Key.Escape) {
+          await this.updateXP();
+          this.exit();
+        }
+        if (key === "x") {
+          this.restartGame();
+        }
       },
       this,
     );

@@ -1,6 +1,7 @@
 import { EarnableScene } from "./EarnableScene";
 import Phaser from "phaser";
 import { GYM_ROOM_SCENE } from "../shared";
+import Key from "ts-key-namespace";
 
 type handleExitParams = {
   thisSceneKey: string;
@@ -23,22 +24,17 @@ export class SceneInMetaGymRoom extends EarnableScene {
     // constrols
     this.input.keyboard.on(
       "keydown",
-      async (event: any) => {
-        const code = event.keyCode;
-        if (
-          code === Phaser.Input.Keyboard.KeyCodes.ESC ||
-          code === Phaser.Input.Keyboard.KeyCodes.X
-        ) {
+      async (event: KeyboardEvent) => {
+        const key = event.key;
+        if (key === Key.Escape) {
           if (callbackOnExit) {
             callbackOnExit();
           }
           await this.updateXP();
-        }
-        if (code === Phaser.Input.Keyboard.KeyCodes.X) {
-          this.scene.start(thisSceneKey);
-        }
-        if (code === Phaser.Input.Keyboard.KeyCodes.ESC) {
           this.exit();
+        }
+        if (key === "x") {
+          this.scene.start(thisSceneKey);
         }
       },
       this,
