@@ -7,6 +7,8 @@ class Ghost {
       .sprite(position.x, position.y, "ghost")
       .setScale(0.85)
       .setOrigin(0.5);
+    
+    this.sprite.body.setSize(this.sprite.width * 0.6, this.sprite.height * 0.6);
     this.spawnPoint = position;
     this.anim = anim;
     this.speed = 100;
@@ -100,24 +102,25 @@ class Ghost {
   }
 
   setTurn(turnTo) {
-    if (
-      !this.directions[turnTo] ||
-      this.turning === turnTo ||
-      this.current === turnTo ||
-      !this.isSafe(this.directions[turnTo].index)
-    ) {
-      return false;
-    }
+    this.moveWithDirection(turnTo);
+    // if (
+    //   !this.directions[turnTo] ||
+    //   this.turning === turnTo ||
+    //   this.current === turnTo ||
+    //   !this.isSafe(this.directions[turnTo].index)
+    // ) {
+    //   return false;
+    // }
 
-    //console.log("turning:"+this.turning+" current:"+this.current+" turnTo:"+turnTo);
+    // //console.log("turning:"+this.turning+" current:"+this.current+" turnTo:"+turnTo);
 
-    if (this.opposites[turnTo] && this.opposites[turnTo] === this.current) {
-      this.moveWithDirection(turnTo);
-      this.turning = Phaser.NONE;
-      this.turningPoint = new Phaser.Geom.Point();
-    } else {
-      this.turning = turnTo;
-    }
+    // if (this.opposites[turnTo] && this.opposites[turnTo] === this.current) {
+    //   this.moveWithDirection(turnTo);
+    //   this.turning = Phaser.NONE;
+    //   this.turningPoint = new Phaser.Geom.Point();
+    // } else {
+    //   this.turning = turnTo;
+    // }
   }
 
   takeRandomTurn() {

@@ -7,6 +7,8 @@ class Player {
       .sprite(position.x, position.y, "pacman")
       .setScale(0.9)
       .setOrigin(0.5);
+
+    this.sprite.body.setSize(this.sprite.width * 0.6, this.sprite.height * 0.6);
     this.spawnPoint = position;
     this.anim = anim;
     this.dieCallback = dieCallback;
@@ -121,23 +123,24 @@ class Player {
   }
 
   setTurn(turnTo) {
-    if (
-      !this.active ||
-      !this.directions[turnTo] ||
-      this.turning === turnTo ||
-      this.current === turnTo ||
-      !this.isSafe(this.directions[turnTo].index)
-    ) {
-      return false;
-    }
+    this.move(turnTo);
+    // if (
+    //   !this.active ||
+    //   !this.directions[turnTo] ||
+    //   this.turning === turnTo ||
+    //   this.current === turnTo ||
+    //   !this.isSafe(this.directions[turnTo].index)
+    // ) {
+    //   return false;
+    // }
 
-    if (this.opposites[turnTo] && this.opposites[turnTo] === this.current) {
-      this.move(turnTo);
-      this.turning = Phaser.NONE;
-      this.turningPoint = new Phaser.Geom.Point();
-    } else {
-      this.turning = turnTo;
-    }
+    // if (this.opposites[turnTo] && this.opposites[turnTo] === this.current) {
+    //   this.move(turnTo);
+    //   this.turning = Phaser.NONE;
+    //   this.turningPoint = new Phaser.Geom.Point();
+    // } else {
+    //   this.turning = turnTo;
+    // }
   }
 
   turn() {
