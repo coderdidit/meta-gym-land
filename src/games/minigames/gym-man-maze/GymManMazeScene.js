@@ -127,24 +127,32 @@ class GymManMazeScene extends SceneInMetaGymRoom {
 
   update() {
     const player = this.player;
-
     const cursors = this.cursors;
+
+    let inMove = false;
     if (cursors.left.isDown) {
       player.setTurn(Phaser.LEFT);
+      inMove = true;
     } else if (cursors.right.isDown) {
       player.setTurn(Phaser.RIGHT);
+      inMove = true;
     } else if (cursors.up.isDown) {
       player.setTurn(Phaser.UP);
+      inMove = true;
     } else if (cursors.down.isDown) {
       player.setTurn(Phaser.DOWN);
+      inMove = true;
     } else {
       player.setTurn(Phaser.NONE);
     }
 
-    player.update();
+    if (inMove) {
+      player.update();
+    } else {
+      player.sprite.setVelocity(0, 0);
+    }
 
     this.scoreText.setText("SCORE: " + player.score);
-
     //drawDebug();
   }
 
