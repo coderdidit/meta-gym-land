@@ -31,52 +31,31 @@ class Player {
     this.current = Phaser.NONE;
     this.turningPoint = new Phaser.Geom.Point();
     this.threshold = 5;
-    this.life = 3;
     this.score = 0;
-    this.active = true;
     this.sprite.anims.play(this.anim.Stay, true);
-
-    this.sprite.on(
-      "animationcomplete",
-      (animation, frame) => {
-        this.animComplete(animation, frame);
-      },
-      scene,
-    );
-    this.playing = false;
-  }
-
-  animComplete(animation, frame) {
-    if (animation.key == this.anim.Die) {
-      this.dieCallback();
-    }
   }
 
   moveLeft() {
     this.moveTo.x = -1;
     this.moveTo.y = 0;
-    this.sprite.anims.play(this.anim.Eat, true);
     this.sprite.angle = 180;
   }
 
   moveRight() {
     this.moveTo.x = 1;
     this.moveTo.y = 0;
-    this.sprite.anims.play(this.anim.Eat, true);
     this.sprite.angle = 0;
   }
 
   moveUp() {
     this.moveTo.x = 0;
     this.moveTo.y = -1;
-    this.sprite.anims.play(this.anim.Eat, true);
     this.sprite.angle = 270;
   }
 
   moveDown() {
     this.moveTo.x = 0;
     this.moveTo.y = 1;
-    this.sprite.anims.play(this.anim.Eat, true);
     this.sprite.angle = 90;
   }
 
@@ -85,62 +64,10 @@ class Player {
       this.moveTo.x * this.speed,
       this.moveTo.y * this.speed,
     );
-    this.turn();
-    if (
-      this.directions[this.current] &&
-      !this.isSafe(this.directions[this.current].index)
-    ) {
-      this.sprite.anims.play("faceRight", true);
-    }
-  }
-
-  setDirections(directions) {
-    this.directions = directions;
-  }
-
-  setTurningPoint(turningPoint) {
-    this.turningPoint = turningPoint;
   }
 
   setTurn(turnTo) {
     this.move(turnTo);
-    // if (
-    //   !this.active ||
-    //   !this.directions[turnTo] ||
-    //   this.turning === turnTo ||
-    //   this.current === turnTo ||
-    //   !this.isSafe(this.directions[turnTo].index)
-    // ) {
-    //   return false;
-    // }
-
-    // if (this.opposites[turnTo] && this.opposites[turnTo] === this.current) {
-    //   this.move(turnTo);
-    //   this.turning = Phaser.NONE;
-    //   this.turningPoint = new Phaser.Geom.Point();
-    // } else {
-    //   this.turning = turnTo;
-    // }
-  }
-
-  turn() {
-    if (this.turning === Phaser.NONE) {
-      return false;
-    }
-
-    //  This needs a threshold, because at high speeds you can't turn because the coordinates skip past
-    if (
-      !Phaser.Math.Within(this.sprite.x, this.turningPoint.x, this.threshold) ||
-      !Phaser.Math.Within(this.sprite.y, this.turningPoint.y, this.threshold)
-    ) {
-      return false;
-    }
-
-    this.sprite.setPosition(this.turningPoint.x, this.turningPoint.y);
-    this.move(this.turning);
-    this.turning = Phaser.NONE;
-    this.turningPoint = new Phaser.Geom.Point();
-    return true;
   }
 
   move(direction) {
@@ -164,14 +91,6 @@ class Player {
         this.moveDown();
         break;
     }
-  }
-
-  isSafe(index) {
-    for (let i of this.safetile) {
-      if (i === index) return true;
-    }
-
-    return false;
   }
 
   drawDebug(graphics) {

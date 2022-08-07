@@ -2,40 +2,16 @@ import Phaser from "phaser";
 import { SceneInMetaGymRoom } from "games/base-scenes/scene-in-metagym-room";
 import { GYM_MAN_MAZE_ACTUAL } from "../../shared";
 import { Player, Ghost } from "./objects";
+import { InGameFont } from "GlobalStyles";
 
 export { GymManMazeScene };
 
-const width = 800;
-const height = 625;
 const gridSize = 32;
 const offset = parseInt(gridSize / 2);
 
 const Animation = {
   Player: {
-    Eat: "player-eat",
     Stay: "player-stay",
-    Die: "player-die",
-  },
-  Ghost: {
-    Blue: {
-      Move: "ghost-blue-move",
-    },
-
-    Orange: {
-      Move: "ghost-orange-move",
-    },
-
-    White: {
-      Move: "ghost-white-move",
-    },
-
-    Pink: {
-      Move: "ghost-pink-move",
-    },
-
-    Red: {
-      Move: "ghost-red-move",
-    },
   },
 };
 
@@ -59,6 +35,7 @@ class GymManMazeScene extends SceneInMetaGymRoom {
       frameRate: 20,
     });
   }
+
   create() {
     const tiles = "pacman-tiles";
     this.setupAnims();
@@ -73,13 +50,11 @@ class GymManMazeScene extends SceneInMetaGymRoom {
     this.layer1 = this.map.createStaticLayer("Layer 1", tileset, 0, 0);
     this.layer1.setCollisionByProperty({ collides: true });
 
-    this.layer2 = this.map.createStaticLayer("Layer 2", tileset, 0, 0);
-    this.layer2.setCollisionByProperty({ collides: true });
-
     let spawnPoint = this.map.findObject(
       "Objects",
       (obj) => obj.name === "Player",
     );
+
     let position = new Phaser.Geom.Point(
       spawnPoint.x + offset,
       spawnPoint.y - offset,
@@ -95,7 +70,7 @@ class GymManMazeScene extends SceneInMetaGymRoom {
     const player = this.player;
 
     this.pills = this.physics.add.group();
-    this.map.filterObjects("Objects", (value, index, array) => {
+    this.map.filterObjects("Objects", (value, _index, _array) => {
       if (value.name == "Pill") {
         let pill = this.physics.add.sprite(
           value.x + offset,
@@ -110,12 +85,11 @@ class GymManMazeScene extends SceneInMetaGymRoom {
     let pillsCount = 0;
     this.pillsAte = 0;
     this.physics.add.collider(player.sprite, this.layer1);
-    this.physics.add.collider(player.sprite, this.layer2);
 
     this.physics.add.overlap(
       player.sprite,
       this.pills,
-      (sprite, pill) => {
+      (_sprite, pill) => {
         pill.disableBody(true, true);
         this.pillsAte++;
         player.score += 10;
@@ -132,8 +106,8 @@ class GymManMazeScene extends SceneInMetaGymRoom {
     this.graphics = this.add.graphics();
 
     this.scoreText = this.add
-      .text(25, 595, "Score: " + player.score)
-      .setFontFamily("Arial")
+      .text(25, 595, "SCORE: " + player.score)
+      .setFontFamily(InGameFont)
       .setFontSize(18)
       .setColor("#ffffff");
   }
@@ -154,12 +128,6 @@ class GymManMazeScene extends SceneInMetaGymRoom {
   update() {
     const player = this.player;
 
-    player.setDirections(
-      this.getDirection(this.map, this.layer1, player.sprite),
-    );
-
-    player.setTurningPoint(this.getTurningPoint(this.map, player.sprite));
-
     const cursors = this.cursors;
     if (cursors.left.isDown) {
       player.setTurn(Phaser.LEFT);
@@ -175,22 +143,7 @@ class GymManMazeScene extends SceneInMetaGymRoom {
 
     player.update();
 
-    this.scoreText.setText("Score: " + player.score);
-
-    for (let i = player.life; i < 3; i++) {
-      let image = this.livesImage[i];
-      if (image) {
-        image.alpha = 0;
-      }
-    }
-
-    if (player.active) {
-      if (player.sprite.x < 0 - offset) {
-        player.sprite.setPosition(width + offset, player.sprite.y);
-      } else if (player.sprite.x > width + offset) {
-        player.sprite.setPosition(0 - offset, player.sprite.y);
-      }
-    }
+    this.scoreText.setText("SCORE: " + player.score);
 
     //drawDebug();
   }
@@ -198,36 +151,5 @@ class GymManMazeScene extends SceneInMetaGymRoom {
   drawDebug() {
     this.graphics.clear();
     this.player.drawDebug(this.graphics);
-  }
-
-  getDirection(map, layer, sprite) {
-    let directions = [];
-    let sx = Phaser.Math.FloorTo(sprite.x);
-    let sy = Phaser.Math.FloorTo(sprite.y);
-    let currentTile = this.map.getTileAtWorldXY(sx, sy, true);
-    if (currentTile) {
-      var x = currentTile.x;
-      var y = currentTile.y;
-
-      directions[Phaser.LEFT] = this.map.getTileAt(x - 1, y, true, layer);
-      directions[Phaser.RIGHT] = this.map.getTileAt(x + 1, y, true, layer);
-      directions[Phaser.UP] = this.map.getTileAt(x, y - 1, true, layer);
-      directions[Phaser.DOWN] = this.map.getTileAt(x, y + 1, true, layer);
-    }
-
-    return directions;
-  }
-
-  getTurningPoint(map, sprite) {
-    let turningPoint = new Phaser.Geom.Point();
-    let sx = Phaser.Math.FloorTo(sprite.x);
-    let sy = Phaser.Math.FloorTo(sprite.y);
-    let currentTile = this.map.getTileAtWorldXY(sx, sy, true);
-    if (currentTile) {
-      turningPoint.x = currentTile.pixelX + offset;
-      turningPoint.y = currentTile.pixelY + offset;
-    }
-
-    return turningPoint;
   }
 }
