@@ -10,6 +10,8 @@ export const RUSH = "rush";
 export const INVADERS = "invaders";
 export const RUNNER = "runner"; // preload
 export const RUNNER_ACTUAL = "runner_actual";
+export const GYM_MAN_MAZE = "gym_man_maze"; // preload
+export const GYM_MAN_MAZE_ACTUAL = "gym_man_maze_actual";
 
 export const MINI_GAMES = [
   SPACE_STRETCH_SCENE,
@@ -19,4 +21,5 @@ export const MINI_GAMES = [
   RUSH,
   INVADERS,
   RUNNER,
+  GYM_MAN_MAZE,
 ];
