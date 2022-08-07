@@ -46,6 +46,10 @@ const SceneConfig = {
 };
 
 class GymManMazeScene extends SceneInMetaGymRoom {
+  constructor() {
+    super(SceneConfig);
+  }
+
   setupAnims() {
     const spritesheet = "pacman-spritesheet";
     this.anims.create({
@@ -140,6 +144,8 @@ class GymManMazeScene extends SceneInMetaGymRoom {
     this.layer2 = this.map.createStaticLayer("Layer 2", tileset, 0, 0);
     this.layer2.setCollisionByProperty({ collides: true });
 
+    console.log("-----this.map----", this.map);
+
     let spawnPoint = this.map.findObject(
       "Objects",
       (obj) => obj.name === "Player",
@@ -148,7 +154,7 @@ class GymManMazeScene extends SceneInMetaGymRoom {
       spawnPoint.x + offset,
       spawnPoint.y - offset,
     );
-    this.player = new Player(this, position, Animation.Player, function () {
+    this.player = new Player(this, position, Animation.Player, () => {
       if (this.player.life <= 0) {
         this.newGame();
       } else {
@@ -159,7 +165,7 @@ class GymManMazeScene extends SceneInMetaGymRoom {
     const player = this.player;
 
     this.pills = this.physics.add.group();
-    this.map.filterObjects("Objects", function (value, index, array) {
+    this.map.filterObjects("Objects", (value, index, array) => {
       if (value.name == "Pill") {
         let pill = this.physics.add.sprite(
           value.x + offset,
@@ -167,7 +173,7 @@ class GymManMazeScene extends SceneInMetaGymRoom {
           "pill",
         );
         this.pills.add(pill);
-        pillsCount++;
+        this.pillsCount++;
       }
     });
 
@@ -179,7 +185,9 @@ class GymManMazeScene extends SceneInMetaGymRoom {
       Animation.Ghost.Orange,
       Animation.Ghost.Pink,
     ];
-    this.map.filterObjects("Objects", function (value, index, array) {
+
+    this.ghosts = [];
+    this.map.filterObjects("Objects", (value, index, array) => {
       if (value.name == "Ghost") {
         let position = new Phaser.Geom.Point(
           value.x + offset,
@@ -199,7 +207,7 @@ class GymManMazeScene extends SceneInMetaGymRoom {
     this.physics.add.overlap(
       player.sprite,
       this.pills,
-      function (sprite, pill) {
+      (sprite, pill) => {
         pill.disableBody(true, true);
         this.pillsAte++;
         player.score += 10;
@@ -214,7 +222,7 @@ class GymManMazeScene extends SceneInMetaGymRoom {
     this.physics.add.overlap(
       player.sprite,
       ghostsGroup,
-      function (sprite, ghostSprite) {
+      (sprite, ghostSprite) => {
         if (player.active) {
           player.die();
           for (let ghost of this.ghosts) {

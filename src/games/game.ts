@@ -42,7 +42,7 @@ const getGameConfig = () => {
       default: "arcade",
       arcade: {
         gravity: { y: 0 },
-        // debug: true,
+        debug: true,
       },
     },
     scale: {
@@ -51,9 +51,6 @@ const getGameConfig = () => {
       height,
     },
     scene: Scenes,
-    // audio: {
-    //     noAudio: true
-    // },
     pixelArt: true,
     fps: {
       target: 60,
