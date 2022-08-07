@@ -144,8 +144,6 @@ class GymManMazeScene extends SceneInMetaGymRoom {
     this.layer2 = this.map.createStaticLayer("Layer 2", tileset, 0, 0);
     this.layer2.setCollisionByProperty({ collides: true });
 
-    console.log("-----this.map----", this.map);
-
     let spawnPoint = this.map.findObject(
       "Objects",
       (obj) => obj.name === "Player",
@@ -177,33 +175,11 @@ class GymManMazeScene extends SceneInMetaGymRoom {
       }
     });
 
-    const ghostsGroup = this.physics.add.group();
-    let i = 0;
-    const skins = [
-      Animation.Ghost.Blue,
-      Animation.Ghost.Red,
-      Animation.Ghost.Orange,
-      Animation.Ghost.Pink,
-    ];
-
-    this.ghosts = [];
-    this.map.filterObjects("Objects", (value, index, array) => {
-      if (value.name == "Ghost") {
-        let position = new Phaser.Geom.Point(
-          value.x + offset,
-          value.y - offset,
-        );
-        let ghost = new Ghost(this, position, skins[i]);
-        this.ghosts.push(ghost);
-        ghostsGroup.add(ghost.sprite);
-        i++;
-      }
-    });
     let pillsCount = 0;
     this.pillsAte = 0;
     this.physics.add.collider(player.sprite, this.layer1);
     this.physics.add.collider(player.sprite, this.layer2);
-    this.physics.add.collider(ghostsGroup, this.layer1);
+
     this.physics.add.overlap(
       player.sprite,
       this.pills,
@@ -219,21 +195,6 @@ class GymManMazeScene extends SceneInMetaGymRoom {
       this,
     );
 
-    this.physics.add.overlap(
-      player.sprite,
-      ghostsGroup,
-      (sprite, ghostSprite) => {
-        if (player.active) {
-          player.die();
-          for (let ghost of this.ghosts) {
-            ghost.freeze();
-          }
-        }
-      },
-      null,
-      this,
-    );
-
     this.cursors = this.input.keyboard.createCursorKeys();
 
     this.graphics = this.add.graphics();
@@ -243,27 +204,9 @@ class GymManMazeScene extends SceneInMetaGymRoom {
       .setFontFamily("Arial")
       .setFontSize(18)
       .setColor("#ffffff");
-    this.add
-      .text(630, 595, "Lives:")
-      .setFontFamily("Arial")
-      .setFontSize(18)
-      .setColor("#ffffff");
-
-    this.livesImage = [];
-    for (let i = 0; i < player.life; i++) {
-      this.livesImage.push(this.add.image(700 + i * 25, 605, "lifecounter"));
-    }
-  }
-
-  respawn() {
-    this.player.respawn();
-    for (let ghost of this.ghosts) {
-      ghost.respawn();
-    }
   }
 
   reset() {
-    this.respawn();
     for (let child of this.pills.getChildren()) {
       child.enableBody(false, child.x, child.y, true, true);
     }
@@ -273,41 +216,18 @@ class GymManMazeScene extends SceneInMetaGymRoom {
   newGame() {
     this.reset();
     const player = this.player;
-    player.life = 3;
     player.score = 0;
-    for (let i = 0; i < player.life; i++) {
-      let image = this.livesImage[i];
-      if (image) {
-        image.alpha = 1;
-      }
-    }
   }
 
   update() {
     const player = this.player;
-    const ghosts = this.ghosts;
 
     player.setDirections(
       this.getDirection(this.map, this.layer1, player.sprite),
     );
 
-    if (!player.playing) {
-      for (let ghost of ghosts) {
-        ghost.freeze();
-      }
-    }
-
-    for (let ghost of ghosts) {
-      ghost.setDirections(
-        this.getDirection(this.map, this.layer1, ghost.sprite),
-      );
-    }
-
     player.setTurningPoint(this.getTurningPoint(this.map, player.sprite));
 
-    for (let ghost of ghosts) {
-      ghost.setTurningPoint(this.getTurningPoint(this.map, ghost.sprite));
-    }
     const cursors = this.cursors;
     if (cursors.left.isDown) {
       player.setTurn(Phaser.LEFT);
@@ -322,10 +242,6 @@ class GymManMazeScene extends SceneInMetaGymRoom {
     }
 
     player.update();
-
-    for (let ghost of ghosts) {
-      ghost.update();
-    }
 
     this.scoreText.setText("Score: " + player.score);
 
@@ -350,9 +266,6 @@ class GymManMazeScene extends SceneInMetaGymRoom {
   drawDebug() {
     this.graphics.clear();
     this.player.drawDebug(this.graphics);
-    for (let ghost of this.ghosts) {
-      ghost.drawDebug(this.graphics);
-    }
   }
 
   getDirection(map, layer, sprite) {
