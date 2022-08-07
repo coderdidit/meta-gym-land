@@ -115,16 +115,24 @@ const Chains = () => {
     switchNetwork(e.key);
   };
 
+  const getMenuItems = () =>
+    menuItems
+      ?.filter((item) => supportedChains.has(item.key))
+      ?.map((item) => {
+        return {
+          icon: item.icon,
+          key: item.key,
+          label: <span style={{ marginLeft: "5px" }}>{item.value}</span>,
+          style: styles.item,
+        };
+      });
+
   const menu = (
-    <Menu onClick={handleMenuClick} style={HeaderRightBordersStyle}>
-      {menuItems
-        .filter((item) => supportedChains.has(item.key))
-        .map((item) => (
-          <Menu.Item key={item.key} icon={item.icon} style={styles.item}>
-            <span style={{ marginLeft: "5px" }}>{item.value}</span>
-          </Menu.Item>
-        ))}
-    </Menu>
+    <Menu
+      onClick={handleMenuClick}
+      style={HeaderRightBordersStyle}
+      items={getMenuItems()}
+    />
   );
 
   if (!chainId || !isAuthenticated) return null;
