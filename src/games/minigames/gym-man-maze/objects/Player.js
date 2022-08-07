@@ -8,29 +8,13 @@ class Player {
       .setScale(0.9)
       .setOrigin(0.5);
 
-    this.sprite.body.setSize(this.sprite.width * 0.6, this.sprite.height * 0.6);
+    this.sprite.body.setSize(this.sprite.width * 0.8, this.sprite.height * 0.8);
     this.spawnPoint = position;
     this.anim = anim;
     this.speed = 95;
     this.moveTo = new Phaser.Geom.Point();
     this.sprite.angle = 180;
-    this.safetile = [-1, 18];
-    this.directions = [];
-    this.opposites = [
-      null,
-      null,
-      null,
-      null,
-      null,
-      Phaser.DOWN,
-      Phaser.UP,
-      Phaser.RIGHT,
-      Phaser.LEFT,
-    ];
-    this.turning = Phaser.NONE;
-    this.current = Phaser.NONE;
-    this.turningPoint = new Phaser.Geom.Point();
-    this.threshold = 5;
+
     this.score = 0;
     this.sprite.anims.play(this.anim.Stay, true);
   }
