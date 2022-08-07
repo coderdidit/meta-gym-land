@@ -54,14 +54,6 @@ class RunnerScene extends SceneInMetaGymRoom {
   }
 
   create() {
-    // exit or restart
-    this.handleExit({
-      thisSceneKey: RUNNER_ACTUAL,
-      callbackOnExit: () => {
-        this.restartGame();
-      },
-    });
-
     const { width, height } = this.gameDimentions();
     this.cameras.main.setBackgroundColor(0xbababa);
 
@@ -127,14 +119,41 @@ class RunnerScene extends SceneInMetaGymRoom {
     this.gameOverScreen.add([this.gameOverText, this.restart]);
 
     this.obsticles = this.physics.add.group();
+    this.cursorKeys = this.input.keyboard.createCursorKeys();
 
     this.createTextBoxes();
     this.initAnims();
     this.initStartTrigger();
     this.initColliders();
-    this.handleInputs();
-    this.cursorKeys = this.input.keyboard.createCursorKeys();
+
     this.handleScore();
+    this.handleRestart();
+  }
+
+  private handleRestart() {
+    // exit or restart
+    // this.handleExit({
+    //   thisSceneKey: RUNNER_ACTUAL,
+    //   callbackOnExit: (() => {
+    //     this.restartGame();
+    //   }).bind(this),
+    // });
+
+    this.input.keyboard.on(
+      "keydown-X",
+      () => {
+        this.restartGame();
+      },
+      this,
+    );
+
+    this.restart.on(
+      "pointerdown",
+      () => {
+        this.restartGame();
+      },
+      this,
+    );
   }
 
   private createTextBoxes() {
@@ -201,45 +220,49 @@ class RunnerScene extends SceneInMetaGymRoom {
   }
 
   private initStartTrigger() {
-    const { width, height } = this.gameDimentions();
-    const groundEnd = width - width * (gameXPercentageOffsett * 1.5);
     this.physics.add.overlap(
       this.startTrigger,
       this.dino,
       () => {
-        if (this.startTrigger.y === 10) {
-          this.startTrigger.body.reset(0, height);
-          return;
-        }
-
-        this.startTrigger.disableBody(true, true);
-
-        const startEvent = this.time.addEvent({
-          delay: 1000 / 60,
-          loop: true,
-          callbackScope: this,
-          callback: () => {
-            this.dino.setVelocityX(80);
-            this.dino.play("dino-run", true);
-
-            if (this.ground.width < width) {
-              this.ground.width += 17 * 2;
-            }
-
-            if (this.ground.width >= 1000) {
-              this.ground.width = groundEnd;
-              this.isGameRunning = true;
-              this.dino.setVelocityX(0);
-              this.scoreText.setAlpha(1);
-              this.environment.setAlpha(1);
-              startEvent.remove();
-            }
-          },
-        });
+        this.startGame();
       },
       undefined,
       this,
     );
+  }
+
+  private startGame() {
+    const { width, height } = this.gameDimentions();
+    const groundEnd = width - width * (gameXPercentageOffsett * 1.5);
+    if (this.startTrigger.y === 10) {
+      this.startTrigger.body.reset(0, height);
+      return;
+    }
+
+    this.startTrigger.disableBody(true, true);
+
+    const startEvent = this.time.addEvent({
+      delay: 1000 / 60,
+      loop: true,
+      callbackScope: this,
+      callback: () => {
+        this.dino.setVelocityX(80);
+        this.dino.play("dino-run", true);
+
+        if (this.ground.width < width) {
+          this.ground.width += 17 * 2;
+        }
+
+        if (this.ground.width >= 1000) {
+          this.ground.width = groundEnd;
+          this.isGameRunning = true;
+          this.dino.setVelocityX(0);
+          this.scoreText.setAlpha(1);
+          this.environment.setAlpha(1);
+          startEvent.remove();
+        }
+      },
+    });
   }
 
   private initAnims() {
@@ -345,17 +368,8 @@ class RunnerScene extends SceneInMetaGymRoom {
     }
   }
 
-  private handleInputs() {
-    this.restart.on(
-      "pointerdown",
-      () => {
-        this.restartGame();
-      },
-      this,
-    );
-  }
-
-  private restartGame() {
+  private restartGame(): void {
+    // dino
     this.dino.setVelocityY(0);
     this.dino.body.setSize(this.dino.body.width, 92);
     this.dino.body.offset.y = 0;
@@ -364,6 +378,7 @@ class RunnerScene extends SceneInMetaGymRoom {
     this.isGameRunning = true;
     this.gameOverScreen.setAlpha(0);
     this.anims.resumeAll();
+    // this.startGame();
   }
 
   private placeObsticle() {
