@@ -47,6 +47,10 @@ class GymManMazeScene extends SceneInMetaGymRoom {
     });
     const tileset = this.map.addTilesetImage(tiles);
 
+    // position map
+    this.cameras.main.scrollX = -this.map.widthInPixels / 1.75;
+    this.cameras.main.scrollY = -this.map.heightInPixels / 1.8;
+
     this.layer1 = this.map.createStaticLayer("Layer 1", tileset, 0, 0);
     this.layer1.setCollisionByProperty({ collides: true });
 
