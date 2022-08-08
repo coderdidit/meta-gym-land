@@ -1,7 +1,7 @@
 import Phaser from "phaser";
 import { SceneInMetaGymRoom } from "games/base-scenes/scene-in-metagym-room";
 import { GYM_MAN_MAZE_ACTUAL } from "../../shared";
-import { Player, Ghost } from "./objects";
+import { Player } from "./objects";
 import { InGameFont } from "GlobalStyles";
 import { getGameWidth, getGameHeight } from "../../helpers";
 
@@ -54,11 +54,11 @@ class GymManMazeScene extends SceneInMetaGymRoom {
     this.cameras.main.scrollX = -this.map.widthInPixels / 2;
     this.cameras.main.scrollY = -this.map.heightInPixels / 3;
 
-    this.layer1 = this.map.createStaticLayer("Layer 1", tileset, 0, 0);
+    this.layer1 = this.map.createStaticLayer("walls", tileset, 0, 0);
     this.layer1.setCollisionByProperty({ collides: true });
 
     let spawnPoint = this.map.findObject(
-      "Objects",
+      "objects",
       (obj) => obj.name === "Player",
     );
 
@@ -75,9 +75,10 @@ class GymManMazeScene extends SceneInMetaGymRoom {
     });
 
     const player = this.player;
+    // this.cameras.main.startFollow(this.player);
 
     this.pills = this.physics.add.group();
-    this.map.filterObjects("Objects", (value, _index, _array) => {
+    this.map.filterObjects("objects", (value, _index, _array) => {
       if (value.name == "Pill") {
         let pill = this.physics.add.sprite(
           value.x + offset,
