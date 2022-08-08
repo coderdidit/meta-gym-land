@@ -3,6 +3,7 @@ import { SceneInMetaGymRoom } from "games/base-scenes/scene-in-metagym-room";
 import { GYM_MAN_MAZE_ACTUAL } from "../../shared";
 import { Player, Ghost } from "./objects";
 import { InGameFont } from "GlobalStyles";
+import { getGameWidth, getGameHeight } from "../../helpers";
 
 export { GymManMazeScene };
 
@@ -48,8 +49,10 @@ class GymManMazeScene extends SceneInMetaGymRoom {
     const tileset = this.map.addTilesetImage(tiles);
 
     // position map
-    this.cameras.main.scrollX = -this.map.widthInPixels / 1.75;
-    this.cameras.main.scrollY = -this.map.heightInPixels / 1.8;
+    const width = getGameWidth(this);
+    const height = getGameHeight(this);
+    this.cameras.main.scrollX = -this.map.widthInPixels / 2;
+    this.cameras.main.scrollY = -this.map.heightInPixels / 3;
 
     this.layer1 = this.map.createStaticLayer("Layer 1", tileset, 0, 0);
     this.layer1.setCollisionByProperty({ collides: true });
@@ -110,10 +113,11 @@ class GymManMazeScene extends SceneInMetaGymRoom {
     this.graphics = this.add.graphics();
 
     this.scoreText = this.add
-      .text(25, 595, "SCORE: " + player.score)
+      .text(width - width * 0.2, height * 0.1, "SCORE: " + player.score)
       .setFontFamily(InGameFont)
       .setFontSize(18)
-      .setColor("#ffffff");
+      .setColor("#ffffff")
+      .setScrollFactor(0, 0);
   }
 
   reset() {
