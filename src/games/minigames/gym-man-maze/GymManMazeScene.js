@@ -79,7 +79,7 @@ class GymManMazeScene extends SceneInMetaGymRoom {
 
     this.pills = this.physics.add.group();
     this.map.filterObjects("objects", (value, _index, _array) => {
-      if (value.name == "Pill") {
+      if (value.name == "pill") {
         let pill = this.physics.add.sprite(
           value.x + offset,
           value.y - offset,
