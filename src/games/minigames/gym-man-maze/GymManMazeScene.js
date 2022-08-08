@@ -39,7 +39,7 @@ class GymManMazeScene extends SceneInMetaGymRoom {
 
   create() {
     const tiles = "pacman-tiles";
-    this.setupAnims();
+    // this.setupAnims();
 
     this.map = this.make.tilemap({
       key: "map",

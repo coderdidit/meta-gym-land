@@ -1,11 +1,13 @@
 import Phaser from "phaser";
+import { PLAYER_KEY } from "games/shared";
+
 export { Player };
 
 class Player {
   constructor(scene, position, anim, dieCallback) {
     this.sprite = scene.physics.add
-      .sprite(position.x, position.y, "pacman")
-      .setScale(0.9)
+      .sprite(position.x, position.y, PLAYER_KEY)
+      .setScale(0.4)
       .setOrigin(0.5);
 
     this.sprite.body.setSize(this.sprite.width * 0.8, this.sprite.height * 0.8);
@@ -13,7 +15,7 @@ class Player {
     this.anim = anim;
     this.speed = 95;
     this.moveTo = new Phaser.Geom.Point();
-    this.sprite.angle = 180;
+    this.sprite.angle = 0;
 
     this.score = 0;
     this.sprite.anims.play(this.anim.Stay, true);
@@ -22,25 +24,25 @@ class Player {
   moveLeft() {
     this.moveTo.x = -1;
     this.moveTo.y = 0;
-    this.sprite.angle = 180;
+    this.sprite.angle = -90;
   }
 
   moveRight() {
     this.moveTo.x = 1;
     this.moveTo.y = 0;
-    this.sprite.angle = 0;
+    this.sprite.angle = 90;
   }
 
   moveUp() {
     this.moveTo.x = 0;
     this.moveTo.y = -1;
-    this.sprite.angle = 270;
+    this.sprite.angle = 0;
   }
 
   moveDown() {
     this.moveTo.x = 0;
     this.moveTo.y = 1;
-    this.sprite.angle = 90;
+    this.sprite.angle = 180;
   }
 
   update() {
