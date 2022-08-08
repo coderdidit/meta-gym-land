@@ -59,7 +59,7 @@ class GymManMazeScene extends SceneInMetaGymRoom {
 
     let spawnPoint = this.map.findObject(
       "objects",
-      (obj) => obj.name === "Player",
+      (obj) => obj.name === "player",
     );
 
     let position = new Phaser.Geom.Point(
