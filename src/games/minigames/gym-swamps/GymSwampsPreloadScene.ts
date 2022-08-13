@@ -1,29 +1,29 @@
 import Phaser from "phaser";
-import { GYM_MAN_MAZE, GYM_MAN_MAZE_ACTUAL } from "../../shared";
+import { GYM_SWAMPS, GYM_SWAMPS_ACTUAL } from "../../shared";
 
-export { GymManMazePreloadScene };
+export { GymSwampsPreloadScene };
 
 const SceneConfig = {
   active: false,
   visible: false,
-  key: GYM_MAN_MAZE,
+  key: GYM_SWAMPS,
 };
 
 const gridSize = 32;
 
-class GymManMazePreloadScene extends Phaser.Scene {
+class GymSwampsPreloadScene extends Phaser.Scene {
   constructor() {
     super(SceneConfig);
   }
 
   preload() {
-    this.load.setBaseURL("/assets/minigames/gym-man-maze");
+    this.load.setBaseURL("/assets/minigames/gym-swamps");
     this.load.tilemapTiledJSON("swamp-map", "swamp-map.json");
     this.load.image("swamp-tiles", "swamp-tiles.png");
     this.load.image("seed", "seed.png");
   }
 
   create() {
-    this.scene.start(GYM_MAN_MAZE_ACTUAL);
+    this.scene.start(GYM_SWAMPS_ACTUAL);
   }
 }

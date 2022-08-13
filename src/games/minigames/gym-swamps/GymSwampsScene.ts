@@ -1,6 +1,6 @@
 import Phaser from "phaser";
 import { SceneInMetaGymRoom } from "games/base-scenes/scene-in-metagym-room";
-import { GYM_MAN_MAZE_ACTUAL } from "../../shared";
+import { GYM_SWAMPS_ACTUAL } from "../../shared";
 import { Player } from "./objects";
 import { highlightTextColorNum, mainBgColorNum } from "GlobalStyles";
 import { getGameWidth, getGameHeight } from "../../helpers";
@@ -9,7 +9,7 @@ import TextBox from "phaser3-rex-plugins/templates/ui/textbox/TextBox";
 import * as gstate from "../../../ai/gpose/state";
 import * as gpose from "../../../ai/gpose/pose";
 
-export { GymManMazeScene };
+export { GymSwampsScene };
 
 const gridSize = 32;
 const pillOffset = gridSize / 2;
@@ -18,10 +18,10 @@ const mapScale = 2;
 const SceneConfig = {
   active: false,
   visible: false,
-  key: GYM_MAN_MAZE_ACTUAL,
+  key: GYM_SWAMPS_ACTUAL,
 };
 
-class GymManMazeScene extends SceneInMetaGymRoom {
+class GymSwampsScene extends SceneInMetaGymRoom {
   map!: Phaser.Tilemaps.Tilemap;
   walls: any;
   player!: Player;
@@ -41,7 +41,7 @@ class GymManMazeScene extends SceneInMetaGymRoom {
     // this.cameras.main.backgroundColor.setTo(179, 201, 217);
     // basics
     this.handleExit({
-      thisSceneKey: GYM_MAN_MAZE_ACTUAL,
+      thisSceneKey: GYM_SWAMPS_ACTUAL,
     });
 
     const tiles = "swamp-tiles";
@@ -50,7 +50,8 @@ class GymManMazeScene extends SceneInMetaGymRoom {
       tileWidth: gridSize,
       tileHeight: gridSize,
     });
-    const tileset = this.map.addTilesetImage(tiles, tiles, gridSize, gridSize);
+
+    const tileset = this.map.addTilesetImage(tiles);
 
     this.walls = this.map.createLayer("walls", [tileset]);
     this.walls.setCollisionByProperty({ collides: true });

@@ -8,10 +8,7 @@ import { RushScene } from "./minigames/RushScene";
 import { InvadersScene } from "./minigames/invaders/InvadersScene";
 import { RunnerScene } from "./minigames/runner/RunnerScene";
 import { RunnerPreloadScene } from "./minigames/runner/RunnerPreloadScene";
-import {
-  GymManMazePreloadScene,
-  GymManMazeScene,
-} from "./minigames/gym-man-maze";
+import { GymSwampsPreloadScene, GymSwampsScene } from "./minigames/gym-swamps";
 
 import { GymRoomScene } from "./gym-room/GymRoomScene";
 
@@ -32,8 +29,8 @@ const getGameConfig = () => {
     InvadersScene,
     RunnerPreloadScene,
     RunnerScene,
-    GymManMazePreloadScene,
-    GymManMazeScene,
+    GymSwampsPreloadScene,
+    GymSwampsScene,
   ];
 
   return {
