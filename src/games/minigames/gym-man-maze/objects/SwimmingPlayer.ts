@@ -24,7 +24,9 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     this.scene.add.existing(this);
     this.setOrigin(0.5);
 
-    this.body.setSize(this.width * 0.8, this.height * 0.8);
+    const collisionDimm = 0.5;
+
+    this.body.setSize(this.width * collisionDimm, this.height * collisionDimm);
     this.spawnPoint = new Phaser.Geom.Point(x, y);
   }
 
