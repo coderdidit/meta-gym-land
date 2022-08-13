@@ -23,7 +23,6 @@ class GymManMazeScene extends SceneInMetaGymRoom {
   }
 
   create() {
-
     // this.cameras.main.backgroundColor.setTo(179, 201, 217);
 
     const tiles = "pacman-tiles";
@@ -47,12 +46,12 @@ class GymManMazeScene extends SceneInMetaGymRoom {
       (obj) => obj.name === "player",
     );
 
-    let position = new Phaser.Geom.Point(
+    this.player = new Player(
+      this,
       spawnPoint.x * mapScale,
       spawnPoint.y * mapScale,
     );
-    this.player = new Player(this, position);
-    this.player.sprite.setScale(0.8);
+    this.player.setScale(0.8);
 
     // world bounds
     this.physics.world.setBounds(
@@ -62,9 +61,9 @@ class GymManMazeScene extends SceneInMetaGymRoom {
       this.map.heightInPixels * mapScale,
     );
     this.physics.world.setBoundsCollision(true, true, true, true);
-    this.player.sprite.setCollideWorldBounds(true);
+    this.player.setCollideWorldBounds(true);
 
-    this.cameras.main.startFollow(this.player.sprite);
+    this.cameras.main.startFollow(this.player);
     const player = this.player;
 
     this.pills = this.physics.add.group();
@@ -82,10 +81,10 @@ class GymManMazeScene extends SceneInMetaGymRoom {
 
     let pillsCount = 0;
     this.pillsAte = 0;
-    this.physics.add.collider(player.sprite, this.walls);
+    this.physics.add.collider(player, this.walls);
 
     this.physics.add.overlap(
-      player.sprite,
+      player,
       this.pills,
       (_sprite, pill) => {
         pill.disableBody(true, true);
@@ -142,15 +141,9 @@ class GymManMazeScene extends SceneInMetaGymRoom {
     if (inMove) {
       player.update();
     } else {
-      player.sprite.setVelocity(0, 0);
+      player.setVelocity(0, 0);
     }
 
     this.scoreText.setText("SCORE: " + player.score);
-    //drawDebug();
-  }
-
-  drawDebug() {
-    this.graphics.clear();
-    this.player.drawDebug(this.graphics);
   }
 }
