@@ -17,7 +17,7 @@ const MiniGamesPage = () => {
     backgroundColor: "#F7F7F8",
     border: "1px solid #898988",
     padding: "1rem",
-  }
+  };
   return (
     <div
       style={{
@@ -57,16 +57,16 @@ const MiniGamesPage = () => {
           }}
         >
           <div
-                key={"gym_room"}
-                style={{
-                  ...itemStyle,
-                  ...lockingStyle(unlocked),
-                }}
-              >
-                <Link to="/play-setup">gym room</Link>
-                &nbsp;&nbsp;
-                <UnlockFilled style={{ color: "#4290FC" }} />
-              </div>
+            key={"gym_room"}
+            style={{
+              ...itemStyle,
+              ...lockingStyle(unlocked),
+            }}
+          >
+            <Link to="/play-setup">gym room</Link>
+            &nbsp;&nbsp;
+            <UnlockFilled style={{ color: "#4290FC" }} />
+          </div>
           {MINI_GAMES.map((g) => {
             const link = `/play-setup/${g}`;
             return (
