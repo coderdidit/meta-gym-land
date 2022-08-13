@@ -4,7 +4,7 @@ import { FlyFitScene } from "./minigames/FlyFitScene";
 import { ChartSquats } from "./minigames/ChartSquats";
 import { BootScene } from "./gym-room-boot/BootScene";
 import { MatrixScene } from "./minigames/MatrixScene";
-import { RushScene } from "./minigames/RushScene";
+import { RaceTrack } from "./minigames/race-track/RushScene";
 import { InvadersScene } from "./minigames/invaders/InvadersScene";
 import { RunnerScene } from "./minigames/runner/RunnerScene";
 import { RunnerPreloadScene } from "./minigames/runner/RunnerPreloadScene";
@@ -25,7 +25,7 @@ const getGameConfig = () => {
     FlyFitScene,
     ChartSquats,
     MatrixScene,
-    RushScene,
+    RaceTrack,
     InvadersScene,
     RunnerPreloadScene,
     RunnerScene,

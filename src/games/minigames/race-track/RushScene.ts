@@ -1,23 +1,23 @@
 import Phaser from "phaser";
-import { getGameWidth, getGameHeight } from "../helpers";
-import { PlayerWithName } from "../objects";
-import { RUSH } from "../shared";
-import { createTextBox } from "../utils/text";
-import { mainBgColorNum, highlightTextColorNum } from "../../GlobalStyles";
-import { SceneInMetaGymRoom } from "../base-scenes/scene-in-metagym-room";
-import * as gstate from "../../ai/gpose/state";
-import * as gpose from "../../ai/gpose/pose";
-import { RUSH_BG } from "../gym-room-boot/assets";
-import { MovesSpeedCaluclator } from "../mechanics/moves-speed-caluclator";
+import { getGameWidth, getGameHeight } from "../../helpers";
+import { PlayerWithName } from "../../objects";
+import { RACE_TRACK } from "../../shared";
+import { createTextBox } from "../../utils/text";
+import { mainBgColorNum, highlightTextColorNum } from "../../../GlobalStyles";
+import { SceneInMetaGymRoom } from "../../base-scenes/scene-in-metagym-room";
+import * as gstate from "../../../ai/gpose/state";
+import * as gpose from "../../../ai/gpose/pose";
+import { RUSH_BG } from "../../gym-room-boot/assets";
+import { MovesSpeedCaluclator } from "../../mechanics/moves-speed-caluclator";
 import TextBox from "phaser3-rex-plugins/templates/ui/textbox/TextBox";
 
 const SceneConfig = {
   active: false,
   visible: false,
-  key: RUSH,
+  key: RACE_TRACK,
 };
 
-export class RushScene extends SceneInMetaGymRoom {
+export class RaceTrack extends SceneInMetaGymRoom {
   player: any; // TODO define type
   lanes!: Phaser.GameObjects.TileSprite;
   cursorKeys!: Phaser.Types.Input.Keyboard.CursorKeys;
@@ -44,7 +44,7 @@ export class RushScene extends SceneInMetaGymRoom {
 
     // basics
     this.handleExit({
-      thisSceneKey: RUSH,
+      thisSceneKey: RACE_TRACK,
     });
 
     // bg
@@ -251,6 +251,6 @@ export class RushScene extends SceneInMetaGymRoom {
     });
     hintTextBox.setDepth(1);
     hintTextBox.setScrollFactor(0, 0);
-    hintTextBox.start("🤖 Welcome in MetaGymLand RUSH minigame", 50);
+    hintTextBox.start("🤖 Welcome in MetaGymLand Race Track", 10);
   }
 }
