@@ -7,7 +7,6 @@ class Player {
   constructor(scene, position) {
     this.sprite = scene.physics.add
       .sprite(position.x, position.y, PLAYER_KEY)
-      .setScale(0.4)
       .setOrigin(0.5);
 
     this.sprite.body.setSize(this.sprite.width * 0.8, this.sprite.height * 0.8);

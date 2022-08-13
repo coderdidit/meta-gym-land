@@ -9,6 +9,7 @@ export { GymManMazeScene };
 
 const gridSize = 32;
 const pillOffset = parseInt(gridSize / 2);
+const mapScale = 2;
 
 const SceneConfig = {
   active: false,
@@ -29,34 +30,47 @@ class GymManMazeScene extends SceneInMetaGymRoom {
       tileWidth: gridSize,
       tileHeight: gridSize,
     });
-    const tileset = this.map.addTilesetImage(tiles);
+    const tileset = this.map.addTilesetImage(tiles, tiles, gridSize, gridSize);
 
     // position map
     const width = getGameWidth(this);
     const height = getGameHeight(this);
-    // this.cameras.main.scrollX = -this.map.widthInPixels / 2;
-    // this.cameras.main.scrollY = -this.map.heightInPixels / 3;
 
-    this.layer1 = this.map.createStaticLayer("walls", tileset, 0, 0);
-    this.layer1.setCollisionByProperty({ collides: true });
+    this.walls = this.map.createLayer("walls", [tileset]);
+    this.walls.setCollisionByProperty({ collides: true });
+    this.walls.setScale(mapScale);
 
     let spawnPoint = this.map.findObject(
       "objects",
       (obj) => obj.name === "player",
     );
 
-    let position = new Phaser.Geom.Point(spawnPoint.x, spawnPoint.y);
+    let position = new Phaser.Geom.Point(
+      spawnPoint.x * mapScale,
+      spawnPoint.y * mapScale,
+    );
     this.player = new Player(this, position);
+    this.player.sprite.setScale(0.8);
 
-    // this.cameras.main.startFollow(this.player);
+    // world bounds
+    this.physics.world.setBounds(
+      0,
+      0,
+      this.map.widthInPixels * mapScale,
+      this.map.heightInPixels * mapScale,
+    );
+    this.physics.world.setBoundsCollision(true, true, true, true);
+    this.player.sprite.setCollideWorldBounds(true);
+
+    this.cameras.main.startFollow(this.player.sprite);
     const player = this.player;
 
     this.pills = this.physics.add.group();
     this.map.filterObjects("objects", (value, _index, _array) => {
       if (value.name == "pill") {
         let pill = this.physics.add.sprite(
-          value.x + pillOffset,
-          value.y - pillOffset,
+          value.x * mapScale + pillOffset,
+          value.y * mapScale - pillOffset,
           "pill",
         );
         this.pills.add(pill);
@@ -66,7 +80,7 @@ class GymManMazeScene extends SceneInMetaGymRoom {
 
     let pillsCount = 0;
     this.pillsAte = 0;
-    this.physics.add.collider(player.sprite, this.layer1);
+    this.physics.add.collider(player.sprite, this.walls);
 
     this.physics.add.overlap(
       player.sprite,
