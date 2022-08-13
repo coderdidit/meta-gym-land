@@ -10,12 +10,6 @@ export { GymManMazeScene };
 const gridSize = 32;
 const offset = parseInt(gridSize / 2);
 
-const Animation = {
-  Player: {
-    Stay: "player-stay",
-  },
-};
-
 const SceneConfig = {
   active: false,
   visible: false,
@@ -27,19 +21,8 @@ class GymManMazeScene extends SceneInMetaGymRoom {
     super(SceneConfig);
   }
 
-  setupAnims() {
-    const spritesheet = "pacman-spritesheet";
-
-    this.anims.create({
-      key: Animation.Player.Stay,
-      frames: [{ key: spritesheet, frame: 9 }],
-      frameRate: 20,
-    });
-  }
-
   create() {
     const tiles = "pacman-tiles";
-    // this.setupAnims();
 
     this.map = this.make.tilemap({
       key: "map",
@@ -51,8 +34,8 @@ class GymManMazeScene extends SceneInMetaGymRoom {
     // position map
     const width = getGameWidth(this);
     const height = getGameHeight(this);
-    this.cameras.main.scrollX = -this.map.widthInPixels / 2;
-    this.cameras.main.scrollY = -this.map.heightInPixels / 3;
+    // this.cameras.main.scrollX = -this.map.widthInPixels / 2;
+    // this.cameras.main.scrollY = -this.map.heightInPixels / 3;
 
     this.layer1 = this.map.createStaticLayer("walls", tileset, 0, 0);
     this.layer1.setCollisionByProperty({ collides: true });
@@ -66,16 +49,10 @@ class GymManMazeScene extends SceneInMetaGymRoom {
       spawnPoint.x + offset,
       spawnPoint.y - offset,
     );
-    this.player = new Player(this, position, Animation.Player, () => {
-      if (this.player.life <= 0) {
-        this.newGame();
-      } else {
-        this.respawn();
-      }
-    });
+    this.player = new Player(this, position);
 
-    const player = this.player;
     // this.cameras.main.startFollow(this.player);
+    const player = this.player;
 
     this.pills = this.physics.add.group();
     this.map.filterObjects("objects", (value, _index, _array) => {
@@ -126,12 +103,6 @@ class GymManMazeScene extends SceneInMetaGymRoom {
       child.enableBody(false, child.x, child.y, true, true);
     }
     this.pillsAte = 0;
-  }
-
-  newGame() {
-    this.reset();
-    const player = this.player;
-    player.score = 0;
   }
 
   update() {

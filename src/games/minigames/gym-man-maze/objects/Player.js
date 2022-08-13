@@ -4,7 +4,7 @@ import { PLAYER_KEY } from "games/shared";
 export { Player };
 
 class Player {
-  constructor(scene, position, anim, dieCallback) {
+  constructor(scene, position) {
     this.sprite = scene.physics.add
       .sprite(position.x, position.y, PLAYER_KEY)
       .setScale(0.4)
@@ -12,13 +12,11 @@ class Player {
 
     this.sprite.body.setSize(this.sprite.width * 0.8, this.sprite.height * 0.8);
     this.spawnPoint = position;
-    this.anim = anim;
     this.speed = 95;
     this.moveTo = new Phaser.Geom.Point();
     this.sprite.angle = 0;
 
     this.score = 0;
-    this.sprite.anims.play(this.anim.Stay, true);
   }
 
   moveLeft() {
