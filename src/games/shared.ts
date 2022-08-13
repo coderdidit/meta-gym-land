@@ -7,6 +7,7 @@ export const FLY_FIT_SCENE = "fly_fit";
 export const CHART_SQUATS = "chart_squats";
 export const MATRIX = "matrix";
 export const RACE_TRACK = "race_track";
+export const RACE_TRACK_ACTUAL = "race_track_actual"; // preload
 export const INVADERS = "invaders";
 export const RUNNER = "runner"; // preload
 export const RUNNER_ACTUAL = "runner_actual";

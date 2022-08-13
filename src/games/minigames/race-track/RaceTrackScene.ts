@@ -1,20 +1,19 @@
 import Phaser from "phaser";
 import { getGameWidth, getGameHeight } from "../../helpers";
 import { PlayerWithName } from "../../objects";
-import { RACE_TRACK } from "../../shared";
+import { RACE_TRACK_ACTUAL } from "../../shared";
 import { createTextBox } from "../../utils/text";
 import { mainBgColorNum, highlightTextColorNum } from "../../../GlobalStyles";
 import { SceneInMetaGymRoom } from "../../base-scenes/scene-in-metagym-room";
 import * as gstate from "../../../ai/gpose/state";
 import * as gpose from "../../../ai/gpose/pose";
-import { RUSH_BG } from "../../gym-room-boot/assets";
 import { MovesSpeedCaluclator } from "../../mechanics/moves-speed-caluclator";
 import TextBox from "phaser3-rex-plugins/templates/ui/textbox/TextBox";
 
 const SceneConfig = {
   active: false,
   visible: false,
-  key: RACE_TRACK,
+  key: RACE_TRACK_ACTUAL,
 };
 
 export class RaceTrack extends SceneInMetaGymRoom {
@@ -33,10 +32,6 @@ export class RaceTrack extends SceneInMetaGymRoom {
     super(SceneConfig);
   }
 
-  preload() {
-    this.load.image(RUSH_BG, `assets/images/${RUSH_BG}.png`);
-  }
-
   create() {
     // basic props
     const width = getGameWidth(this);
@@ -44,12 +39,12 @@ export class RaceTrack extends SceneInMetaGymRoom {
 
     // basics
     this.handleExit({
-      thisSceneKey: RACE_TRACK,
+      thisSceneKey: RACE_TRACK_ACTUAL,
     });
 
     // bg
     this.lanes = this.add
-      .tileSprite(width / 2, height / 2, width, height, RUSH_BG)
+      .tileSprite(width / 2, height / 2, width, height, "race_track_bg")
       .setScrollFactor(0);
 
     this.createTextBoxes();
