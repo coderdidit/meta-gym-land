@@ -1,7 +1,7 @@
 import Phaser from "phaser";
 import { getGameWidth, getGameHeight } from "../helpers";
 import { Player } from "../objects";
-import { PLAYER_KEY, PLAYER_SCALE, CHART_SQUATS } from "../shared";
+import { PLAYER_KEY, PLAYER_SCALE, CHART_SQUATS } from "..";
 import {
   PUMP_OPEN,
   PUMP_CLOSED,

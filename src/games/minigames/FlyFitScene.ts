@@ -1,7 +1,7 @@
 import Phaser from "phaser";
 import { getGameWidth, getGameHeight } from "../helpers";
 import { Player } from "../objects";
-import { PLAYER_SCALE, FLY_FIT_SCENE } from "../shared";
+import { PLAYER_SCALE, FLY_FIT_SCENE } from "..";
 import { BTC, AIRPLANE } from "../gym-room-boot/assets";
 import { createTextBox } from "../utils/text";
 import party, { sources } from "party-js";

@@ -1,6 +1,6 @@
 import { EarnableScene } from "./EarnableScene";
 import Phaser from "phaser";
-import { GYM_ROOM_SCENE } from "../shared";
+import { GYM_ROOM_SCENE } from "..";
 import Key from "ts-key-namespace";
 
 type handleExitParams = {

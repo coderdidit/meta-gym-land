@@ -1,6 +1,6 @@
 import { getGameWidth } from "games/helpers";
 import { InGameFont } from "GlobalStyles";
-import { PLAYER_KEY } from "games/shared";
+import { PLAYER_KEY } from "games";
 
 export class ScoreManager {
   scoreText!: Phaser.GameObjects.Text;

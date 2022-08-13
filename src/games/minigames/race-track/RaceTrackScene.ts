@@ -1,7 +1,7 @@
 import Phaser from "phaser";
 import { getGameWidth, getGameHeight } from "../../helpers";
 import { PlayerWithName } from "../../objects";
-import { RACE_TRACK_ACTUAL } from "../../shared";
+import { RACE_TRACK_ACTUAL } from "../..";
 import { createTextBox } from "../../utils/text";
 import { mainBgColorNum, highlightTextColorNum } from "../../../GlobalStyles";
 import { SceneInMetaGymRoom } from "../../base-scenes/scene-in-metagym-room";

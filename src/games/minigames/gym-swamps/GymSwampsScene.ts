@@ -1,6 +1,6 @@
 import Phaser from "phaser";
 import { SceneInMetaGymRoom } from "games/base-scenes/scene-in-metagym-room";
-import { GYM_SWAMPS_ACTUAL } from "../../shared";
+import { GYM_SWAMPS_ACTUAL } from "../..";
 import { Player } from "./objects";
 import { highlightTextColorNum, mainBgColorNum } from "GlobalStyles";
 import { getGameWidth, getGameHeight } from "../../helpers";

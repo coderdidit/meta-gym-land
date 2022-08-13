@@ -1,7 +1,7 @@
 import Phaser from "phaser";
 import { getGameWidth, getGameHeight } from "../helpers";
 import { Player } from "../objects";
-import { PLAYER_KEY, PLAYER_SCALE, SPACE_STRETCH_SCENE } from "../shared";
+import { PLAYER_KEY, PLAYER_SCALE, SPACE_STRETCH_SCENE } from "..";
 import { createTextBox } from "../utils/text";
 import { ASTEROIDS } from "../gym-room-boot/assets";
 import * as gstate from "../../ai/gpose/state";
