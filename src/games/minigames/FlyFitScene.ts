@@ -1,13 +1,13 @@
 import Phaser from "phaser";
 import { getGameWidth, getGameHeight } from "../helpers";
 import { Player } from "../objects";
-import { PLAYER_KEY, PLAYER_SCALE, FLY_FIT_SCENE } from "../shared";
+import { PLAYER_SCALE, FLY_FIT_SCENE } from "../shared";
 import { BTC, AIRPLANE } from "../gym-room-boot/assets";
 import { createTextBox } from "../utils/text";
 import party, { sources } from "party-js";
 import * as gstate from "../../ai/gpose/state";
 import * as gpose from "../../ai/gpose/pose";
-import { mainBgColor, InGameFont } from "../../GlobalStyles";
+import { InGameFont } from "../../GlobalStyles";
 import { SceneInMetaGymRoom } from "../base-scenes/scene-in-metagym-room";
 
 const SceneConfig = {
@@ -193,7 +193,7 @@ export class FlyFitScene extends SceneInMetaGymRoom {
     this.handlePlayerMoves();
   }
 
-  handlePlayerMoves() {
+  private handlePlayerMoves() {
     const player = this.player;
     player.body.setAngularVelocity(0);
     player.body.setVelocity(0, 0);

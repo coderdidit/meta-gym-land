@@ -8,6 +8,7 @@ import { RushScene } from "./minigames/RushScene";
 import { InvadersScene } from "./minigames/invaders/InvadersScene";
 import { RunnerScene } from "./minigames/runner/RunnerScene";
 import { RunnerPreloadScene } from "./minigames/runner/RunnerPreloadScene";
+import { GymSwampsPreloadScene, GymSwampsScene } from "./minigames/gym-swamps";
 
 import { GymRoomScene } from "./gym-room/GymRoomScene";
 
@@ -28,6 +29,8 @@ const getGameConfig = () => {
     InvadersScene,
     RunnerPreloadScene,
     RunnerScene,
+    GymSwampsPreloadScene,
+    GymSwampsScene,
   ];
 
   return {
@@ -45,9 +48,6 @@ const getGameConfig = () => {
       height,
     },
     scene: Scenes,
-    // audio: {
-    //     noAudio: true
-    // },
     pixelArt: true,
     fps: {
       target: 60,
