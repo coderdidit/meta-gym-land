@@ -39,6 +39,10 @@ class GymManMazeScene extends SceneInMetaGymRoom {
 
   create() {
     // this.cameras.main.backgroundColor.setTo(179, 201, 217);
+    // basics
+    this.handleExit({
+      thisSceneKey: GYM_MAN_MAZE_ACTUAL,
+    });
 
     const tiles = "pacman-tiles";
     this.map = this.make.tilemap({
@@ -47,10 +51,6 @@ class GymManMazeScene extends SceneInMetaGymRoom {
       tileHeight: gridSize,
     });
     const tileset = this.map.addTilesetImage(tiles, tiles, gridSize, gridSize);
-
-    // position map
-    const width = getGameWidth(this);
-    const height = getGameHeight(this);
 
     this.walls = this.map.createLayer("walls", [tileset]);
     this.walls.setCollisionByProperty({ collides: true });
