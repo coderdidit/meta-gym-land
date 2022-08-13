@@ -31,6 +31,8 @@ class GymManMazeScene extends SceneInMetaGymRoom {
   cursors!: Phaser.Types.Input.Keyboard.CursorKeys;
   graphics!: Phaser.GameObjects.Graphics;
   scoreText!: TextBox;
+  flipFlop = false;
+
   constructor() {
     super(SceneConfig);
   }
@@ -183,11 +185,17 @@ class GymManMazeScene extends SceneInMetaGymRoom {
 
     let inMove = false;
     if (cursors.left.isDown || curPose === gpose.HTL) {
-      player.setTurn(Phaser.LEFT);
-      inMove = true;
+      if (!this.flipFlop) {
+        this.flipFlop = true;
+        player.setTurn(Phaser.LEFT);
+        inMove = true;
+      }
     } else if (cursors.right.isDown || curPose === gpose.HTR) {
-      player.setTurn(Phaser.RIGHT);
-      inMove = true;
+      if (!this.flipFlop) {
+        this.flipFlop = true;
+        player.setTurn(Phaser.RIGHT);
+        inMove = true;
+      }
     } else if (
       cursors.up.isDown ||
       curPose === gpose.LA_UP ||
@@ -200,6 +208,7 @@ class GymManMazeScene extends SceneInMetaGymRoom {
       player.setTurn(Phaser.DOWN);
       inMove = true;
     } else {
+      this.flipFlop = false;
       player.setTurn(Phaser.NONE);
     }
 

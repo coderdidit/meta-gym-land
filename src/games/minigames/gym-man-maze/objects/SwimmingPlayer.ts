@@ -29,15 +29,15 @@ class Player extends Phaser.Physics.Arcade.Sprite {
   }
 
   moveLeft() {
-    this.moveTo.x = -1;
+    // this.moveTo.x = -1;
     this.moveTo.y = 0;
-    this.angle = -90;
+    this.angle -= 90;
   }
 
   moveRight() {
-    this.moveTo.x = 1;
+    // this.moveTo.x = 1;
     this.moveTo.y = 0;
-    this.angle = 90;
+    this.angle += 90;
   }
 
   moveUp() {
