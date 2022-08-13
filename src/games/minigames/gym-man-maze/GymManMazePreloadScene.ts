@@ -18,14 +18,9 @@ class GymManMazePreloadScene extends Phaser.Scene {
 
   preload() {
     this.load.setBaseURL("/assets/minigames/gym-man-maze");
-    this.load.spritesheet("pacman-spritesheet", "pacman-spritesheet.png", {
-      frameWidth: gridSize,
-      frameHeight: gridSize,
-    });
-    this.load.tilemapTiledJSON("map", "map.json");
-    this.load.image("pacman-tiles", "pacman-tiles.png");
-    this.load.image("pill", "pill.png");
-    this.load.image("lifecounter", "lifecounter.png");
+    this.load.tilemapTiledJSON("swamp-map", "swamp-map.json");
+    this.load.image("swamp-tiles", "swamp-tiles.png");
+    this.load.image("seed", "seed.png");
   }
 
   create() {

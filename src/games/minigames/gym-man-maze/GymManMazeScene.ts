@@ -44,9 +44,9 @@ class GymManMazeScene extends SceneInMetaGymRoom {
       thisSceneKey: GYM_MAN_MAZE_ACTUAL,
     });
 
-    const tiles = "pacman-tiles";
+    const tiles = "swamp-tiles";
     this.map = this.make.tilemap({
-      key: "map",
+      key: "swamp-map",
       tileWidth: gridSize,
       tileHeight: gridSize,
     });
@@ -89,11 +89,11 @@ class GymManMazeScene extends SceneInMetaGymRoom {
     this.map.filterObjects(
       "objects",
       (value: any, _index: number, _array: Phaser.GameObjects.GameObject[]) => {
-        if (value.name == "pill") {
+        if (value.name == "seed") {
           const pill = this.physics.add.sprite(
             value.x * mapScale + pillOffset * mapScale,
             value.y * mapScale - pillOffset * mapScale,
-            "pill",
+            "seed",
           );
           this.pills.add(pill);
           this.pillsCount++;
