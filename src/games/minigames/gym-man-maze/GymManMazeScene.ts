@@ -202,10 +202,23 @@ class GymManMazeScene extends SceneInMetaGymRoom {
       curPose === gpose.RA_UP ||
       curPose === gpose.BA_UP
     ) {
-      player.setTurn(Phaser.UP);
-      inMove = true;
-    } else if (cursors.down.isDown) {
-      player.setTurn(Phaser.DOWN);
+      const left = player.angle == -90;
+      const rigth = player.angle == 90;
+      const up = player.angle == 0;
+      const down = player.angle == -180;
+      if (left) {
+        player.moveTo.x = -1;
+        player.moveTo.y = 0;
+      } else if (rigth) {
+        player.moveTo.x = 1;
+        player.moveTo.y = 0;
+      } else if (up) {
+        player.moveTo.x = 0;
+        player.moveTo.y = -1;
+      } else if (down) {
+        player.moveTo.x = 0;
+        player.moveTo.y = 1;
+      }
       inMove = true;
     } else {
       this.flipFlop = false;
