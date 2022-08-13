@@ -1,12 +1,15 @@
 import { LockFilled, SmileFilled, UnlockFilled } from "@ant-design/icons";
 import { MINI_GAMES } from "@games/index";
 import { descriptionStyle, pageTitleStyle } from "GlobalStyles";
+import { Link } from "react-router-dom";
 
 export { MiniGamesPage };
 
 const unlocked = true;
 
 const MiniGamesPage = () => {
+  const lockingStyle = (_unlocked: boolean) =>
+    _unlocked ? { opacity: "1" } : { opacity: "0.5" };
   return (
     <div
       style={{
@@ -46,6 +49,7 @@ const MiniGamesPage = () => {
           }}
         >
           {MINI_GAMES.map((g) => {
+            const link = `/play-setup/${g}`;
             return (
               <div
                 style={{
@@ -55,9 +59,11 @@ const MiniGamesPage = () => {
                   backgroundColor: "#F7F7F8",
                   border: "1px solid #898988",
                   padding: "1rem",
+                  ...lockingStyle(unlocked),
                 }}
               >
-                {g}&nbsp;&nbsp;
+                <Link to={link}>{g}</Link>
+                &nbsp;&nbsp;
                 {unlocked ? (
                   <UnlockFilled style={{ color: "#4290FC" }} />
                 ) : (
