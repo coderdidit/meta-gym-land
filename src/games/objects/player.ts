@@ -11,6 +11,8 @@ type playerConstructorParams = {
 export class Player extends Phaser.Physics.Arcade.Sprite {
   cursorKeys;
   speed = 150;
+  // TODO
+  score = 0;
 
   constructor(params: playerConstructorParams) {
     const { scene, x, y } = params;

@@ -2,14 +2,12 @@ import Phaser from "phaser";
 import { SceneInMetaGymRoom } from "games/base-scenes/scene-in-metagym-room";
 import { GYM_MAN_MAZE_ACTUAL } from "../../shared";
 import { Player } from "./objects";
-import {
-  highlightTextColorNum,
-  InGameFont,
-  mainBgColorNum,
-} from "GlobalStyles";
+import { highlightTextColorNum, mainBgColorNum } from "GlobalStyles";
 import { getGameWidth, getGameHeight } from "../../helpers";
 import { createTextBox } from "games/utils/text";
 import TextBox from "phaser3-rex-plugins/templates/ui/textbox/TextBox";
+import * as gstate from "../../../ai/gpose/state";
+import * as gpose from "../../../ai/gpose/pose";
 
 export { GymManMazeScene };
 
@@ -181,15 +179,21 @@ class GymManMazeScene extends SceneInMetaGymRoom {
   update() {
     const player = this.player;
     const cursors = this.cursors;
+    const curPose = gstate.getPose();
 
     let inMove = false;
-    if (cursors.left.isDown) {
+    if (cursors.left.isDown || curPose === gpose.HTL) {
       player.setTurn(Phaser.LEFT);
       inMove = true;
-    } else if (cursors.right.isDown) {
+    } else if (cursors.right.isDown || curPose === gpose.HTR) {
       player.setTurn(Phaser.RIGHT);
       inMove = true;
-    } else if (cursors.up.isDown) {
+    } else if (
+      cursors.up.isDown ||
+      curPose === gpose.LA_UP ||
+      curPose === gpose.RA_UP ||
+      curPose === gpose.BA_UP
+    ) {
       player.setTurn(Phaser.UP);
       inMove = true;
     } else if (cursors.down.isDown) {
