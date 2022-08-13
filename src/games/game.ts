@@ -4,7 +4,7 @@ import { FlyFitScene } from "./minigames/FlyFitScene";
 import { ChartSquats } from "./minigames/ChartSquats";
 import { BootScene } from "./gym-room-boot/BootScene";
 import { MatrixScene } from "./minigames/MatrixScene";
-import { RushScene } from "./minigames/RushScene";
+import { RaceTrack } from "./minigames/race-track/RaceTrackScene";
 import { InvadersScene } from "./minigames/invaders/InvadersScene";
 import { RunnerScene } from "./minigames/runner/RunnerScene";
 import { RunnerPreloadScene } from "./minigames/runner/RunnerPreloadScene";
@@ -13,6 +13,7 @@ import { GymSwampsPreloadScene, GymSwampsScene } from "./minigames/gym-swamps";
 import { GymRoomScene } from "./gym-room/GymRoomScene";
 
 import Moralis from "moralis/types";
+import { RaceTrackPreloadScene } from "./minigames/race-track/RaceTrackPreloadScene";
 
 export { getGameConfig, preBoot };
 
@@ -25,7 +26,8 @@ const getGameConfig = () => {
     FlyFitScene,
     ChartSquats,
     MatrixScene,
-    RushScene,
+    RaceTrackPreloadScene,
+    RaceTrack,
     InvadersScene,
     RunnerPreloadScene,
     RunnerScene,
