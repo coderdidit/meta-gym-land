@@ -2,8 +2,14 @@ import Phaser from "phaser";
 import { SceneInMetaGymRoom } from "games/base-scenes/scene-in-metagym-room";
 import { GYM_MAN_MAZE_ACTUAL } from "../../shared";
 import { Player } from "./objects";
-import { InGameFont } from "GlobalStyles";
+import {
+  highlightTextColorNum,
+  InGameFont,
+  mainBgColorNum,
+} from "GlobalStyles";
 import { getGameWidth, getGameHeight } from "../../helpers";
+import { createTextBox } from "games/utils/text";
+import TextBox from "phaser3-rex-plugins/templates/ui/textbox/TextBox";
 
 export { GymManMazeScene };
 
@@ -26,7 +32,7 @@ class GymManMazeScene extends SceneInMetaGymRoom {
   pillsAte = 0;
   cursors!: Phaser.Types.Input.Keyboard.CursorKeys;
   graphics!: Phaser.GameObjects.Graphics;
-  scoreText!: Phaser.GameObjects.Text;
+  scoreText!: TextBox;
   constructor() {
     super(SceneConfig);
   }
@@ -118,19 +124,58 @@ class GymManMazeScene extends SceneInMetaGymRoom {
 
     this.graphics = this.add.graphics();
 
-    this.scoreText = this.add
-      .text(width - width * 0.2, height * 0.1, "SCORE: " + player.score)
-      .setFontFamily(InGameFont)
-      .setFontSize(18)
-      .setColor("#ffffff")
-      .setScrollFactor(0, 0);
+    this.createTextBoxes();
   }
 
-  reset() {
+  private reset() {
     for (const child of this.pills.getChildren() as any[]) {
       child.enableBody(false, child.x, child.y, true, true);
     }
     this.pillsAte = 0;
+  }
+
+  private createTextBoxes() {
+    const width = getGameWidth(this);
+    const height = getGameHeight(this);
+
+    const escTextBoxY = height * 0.015;
+    const escTextBox = createTextBox({
+      scene: this,
+      x: width * 0.05,
+      y: escTextBoxY,
+      config: { wrapWidth: 280 },
+      bg: mainBgColorNum,
+      stroke: highlightTextColorNum,
+    })
+      .start("press ESC to go back", 10)
+      .setScrollFactor(0, 0);
+
+    this.scoreText = createTextBox({
+      scene: this,
+      x: width * 0.05,
+      y: escTextBoxY + escTextBox.height * 1.8,
+      config: { wrapWidth: 280 },
+      bg: 0xfffefe,
+      stroke: 0x00ff00,
+      align: "center",
+      txtColor: "#212125",
+    })
+      .setScrollFactor(0, 0)
+      .start("SCORE: " + this.player.score, 0);
+
+    const hintTextBox = createTextBox({
+      scene: this,
+      x: width / 2 + width / 4,
+      y: height * 0.015,
+      config: { wrapWidth: 280 },
+      bg: 0xfffefe,
+      stroke: 0x00ff00,
+      align: "center",
+      txtColor: "#212125",
+    });
+    hintTextBox.setDepth(1);
+    hintTextBox.setScrollFactor(0, 0);
+    hintTextBox.start("🤖 Welcome in MetaGymLand Swamps", 10);
   }
 
   update() {
