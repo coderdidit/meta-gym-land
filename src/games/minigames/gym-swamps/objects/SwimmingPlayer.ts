@@ -1,5 +1,5 @@
 import Phaser from "phaser";
-import { PLAYER_KEY } from "games/shared";
+import { PLAYER_KEY } from "games";
 
 export { Player };
 

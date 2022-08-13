@@ -1,5 +1,5 @@
 import Phaser from "phaser";
-import { RUNNER, RUNNER_ACTUAL } from "../../shared";
+import { RUNNER, RUNNER_ACTUAL } from "../..";
 
 export { RunnerPreloadScene };
 

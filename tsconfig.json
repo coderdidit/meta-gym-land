@@ -16,6 +16,9 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "baseUrl": "src",
-    "types": ["phaser", "jest"]
+    "types": ["phaser", "jest"],
+    "paths": {
+      "@games/*": ["games/*"]
+    }
   }
 }

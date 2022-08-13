@@ -1,5 +1,5 @@
 import Phaser from "phaser";
-import { INVADERS } from "../../shared";
+import { INVADERS } from "../..";
 import { SceneInMetaGymRoom } from "../../base-scenes/scene-in-metagym-room";
 import { Alien } from "./interface/alien";
 import { AssetType } from "./interface/assets";

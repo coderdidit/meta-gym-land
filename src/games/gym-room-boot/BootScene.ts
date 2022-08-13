@@ -1,6 +1,6 @@
 import Phaser from "phaser";
 import { assets } from "./assets";
-import { GYM_ROOM_SCENE, PLAYER_KEY, MINI_GAMES } from "../shared";
+import { GYM_ROOM_SCENE, PLAYER_KEY, MINI_GAMES } from "..";
 import { getGameWidth, getGameHeight } from "../helpers";
 import { InGameFont } from "../../GlobalStyles";
 

@@ -1,5 +1,5 @@
 import Phaser from "phaser";
-import { GYM_SWAMPS, GYM_SWAMPS_ACTUAL } from "../../shared";
+import { GYM_SWAMPS, GYM_SWAMPS_ACTUAL } from "../..";
 
 export { GymSwampsPreloadScene };
 

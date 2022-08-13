@@ -1,7 +1,7 @@
 import Phaser from "phaser";
 import * as gstate from "../../ai/gpose/state";
 import * as gpose from "../../ai/gpose/pose";
-import { PLAYER_KEY } from "../shared";
+import { PLAYER_KEY } from "..";
 
 type playerConstructorParams = {
   scene: Phaser.Scene;

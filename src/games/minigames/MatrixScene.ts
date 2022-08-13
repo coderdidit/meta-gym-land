@@ -1,7 +1,7 @@
 import Phaser from "phaser";
 import { getGameWidth, getGameHeight } from "../helpers";
 import { PlayerWithName } from "../objects";
-import { MATRIX } from "../shared";
+import { MATRIX } from "..";
 import { FONT, PILL_BLUE, PILL_RED } from "../gym-room-boot/assets";
 import { createTextBox } from "../utils/text";
 import { mainBgColorNum, highlightTextColorNum } from "../../GlobalStyles";

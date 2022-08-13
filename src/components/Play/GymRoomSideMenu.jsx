@@ -11,7 +11,7 @@ import {
   FLY_FIT_SCENE,
   CHART_SQUATS,
   MATRIX,
-} from "../../games/shared";
+} from "../../games";
 import moveDownPng from "./images/move_down.png";
 import moveUpPng from "./images/move_up.png";
 import moveUp2Png from "./images/move_up2.png";

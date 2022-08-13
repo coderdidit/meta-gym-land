@@ -31,6 +31,7 @@ import RewardsPage from "./components/Rewards";
 import { MainChainID } from "MglNftMetadata";
 import { paddingLRHeaderFooter } from "./GlobalStyles";
 import BitKeepConnector from "./components/Account/BitKeepConnector";
+import { MiniGamesPage } from "components/minigames-page";
 
 const { Header } = Layout;
 
@@ -136,6 +137,9 @@ const App = ({ isServerInfo }) => {
             <Route index element={<Home />} />
             <Route path="avatars" element={resolveAvatarsRouteElement()} />
             <Route path="mint" element={<MintGymBuddyPage />} />
+
+            <Route path="minigames" element={<MiniGamesPage />} />
+
             <Route path="marketplace" element={<Marketplace />} />
             <Route path="rewards" element={<RewardsPage />} />
 

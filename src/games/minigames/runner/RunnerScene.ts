@@ -5,7 +5,7 @@ import {
   mainBgColorNum,
 } from "GlobalStyles";
 import Phaser from "phaser";
-import { RUNNER_ACTUAL } from "../../shared";
+import { RUNNER_ACTUAL } from "../..";
 import * as gstate from "../../../ai/gpose/state";
 import * as gpose from "../../../ai/gpose/pose";
 import { createTextBox } from "games/utils/text";

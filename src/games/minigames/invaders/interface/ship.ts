@@ -1,5 +1,5 @@
 import { getGameHeight, getGameWidth } from "games/helpers";
-import { PLAYER_KEY } from "games/shared";
+import { PLAYER_KEY } from "games";
 
 export class Ship {
   static create(scene: Phaser.Scene): Phaser.Physics.Arcade.Sprite {

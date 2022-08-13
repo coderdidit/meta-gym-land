@@ -1,7 +1,7 @@
 import { getGameHeight, getGameWidth } from "games/helpers";
 import { InGameFont } from "GlobalStyles";
 import Phaser from "phaser";
-import { RACE_TRACK, RACE_TRACK_ACTUAL } from "../../shared";
+import { RACE_TRACK, RACE_TRACK_ACTUAL } from "../..";
 
 export { RaceTrackPreloadScene };
 

@@ -1,6 +1,6 @@
 import Phaser from "phaser";
 import { Player } from "./player";
-import { PLAYER_SCALE } from "../shared";
+import { PLAYER_SCALE } from "..";
 import * as gstate from "../../ai/gpose/state";
 import * as gpose from "../../ai/gpose/pose";
 import { InGameFont } from "../../GlobalStyles";
