@@ -10,6 +10,14 @@ const unlocked = true;
 const MiniGamesPage = () => {
   const lockingStyle = (_unlocked: boolean) =>
     _unlocked ? { opacity: "1" } : { opacity: "0.5" };
+  const itemStyle = {
+    flex: "0 0 33.333333%",
+    margin: "5px",
+    height: "100px",
+    backgroundColor: "#F7F7F8",
+    border: "1px solid #898988",
+    padding: "1rem",
+  }
   return (
     <div
       style={{
@@ -48,18 +56,24 @@ const MiniGamesPage = () => {
             flexWrap: "wrap",
           }}
         >
+          <div
+                key={"gym_room"}
+                style={{
+                  ...itemStyle,
+                  ...lockingStyle(unlocked),
+                }}
+              >
+                <Link to="/play-setup">gym room</Link>
+                &nbsp;&nbsp;
+                <UnlockFilled style={{ color: "#4290FC" }} />
+              </div>
           {MINI_GAMES.map((g) => {
             const link = `/play-setup/${g}`;
             return (
               <div
                 key={g}
                 style={{
-                  flex: "0 0 33.333333%",
-                  margin: "5px",
-                  height: "100px",
-                  backgroundColor: "#F7F7F8",
-                  border: "1px solid #898988",
-                  padding: "1rem",
+                  ...itemStyle,
                   ...lockingStyle(unlocked),
                 }}
               >
