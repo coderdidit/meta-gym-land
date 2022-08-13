@@ -8,7 +8,7 @@ import { getGameWidth, getGameHeight } from "../../helpers";
 export { GymManMazeScene };
 
 const gridSize = 32;
-const offset = parseInt(gridSize / 2);
+const pillOffset = parseInt(gridSize / 2);
 
 const SceneConfig = {
   active: false,
@@ -45,10 +45,7 @@ class GymManMazeScene extends SceneInMetaGymRoom {
       (obj) => obj.name === "player",
     );
 
-    let position = new Phaser.Geom.Point(
-      spawnPoint.x + offset,
-      spawnPoint.y - offset,
-    );
+    let position = new Phaser.Geom.Point(spawnPoint.x, spawnPoint.y);
     this.player = new Player(this, position);
 
     // this.cameras.main.startFollow(this.player);
@@ -58,8 +55,8 @@ class GymManMazeScene extends SceneInMetaGymRoom {
     this.map.filterObjects("objects", (value, _index, _array) => {
       if (value.name == "pill") {
         let pill = this.physics.add.sprite(
-          value.x + offset,
-          value.y - offset,
+          value.x + pillOffset,
+          value.y - pillOffset,
           "pill",
         );
         this.pills.add(pill);
@@ -77,7 +74,7 @@ class GymManMazeScene extends SceneInMetaGymRoom {
       (_sprite, pill) => {
         pill.disableBody(true, true);
         this.pillsAte++;
-        player.score += 10;
+        player.score += 1;
         if (pillsCount == this.pillsAte) {
           this.reset();
         }
