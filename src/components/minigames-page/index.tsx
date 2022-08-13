@@ -1,4 +1,4 @@
-import { LockFilled, SmileFilled, UnlockFilled } from "@ant-design/icons";
+import { LockFilled, StarFilled, UnlockFilled } from "@ant-design/icons";
 import { MINI_GAMES } from "@games/index";
 import { descriptionStyle, pageTitleStyle } from "GlobalStyles";
 import { Link } from "react-router-dom";
@@ -24,7 +24,7 @@ const MiniGamesPage = () => {
           marginBottom: "1rem",
         }}
       >
-        Try MetaGymLand Minigames <SmileFilled style={{ color: "#FFBE59" }} />
+        Try MetaGymLand Minigames <StarFilled style={{ color: "#FFBE59" }} />
       </section>
       <section
         style={{
@@ -52,6 +52,7 @@ const MiniGamesPage = () => {
             const link = `/play-setup/${g}`;
             return (
               <div
+                key={g}
                 style={{
                   flex: "0 0 33.333333%",
                   margin: "5px",
