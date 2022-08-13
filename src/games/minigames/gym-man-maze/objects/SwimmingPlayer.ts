@@ -3,20 +3,29 @@ import { PLAYER_KEY } from "games/shared";
 
 export { Player };
 
+type playerConstructorParams = {
+  scene: Phaser.Scene;
+  x: number;
+  y: number;
+};
 class Player extends Phaser.Physics.Arcade.Sprite {
-  constructor(scene, x, y) {
+  spawnPoint: Phaser.Geom.Point;
+  speed = 95;
+  moveTo = new Phaser.Geom.Point();
+  score = 0;
+  current = Phaser.UP;
+  angle = 0;
+
+  constructor(params: playerConstructorParams) {
+    const { scene, x, y } = params;
     super(scene, x, y, PLAYER_KEY);
+
     this.scene.physics.world.enable(this);
     this.scene.add.existing(this);
     this.setOrigin(0.5);
 
     this.body.setSize(this.width * 0.8, this.height * 0.8);
     this.spawnPoint = new Phaser.Geom.Point(x, y);
-    this.speed = 95;
-    this.moveTo = new Phaser.Geom.Point();
-    this.angle = 0;
-
-    this.score = 0;
   }
 
   moveLeft() {
@@ -44,18 +53,15 @@ class Player extends Phaser.Physics.Arcade.Sprite {
   }
 
   update() {
-    this.body.setVelocity(
-      this.moveTo.x * this.speed,
-      this.moveTo.y * this.speed,
-    );
+    const body = this.body as Phaser.Physics.Arcade.Body;
+    body.setVelocity(this.moveTo.x * this.speed, this.moveTo.y * this.speed);
   }
 
-  setTurn(turnTo) {
+  setTurn(turnTo: number) {
     this.move(turnTo);
   }
 
-  move(direction) {
-    this.playing = true;
+  move(direction: number) {
     this.current = direction;
 
     switch (direction) {

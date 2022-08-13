@@ -8,7 +8,7 @@ import { getGameWidth, getGameHeight } from "../../helpers";
 export { GymManMazeScene };
 
 const gridSize = 32;
-const pillOffset = parseInt(gridSize / 2);
+const pillOffset = gridSize / 2;
 const mapScale = 2;
 
 const SceneConfig = {
@@ -18,6 +18,15 @@ const SceneConfig = {
 };
 
 class GymManMazeScene extends SceneInMetaGymRoom {
+  map!: Phaser.Tilemaps.Tilemap;
+  walls: any;
+  player!: Player;
+  pills!: Phaser.Physics.Arcade.Group;
+  pillsCount = 0;
+  pillsAte = 0;
+  cursors!: Phaser.Types.Input.Keyboard.CursorKeys;
+  graphics!: Phaser.GameObjects.Graphics;
+  scoreText!: Phaser.GameObjects.Text;
   constructor() {
     super(SceneConfig);
   }
@@ -41,16 +50,20 @@ class GymManMazeScene extends SceneInMetaGymRoom {
     this.walls.setCollisionByProperty({ collides: true });
     this.walls.setScale(mapScale);
 
-    let spawnPoint = this.map.findObject(
+    const spawnPoint = this.map.findObject(
       "objects",
       (obj) => obj.name === "player",
     );
 
-    this.player = new Player(
-      this,
-      spawnPoint.x * mapScale,
-      spawnPoint.y * mapScale,
-    );
+    if (!spawnPoint?.x || !spawnPoint?.y) {
+      throw Error("spawnPoint not set");
+    }
+
+    this.player = new Player({
+      scene: this,
+      x: spawnPoint.x * mapScale,
+      y: spawnPoint.y * mapScale,
+    });
     this.player.setScale(0.8);
 
     // world bounds
@@ -67,26 +80,29 @@ class GymManMazeScene extends SceneInMetaGymRoom {
     const player = this.player;
 
     this.pills = this.physics.add.group();
-    this.map.filterObjects("objects", (value, _index, _array) => {
-      if (value.name == "pill") {
-        let pill = this.physics.add.sprite(
-          value.x * mapScale + pillOffset * mapScale,
-          value.y * mapScale - pillOffset * mapScale,
-          "pill",
-        );
-        this.pills.add(pill);
-        this.pillsCount++;
-      }
-    });
+    this.map.filterObjects(
+      "objects",
+      (value: any, _index: number, _array: Phaser.GameObjects.GameObject[]) => {
+        if (value.name == "pill") {
+          const pill = this.physics.add.sprite(
+            value.x * mapScale + pillOffset * mapScale,
+            value.y * mapScale - pillOffset * mapScale,
+            "pill",
+          );
+          this.pills.add(pill);
+          this.pillsCount++;
+        }
+      },
+    );
 
-    let pillsCount = 0;
+    const pillsCount = 0;
     this.pillsAte = 0;
     this.physics.add.collider(player, this.walls);
 
     this.physics.add.overlap(
       player,
       this.pills,
-      (_sprite, pill) => {
+      (_sprite: any, pill: any) => {
         pill.disableBody(true, true);
         this.pillsAte++;
         player.score += 1;
@@ -94,7 +110,7 @@ class GymManMazeScene extends SceneInMetaGymRoom {
           this.reset();
         }
       },
-      null,
+      undefined,
       this,
     );
 
@@ -111,7 +127,7 @@ class GymManMazeScene extends SceneInMetaGymRoom {
   }
 
   reset() {
-    for (let child of this.pills.getChildren()) {
+    for (const child of this.pills.getChildren() as any[]) {
       child.enableBody(false, child.x, child.y, true, true);
     }
     this.pillsAte = 0;
