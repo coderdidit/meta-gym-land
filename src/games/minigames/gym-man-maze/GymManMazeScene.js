@@ -23,8 +23,10 @@ class GymManMazeScene extends SceneInMetaGymRoom {
   }
 
   create() {
-    const tiles = "pacman-tiles";
 
+    // this.cameras.main.backgroundColor.setTo(179, 201, 217);
+
+    const tiles = "pacman-tiles";
     this.map = this.make.tilemap({
       key: "map",
       tileWidth: gridSize,
@@ -69,8 +71,8 @@ class GymManMazeScene extends SceneInMetaGymRoom {
     this.map.filterObjects("objects", (value, _index, _array) => {
       if (value.name == "pill") {
         let pill = this.physics.add.sprite(
-          value.x * mapScale + pillOffset,
-          value.y * mapScale - pillOffset,
+          value.x * mapScale + pillOffset * mapScale,
+          value.y * mapScale - pillOffset * mapScale,
           "pill",
         );
         this.pills.add(pill);
