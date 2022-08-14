@@ -127,7 +127,7 @@ export class GymRoomScene extends EarnableScene {
 
     this.tweens.add({
       targets: trainingMatsLayer,
-      x: trainingMatsLayer.x - 5,
+      x: trainingMatsLayer.x - 8,
       ease: Phaser.Math.Easing.Sine.InOut,
       repeat: -1,
       yoyo: true,
