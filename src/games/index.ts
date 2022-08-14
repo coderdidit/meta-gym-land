@@ -11,8 +11,8 @@ export const RACE_TRACK_ACTUAL = "race_track_actual"; // preload
 export const INVADERS = "invaders";
 export const RUNNER = "runner"; // preload
 export const RUNNER_ACTUAL = "runner_actual";
-export const GYM_SWAMPS = "gym_swamps"; // preload
-export const GYM_SWAMPS_ACTUAL = "gym_swamps_actual";
+export const GYM_SWAMPS = "gym_canals"; // preload
+export const GYM_SWAMPS_ACTUAL = "gym_canals_actual";
 
 export const MINI_GAMES = [
   SPACE_STRETCH_SCENE,

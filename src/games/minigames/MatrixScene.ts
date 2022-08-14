@@ -96,10 +96,10 @@ export class MatrixScene extends SceneInMetaGymRoom {
     hintTextBox.setDepth(1);
     hintTextBox.setScrollFactor(0, 0);
     hintTextBox.start(
-      "🤖 Welcome in MetaGymLand Matrix\n\n" +
+      "🤖 Welcome, I am the MetaGymLand Architect\n\n" +
         "choose\n" +
         "RED PILL or BLUE PILL?\n" +
-        "You can fly in this room",
+        "You can fly in this room!",
       50,
     );
 

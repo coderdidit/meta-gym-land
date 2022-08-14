@@ -176,7 +176,7 @@ class GymSwampsScene extends SceneInMetaGymRoom {
     });
     hintTextBox.setDepth(1);
     hintTextBox.setScrollFactor(0, 0);
-    hintTextBox.start("🤖 Welcome in MetaGymLand Swamps", 10);
+    hintTextBox.start("🤖 Welcome in MetaGymLand Canals", 10);
   }
 
   update() {
