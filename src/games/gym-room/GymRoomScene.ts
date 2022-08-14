@@ -17,6 +17,7 @@ import {
 import { MMT_TICKER } from "../../GlobalStyles";
 import { EarnableScene } from "../base-scenes/EarnableScene";
 import { showSnapchatModal } from "./snapchat";
+import { commingSoonModal } from "./comming-soon";
 
 const debugCollisons = false;
 
@@ -35,9 +36,16 @@ const miniGamesMapping = new Map([
   ["snap", "Snapchat"],
   ["chart_squats", "Chart Squats Mat"],
   ["matrix", "Mystery Mat"],
+  ["gym_canals", "Gym Canals"],
+  ["invaders", "Octopus Invaders"],
+  ["kayaks", "Kayaks"],
+  ["runner", "Runner"],
+  ["race_track", "Race Track"],
 ]);
 
-let sceneToGoOnXclick: string | Phaser.Scene | null | undefined = null;
+const commingSoon = ["kayaks"];
+
+let sceneToGoOnXclick: string;
 const roboTextTimeouts: NodeJS.Timeout[] = [];
 
 export class GymRoomScene extends EarnableScene {
@@ -65,7 +73,9 @@ export class GymRoomScene extends EarnableScene {
         if (sceneToGoOnXclick && code === Phaser.Input.Keyboard.KeyCodes.X) {
           roboTextTimeouts.forEach((t) => clearTimeout(t));
           setMainRoomPlayerExitPos(this.player.x, this.player.y);
-          if (sceneToGoOnXclick === "snap") {
+          if (commingSoon.includes(sceneToGoOnXclick)) {
+            commingSoonModal(miniGamesMapping.get(sceneToGoOnXclick) ?? "");
+          } else if (sceneToGoOnXclick === "snap") {
             showSnapchatModal(this.selectedAvatar.snapARLink);
           } else {
             this.game.registry.values?.setMinigame(sceneToGoOnXclick);
