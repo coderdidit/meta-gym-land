@@ -5,6 +5,19 @@ import { Link } from "react-router-dom";
 
 export { MiniGamesPage };
 
+const miniGamesMapping = new Map([
+  ["space_stretch", "Space Stretch"],
+  ["fly_fit", "Sky Workout"],
+  ["snap", "Snapchat"],
+  ["chart_squats", "Chart Squats"],
+  ["matrix", "Mystery"],
+  ["gym_canals", "Gym Canals"],
+  ["invaders", "Octopus Invaders"],
+  ["kayaks", "Kayaks"],
+  ["runner", "Runner"],
+  ["race_track", "Race Track"],
+]);
+
 const unlocked = true;
 
 const MiniGamesPage = () => {
@@ -63,7 +76,7 @@ const MiniGamesPage = () => {
               ...lockingStyle(unlocked),
             }}
           >
-            <Link to="/play-setup">gym room</Link>
+            <Link to="/play-setup">Gym Room</Link>
             &nbsp;&nbsp;
             <UnlockFilled style={{ color: "#4290FC" }} />
           </div>
@@ -77,7 +90,7 @@ const MiniGamesPage = () => {
                   ...lockingStyle(unlocked),
                 }}
               >
-                <Link to={link}>{g}</Link>
+                <Link to={link}>{miniGamesMapping.get(g) ?? ""}</Link>
                 &nbsp;&nbsp;
                 {unlocked ? (
                   <UnlockFilled style={{ color: "#4290FC" }} />
