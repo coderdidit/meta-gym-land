@@ -106,9 +106,9 @@ export class GymRoomScene extends EarnableScene {
       tileMapSizing,
     );
     const groundLayer = map.createLayer("floor", [tileset_main_v2]);
+    groundLayer.setScale(mapScale);
 
     const wallsLayer = map.createLayer("walls", [tileset_main_v2]);
-    groundLayer.setScale(mapScale);
     wallsLayer.setScale(mapScale);
     wallsLayer.setCollisionByProperty({
       collides: true,
@@ -116,57 +116,52 @@ export class GymRoomScene extends EarnableScene {
 
     const itemsLayer = map.createLayer("items", [tileset_main_v2]);
     itemsLayer.setScale(mapScale);
+    itemsLayer.setCollisionByProperty({
+      collides: true,
+    });
 
-    // for (const item of itemsLayer) {
+    const trainingMatsLayer = map.createLayer("training_mats", [
+      tileset_main_v2,
+    ]);
+    trainingMatsLayer.setScale(mapScale);
 
-    // }
-    const primaryColor = Phaser.Display.Color.ValueToColor(0xf9e41d);
     this.tweens.add({
-      targets: itemsLayer,
-      // scaleX: 1.1,
-      // scaleY: 0.5,
-      // angle: -10,
-
-      tint: primaryColor,
-      y: itemsLayer.y - 10,
-      // from: 0,
-      // to: 100,
+      targets: trainingMatsLayer,
+      x: trainingMatsLayer.x - 5,
       ease: Phaser.Math.Easing.Sine.InOut,
       repeat: -1,
       yoyo: true,
-      duration: 500,
+      duration: 1000,
     });
 
-    // const primaryColor = Phaser.Display.Color.ValueToColor(0xF9E41D);
-    // const secondaryColor = Phaser.Display.Color.ValueToColor(0xDBD185);
+    const primaryColor = Phaser.Display.Color.ValueToColor(0xffffff).gray(200);
+    const secondaryColor = Phaser.Display.Color.ValueToColor(0xffffff)
+      .gray(255)
+      .lighten(100)
+      .brighten(100)
+      .saturate(10);
 
-    // this.tweens.addCounter({
-    //   from: 0,
-    //   to: 100,
-    //   duration: 2000,
-    //   ease: Phaser.Math.Easing.Sine.InOut,
-    //   repeat: -1,
-    //   yoyo: true,
-    //   onUpdate: tween => {
-    //     const value = tween.getValue();
-    //     const colorObject = Phaser.Display.Color.Interpolate.ColorWithColor(
-    //       primaryColor,
-    //       secondaryColor,
-    //       100,
-    //       value
-    //     );
-
-    //     const { r, g, b } = colorObject;
-    //     const color = Phaser.Display.Color.GetColor(r, g, b);
-
-    //     itemsLayer.culledTiles.forEach(t => {
-    //       console.log('---t-----', {...t});
-    //       t.tint = color})
-    //   }
-    // });
-
-    itemsLayer.setCollisionByProperty({
-      collides: true,
+    this.tweens.addCounter({
+      from: 0,
+      to: 100,
+      duration: 1000,
+      ease: Phaser.Math.Easing.Sine.InOut,
+      repeat: -1,
+      yoyo: true,
+      onUpdate: (tween) => {
+        const value = tween.getValue();
+        const colorObject = Phaser.Display.Color.Interpolate.ColorWithColor(
+          primaryColor,
+          secondaryColor,
+          100,
+          value,
+        );
+        const { r, g, b } = colorObject;
+        const color = Phaser.Display.Color.GetColor(r, g, b);
+        trainingMatsLayer.culledTiles.forEach((t) => {
+          t.tint = color;
+        });
+      },
     });
 
     const resolvePlayerXY = () => {
@@ -197,23 +192,6 @@ export class GymRoomScene extends EarnableScene {
       this.player.width * 0.25,
       this.player.height * 0.6,
     );
-
-    // this.tweens.add({
-    //   targets: this.player,
-    //   // scaleX: 1.1,
-    //   // scaleY: 1.1,
-    //   // angle: -10,
-
-    //   // alpha: 0.5,
-    //   // tint: 0x01fffe,
-    //   y: this.player.y - 10,
-    //   // from: 0,
-    //   // to: 100,
-    //   ease: Phaser.Math.Easing.Sine.InOut,
-    //   repeat: -1,
-    //   yoyo: true,
-    //   duration: 1000,
-    // })
 
     this.cameras.main.startFollow(this.player);
 
