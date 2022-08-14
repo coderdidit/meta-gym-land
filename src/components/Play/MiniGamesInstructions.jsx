@@ -3,6 +3,10 @@ import {
   SPACE_STRETCH_SCENE,
   FLY_FIT_SCENE,
   CHART_SQUATS,
+  GYM_SWAMPS,
+  INVADERS,
+  RUNNER,
+  RACE_TRACK,
   MATRIX,
 } from "../../games";
 import moveDownPng from "./images/move_down.png";
@@ -131,6 +135,115 @@ const MiniGameInstructions = new Map([
         <>
           {pumpThePriceImg}
           Do squats Or Both arms up
+          {beCreative}
+        </>
+      ),
+    },
+  ],
+  [
+    GYM_SWAMPS,
+    {
+      title: (
+        <>
+          <p>How to play</p>
+          <p>
+            <b>Gymm Canals</b>
+          </p>
+        </>
+      ),
+      content: (
+        <>
+          <h3>
+            <b>Change direction</b>
+          </h3>
+          <p>bend to the LEFT or tilt your head to the LEFT</p>
+          <p>bend to the RIGHT or tilt your head to the RIGHT</p>
+          <h3>
+            <b>Move forwoard</b>
+          </h3>
+          <p>right or left hand UP</p>
+          <p>imagine you are swimming :)</p>
+          {beCreative}
+        </>
+      ),
+    },
+  ],
+  [
+    INVADERS,
+    {
+      title: (
+        <>
+          <p>How to play</p>
+          <p>
+            <b>Octopus Invaders</b>
+          </p>
+        </>
+      ),
+      content: (
+        <>
+          <h3>
+            <b>Move to the sides</b>
+          </h3>
+          <p>bend to the LEFT or tilt your head to the LEFT</p>
+          <p>bend to the RIGHT or tilt your head to the RIGHT</p>
+          <h3>
+            <b>Shoot</b>
+          </h3>
+          <p>right or left hand UP</p>
+          {beCreative}
+        </>
+      ),
+    },
+  ],
+
+  [
+    RUNNER,
+    {
+      title: (
+        <>
+          <p>How to play</p>
+          <p>
+            <b>Endless Runner</b>
+          </p>
+        </>
+      ),
+      content: (
+        <>
+          <h3>
+            <b>Jump</b>
+          </h3>
+          <p>RIGHT or LEFT or BOTH hands UP</p>
+          <h3>
+            <b>Bend down</b>
+          </h3>
+          <p>bend to the LEFT or tilt your head to the LEFT</p>
+          <p>bend to the RIGHT or tilt your head to the RIGHT</p>
+          {beCreative}
+        </>
+      ),
+    },
+  ],
+
+  [
+    RACE_TRACK,
+    {
+      title: (
+        <>
+          <p>How to play</p>
+          <p>
+            <b>Race Track</b>
+          </p>
+        </>
+      ),
+      content: (
+        <>
+          <h3>
+            <b>Move forwoard</b>
+          </h3>
+          <p>RIGHT or LEFT hand UP in alternation</p>
+          <p>imagine you are climbing on a ladder :)</p>
+          <p>the faster you will move your hands</p>
+          <p>the faster your GymBuddy will race</p>
           {beCreative}
         </>
       ),
