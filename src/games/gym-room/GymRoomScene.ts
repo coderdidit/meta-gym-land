@@ -34,8 +34,8 @@ import {
 } from "@games/games-access";
 import { debugLog } from "dev-utils/debug";
 
-const roomDevelopmentYOffset = 1800; // 1800
-const roomDevelopmentXOffset = 1800; // 1800
+const roomDevelopmentYOffset = 0; // 1800
+const roomDevelopmentXOffset = 0; // 1800
 const debugCollisons = false;
 
 const SceneConfig = {
