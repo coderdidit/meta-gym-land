@@ -845,9 +845,49 @@
          "objects":[
                 {
                  "class":"",
+                 "height":127.948427046093,
+                 "id":26,
+                 "name":"mystery_room_lock",
+                 "properties":[
+                        {
+                         "name":"orientation",
+                         "type":"string",
+                         "value":"vertical"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":13.5372,
+                 "x":5881.1450148795,
+                 "y":3584.03317228957
+                }, 
+                {
+                 "class":"",
+                 "height":19.5798280778013,
+                 "id":27,
+                 "name":"runner_room_lock",
+                 "properties":[
+                        {
+                         "name":"orientation",
+                         "type":"string",
+                         "value":"horizontal"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":95.9350235717184,
+                 "x":4288.08114514525,
+                 "y":3252.81992366709
+                }, 
+                {
+                 "class":"",
                  "height":95.8798526823007,
                  "id":25,
                  "name":"water_room_lock",
+                 "properties":[
+                        {
+                         "name":"orientation",
+                         "type":"string",
+                         "value":"vertical"
+                        }],
                  "rotation":0,
                  "visible":true,
                  "width":13.5372361419759,
@@ -861,7 +901,7 @@
          "y":0
         }],
  "nextlayerid":11,
- "nextobjectid":26,
+ "nextobjectid":28,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.9.1",

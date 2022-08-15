@@ -32,9 +32,10 @@ import {
   isRoomLocked,
   waterRoomLockKey,
 } from "@games/games-access";
+import { debugLog } from "dev-utils/debug";
 
 const roomDevelopmentYOffset = 1800; // 1800
-const roomDevelopmentXOffset = 1800; // 1800
+const roomDevelopmentXOffset = 2800; // 1800
 const debugCollisons = false;
 
 const SceneConfig = {
@@ -312,21 +313,22 @@ export class GymRoomScene extends EarnableScene {
     };
     const roomLocksLayer = map.getObjectLayer("room_locks");
     for (const roomLock of roomLocksLayer.objects) {
+      debugLog("[roomLock]", roomLock);
       if (
         !roomLock.name ||
         !roomLock.x ||
         !roomLock.y ||
         !roomLock.width ||
-        !roomLock.height
+        !roomLock.height ||
+        !roomLock.properties
       ) {
         throw Error(
-          `roomLock object has undefined values (name, x, y, width, height) ${JSON.stringify(
+          `roomLock object has undefined values (name, properties, x, y, width, height) ${JSON.stringify(
             roomLock,
           )}`,
         );
       }
-
-      const { name, x, y, width, height } = roomLock;
+      const { name, properties, x, y, width, height } = roomLock;
       if (
         isRoomLocked({
           lockName: name,
@@ -343,10 +345,25 @@ export class GymRoomScene extends EarnableScene {
           .setOrigin(0)
           .setFillStyle(0x000000, 0.8);
 
-        this.add
-          .image(x * mapScale, y * mapScale, LOCK)
-          .setScale(0.4)
-          .setOrigin(0.43, 0.15);
+        const lockImage = this.add.image(x * mapScale, y * mapScale, LOCK);
+        // .setScale(0.4)
+        // .setOrigin(0.5, 0);
+        // .setOrigin(0.43, 0.15);
+
+        const objProps = properties as any[];
+        type orientationPropType = { value: string } | undefined;
+        const orientationProp = objProps.find(
+          (p) => p.name === "orientation",
+        ) as orientationPropType;
+        const orientation = orientationProp
+          ? orientationProp && orientationProp.value
+          : "vertical";
+        debugLog("[orientation]", orientation);
+        if (orientation === "vertical") {
+          lockImage.setOrigin(0.43, 0.15);
+        } else {
+          lockImage.setOrigin(0.12, 0.5);
+        }
 
         this.physics.world.enable(
           roomLockRect,
