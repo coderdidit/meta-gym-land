@@ -346,10 +346,6 @@ export class GymRoomScene extends EarnableScene {
           .setFillStyle(0x000000, 0.8);
 
         const lockImage = this.add.image(x * mapScale, y * mapScale, LOCK);
-        // .setScale(0.4)
-        // .setOrigin(0.5, 0);
-        // .setOrigin(0.43, 0.15);
-
         const objProps = properties as any[];
         type orientationPropType = { value: string } | undefined;
         const orientationProp = objProps.find(
