@@ -178,7 +178,7 @@ export class SpaceStretchScene extends SceneInMetaGymRoom {
       const step = 100;
       let asteroidYPos = yOffset + 45;
       for (let i = 0; i < maxAsteroidPlatformsCnt; i++) {
-        if (asteroidYPos < worldHeight - (yOffset + 10)) {
+        if (asteroidYPos < worldHeight - (yOffset + 15)) {
           // add biased randomnes to keep some tiles on left some on right
           let x = 0;
           if (i % 2 === 0) {
@@ -199,13 +199,10 @@ export class SpaceStretchScene extends SceneInMetaGymRoom {
     placeAsteroids();
 
     this.emitter = this.add.particles(ASTEROIDS).createEmitter({
-      // x: 400,
-      // y: 300,
       speed: { min: -800, max: 800 },
       angle: { min: 0, max: 360 },
       scale: { start: 0.5, end: 0 },
-      blendMode: "SCREEN",
-      // active: false,
+      blendMode: Phaser.BlendModes.SCREEN,
       lifespan: 600,
       gravityY: 800,
     });
@@ -221,16 +218,23 @@ export class SpaceStretchScene extends SceneInMetaGymRoom {
     this.player.setDepth(1);
     this.player.body.setCollideWorldBounds(true);
 
+    // adjust collision box
+    this.player.body.setSize(this.player.width * 0.5, this.player.height * 0.8);
+    // this.player.body.setOffset(
+    //   this.player.width * 0.25,
+    //   this.player.height * 0.6,
+    // );
+
     // this.physics.add.collider(this.player, ground);
 
-    const onCollide = (avatar: any, asteroids: any) => {
+    const onCollide = (avatar: any, asteroid: any) => {
       if (avatar.body.onFloor()) {
         this.score += 1;
-        asteroids.setTint("0x4f4f4f");
-        asteroids.setImmovable(false);
-        asteroids.setVelocityY(600);
+        asteroid.setTint("0x4f4f4f");
+        asteroid.setImmovable(false);
+        asteroid.setVelocityY(600);
         this.emitter.resume();
-        this.emitter.explode(10, asteroids.x, asteroids.y);
+        this.emitter.explode(10, asteroid.x, asteroid.y);
         this.scoreBoard.setText(`SCORE: ${this.score}`);
       }
     };
