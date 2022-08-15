@@ -6,6 +6,7 @@ import {
   GYM_ROOM_MAP,
   GYM_ROOM_TILESET,
   GYM_ROOM_BG,
+  STEP_SOUND,
 } from "../gym-room-boot/assets";
 import { createTextBox } from "../utils/text";
 import { debugCollisonBounds } from "../utils/collision_debugger";
@@ -52,6 +53,9 @@ const roboTextTimeouts: NodeJS.Timeout[] = [];
 export class GymRoomScene extends EarnableScene {
   selectedAvatar: any;
   player: any;
+  walkSound!: Phaser.Sound.BaseSound;
+  lastWalksSoundPlayed = Date.now();
+
   constructor() {
     super(SceneConfig);
   }
@@ -64,6 +68,9 @@ export class GymRoomScene extends EarnableScene {
     // basic props
     const width = getGameWidth(this);
     const height = getGameHeight(this);
+
+    // sound
+    this.walkSound = this.sound.add(STEP_SOUND, { volume: 0.5 });
 
     // this.cameras.main.backgroundColor.setTo(179, 201, 217);
     // constrols
@@ -337,8 +344,19 @@ export class GymRoomScene extends EarnableScene {
     const wasTouching = !this.player.body.wasTouching.none;
     // if (touching && !wasTouching) block.emit("overlapstart");
     if (!touching && wasTouching) this.player.emit("overlapend");
+    const now = Date.now();
+    const walkSoundPlayedTimeElasped = now - this.lastWalksSoundPlayed;
 
     // Every frame, we update the player
-    this.player?.update();
+    const moving = this.player?.update();
+    // play walk sound tiwh throttling
+    if (
+      moving &&
+      !this.walkSound.isPlaying &&
+      walkSoundPlayedTimeElasped > 500
+    ) {
+      this.lastWalksSoundPlayed = Date.now();
+      this.walkSound.play();
+    }
   }
 }
