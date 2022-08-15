@@ -26,8 +26,10 @@ import { showSnapchatModal } from "./snapchat";
 import { commingSoonModal } from "./comming-soon";
 import { TextBox } from "phaser3-rex-plugins/templates/ui/ui-components";
 
-const roomDevelopmentYOffset = 0; // 1800
+const roomDevelopmentYOffset = 1800; // 1800
 const debugCollisons = false;
+
+const roomAccess = new Map([["water_room_lock", true]]);
 
 const SceneConfig = {
   active: false,
@@ -253,6 +255,60 @@ export class GymRoomScene extends EarnableScene {
           );
         }, 1000),
       );
+    }
+
+    // add colliders to unlocked rooms
+    const roomLocks: Phaser.GameObjects.Rectangle[] = [];
+    const playerHandelCollideWithLock = (player: any, lock: any) => {
+      const objName = lock.name;
+      console.log("collide with ", objName);
+    };
+    const roomLocksLayer = map.getObjectLayer("room_locks");
+    for (const roomLock of roomLocksLayer.objects) {
+      if (
+        !roomLock.name ||
+        !roomLock.x ||
+        !roomLock.y ||
+        !roomLock.width ||
+        !roomLock.height
+      ) {
+        throw Error(
+          `roomLock object has undefined values (name, x, y, width, height) ${JSON.stringify(
+            roomLock,
+          )}`,
+        );
+      }
+
+      const { name, x, y, width, height } = roomLock;
+      const isRoomLocked = roomAccess.get(name) ?? false;
+
+      console.log("[room lock]", {
+        isRoomLocked: isRoomLocked,
+        ...roomLock,
+      });
+
+      if (isRoomLocked) {
+        const roomLockRect = this.add
+          .rectangle(
+            x * mapScale,
+            y * mapScale,
+            width * mapScale,
+            height * mapScale,
+          )
+          .setName(name)
+          .setOrigin(0);
+        this.physics.world.enable(
+          roomLockRect,
+          Phaser.Physics.Arcade.STATIC_BODY,
+        );
+        this.physics.add.collider(
+          this.player,
+          roomLockRect,
+          playerHandelCollideWithLock,
+          undefined,
+          this,
+        );
+      }
     }
 
     const trainingMats: Phaser.GameObjects.Rectangle[] = [];
