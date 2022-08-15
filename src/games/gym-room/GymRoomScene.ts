@@ -25,13 +25,13 @@ import { EarnableScene } from "../base-scenes/EarnableScene";
 import { showSnapchatModal } from "./snapchat";
 import { commingSoonModal } from "./comming-soon";
 import { TextBox } from "phaser3-rex-plugins/templates/ui/ui-components";
+import {
+  updateMiniGamesPlayedInSession,
+  isRoomLocked,
+} from "@games/games-access";
 
 const roomDevelopmentYOffset = 1800; // 1800
 const debugCollisons = false;
-
-const roomAccess = new Map([["water_room_lock", true]]);
-
-const miniGamesPlayedInSession: string[] = [];
 
 const SceneConfig = {
   active: false,
@@ -80,9 +80,7 @@ export class GymRoomScene extends EarnableScene {
     prevSceneScore?: number;
     prevSceneTimeSpentMillis?: number;
   }) => {
-    if (data?.prevScene) {
-      miniGamesPlayedInSession.push(data?.prevScene);
-    }
+    updateMiniGamesPlayedInSession(data);
     this.selectedAvatar = data.selectedAvatar;
   };
 
@@ -287,14 +285,11 @@ export class GymRoomScene extends EarnableScene {
       }
 
       const { name, x, y, width, height } = roomLock;
-
-      if (miniGamesPlayedInSession.includes(FLY_FIT_SCENE)) {
-        roomAccess.set("water_room_lock", false);
-      }
-
-      const isRoomLocked = roomAccess.get(name) ?? false;
-
-      if (isRoomLocked) {
+      if (
+        isRoomLocked({
+          lockName: name,
+        })
+      ) {
         const roomLockRect = this.add
           .rectangle(
             x * mapScale,
