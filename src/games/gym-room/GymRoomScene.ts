@@ -19,7 +19,7 @@ import { EarnableScene } from "../base-scenes/EarnableScene";
 import { showSnapchatModal } from "./snapchat";
 import { commingSoonModal } from "./comming-soon";
 
-const roomDevelopmentYOffset = 1800; // 1800
+const roomDevelopmentYOffset = 0; // 1800
 const debugCollisons = false;
 
 const SceneConfig = {
@@ -128,7 +128,7 @@ export class GymRoomScene extends EarnableScene {
 
     this.tweens.add({
       targets: trainingMatsLayer,
-      x: trainingMatsLayer.x - 10,
+      x: "-=10",
       ease: Phaser.Math.Easing.Sine.InOut,
       repeat: -1,
       yoyo: true,
