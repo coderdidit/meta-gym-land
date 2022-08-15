@@ -1,7 +1,7 @@
 import Phaser from "phaser";
 import { getGameWidth, getGameHeight } from "../helpers";
 import { Player } from "../objects";
-import { PLAYER_SCALE, GYM_ROOM_SCENE } from "..";
+import { PLAYER_SCALE, GYM_ROOM_SCENE, FLY_FIT_SCENE } from "..";
 import {
   GYM_ROOM_MAP,
   GYM_ROOM_TILESET,
@@ -30,6 +30,8 @@ const roomDevelopmentYOffset = 1800; // 1800
 const debugCollisons = false;
 
 const roomAccess = new Map([["water_room_lock", true]]);
+
+const miniGamesPlayedInSession: string[] = [];
 
 const SceneConfig = {
   active: false,
@@ -72,7 +74,15 @@ export class GymRoomScene extends EarnableScene {
     super(SceneConfig);
   }
 
-  init = (data: { selectedAvatar: any }) => {
+  init = (data: {
+    selectedAvatar: any;
+    prevScene?: string;
+    prevSceneScore?: number;
+    prevSceneTimeSpentMillis?: number;
+  }) => {
+    if (data?.prevScene) {
+      miniGamesPlayedInSession.push(data?.prevScene);
+    }
     this.selectedAvatar = data.selectedAvatar;
   };
 
@@ -223,8 +233,6 @@ export class GymRoomScene extends EarnableScene {
     this.physics.world.setBoundsCollision(true, true, true, true);
     this.player.playerBody().setCollideWorldBounds(true);
 
-    const player = this.player;
-
     // colliders
     this.physics.add.collider(this.player, wallsLayer);
     this.physics.add.collider(this.player, itemsLayer);
@@ -258,7 +266,6 @@ export class GymRoomScene extends EarnableScene {
     }
 
     // add colliders to unlocked rooms
-    const roomLocks: Phaser.GameObjects.Rectangle[] = [];
     const playerHandelCollideWithLock = (player: any, lock: any) => {
       const objName = lock.name;
       console.log("collide with ", objName);
@@ -280,12 +287,12 @@ export class GymRoomScene extends EarnableScene {
       }
 
       const { name, x, y, width, height } = roomLock;
-      const isRoomLocked = roomAccess.get(name) ?? false;
 
-      console.log("[room lock]", {
-        isRoomLocked: isRoomLocked,
-        ...roomLock,
-      });
+      if (miniGamesPlayedInSession.includes(FLY_FIT_SCENE)) {
+        roomAccess.set("water_room_lock", false);
+      }
+
+      const isRoomLocked = roomAccess.get(name) ?? false;
 
       if (isRoomLocked) {
         const roomLockRect = this.add
