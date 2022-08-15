@@ -35,7 +35,7 @@ import {
 import { debugLog } from "dev-utils/debug";
 
 const roomDevelopmentYOffset = 1800; // 1800
-const roomDevelopmentXOffset = 2800; // 1800
+const roomDevelopmentXOffset = 1800; // 1800
 const debugCollisons = false;
 
 const SceneConfig = {
