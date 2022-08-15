@@ -284,7 +284,7 @@ export class GymRoomScene extends EarnableScene {
       const objName = lock.name;
       const msg =
         `${roomNamesMapping.get(objName) ?? ""} ` +
-        `room is locked` +
+        ` is locked` +
         `\n\n` +
         `You need to earn access pass\n` +
         `By training in this room first`;
