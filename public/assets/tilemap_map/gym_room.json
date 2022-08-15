@@ -837,9 +837,31 @@
          "visible":true,
          "x":0,
          "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":10,
+         "name":"room_locks",
+         "objects":[
+                {
+                 "class":"",
+                 "height":127.527910490897,
+                 "id":25,
+                 "name":"water_room_lock",
+                 "rotation":0,
+                 "visible":true,
+                 "width":38.7862516620125,
+                 "x":5851.76738882554,
+                 "y":3584.16316388286
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
         }],
- "nextlayerid":10,
- "nextobjectid":24,
+ "nextlayerid":11,
+ "nextobjectid":26,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.9.1",
