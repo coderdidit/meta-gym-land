@@ -100,6 +100,39 @@ export class FlyFitScene extends SceneInMetaGymRoom {
       collideWorldBounds: true,
     });
 
+    this.tweens.add({
+      targets: btcGroup.getChildren(),
+      props: {
+        y: "+=8",
+        angle: {
+          getEnd: function (target: { angle: number }, _key: any, _value: any) {
+            let a = 45;
+            if (Math.random() > 0.5) {
+              a = 60;
+            }
+            // direction
+            if (Math.random() > 0.5) {
+              return target.angle + a;
+            } else {
+              return target.angle - a;
+            }
+          },
+
+          getStart: function (
+            target: { angle: number },
+            _key: any,
+            _value: any,
+          ) {
+            return target.angle;
+          },
+        },
+      },
+      ease: Phaser.Math.Easing.Sine.InOut,
+      repeat: -1,
+      yoyo: true,
+      duration: 500,
+    });
+
     const btcRect = new Phaser.Geom.Rectangle(
       width * 0.04,
       height * 0.13,

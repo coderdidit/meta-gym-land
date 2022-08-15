@@ -135,7 +135,7 @@ export class BootScene extends Phaser.Scene {
         this.load.svg(file.key, file.src);
         break;
       case "AUDIO":
-        this.load.audio(file.key, [file.src]);
+        this.load.audio(file.key, file.src);
         break;
       case "SPRITESHEET":
         this.load.spritesheet(file.key, file.src, file.data);

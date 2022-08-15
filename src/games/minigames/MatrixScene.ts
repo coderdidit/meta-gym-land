@@ -15,6 +15,8 @@ const SceneConfig = {
 
 export class MatrixScene extends SceneInMetaGymRoom {
   player: any;
+  redPillEmmiter!: Phaser.GameObjects.Particles.ParticleEmitter;
+  bluePillEmmiter!: Phaser.GameObjects.Particles.ParticleEmitter;
 
   constructor() {
     super(SceneConfig);
@@ -112,6 +114,17 @@ export class MatrixScene extends SceneInMetaGymRoom {
       .setName(PILL_BLUE);
     const pillis = [redPill, bluePill];
 
+    this.tweens.add({
+      targets: pillis,
+      props: {
+        y: "-=12",
+      },
+      ease: Phaser.Math.Easing.Sine.InOut,
+      repeat: -1,
+      yoyo: true,
+      duration: 500,
+    });
+
     // player
     this.player = new PlayerWithName({
       scene: this,
@@ -123,9 +136,33 @@ export class MatrixScene extends SceneInMetaGymRoom {
     this.player.setDepth(1);
     this.player.body.setCollideWorldBounds(true);
 
-    const onCollide = (avatar: any, item: { name: string }) => {
+    this.redPillEmmiter = this.add.particles(PILL_RED).createEmitter({
+      speed: { min: -800, max: 800 },
+      angle: { min: 0, max: 360 },
+      scale: { start: 0.5, end: 0 },
+      blendMode: Phaser.BlendModes.SCREEN,
+      lifespan: 600,
+      gravityY: 800,
+    });
+    this.redPillEmmiter.pause();
+
+    this.bluePillEmmiter = this.add.particles(PILL_BLUE).createEmitter({
+      speed: { min: -800, max: 800 },
+      angle: { min: 0, max: 360 },
+      scale: { start: 0.5, end: 0 },
+      blendMode: Phaser.BlendModes.SCREEN,
+      lifespan: 600,
+      gravityY: 800,
+    });
+    this.bluePillEmmiter.pause();
+
+    const onCollide = (_avatar: any, item: any) => {
       if (item.name === PILL_RED) {
         this.cameras.main.setBackgroundColor("#23BD32");
+
+        this.redPillEmmiter.resume();
+        this.redPillEmmiter.explode(10, item.x, item.y);
+
         hintTextBox.start("🤖", 50);
         const info = createTextBox({
           scene: this,
@@ -151,6 +188,9 @@ export class MatrixScene extends SceneInMetaGymRoom {
         info.setInteractive({ useHandCursor: true });
         info.on("pointerdown", openExternalLink, this);
       } else {
+        this.bluePillEmmiter.resume();
+        this.bluePillEmmiter.explode(10, item.x, item.y);
+
         hintTextBox.start("🤖", 50);
         createTextBox({
           scene: this,
@@ -181,7 +221,7 @@ export class MatrixScene extends SceneInMetaGymRoom {
   }
 
   // eslint-disable-next-line no-unused-vars
-  update(time: any, delta: any) {
+  update(_time: any, _delta: any) {
     this.player?.update();
   }
 }

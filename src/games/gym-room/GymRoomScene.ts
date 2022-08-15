@@ -6,6 +6,8 @@ import {
   GYM_ROOM_MAP,
   GYM_ROOM_TILESET,
   GYM_ROOM_BG,
+  STEP_SOUND,
+  BLOP_SOUND,
 } from "../gym-room-boot/assets";
 import { createTextBox } from "../utils/text";
 import { debugCollisonBounds } from "../utils/collision_debugger";
@@ -14,11 +16,17 @@ import {
   getMainRoomPlayerExitPos,
   playerHasExitPos,
 } from "../utils/Globals";
-import { MMT_TICKER } from "../../GlobalStyles";
+import {
+  highlightTextColorNum,
+  mainBgColorNum,
+  MMT_TICKER,
+} from "../../GlobalStyles";
 import { EarnableScene } from "../base-scenes/EarnableScene";
 import { showSnapchatModal } from "./snapchat";
 import { commingSoonModal } from "./comming-soon";
+import { TextBox } from "phaser3-rex-plugins/templates/ui/ui-components";
 
+const roomDevelopmentYOffset = 0; // 1800
 const debugCollisons = false;
 
 const SceneConfig = {
@@ -50,7 +58,14 @@ const roboTextTimeouts: NodeJS.Timeout[] = [];
 
 export class GymRoomScene extends EarnableScene {
   selectedAvatar: any;
-  player: any;
+  player!: Player;
+  collidingTrainingMat!: any;
+  walkSound!: Phaser.Sound.BaseSound;
+  blopSound!: Phaser.Sound.BaseSound;
+  lastWalksSoundPlayed = Date.now();
+  matHovered = false;
+  playMinigameText!: TextBox;
+
   constructor() {
     super(SceneConfig);
   }
@@ -63,6 +78,10 @@ export class GymRoomScene extends EarnableScene {
     // basic props
     const width = getGameWidth(this);
     const height = getGameHeight(this);
+
+    // sound
+    this.walkSound = this.sound.add(STEP_SOUND, { volume: 0.5 });
+    this.blopSound = this.sound.add(BLOP_SOUND, { volume: 0.5 });
 
     // this.cameras.main.backgroundColor.setTo(179, 201, 217);
     // constrols
@@ -106,9 +125,9 @@ export class GymRoomScene extends EarnableScene {
       tileMapSizing,
     );
     const groundLayer = map.createLayer("floor", [tileset_main_v2]);
+    groundLayer.setScale(mapScale);
 
     const wallsLayer = map.createLayer("walls", [tileset_main_v2]);
-    groundLayer.setScale(mapScale);
     wallsLayer.setScale(mapScale);
     wallsLayer.setCollisionByProperty({
       collides: true,
@@ -118,6 +137,52 @@ export class GymRoomScene extends EarnableScene {
     itemsLayer.setScale(mapScale);
     itemsLayer.setCollisionByProperty({
       collides: true,
+    });
+
+    const trainingMatsLayer = map.createLayer("training_mats", [
+      tileset_main_v2,
+    ]);
+    trainingMatsLayer.setScale(mapScale);
+
+    this.tweens.add({
+      targets: trainingMatsLayer,
+      x: "-=10",
+      ease: Phaser.Math.Easing.Sine.InOut,
+      repeat: -1,
+      yoyo: true,
+      duration: 500,
+    });
+
+    const primaryColor = Phaser.Display.Color.ValueToColor(0xffffff)
+      .gray(255)
+      .lighten(100)
+      .brighten(100)
+      .saturate(10);
+
+    const secondaryColor =
+      Phaser.Display.Color.ValueToColor(0xffffff).gray(200);
+
+    this.tweens.addCounter({
+      from: 0,
+      to: 100,
+      duration: 500,
+      ease: Phaser.Math.Easing.Sine.InOut,
+      repeat: -1,
+      yoyo: true,
+      onUpdate: (tween) => {
+        const value = tween.getValue();
+        const colorObject = Phaser.Display.Color.Interpolate.ColorWithColor(
+          primaryColor,
+          secondaryColor,
+          100,
+          value,
+        );
+        const { r, g, b } = colorObject;
+        const color = Phaser.Display.Color.GetColor(r, g, b);
+        trainingMatsLayer.culledTiles.forEach((t) => {
+          t.tint = color;
+        });
+      },
     });
 
     const resolvePlayerXY = () => {
@@ -133,7 +198,7 @@ export class GymRoomScene extends EarnableScene {
       }
       return {
         x: obj.x * mapScale,
-        y: obj.y * mapScale,
+        y: obj.y * mapScale - roomDevelopmentYOffset,
       };
     };
     this.player = new Player({
@@ -148,12 +213,13 @@ export class GymRoomScene extends EarnableScene {
       this.player.width * 0.25,
       this.player.height * 0.6,
     );
+
     this.cameras.main.startFollow(this.player);
 
     // world bounds
     this.physics.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
     this.physics.world.setBoundsCollision(true, true, true, true);
-    this.player.body.setCollideWorldBounds(true);
+    this.player.playerBody().setCollideWorldBounds(true);
 
     const player = this.player;
 
@@ -167,11 +233,10 @@ export class GymRoomScene extends EarnableScene {
       x: width / 2 + width / 4,
       y: height * 0.015,
       config: { wrapWidth: 280 },
-    });
-
-    hintTextBox.setDepth(1);
-    hintTextBox.setScrollFactor(0, 0);
-    hintTextBox.start("🤖", 50);
+    })
+      .setDepth(1)
+      .setScrollFactor(0, 0)
+      .start("🤖", 50);
 
     if (!playerHasExitPos()) {
       roboTextTimeouts.push(
@@ -179,10 +244,11 @@ export class GymRoomScene extends EarnableScene {
           if (!hintTextBox) return;
           hintTextBox.start(
             "🤖 Welcome 👋\n" +
-              "go to the MetaGym\n" +
-              "and do some stretches 💪\n" +
-              "hint...\n" +
-              "look for the GLOWING MATS",
+              "Enter MetaGymLand\n" +
+              "And do some stretches 💪\n" +
+              "\n" +
+              "Hint...\n" +
+              "Stand on the GLOWING MATS",
             30,
           );
         }, 1000),
@@ -218,23 +284,37 @@ export class GymRoomScene extends EarnableScene {
       const objName = matRectangle.name;
       if (
         player.body.touching.none &&
-        player.collidingTrainingMat !== matRectangle
+        this.collidingTrainingMat !== matRectangle
       ) {
-        player.collidingTrainingMat = matRectangle;
+        this.collidingTrainingMat = matRectangle;
         matRectangle.setFillStyle(0x33dd33, 0.3);
         roboTextTimeouts.forEach((t) => clearTimeout(t));
         sceneToGoOnXclick = objName;
+        let msg = "";
         if (objName === "snap") {
-          hintTextBox.start(
-            `🤖 press X to let your GymBuddy enter Snapchat 🚀`,
-            50,
-          );
+          msg = `🤖 press X to let your GymBuddy enter Snapchat 🚀`;
         } else {
-          hintTextBox.start(
-            `🤖 press X to train on\n${miniGamesMapping.get(objName)} 🚀`,
-            50,
-          );
+          msg = `🤖 press X to train on\n${miniGamesMapping.get(objName)} 🚀`;
         }
+
+        this.playMinigameText = createTextBox({
+          scene: this,
+          x: width / 2 + this.player.width / 2,
+          y: height / 2 - this.player.height,
+          config: { wrapWidth: 280 },
+          bg: mainBgColorNum,
+          stroke: highlightTextColorNum,
+        })
+          .setOrigin(0.5)
+          .setDepth(1)
+          .setScrollFactor(0, 0)
+          .start(msg, 20);
+
+        // play sound
+        if (!this.matHovered && !this.blopSound.isPlaying) {
+          this.blopSound.play();
+        }
+        this.matHovered = true;
       }
     };
 
@@ -245,11 +325,13 @@ export class GymRoomScene extends EarnableScene {
       undefined,
       this,
     );
-    this.player.on("overlapend", function () {
-      if (player.collidingTrainingMat) {
-        const mat = player.collidingTrainingMat;
+    const overlapendCallback = () => {
+      if (this.collidingTrainingMat) {
+        this.playMinigameText.destroy();
+        this.matHovered = false;
+        const mat = this.collidingTrainingMat;
         mat.setFillStyle(null, 0);
-        player.collidingTrainingMat = null;
+        this.collidingTrainingMat = null;
         roboTextTimeouts.push(
           setTimeout(() => {
             if (!hintTextBox) return;
@@ -257,7 +339,9 @@ export class GymRoomScene extends EarnableScene {
           }, 1000),
         );
       }
-    });
+    };
+
+    this.player.on("overlapend", overlapendCallback);
 
     // MBMT inventory
     const mbmtEarnedInventory = createTextBox({
@@ -283,14 +367,25 @@ export class GymRoomScene extends EarnableScene {
   }
 
   // eslint-disable-next-line no-unused-vars
-  update(time: any, delta: any) {
+  update(_time: any, _delta: any) {
     // overlapend event
     const touching = !this.player.body.touching.none;
     const wasTouching = !this.player.body.wasTouching.none;
     // if (touching && !wasTouching) block.emit("overlapstart");
     if (!touching && wasTouching) this.player.emit("overlapend");
+    const now = Date.now();
+    const walkSoundPlayedTimeElasped = now - this.lastWalksSoundPlayed;
 
     // Every frame, we update the player
-    this.player?.update();
+    const moving = this.player?.update();
+    // play walk sound tiwh throttling
+    if (
+      moving &&
+      !this.walkSound.isPlaying &&
+      walkSoundPlayedTimeElasped > 500
+    ) {
+      this.lastWalksSoundPlayed = Date.now();
+      this.walkSound.play();
+    }
   }
 }
