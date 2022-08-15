@@ -1,13 +1,15 @@
 import Phaser from "phaser";
 import { getGameWidth, getGameHeight } from "../helpers";
 import { Player } from "../objects";
-import { PLAYER_SCALE, GYM_ROOM_SCENE } from "..";
+import { PLAYER_SCALE, GYM_ROOM_SCENE, FLY_FIT_SCENE } from "..";
 import {
   GYM_ROOM_MAP,
   GYM_ROOM_TILESET,
   GYM_ROOM_BG,
   STEP_SOUND,
   BLOP_SOUND,
+  LOCKED_SOUND,
+  LOCK,
 } from "../gym-room-boot/assets";
 import { createTextBox } from "../utils/text";
 import { debugCollisonBounds } from "../utils/collision_debugger";
@@ -25,8 +27,15 @@ import { EarnableScene } from "../base-scenes/EarnableScene";
 import { showSnapchatModal } from "./snapchat";
 import { commingSoonModal } from "./comming-soon";
 import { TextBox } from "phaser3-rex-plugins/templates/ui/ui-components";
+import {
+  updateMiniGamesPlayedInSession,
+  isRoomLocked,
+  waterRoomLockKey,
+} from "@games/games-access";
+import { debugLog } from "dev-utils/debug";
 
 const roomDevelopmentYOffset = 0; // 1800
+const roomDevelopmentXOffset = 0; // 1800
 const debugCollisons = false;
 
 const SceneConfig = {
@@ -51,6 +60,8 @@ const miniGamesMapping = new Map([
   ["race_track", "Race Track"],
 ]);
 
+const roomNamesMapping = new Map([[waterRoomLockKey, "Water Room"]]);
+
 const commingSoon = ["kayaks"];
 
 let sceneToGoOnXclick: string;
@@ -62,7 +73,9 @@ export class GymRoomScene extends EarnableScene {
   collidingTrainingMat!: any;
   walkSound!: Phaser.Sound.BaseSound;
   blopSound!: Phaser.Sound.BaseSound;
+  lockedSound!: Phaser.Sound.BaseSound;
   lastWalksSoundPlayed = Date.now();
+  unlockHintText: TextBox | undefined;
   matHovered = false;
   playMinigameText!: TextBox;
 
@@ -70,7 +83,13 @@ export class GymRoomScene extends EarnableScene {
     super(SceneConfig);
   }
 
-  init = (data: { selectedAvatar: any }) => {
+  init = (data: {
+    selectedAvatar: any;
+    prevScene?: string;
+    prevSceneScore?: number;
+    prevSceneTimeSpentMillis?: number;
+  }) => {
+    updateMiniGamesPlayedInSession(data);
     this.selectedAvatar = data.selectedAvatar;
   };
 
@@ -82,6 +101,7 @@ export class GymRoomScene extends EarnableScene {
     // sound
     this.walkSound = this.sound.add(STEP_SOUND, { volume: 0.5 });
     this.blopSound = this.sound.add(BLOP_SOUND, { volume: 0.5 });
+    this.lockedSound = this.sound.add(LOCKED_SOUND, { volume: 0.5 });
 
     // this.cameras.main.backgroundColor.setTo(179, 201, 217);
     // constrols
@@ -197,7 +217,7 @@ export class GymRoomScene extends EarnableScene {
         );
       }
       return {
-        x: obj.x * mapScale,
+        x: obj.x * mapScale + roomDevelopmentXOffset,
         y: obj.y * mapScale - roomDevelopmentYOffset,
       };
     };
@@ -220,8 +240,6 @@ export class GymRoomScene extends EarnableScene {
     this.physics.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
     this.physics.world.setBoundsCollision(true, true, true, true);
     this.player.playerBody().setCollideWorldBounds(true);
-
-    const player = this.player;
 
     // colliders
     this.physics.add.collider(this.player, wallsLayer);
@@ -253,6 +271,108 @@ export class GymRoomScene extends EarnableScene {
           );
         }, 1000),
       );
+    }
+
+    // add colliders to unlocked rooms
+    const playerHandelCollideWithLock = (_player: any, lock: any) => {
+      const objName = lock.name;
+      const msg =
+        `${roomNamesMapping.get(objName) ?? ""} ` +
+        `room is locked` +
+        `\n\n` +
+        `You need to earn access pass\n` +
+        `By training in this room first`;
+      if (!this.unlockHintText) {
+        this.unlockHintText = createTextBox({
+          scene: this,
+          x: width / 2 + this.player.width / 2,
+          y: height / 2 - this.player.height,
+          config: { wrapWidth: 280 },
+          bg: mainBgColorNum,
+          stroke: highlightTextColorNum,
+        })
+          .setOrigin(0.5)
+          .setDepth(1)
+          .setScrollFactor(0, 0)
+          .start(msg, 20);
+
+        this.time.addEvent({
+          delay: 5000,
+          callback: () => {
+            if (this.unlockHintText) {
+              this.unlockHintText.destroy();
+              this.unlockHintText = undefined;
+            }
+          },
+        });
+      }
+
+      if (!this.lockedSound.isPlaying) {
+        this.lockedSound.play();
+      }
+    };
+    const roomLocksLayer = map.getObjectLayer("room_locks");
+    for (const roomLock of roomLocksLayer.objects) {
+      debugLog("[roomLock]", roomLock);
+      if (
+        !roomLock.name ||
+        !roomLock.x ||
+        !roomLock.y ||
+        !roomLock.width ||
+        !roomLock.height ||
+        !roomLock.properties
+      ) {
+        throw Error(
+          `roomLock object has undefined values (name, properties, x, y, width, height) ${JSON.stringify(
+            roomLock,
+          )}`,
+        );
+      }
+      const { name, properties, x, y, width, height } = roomLock;
+      if (
+        isRoomLocked({
+          lockName: name,
+        })
+      ) {
+        const roomLockRect = this.add
+          .rectangle(
+            x * mapScale,
+            y * mapScale,
+            width * mapScale,
+            height * mapScale,
+          )
+          .setName(name)
+          .setOrigin(0)
+          .setFillStyle(0x000000, 0.8);
+
+        const lockImage = this.add.image(x * mapScale, y * mapScale, LOCK);
+        const objProps = properties as any[];
+        type orientationPropType = { value: string } | undefined;
+        const orientationProp = objProps.find(
+          (p) => p.name === "orientation",
+        ) as orientationPropType;
+        const orientation = orientationProp
+          ? orientationProp && orientationProp.value
+          : "vertical";
+        debugLog("[orientation]", orientation);
+        if (orientation === "vertical") {
+          lockImage.setOrigin(0.43, 0.15);
+        } else {
+          lockImage.setOrigin(0.12, 0.5);
+        }
+
+        this.physics.world.enable(
+          roomLockRect,
+          Phaser.Physics.Arcade.STATIC_BODY,
+        );
+        this.physics.add.collider(
+          this.player,
+          roomLockRect,
+          playerHandelCollideWithLock,
+          undefined,
+          this,
+        );
+      }
     }
 
     const trainingMats: Phaser.GameObjects.Rectangle[] = [];

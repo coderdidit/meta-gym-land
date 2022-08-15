@@ -15,9 +15,13 @@ export class SceneInMetaGymRoom extends EarnableScene {
     this.selectedAvatar = data.selectedAvatar;
   };
 
-  exit() {
+  exit(thisSceneKey?: string) {
     this.game.registry.values?.setMinigame(GYM_ROOM_SCENE);
-    this.scene.start(GYM_ROOM_SCENE);
+    this.scene.start(GYM_ROOM_SCENE, {
+      prevScene: thisSceneKey,
+      prevSceneScore: 1,
+      prevSceneTimeSpentMillis: 3,
+    });
   }
 
   handleExit({ thisSceneKey, callbackOnExit }: handleExitParams) {
@@ -31,7 +35,7 @@ export class SceneInMetaGymRoom extends EarnableScene {
             callbackOnExit();
           }
           await this.updateXP();
-          this.exit();
+          this.exit(thisSceneKey);
         }
         if (key === "x") {
           this.scene.start(thisSceneKey);

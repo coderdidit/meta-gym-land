@@ -5,7 +5,7 @@ import {
   mainBgColorNum,
 } from "GlobalStyles";
 import Phaser from "phaser";
-import { RUNNER_ACTUAL } from "../..";
+import { RUNNER, RUNNER_ACTUAL } from "../..";
 import * as gstate from "../../../ai/gpose/state";
 import * as gpose from "../../../ai/gpose/pose";
 import { createTextBox } from "games/utils/text";
@@ -139,7 +139,7 @@ class RunnerScene extends SceneInMetaGymRoom {
         const key = event.key;
         if (key === Key.Escape) {
           await this.updateXP();
-          this.exit();
+          this.exit(RUNNER_ACTUAL);
         }
         if (key === "x") {
           this.restartGame();

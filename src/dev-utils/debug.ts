@@ -1,7 +1,13 @@
-export { isInDebug, cancelAllAnimationFrames };
+export { isInDebug, cancelAllAnimationFrames, debugLog };
 
 const isInDebug = (): boolean => {
   return !process.env.NODE_ENV || process.env.NODE_ENV === "development";
+};
+
+const debugLog = (message?: any, ...optionalParams: any[]) => {
+  if (isInDebug()) {
+    console.log(message, optionalParams);
+  }
 };
 
 const cancelAllAnimationFrames = () => {
