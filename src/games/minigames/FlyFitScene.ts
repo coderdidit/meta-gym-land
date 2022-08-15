@@ -102,7 +102,7 @@ export class FlyFitScene extends SceneInMetaGymRoom {
 
     this.tweens.add({
       targets: btcGroup.getChildren(),
-      y: '+=10',
+      y: "+=10",
       ease: Phaser.Math.Easing.Sine.InOut,
       repeat: -1,
       yoyo: true,

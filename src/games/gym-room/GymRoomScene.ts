@@ -141,7 +141,8 @@ export class GymRoomScene extends EarnableScene {
       .brighten(100)
       .saturate(10);
 
-    const secondaryColor = Phaser.Display.Color.ValueToColor(0xffffff).gray(200);
+    const secondaryColor =
+      Phaser.Display.Color.ValueToColor(0xffffff).gray(200);
 
     this.tweens.addCounter({
       from: 0,
@@ -179,7 +180,7 @@ export class GymRoomScene extends EarnableScene {
       }
       return {
         x: obj.x * mapScale,
-        y: (obj.y * mapScale) - roomDevelopmentYOffset,
+        y: obj.y * mapScale - roomDevelopmentYOffset,
       };
     };
     this.player = new Player({
@@ -226,10 +227,10 @@ export class GymRoomScene extends EarnableScene {
           if (!hintTextBox) return;
           hintTextBox.start(
             "🤖 Welcome 👋\n" +
-            "go to the MetaGym\n" +
-            "and do some stretches 💪\n" +
-            "hint...\n" +
-            "look for the GLOWING MATS",
+              "go to the MetaGym\n" +
+              "and do some stretches 💪\n" +
+              "hint...\n" +
+              "look for the GLOWING MATS",
             30,
           );
         }, 1000),
