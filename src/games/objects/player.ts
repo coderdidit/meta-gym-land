@@ -91,4 +91,9 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
 
     return moving;
   }
+
+  playerBody() {
+    const body = this.body as Phaser.Physics.Arcade.Body;
+    return body;
+  }
 }

@@ -7,6 +7,7 @@ import {
   GYM_ROOM_TILESET,
   GYM_ROOM_BG,
   STEP_SOUND,
+  BLOP_SOUND,
 } from "../gym-room-boot/assets";
 import { createTextBox } from "../utils/text";
 import { debugCollisonBounds } from "../utils/collision_debugger";
@@ -52,9 +53,12 @@ const roboTextTimeouts: NodeJS.Timeout[] = [];
 
 export class GymRoomScene extends EarnableScene {
   selectedAvatar: any;
-  player: any;
+  player!: Player;
+  collidingTrainingMat!: any;
   walkSound!: Phaser.Sound.BaseSound;
+  blopSound!: Phaser.Sound.BaseSound;
   lastWalksSoundPlayed = Date.now();
+  matHovered = false;
 
   constructor() {
     super(SceneConfig);
@@ -71,6 +75,7 @@ export class GymRoomScene extends EarnableScene {
 
     // sound
     this.walkSound = this.sound.add(STEP_SOUND, { volume: 0.5 });
+    this.blopSound = this.sound.add(BLOP_SOUND, { volume: 0.5 });
 
     // this.cameras.main.backgroundColor.setTo(179, 201, 217);
     // constrols
@@ -208,7 +213,7 @@ export class GymRoomScene extends EarnableScene {
     // world bounds
     this.physics.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
     this.physics.world.setBoundsCollision(true, true, true, true);
-    this.player.body.setCollideWorldBounds(true);
+    this.player.playerBody().setCollideWorldBounds(true);
 
     const player = this.player;
 
@@ -273,9 +278,9 @@ export class GymRoomScene extends EarnableScene {
       const objName = matRectangle.name;
       if (
         player.body.touching.none &&
-        player.collidingTrainingMat !== matRectangle
+        this.collidingTrainingMat !== matRectangle
       ) {
-        player.collidingTrainingMat = matRectangle;
+        this.collidingTrainingMat = matRectangle;
         matRectangle.setFillStyle(0x33dd33, 0.3);
         roboTextTimeouts.forEach((t) => clearTimeout(t));
         sceneToGoOnXclick = objName;
@@ -290,6 +295,12 @@ export class GymRoomScene extends EarnableScene {
             50,
           );
         }
+
+        // play sound
+        if (!this.matHovered && !this.blopSound.isPlaying) {
+          this.blopSound.play();
+        }
+        this.matHovered = true;
       }
     };
 
@@ -300,11 +311,12 @@ export class GymRoomScene extends EarnableScene {
       undefined,
       this,
     );
-    this.player.on("overlapend", function () {
-      if (player.collidingTrainingMat) {
-        const mat = player.collidingTrainingMat;
+    const overlapendCallback = () => {
+      if (this.collidingTrainingMat) {
+        this.matHovered = false;
+        const mat = this.collidingTrainingMat;
         mat.setFillStyle(null, 0);
-        player.collidingTrainingMat = null;
+        this.collidingTrainingMat = null;
         roboTextTimeouts.push(
           setTimeout(() => {
             if (!hintTextBox) return;
@@ -312,7 +324,9 @@ export class GymRoomScene extends EarnableScene {
           }, 1000),
         );
       }
-    });
+    };
+
+    this.player.on("overlapend", overlapendCallback);
 
     // MBMT inventory
     const mbmtEarnedInventory = createTextBox({

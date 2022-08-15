@@ -15,12 +15,18 @@ export const FONT = "font";
 export const PILL_BLUE = "pill_blue";
 export const PILL_RED = "pill_red";
 export const STEP_SOUND = "steps_floor";
+export const BLOP_SOUND = "blop";
 
 // Save all in game assets in the public folder
 export const assets = [
   {
     key: STEP_SOUND,
     src: `assets/sounds/${STEP_SOUND}.wav`,
+    type: "AUDIO",
+  },
+  {
+    key: BLOP_SOUND,
+    src: `assets/sounds/${BLOP_SOUND}.mp3`,
     type: "AUDIO",
   },
   {
