@@ -9,6 +9,7 @@ import {
   STEP_SOUND,
   BLOP_SOUND,
   LOCKED_SOUND,
+  LOCK,
 } from "../gym-room-boot/assets";
 import { createTextBox } from "../utils/text";
 import { debugCollisonBounds } from "../utils/collision_debugger";
@@ -33,6 +34,7 @@ import {
 } from "@games/games-access";
 
 const roomDevelopmentYOffset = 1800; // 1800
+const roomDevelopmentXOffset = 1800; // 1800
 const debugCollisons = false;
 
 const SceneConfig = {
@@ -214,7 +216,7 @@ export class GymRoomScene extends EarnableScene {
         );
       }
       return {
-        x: obj.x * mapScale,
+        x: obj.x * mapScale + roomDevelopmentXOffset,
         y: obj.y * mapScale - roomDevelopmentYOffset,
       };
     };
@@ -340,6 +342,11 @@ export class GymRoomScene extends EarnableScene {
           .setName(name)
           .setOrigin(0)
           .setFillStyle(0x000000, 0.8);
+
+        this.add
+          .image(x * mapScale, y * mapScale, LOCK)
+          .setScale(0.4)
+          .setOrigin(0.43, 0.15);
 
         this.physics.world.enable(
           roomLockRect,

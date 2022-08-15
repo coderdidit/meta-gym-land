@@ -845,14 +845,14 @@
          "objects":[
                 {
                  "class":"",
-                 "height":96.1634628506704,
+                 "height":95.8798526823007,
                  "id":25,
                  "name":"water_room_lock",
                  "rotation":0,
                  "visible":true,
                  "width":13.5372361419759,
-                 "x":3135.57870007025,
-                 "y":2815.92464929941
+                 "x":3160.88643039329,
+                 "y":2816.00847805695
                 }],
          "opacity":1,
          "type":"objectgroup",
