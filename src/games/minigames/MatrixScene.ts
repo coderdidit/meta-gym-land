@@ -112,6 +112,17 @@ export class MatrixScene extends SceneInMetaGymRoom {
       .setName(PILL_BLUE);
     const pillis = [redPill, bluePill];
 
+    this.tweens.add({
+      targets: pillis,
+      props: {
+        y: "-=12",
+      },
+      ease: Phaser.Math.Easing.Sine.InOut,
+      repeat: -1,
+      yoyo: true,
+      duration: 500,
+    });
+
     // player
     this.player = new PlayerWithName({
       scene: this,
