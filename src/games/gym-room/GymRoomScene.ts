@@ -19,6 +19,7 @@ import { EarnableScene } from "../base-scenes/EarnableScene";
 import { showSnapchatModal } from "./snapchat";
 import { commingSoonModal } from "./comming-soon";
 
+const roomDevelopmentYOffset = 1800; // 1800
 const debugCollisons = false;
 
 const SceneConfig = {
@@ -127,24 +128,25 @@ export class GymRoomScene extends EarnableScene {
 
     this.tweens.add({
       targets: trainingMatsLayer,
-      x: trainingMatsLayer.x - 8,
+      x: trainingMatsLayer.x - 10,
       ease: Phaser.Math.Easing.Sine.InOut,
       repeat: -1,
       yoyo: true,
-      duration: 1000,
+      duration: 500,
     });
 
-    const primaryColor = Phaser.Display.Color.ValueToColor(0xffffff).gray(200);
-    const secondaryColor = Phaser.Display.Color.ValueToColor(0xffffff)
+    const primaryColor = Phaser.Display.Color.ValueToColor(0xffffff)
       .gray(255)
       .lighten(100)
       .brighten(100)
       .saturate(10);
 
+    const secondaryColor = Phaser.Display.Color.ValueToColor(0xffffff).gray(200);
+
     this.tweens.addCounter({
       from: 0,
       to: 100,
-      duration: 1000,
+      duration: 500,
       ease: Phaser.Math.Easing.Sine.InOut,
       repeat: -1,
       yoyo: true,
@@ -177,7 +179,7 @@ export class GymRoomScene extends EarnableScene {
       }
       return {
         x: obj.x * mapScale,
-        y: obj.y * mapScale,
+        y: (obj.y * mapScale) - roomDevelopmentYOffset,
       };
     };
     this.player = new Player({
@@ -224,10 +226,10 @@ export class GymRoomScene extends EarnableScene {
           if (!hintTextBox) return;
           hintTextBox.start(
             "🤖 Welcome 👋\n" +
-              "go to the MetaGym\n" +
-              "and do some stretches 💪\n" +
-              "hint...\n" +
-              "look for the GLOWING MATS",
+            "go to the MetaGym\n" +
+            "and do some stretches 💪\n" +
+            "hint...\n" +
+            "look for the GLOWING MATS",
             30,
           );
         }, 1000),

@@ -100,6 +100,15 @@ export class FlyFitScene extends SceneInMetaGymRoom {
       collideWorldBounds: true,
     });
 
+    this.tweens.add({
+      targets: btcGroup.getChildren(),
+      y: '+=10',
+      ease: Phaser.Math.Easing.Sine.InOut,
+      repeat: -1,
+      yoyo: true,
+      duration: 500,
+    });
+
     const btcRect = new Phaser.Geom.Rectangle(
       width * 0.04,
       height * 0.13,
