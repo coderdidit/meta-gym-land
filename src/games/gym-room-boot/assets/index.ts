@@ -16,12 +16,18 @@ export const PILL_BLUE = "pill_blue";
 export const PILL_RED = "pill_red";
 export const STEP_SOUND = "steps_floor";
 export const BLOP_SOUND = "blop";
+export const LOCKED_SOUND = "locked";
 
 // Save all in game assets in the public folder
 export const assets = [
   {
     key: STEP_SOUND,
     src: `assets/sounds/${STEP_SOUND}.wav`,
+    type: "AUDIO",
+  },
+  {
+    key: LOCKED_SOUND,
+    src: `assets/sounds/${LOCKED_SOUND}.m4a`,
     type: "AUDIO",
   },
   {

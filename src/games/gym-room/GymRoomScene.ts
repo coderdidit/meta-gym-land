@@ -8,6 +8,7 @@ import {
   GYM_ROOM_BG,
   STEP_SOUND,
   BLOP_SOUND,
+  LOCKED_SOUND,
 } from "../gym-room-boot/assets";
 import { createTextBox } from "../utils/text";
 import { debugCollisonBounds } from "../utils/collision_debugger";
@@ -66,6 +67,7 @@ export class GymRoomScene extends EarnableScene {
   collidingTrainingMat!: any;
   walkSound!: Phaser.Sound.BaseSound;
   blopSound!: Phaser.Sound.BaseSound;
+  lockedSound!: Phaser.Sound.BaseSound;
   lastWalksSoundPlayed = Date.now();
   matHovered = false;
   playMinigameText!: TextBox;
@@ -92,6 +94,7 @@ export class GymRoomScene extends EarnableScene {
     // sound
     this.walkSound = this.sound.add(STEP_SOUND, { volume: 0.5 });
     this.blopSound = this.sound.add(BLOP_SOUND, { volume: 0.5 });
+    this.lockedSound = this.sound.add(LOCKED_SOUND, { volume: 0.5 });
 
     // this.cameras.main.backgroundColor.setTo(179, 201, 217);
     // constrols
@@ -264,9 +267,12 @@ export class GymRoomScene extends EarnableScene {
     }
 
     // add colliders to unlocked rooms
-    const playerHandelCollideWithLock = (player: any, lock: any) => {
+    const playerHandelCollideWithLock = (_player: any, lock: any) => {
       const objName = lock.name;
       console.log("collide with ", objName);
+      if (!this.lockedSound.isPlaying) {
+        this.lockedSound.play();
+      }
     };
     const roomLocksLayer = map.getObjectLayer("room_locks");
     for (const roomLock of roomLocksLayer.objects) {
