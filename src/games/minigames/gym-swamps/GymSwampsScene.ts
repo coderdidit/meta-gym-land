@@ -102,6 +102,38 @@ class GymSwampsScene extends SceneInMetaGymRoom {
       },
     );
 
+    this.tweens.add({
+      targets: this.pills.getChildren(),
+      props: {
+        angle: {
+          getEnd: function (target: { angle: number }, _key: any, _value: any) {
+            let a = 45;
+            if (Math.random() > 0.5) {
+              a = 60;
+            }
+            // direction
+            if (Math.random() > 0.5) {
+              return target.angle + a;
+            } else {
+              return target.angle - a;
+            }
+          },
+
+          getStart: function (
+            target: { angle: number },
+            _key: any,
+            _value: any,
+          ) {
+            return target.angle;
+          },
+        },
+      },
+      ease: Phaser.Math.Easing.Sine.InOut,
+      repeat: -1,
+      yoyo: true,
+      duration: 500,
+    });
+
     const pillsCount = 0;
     this.pillsAte = 0;
     this.physics.add.collider(player, this.walls);
