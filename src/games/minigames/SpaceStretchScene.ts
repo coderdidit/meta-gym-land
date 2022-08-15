@@ -220,12 +220,6 @@ export class SpaceStretchScene extends SceneInMetaGymRoom {
 
     // adjust collision box
     this.player.body.setSize(this.player.width * 0.5, this.player.height * 0.8);
-    // this.player.body.setOffset(
-    //   this.player.width * 0.25,
-    //   this.player.height * 0.6,
-    // );
-
-    // this.physics.add.collider(this.player, ground);
 
     const onCollide = (avatar: any, asteroid: any) => {
       if (avatar.body.onFloor()) {

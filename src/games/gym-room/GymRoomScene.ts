@@ -16,12 +16,17 @@ import {
   getMainRoomPlayerExitPos,
   playerHasExitPos,
 } from "../utils/Globals";
-import { MMT_TICKER } from "../../GlobalStyles";
+import {
+  highlightTextColorNum,
+  mainBgColorNum,
+  MMT_TICKER,
+} from "../../GlobalStyles";
 import { EarnableScene } from "../base-scenes/EarnableScene";
 import { showSnapchatModal } from "./snapchat";
 import { commingSoonModal } from "./comming-soon";
+import { TextBox } from "phaser3-rex-plugins/templates/ui/ui-components";
 
-const roomDevelopmentYOffset = 0; // 1800
+const roomDevelopmentYOffset = 1800; // 1800
 const debugCollisons = false;
 
 const SceneConfig = {
@@ -59,6 +64,7 @@ export class GymRoomScene extends EarnableScene {
   blopSound!: Phaser.Sound.BaseSound;
   lastWalksSoundPlayed = Date.now();
   matHovered = false;
+  playMinigameText!: TextBox;
 
   constructor() {
     super(SceneConfig);
@@ -227,11 +233,10 @@ export class GymRoomScene extends EarnableScene {
       x: width / 2 + width / 4,
       y: height * 0.015,
       config: { wrapWidth: 280 },
-    });
-
-    hintTextBox.setDepth(1);
-    hintTextBox.setScrollFactor(0, 0);
-    hintTextBox.start("🤖", 50);
+    })
+      .setDepth(1)
+      .setScrollFactor(0, 0)
+      .start("🤖", 50);
 
     if (!playerHasExitPos()) {
       roboTextTimeouts.push(
@@ -239,10 +244,11 @@ export class GymRoomScene extends EarnableScene {
           if (!hintTextBox) return;
           hintTextBox.start(
             "🤖 Welcome 👋\n" +
-              "go to the MetaGym\n" +
+              "enter MetaGymLand\n" +
               "and do some stretches 💪\n" +
+              "\n" +
               "hint...\n" +
-              "look for the GLOWING MATS",
+              "step on the GLOWING MATS",
             30,
           );
         }, 1000),
@@ -290,10 +296,22 @@ export class GymRoomScene extends EarnableScene {
             50,
           );
         } else {
-          hintTextBox.start(
-            `🤖 press X to train on\n${miniGamesMapping.get(objName)} 🚀`,
-            50,
-          );
+          const msg = `🤖 press X to train on\n${miniGamesMapping.get(
+            objName,
+          )} 🚀`;
+
+          this.playMinigameText = createTextBox({
+            scene: this,
+            x: width / 2 + this.player.width / 2,
+            y: height / 2 - this.player.height,
+            config: { wrapWidth: 280 },
+            bg: mainBgColorNum,
+            stroke: highlightTextColorNum,
+          })
+            .setOrigin(0.5)
+            .setDepth(1)
+            .setScrollFactor(0, 0)
+            .start(msg, 50);
         }
 
         // play sound
@@ -313,6 +331,7 @@ export class GymRoomScene extends EarnableScene {
     );
     const overlapendCallback = () => {
       if (this.collidingTrainingMat) {
+        this.playMinigameText.destroy();
         this.matHovered = false;
         const mat = this.collidingTrainingMat;
         mat.setFillStyle(null, 0);
