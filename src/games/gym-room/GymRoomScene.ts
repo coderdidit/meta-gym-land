@@ -244,11 +244,11 @@ export class GymRoomScene extends EarnableScene {
           if (!hintTextBox) return;
           hintTextBox.start(
             "🤖 Welcome 👋\n" +
-              "enter MetaGymLand\n" +
-              "and do some stretches 💪\n" +
+              "Enter MetaGymLand\n" +
+              "And do some stretches 💪\n" +
               "\n" +
-              "hint...\n" +
-              "step on the GLOWING MATS",
+              "Hint...\n" +
+              "Stand on the GLOWING MATS",
             30,
           );
         }, 1000),
@@ -290,29 +290,25 @@ export class GymRoomScene extends EarnableScene {
         matRectangle.setFillStyle(0x33dd33, 0.3);
         roboTextTimeouts.forEach((t) => clearTimeout(t));
         sceneToGoOnXclick = objName;
+        let msg = "";
         if (objName === "snap") {
-          hintTextBox.start(
-            `🤖 press X to let your GymBuddy enter Snapchat 🚀`,
-            50,
-          );
+          msg = `🤖 press X to let your GymBuddy enter Snapchat 🚀`;
         } else {
-          const msg = `🤖 press X to train on\n${miniGamesMapping.get(
-            objName,
-          )} 🚀`;
-
-          this.playMinigameText = createTextBox({
-            scene: this,
-            x: width / 2 + this.player.width / 2,
-            y: height / 2 - this.player.height,
-            config: { wrapWidth: 280 },
-            bg: mainBgColorNum,
-            stroke: highlightTextColorNum,
-          })
-            .setOrigin(0.5)
-            .setDepth(1)
-            .setScrollFactor(0, 0)
-            .start(msg, 50);
+          msg = `🤖 press X to train on\n${miniGamesMapping.get(objName)} 🚀`;
         }
+
+        this.playMinigameText = createTextBox({
+          scene: this,
+          x: width / 2 + this.player.width / 2,
+          y: height / 2 - this.player.height,
+          config: { wrapWidth: 280 },
+          bg: mainBgColorNum,
+          stroke: highlightTextColorNum,
+        })
+          .setOrigin(0.5)
+          .setDepth(1)
+          .setScrollFactor(0, 0)
+          .start(msg, 20);
 
         // play sound
         if (!this.matHovered && !this.blopSound.isPlaying) {
