@@ -304,7 +304,9 @@ export class GymRoomScene extends EarnableScene {
             height * mapScale,
           )
           .setName(name)
-          .setOrigin(0);
+          .setOrigin(0)
+          .setFillStyle(0x000000, 0.8);
+        
         this.physics.world.enable(
           roomLockRect,
           Phaser.Physics.Arcade.STATIC_BODY,
