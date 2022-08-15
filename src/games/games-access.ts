@@ -1,6 +1,6 @@
 import { FLY_FIT_SCENE } from ".";
 
-export { updateMiniGamesPlayedInSession, isRoomLocked };
+export { updateMiniGamesPlayedInSession, isRoomLocked, waterRoomLockKey };
 
 const waterRoomLockKey = "water_room_lock";
 const locked = true;

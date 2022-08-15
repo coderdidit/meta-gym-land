@@ -29,6 +29,7 @@ import { TextBox } from "phaser3-rex-plugins/templates/ui/ui-components";
 import {
   updateMiniGamesPlayedInSession,
   isRoomLocked,
+  waterRoomLockKey,
 } from "@games/games-access";
 
 const roomDevelopmentYOffset = 1800; // 1800
@@ -56,6 +57,8 @@ const miniGamesMapping = new Map([
   ["race_track", "Race Track"],
 ]);
 
+const roomNamesMapping = new Map([[waterRoomLockKey, "Water Room"]]);
+
 const commingSoon = ["kayaks"];
 
 let sceneToGoOnXclick: string;
@@ -69,6 +72,7 @@ export class GymRoomScene extends EarnableScene {
   blopSound!: Phaser.Sound.BaseSound;
   lockedSound!: Phaser.Sound.BaseSound;
   lastWalksSoundPlayed = Date.now();
+  unlockHintText: TextBox | undefined;
   matHovered = false;
   playMinigameText!: TextBox;
 
@@ -269,7 +273,37 @@ export class GymRoomScene extends EarnableScene {
     // add colliders to unlocked rooms
     const playerHandelCollideWithLock = (_player: any, lock: any) => {
       const objName = lock.name;
-      console.log("collide with ", objName);
+      const msg =
+        `${roomNamesMapping.get(objName) ?? ""} ` +
+        `room is locked` +
+        `\n\n` +
+        `You need to earn access pass\n` +
+        `By training in this room first`;
+      if (!this.unlockHintText) {
+        this.unlockHintText = createTextBox({
+          scene: this,
+          x: width / 2 + this.player.width / 2,
+          y: height / 2 - this.player.height,
+          config: { wrapWidth: 280 },
+          bg: mainBgColorNum,
+          stroke: highlightTextColorNum,
+        })
+          .setOrigin(0.5)
+          .setDepth(1)
+          .setScrollFactor(0, 0)
+          .start(msg, 20);
+
+        this.time.addEvent({
+          delay: 5000,
+          callback: () => {
+            if (this.unlockHintText) {
+              this.unlockHintText.destroy();
+              this.unlockHintText = undefined;
+            }
+          },
+        });
+      }
+
       if (!this.lockedSound.isPlaying) {
         this.lockedSound.play();
       }
@@ -306,7 +340,7 @@ export class GymRoomScene extends EarnableScene {
           .setName(name)
           .setOrigin(0)
           .setFillStyle(0x000000, 0.8);
-        
+
         this.physics.world.enable(
           roomLockRect,
           Phaser.Physics.Arcade.STATIC_BODY,
