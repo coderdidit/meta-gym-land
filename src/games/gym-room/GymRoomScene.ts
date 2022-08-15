@@ -26,7 +26,7 @@ import { showSnapchatModal } from "./snapchat";
 import { commingSoonModal } from "./comming-soon";
 import { TextBox } from "phaser3-rex-plugins/templates/ui/ui-components";
 
-const roomDevelopmentYOffset = 1800; // 1800
+const roomDevelopmentYOffset = 0; // 1800
 const debugCollisons = false;
 
 const SceneConfig = {
