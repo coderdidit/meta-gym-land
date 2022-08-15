@@ -118,7 +118,11 @@ export class FlyFitScene extends SceneInMetaGymRoom {
             }
           },
 
-          getStart: function (target: { angle: number }, _key: any, _value: any) {
+          getStart: function (
+            target: { angle: number },
+            _key: any,
+            _value: any,
+          ) {
             return target.angle;
           },
         },
