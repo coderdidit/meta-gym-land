@@ -31,6 +31,8 @@ import {
   updateMiniGamesPlayedInSession,
   isRoomLocked,
   waterRoomLockKey,
+  runnerRoomLockKey,
+  mysteryRoomLockKey,
 } from "@games/games-access";
 import { debugLog } from "dev-utils/debug";
 
@@ -60,7 +62,11 @@ const miniGamesMapping = new Map([
   ["race_track", "Race Track"],
 ]);
 
-const roomNamesMapping = new Map([[waterRoomLockKey, "Water Room"]]);
+const roomNamesMapping = new Map([
+  [waterRoomLockKey, "Water Room"],
+  [runnerRoomLockKey, "Runner Room"],
+  [mysteryRoomLockKey, "Mystery Room"],
+]);
 
 const commingSoon = ["kayaks"];
 

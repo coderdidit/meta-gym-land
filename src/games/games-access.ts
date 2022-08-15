@@ -1,5 +1,4 @@
 import { debugLog } from "dev-utils/debug";
-import { debug } from "util";
 import {
   CHART_SQUATS,
   FLY_FIT_SCENE,
@@ -10,11 +9,18 @@ import {
   SPACE_STRETCH_SCENE,
 } from ".";
 
-export { updateMiniGamesPlayedInSession, isRoomLocked, waterRoomLockKey };
+export {
+  updateMiniGamesPlayedInSession,
+  isRoomLocked,
+  waterRoomLockKey,
+  runnerRoomLockKey,
+  mysteryRoomLockKey,
+};
 
 const waterRoomLockKey = "water_room_lock";
-const runnerRoomLock = "runner_room_lock";
+const runnerRoomLockKey = "runner_room_lock";
 const mysteryRoomLockKey = "mystery_room_lock";
+
 const roomLocksState = new Map<string, boolean>();
 const miniGamesPlayedInSession: string[] = [];
 
@@ -44,7 +50,7 @@ const updateMiniGamesPlayedInSession = (data: {
     miniGamesPlayedInSession.includes(GYM_SWAMPS_ACTUAL) ||
     miniGamesPlayedInSession.includes(INVADERS)
   ) {
-    roomLocksState.set(runnerRoomLock, false);
+    roomLocksState.set(runnerRoomLockKey, false);
   }
   if (
     miniGamesPlayedInSession.includes(RUNNER_ACTUAL) ||
