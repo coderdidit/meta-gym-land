@@ -17,8 +17,15 @@ const openUserProgressModal = ({
       </>
     ),
     centered: true,
+    style: {
+      height: "100vh",
+      width: "100vw",
+      margin: 0,
+      top: 0,
+    },
     bodyStyle: {
       textAlign: "center",
+      height: "calc(100vh - 110px)",
     },
     okText: "close",
     content: <UserProgress user={user} />,
