@@ -6,17 +6,12 @@ import { Link } from "react-router-dom";
 import { mainBgColor, mainFontColor } from "../../GlobalStyles";
 import { Popover } from "antd";
 import { MiniGameInstructions } from "./MiniGamesInstructions";
-import { StockOutlined } from "@ant-design/icons";
-import {
-  useUserProgressModal,
-  UserProgressModal,
-} from "components/user-progrees";
+import { UserProgressModalWithIcon } from "components/user-progrees";
 import { useMoralis } from "react-moralis";
 
 const SideMenu = () => {
   const { minigame } = useContext(MiniGameCtx);
   const { user } = useMoralis();
-  const userProgressModal = useUserProgressModal();
 
   useEffect(() => {
     const howToIco = document.getElementById("howto-menu-ico");
@@ -100,24 +95,7 @@ const SideMenu = () => {
         </Link>
       </div>
       {/* user progress */}
-      <div
-        style={{
-          textAlign: "center",
-          marginTop: "1rem",
-          fontSize: "20px",
-          cursor: "pointer",
-          color: mainFontColor,
-        }}
-        onClick={() => userProgressModal.open()}
-      >
-        <StockOutlined />
-        <UserProgressModal
-          user={user}
-          visible={userProgressModal.visible}
-          open={userProgressModal.open}
-          close={userProgressModal.close}
-        />
-      </div>
+      <UserProgressModalWithIcon user={user} />
       {/* instructions */}
       <div
         style={{
