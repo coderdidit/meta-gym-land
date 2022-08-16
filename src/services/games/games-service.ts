@@ -8,11 +8,6 @@ import {
   RACE_TRACK_ACTUAL,
 } from "@games/index";
 import { levelsRepository, minigamesRepository } from "repositories";
-import {
-  waterRoomLockKey,
-  runnerRoomLockKey,
-  mysteryRoomLockKey,
-} from "./games-access";
 
 export { gamesService };
 
