@@ -1,5 +1,5 @@
 import { descriptionStyle, pageTitleStyle } from "GlobalStyles";
-import { Steps } from "antd";
+import { Divider, Steps } from "antd";
 import React from "react";
 
 export { ProgressPage };
@@ -13,7 +13,7 @@ const FlexCenteredDiv: React.FC<FlexCenterDivProps> = ({ children }) => {
     <div
       style={{
         display: "flex",
-        flexFlow: "wrap",
+        flexDirection: "row",
         justifyContent: "center",
         padding: "0 5rem",
         alignItems: "center",
@@ -36,7 +36,7 @@ const PageWithTitle: React.FC<FlexCenterDivPropsWithTitle> = ({
       style={{
         textAlign: "center",
         marginTop: "3rem",
-        marginBottom: "4rem",
+        marginBottom: "15rem",
       }}
     >
       <section
@@ -50,7 +50,6 @@ const PageWithTitle: React.FC<FlexCenterDivPropsWithTitle> = ({
       <section
         style={{
           ...descriptionStyle,
-          marginBottom: "15rem",
           padding: "0 5rem",
           textAlign: "center",
         }}
@@ -62,27 +61,129 @@ const PageWithTitle: React.FC<FlexCenterDivPropsWithTitle> = ({
 };
 
 const ProgressPage: React.FC = () => {
+  const currentLevel = 1;
   return (
     <PageWithTitle title="Your progress">
-      <FlexCenteredDiv>
-        <div>
-          <Steps progressDot current={0} direction="vertical">
-            <Step
-              title="Beginner"
-              description="This is a description. This is a description."
-            />
-            <Step
-              title="Athlete"
-              description="This is a description. This is a description."
-            />
-            <Step
-              title="Senior Athlete"
-              description="This is a description. This is a description."
-            />
-            <Step title="Mystery Solver" description="This is a description." />
-          </Steps>
-        </div>
-      </FlexCenteredDiv>
+      <div>
+        <Steps current={currentLevel}>
+          <Step title="Trial" />
+          <Step title="Beginner" />
+          <Step title="Athlete" />
+          <Step title="Senior Athlete" />
+          <Step title="Mystery Solver" />
+        </Steps>
+        <br />
+        <FlexCenteredDiv>
+          <div>
+            <Steps progressDot current={currentLevel} direction="vertical">
+              <Step
+                title="Trial"
+                description={
+                  <>
+                    <p>Enter the MetaGymLand with Demo GymBuddy</p>
+                    <p>To progress from Trial you need to mint GymBuddy NFT</p>
+                  </>
+                }
+              />
+              <Step
+                title="Beginner"
+                description={
+                  <div>
+                    <h4>How to enter</h4>
+                    <ul style={{ listStyle: "none" }}>
+                      <li>Mint GymBuddy NFT</li>
+                    </ul>
+                    <h4>How to complete</h4>
+                    <ul style={{ listStyle: "none" }}>
+                      <li>Complete all Minigames in the Beginner Room</li>
+                    </ul>
+                    <h4>Current progress</h4>
+                    <ul style={{ listStyle: "none" }}>
+                      <li>Minigames Completed: 0</li>
+                    </ul>
+                    <h4>Rewards</h4>
+                    <ul style={{ listStyle: "none" }}>
+                      <li>Beginner NFT Badge</li>
+                      <li>Access to Athlete Room</li>
+                    </ul>
+                  </div>
+                }
+              />
+              <Step
+                title="Athlete"
+                description={
+                  <div>
+                    <h4>How to enter</h4>
+                    <ul style={{ listStyle: "none" }}>
+                      <li>Earn Beginner NFT Badge</li>
+                    </ul>
+                    <h4>How to complete</h4>
+                    <ul style={{ listStyle: "none" }}>
+                      <li>Complete all Minigames in the Athlete Room</li>
+                    </ul>
+                    <h4>Current progress</h4>
+                    <ul style={{ listStyle: "none" }}>
+                      <li>Minigames Completed: 0</li>
+                    </ul>
+                    <h4>Rewards</h4>
+                    <ul style={{ listStyle: "none" }}>
+                      <li>Athlete NFT Badge</li>
+                      <li>Access to Senior Athlete Room</li>
+                    </ul>
+                  </div>
+                }
+              />
+              <Step
+                title="Senior Athlete"
+                description={
+                  <div>
+                    <h4>How to enter</h4>
+                    <ul style={{ listStyle: "none" }}>
+                      <li>Earn Athlete NFT Badge</li>
+                    </ul>
+                    <h4>How to complete</h4>
+                    <ul style={{ listStyle: "none" }}>
+                      <li>Complete all Minigames in the Senior Athlete Room</li>
+                    </ul>
+                    <h4>Current progress</h4>
+                    <ul style={{ listStyle: "none" }}>
+                      <li>Minigames Completed: 0</li>
+                    </ul>
+                    <h4>Rewards</h4>
+                    <ul style={{ listStyle: "none" }}>
+                      <li>Senior Athlete NFT Badge</li>
+                      <li>Access to Mystery Solver Room</li>
+                    </ul>
+                  </div>
+                }
+              />
+              <Step
+                title="Mystery Solver"
+                description={
+                  <div>
+                    <h4>How to enter</h4>
+                    <ul style={{ listStyle: "none" }}>
+                      <li>Earn Senior Athlete NFT Badge</li>
+                    </ul>
+                    <h4>How to complete</h4>
+                    <ul style={{ listStyle: "none" }}>
+                      <li>Find Mystery Mat</li>
+                    </ul>
+                    <h4>Current progress in Mystery Solver Room</h4>
+                    <ul style={{ listStyle: "none" }}>
+                      <li>Minigames Completed: 0</li>
+                    </ul>
+                    <h4>Rewards</h4>
+                    <ul style={{ listStyle: "none" }}>
+                      <li>Mystery Solver NFT Badge</li>
+                    </ul>
+                  </div>
+                }
+              />
+            </Steps>
+          </div>
+        </FlexCenteredDiv>
+      </div>
     </PageWithTitle>
   );
 };
