@@ -8,6 +8,7 @@ import { Popover } from "antd";
 import { MiniGameInstructions } from "./MiniGamesInstructions";
 import { UserProgressModalWithIcon } from "components/user-progrees";
 import { useMoralis } from "react-moralis";
+import { SelectWebcamModalWithIcon } from "components/Webcam/select-webcam-modal";
 
 const miniGameInstructions = (minigame: string) => {
   const i = MiniGameInstructions.get(minigame);
@@ -79,21 +80,9 @@ const SideMenu = () => {
           <MGLSmallLogo width={43} height={23} viewBox={"0 0 53 43"} />
         </Link>
       </div>
-      <div
-        style={{
-          textAlign: "center",
-        }}
-      >
-        {/* settings */}
-        <Link to="/play-setup">
-          <SettingFilled
-            style={{
-              fontSize: "22px",
-              color: mainFontColor,
-            }}
-          />
-        </Link>
-      </div>
+
+      {/* settings */}
+      <SelectWebcamModalWithIcon />
       {/* user progress */}
       <UserProgressModalWithIcon user={user} />
       {/* instructions */}

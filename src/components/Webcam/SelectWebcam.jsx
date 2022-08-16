@@ -2,10 +2,11 @@ import React, { useState, useCallback, useEffect, useContext } from "react";
 import { VideoCameraFilled } from "@ant-design/icons";
 import { Select } from "antd";
 import { WebcamCtx } from "index";
+import { mainFontColor } from "../../GlobalStyles";
 
 const { Option } = Select;
 
-export { SelectWebcam };
+export { SelectWebcam, SelectWebcamStateless };
 
 const SelectWebcam = ({ width = "auto" }) => {
   const { webcamId, setWebcamId } = useContext(WebcamCtx);
@@ -58,7 +59,7 @@ const SelectWebcamStateless = ({ width = "auto", webcamId, setWebcamId }) => {
           style={{
             width: width,
             overflow: "hidden",
-            color: "black",
+            color: mainFontColor,
           }}
           onChange={handleChange}
         >
