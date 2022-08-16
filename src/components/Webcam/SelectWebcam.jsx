@@ -6,20 +6,10 @@ import { mainFontColor } from "../../GlobalStyles";
 
 const { Option } = Select;
 
-export { SelectWebcam, SelectWebcamStateless };
+export { SelectWebcam };
 
 const SelectWebcam = ({ width = "auto" }) => {
   const { webcamId, setWebcamId } = useContext(WebcamCtx);
-  return (
-    <SelectWebcamStateless
-      width={width}
-      webcamId={webcamId}
-      setWebcamId={setWebcamId}
-    />
-  );
-};
-
-const SelectWebcamStateless = ({ width = "auto", webcamId, setWebcamId }) => {
   const [videoDevices, setVideoDevices] = useState([]);
 
   const handleDevices = useCallback(
