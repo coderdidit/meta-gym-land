@@ -1,12 +1,36 @@
 import { descriptionStyle, pageTitleStyle } from "GlobalStyles";
-import { Divider, Steps } from "antd";
+import { Steps } from "antd";
 import React from "react";
 
 export { ProgressPage };
 
 const { Step } = Steps;
-
-const ProgressPage: React.FC = () => {
+type FlexCenterDivProps = {
+  children: JSX.Element;
+};
+const FlexCenteredDiv: React.FC<FlexCenterDivProps> = ({ children }) => {
+  return (
+    <div
+      style={{
+        display: "flex",
+        flexFlow: "wrap",
+        justifyContent: "center",
+        padding: "0 5rem",
+        alignItems: "center",
+      }}
+    >
+      {children}
+    </div>
+  );
+};
+type FlexCenterDivPropsWithTitle = {
+  title: string;
+  children: JSX.Element;
+};
+const PageWithTitle: React.FC<FlexCenterDivPropsWithTitle> = ({
+  title,
+  children,
+}) => {
   return (
     <div
       style={{
@@ -21,7 +45,7 @@ const ProgressPage: React.FC = () => {
           marginBottom: "2rem",
         }}
       >
-        Your progress
+        {title}
       </section>
       <section
         style={{
@@ -31,45 +55,34 @@ const ProgressPage: React.FC = () => {
           textAlign: "center",
         }}
       >
-        <Steps progressDot current={1}>
-          <Step title="Finished" description="This is a description." />
-          <Step title="In Progress" description="This is a description." />
-          <Step title="Waiting" description="This is a description." />
-        </Steps>
-        <Divider
-          style={{
-            marginBottom: "2rem",
-            marginTop: "2rem",
-          }}
-        />
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            padding: "0 5rem",
-            alignItems: "center",
-          }}
-        >
-          <div>
-            <Steps progressDot current={1} direction="vertical">
-              <Step
-                title="Finished"
-                description="This is a description. This is a description."
-              />
-              <Step
-                title="Finished"
-                description="This is a description. This is a description."
-              />
-              <Step
-                title="In Progress"
-                description="This is a description. This is a description."
-              />
-              <Step title="Waiting" description="This is a description." />
-              <Step title="Waiting" description="This is a description." />
-            </Steps>
-          </div>
-        </div>
+        {children}
       </section>
     </div>
+  );
+};
+
+const ProgressPage: React.FC = () => {
+  return (
+    <PageWithTitle title="Your progress">
+      <FlexCenteredDiv>
+        <div>
+          <Steps progressDot current={0} direction="vertical">
+            <Step
+              title="Beginner"
+              description="This is a description. This is a description."
+            />
+            <Step
+              title="Athlete"
+              description="This is a description. This is a description."
+            />
+            <Step
+              title="Senior Athlete"
+              description="This is a description. This is a description."
+            />
+            <Step title="Mystery Solver" description="This is a description." />
+          </Steps>
+        </div>
+      </FlexCenteredDiv>
+    </PageWithTitle>
   );
 };
