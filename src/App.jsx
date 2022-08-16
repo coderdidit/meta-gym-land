@@ -32,7 +32,7 @@ import { MainChainID } from "MglNftMetadata";
 import { paddingLRHeaderFooter } from "./GlobalStyles";
 import BitKeepConnector from "./components/Account/BitKeepConnector";
 import { MiniGamesPage } from "components/minigames-page";
-import { ProgressPage } from "components/progrees-page";
+import { ProgressPage } from "components/user-progrees";
 
 const { Header } = Layout;
 

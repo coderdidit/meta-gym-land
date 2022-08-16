@@ -1,81 +1,10 @@
-import { descriptionStyle, pageTitleStyle } from "GlobalStyles";
-import { Steps } from "antd";
 import React from "react";
-import { StockOutlined } from "@ant-design/icons";
 import { useMoralis } from "react-moralis";
 import Moralis from "moralis/types";
-
-export { ProgressPage };
-
+import { Steps } from "antd";
 const { Step } = Steps;
-type FlexCenterDivProps = {
-  children: JSX.Element;
-};
-const FlexCenteredDiv: React.FC<FlexCenterDivProps> = ({ children }) => {
-  return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "row",
-        justifyContent: "center",
-        padding: "0 5rem",
-        alignItems: "center",
-      }}
-    >
-      {children}
-    </div>
-  );
-};
-type FlexCenterDivPropsWithTitle = {
-  title: string | JSX.Element;
-  children: JSX.Element;
-};
-const PageWithTitle: React.FC<FlexCenterDivPropsWithTitle> = ({
-  title,
-  children,
-}) => {
-  return (
-    <div
-      style={{
-        textAlign: "center",
-        marginTop: "3rem",
-        marginBottom: "15rem",
-      }}
-    >
-      <section
-        style={{
-          ...pageTitleStyle,
-          marginBottom: "1rem",
-        }}
-      >
-        {title}
-      </section>
-      <section
-        style={{
-          ...descriptionStyle,
-          padding: "0 5rem",
-          textAlign: "center",
-        }}
-      >
-        {children}
-      </section>
-    </div>
-  );
-};
 
-const ProgressPage: React.FC = () => {
-  return (
-    <PageWithTitle
-      title={
-        <>
-          Your progress <StockOutlined />
-        </>
-      }
-    >
-      <UserProgress />
-    </PageWithTitle>
-  );
-};
+export { UserProgress };
 
 const UserProgress: React.FC = () => {
   const { user } = useMoralis();
@@ -219,6 +148,25 @@ const UserProgress: React.FC = () => {
           </Steps>
         </div>
       </FlexCenteredDiv>
+    </div>
+  );
+};
+
+type FlexCenterDivProps = {
+  children: JSX.Element;
+};
+const FlexCenteredDiv: React.FC<FlexCenterDivProps> = ({ children }) => {
+  return (
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "center",
+        padding: "0 5rem",
+        alignItems: "center",
+      }}
+    >
+      {children}
     </div>
   );
 };
