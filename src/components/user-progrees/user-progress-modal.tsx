@@ -1,6 +1,6 @@
 import { StockOutlined } from "@ant-design/icons";
 import { Modal } from "antd";
-import { mainFontColor } from "GlobalStyles";
+import { pageTitle2Style, mainFontColor } from "GlobalStyles";
 import Moralis from "moralis/types";
 import { useState } from "react";
 import { UserProgress } from "./user-progress";
@@ -20,8 +20,8 @@ const UserProgressModalWithIcon = ({
         style={{
           textAlign: "center",
           marginTop: "1rem",
-          fontSize: "20px",
           cursor: "pointer",
+          fontSize: "20px",
           color: mainFontColor,
         }}
         onClick={() => setVisible(true)}
@@ -30,9 +30,16 @@ const UserProgressModalWithIcon = ({
       </div>
       <Modal
         title={
-          <>
-            Your progress <StockOutlined />
-          </>
+          <div
+            style={{
+              textAlign: "center",
+              ...pageTitle2Style,
+            }}
+          >
+            <h3>
+              Your progress <StockOutlined />
+            </h3>
+          </div>
         }
         centered
         visible={visible}

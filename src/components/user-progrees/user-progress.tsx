@@ -1,6 +1,7 @@
 import React from "react";
 import Moralis from "moralis/types";
 import { Steps } from "antd";
+import { descriptionStyle } from "GlobalStyles";
 const { Step } = Steps;
 
 export { UserProgress };
@@ -23,6 +24,7 @@ const UserProgress: React.FC<{
         style={{
           textAlign: "left",
           padding: "2rem 0",
+          ...descriptionStyle,
         }}
       >
         <p>
@@ -163,6 +165,7 @@ const FlexCenteredDiv: React.FC<FlexCenterDivProps> = ({ children }) => {
         justifyContent: "center",
         padding: "0 5rem",
         alignItems: "center",
+        ...descriptionStyle,
       }}
     >
       {children}
