@@ -8,7 +8,6 @@ export { userRepository };
 const XP_COLUMN = "mbmtBalance";
 const CURRENT_LEVEL_COLUMN = "current_level";
 const COMPLETED_MINIGAMES_COLUMN = "completed_minigames";
-const TOTAL_TIME_IN_MINIGAMES_COLUMN = "total_time_in_minigames";
 
 const LAST_POSITION_X_COLUMN = "last_position_x";
 const LAST_POSITION_Y_COLUMN = "last_position_y";
@@ -51,9 +50,8 @@ const userRepository = ({ moralisUser }: userRepositoryParams) => {
     const freshUser = await refresh();
     freshUser?.increment(XP_COLUMN, newUserData.xp);
     // resolve minigames
-    const completedMinigamesSoFar = (await freshUser?.get(
-      COMPLETED_MINIGAMES_COLUMN,
-    )) as number[];
+    const completedMinigamesSoFar =
+      (await freshUser?.get(COMPLETED_MINIGAMES_COLUMN)) ?? ([] as number[]);
 
     const updatedMinigames = Array.from(
       new Set(completedMinigamesSoFar.concat(newUserData.completedMinigames)),
@@ -62,14 +60,11 @@ const userRepository = ({ moralisUser }: userRepositoryParams) => {
     // resolve current level logic base on minigames
     freshUser?.set(CURRENT_LEVEL_COLUMN, newUserData.currentLevel);
 
-    freshUser?.increment(
-      TOTAL_TIME_IN_MINIGAMES_COLUMN,
-      newUserData.totalTimeInMinigames,
-    );
-
     // TODO: if map changed reset
-    freshUser?.set(LAST_POSITION_X_COLUMN, newUserData.lastPositionX);
-    freshUser?.set(LAST_POSITION_Y_COLUMN, newUserData.lastPositionY);
+    if (newUserData.lastPositionX > 0 && newUserData.lastPositionY > 0) {
+      freshUser?.set(LAST_POSITION_X_COLUMN, newUserData.lastPositionX);
+      freshUser?.set(LAST_POSITION_Y_COLUMN, newUserData.lastPositionY);
+    }
     await freshUser?.save();
   };
 
