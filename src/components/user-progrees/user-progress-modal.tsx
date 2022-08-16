@@ -1,33 +1,45 @@
 import { StockOutlined } from "@ant-design/icons";
 import { Modal } from "antd";
 import Moralis from "moralis/types";
+import { useState } from "react";
 import { UserProgress } from "./user-progress";
 
-export { openUserProgressModal };
+export { UserProgressModal, useUserProgressModal };
 
-const openUserProgressModal = ({
+const useUserProgressModal = () => {
+  const [visible, setVisible] = useState(false);
+  return {
+    visible,
+    open: () => setVisible(true),
+    close: () => setVisible(false),
+  };
+};
+
+const UserProgressModal = ({
   user,
+  visible,
+  open,
+  close,
 }: {
   user: Moralis.User<Moralis.Attributes> | null;
+  visible: boolean;
+  open: () => void;
+  close: () => void;
 }) => {
-  Modal.info({
-    title: (
-      <>
-        Your progress <StockOutlined />
-      </>
-    ),
-    centered: true,
-    style: {
-      height: "100vh",
-      width: "100vw",
-      margin: 0,
-      top: 0,
-    },
-    bodyStyle: {
-      textAlign: "center",
-      height: "calc(100vh - 110px)",
-    },
-    okText: "close",
-    content: <UserProgress user={user} />,
-  });
+  return (
+    <Modal
+      title={
+        <>
+          Your progress <StockOutlined />
+        </>
+      }
+      centered
+      visible={visible}
+      onOk={() => open()}
+      onCancel={() => close()}
+      width={1000}
+    >
+      <UserProgress user={user} />
+    </Modal>
+  );
 };

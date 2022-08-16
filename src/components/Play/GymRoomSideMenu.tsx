@@ -7,12 +7,16 @@ import { mainBgColor, mainFontColor } from "../../GlobalStyles";
 import { Popover } from "antd";
 import { MiniGameInstructions } from "./MiniGamesInstructions";
 import { StockOutlined } from "@ant-design/icons";
-import { openUserProgressModal } from "components/user-progrees";
+import {
+  useUserProgressModal,
+  UserProgressModal,
+} from "components/user-progrees";
 import { useMoralis } from "react-moralis";
 
 const SideMenu = () => {
   const { minigame } = useContext(MiniGameCtx);
   const { user } = useMoralis();
+  const userProgressModal = useUserProgressModal();
 
   useEffect(() => {
     const howToIco = document.getElementById("howto-menu-ico");
@@ -104,13 +108,15 @@ const SideMenu = () => {
           cursor: "pointer",
           color: mainFontColor,
         }}
-        onClick={() =>
-          openUserProgressModal({
-            user,
-          })
-        }
+        onClick={() => userProgressModal.open()}
       >
         <StockOutlined />
+        <UserProgressModal
+          user={user}
+          visible={userProgressModal.visible}
+          open={userProgressModal.open}
+          close={userProgressModal.close}
+        />
       </div>
       {/* instructions */}
       <div

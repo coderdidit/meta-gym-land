@@ -1,4 +1,4 @@
-import { openUserProgressModal } from "./user-progress-modal";
+import { UserProgressModal, useUserProgressModal } from "./user-progress-modal";
 import { ProgressPage } from "./user-progress-page";
 
-export { ProgressPage, openUserProgressModal };
+export { ProgressPage, UserProgressModal, useUserProgressModal };
