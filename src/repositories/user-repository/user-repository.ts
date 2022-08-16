@@ -30,7 +30,22 @@ const userRepository = ({ moralisUser }: userRepositoryParams) => {
     return rawXP.toFixed(4);
   };
 
+  const refresh = async (): Promise<
+    Moralis.User<Moralis.Attributes> | undefined
+  > => {
+    return moralisUser?.fetch().then(
+      (usr) => {
+        return usr;
+      },
+      (error) => {
+        console.error(error);
+        return undefined;
+      },
+    );
+  };
+
   const updateUser = async (newUserData: UserInGame) => {
+    // optimistic updates
     moralisUser?.increment(XP_COLUMN, newUserData.xp);
     // resolve current level logic
     // resolve minigames
@@ -65,5 +80,6 @@ const userRepository = ({ moralisUser }: userRepositoryParams) => {
     getXp,
     updateXP,
     updateUser,
+    refresh,
   };
 };
