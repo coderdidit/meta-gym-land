@@ -1,5 +1,8 @@
 import Moralis from "moralis/types";
 
+/**
+ * TODO: replace with Supabase or Firebase
+ */
 export { userRepository };
 
 const XP_COLUMN = "mbmtBalance";
@@ -45,25 +48,29 @@ const userRepository = ({ moralisUser }: userRepositoryParams) => {
   };
 
   const updateUser = async (newUserData: UserInGame) => {
-    // optimistic updates
-    moralisUser?.increment(XP_COLUMN, newUserData.xp);
-    // resolve current level logic
+    const freshUser = await refresh();
+    freshUser?.increment(XP_COLUMN, newUserData.xp);
     // resolve minigames
-    moralisUser?.set(CURRENT_LEVEL_COLUMN, newUserData.currentLevel);
-    moralisUser?.set(
+    const completedMinigamesSoFar = (await freshUser?.get(
       COMPLETED_MINIGAMES_COLUMN,
-      newUserData.completedMinigames,
-    );
+    )) as number[];
 
-    moralisUser?.increment(
+    const updatedMinigames = Array.from(
+      new Set(completedMinigamesSoFar.concat(newUserData.completedMinigames)),
+    );
+    freshUser?.set(COMPLETED_MINIGAMES_COLUMN, updatedMinigames);
+    // resolve current level logic base on minigames
+    freshUser?.set(CURRENT_LEVEL_COLUMN, newUserData.currentLevel);
+
+    freshUser?.increment(
       TOTAL_TIME_IN_MINIGAMES_COLUMN,
       newUserData.totalTimeInMinigames,
     );
 
     // TODO: if map changed reset
-    moralisUser?.set(LAST_POSITION_X_COLUMN, newUserData.lastPositionX);
-    moralisUser?.set(LAST_POSITION_Y_COLUMN, newUserData.lastPositionY);
-    await moralisUser?.save();
+    freshUser?.set(LAST_POSITION_X_COLUMN, newUserData.lastPositionX);
+    freshUser?.set(LAST_POSITION_Y_COLUMN, newUserData.lastPositionY);
+    await freshUser?.save();
   };
 
   const updateXP = async (minigmeSocre: number) => {
