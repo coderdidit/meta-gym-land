@@ -9,6 +9,41 @@ import { MiniGameInstructions } from "./MiniGamesInstructions";
 import { UserProgressModalWithIcon } from "components/user-progrees";
 import { useMoralis } from "react-moralis";
 
+const miniGameInstructions = (minigame: string) => {
+  const i = MiniGameInstructions.get(minigame);
+  return (
+    <>
+      <Popover
+        style={{
+          textAlign: "center",
+          color: mainFontColor,
+        }}
+        placement="topRight"
+        title={i?.title}
+        content={i?.content}
+        trigger="click"
+      >
+        <div
+          id={"howto-menu-ico"}
+          style={{
+            textAlign: "center",
+            cursor: "pointer",
+            color: mainFontColor,
+          }}
+        >
+          <InfoCircleFilled
+            style={{
+              fontSize: "20px",
+              color: mainFontColor,
+            }}
+          />
+          how to
+        </div>
+      </Popover>
+    </>
+  );
+};
+
 const SideMenu = () => {
   const { minigame } = useContext(MiniGameCtx);
   const { user } = useMoralis();
@@ -19,41 +54,6 @@ const SideMenu = () => {
       howToIco.click();
     }
   }, []);
-
-  const miniGameInstructions = () => {
-    const i = MiniGameInstructions.get(minigame);
-    return (
-      <>
-        <Popover
-          style={{
-            textAlign: "center",
-            color: mainFontColor,
-          }}
-          placement="topRight"
-          title={i?.title}
-          content={i?.content}
-          trigger="click"
-        >
-          <div
-            id={"howto-menu-ico"}
-            style={{
-              textAlign: "center",
-              cursor: "pointer",
-              color: mainFontColor,
-            }}
-          >
-            <InfoCircleFilled
-              style={{
-                fontSize: "20px",
-                color: mainFontColor,
-              }}
-            />
-            how to
-          </div>
-        </Popover>
-      </>
-    );
-  };
 
   return (
     <div
@@ -102,7 +102,7 @@ const SideMenu = () => {
           marginTop: "2rem",
         }}
       >
-        {miniGameInstructions()}
+        {miniGameInstructions(minigame)}
       </div>
     </div>
   );
