@@ -2,12 +2,23 @@ import React, { useState, useCallback, useEffect, useContext } from "react";
 import { VideoCameraFilled } from "@ant-design/icons";
 import { Select } from "antd";
 import { WebcamCtx } from "index";
-import { isInDebug } from "../../dev-utils/debug";
 
 const { Option } = Select;
 
+export { SelectWebcam };
+
 const SelectWebcam = ({ width = "auto" }) => {
   const { webcamId, setWebcamId } = useContext(WebcamCtx);
+  return (
+    <SelectWebcamStateless
+      width={width}
+      webcamId={webcamId}
+      setWebcamId={setWebcamId}
+    />
+  );
+};
+
+const SelectWebcamStateless = ({ width = "auto", webcamId, setWebcamId }) => {
   const [videoDevices, setVideoDevices] = useState([]);
 
   const handleDevices = useCallback(
@@ -69,5 +80,3 @@ const SelectWebcam = ({ width = "auto" }) => {
     )
   );
 };
-
-export default SelectWebcam;

@@ -12,7 +12,7 @@ import {
   NFTImg,
   BreakFlexDiv,
 } from "../../GlobalStyles";
-import SelectWebcam from "components/Webcam/SelectWebcam";
+import { SelectWebcam } from "components/Webcam/SelectWebcam";
 import { WebcamCtx } from "index";
 import PoseDetWebcam from "components/Webcam/PoseDetWebcam";
 
