@@ -32,6 +32,7 @@ import { MainChainID } from "MglNftMetadata";
 import { paddingLRHeaderFooter } from "./GlobalStyles";
 import BitKeepConnector from "./components/Account/BitKeepConnector";
 import { MiniGamesPage } from "components/minigames-page";
+import { ProgressPage } from "components/user-progrees";
 
 const { Header } = Layout;
 
@@ -139,6 +140,7 @@ const App = ({ isServerInfo }) => {
             <Route path="mint" element={<MintGymBuddyPage />} />
 
             <Route path="minigames" element={<MiniGamesPage />} />
+            <Route path="player-progress" element={<ProgressPage />} />
 
             <Route path="marketplace" element={<Marketplace />} />
             <Route path="rewards" element={<RewardsPage />} />

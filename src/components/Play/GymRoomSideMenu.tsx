@@ -6,9 +6,48 @@ import { Link } from "react-router-dom";
 import { mainBgColor, mainFontColor } from "../../GlobalStyles";
 import { Popover } from "antd";
 import { MiniGameInstructions } from "./MiniGamesInstructions";
+import { UserProgressModalWithIcon } from "components/user-progrees";
+import { useMoralis } from "react-moralis";
+import { SelectWebcamModalWithIcon } from "components/Webcam/select-webcam-modal";
+
+const miniGameInstructions = (minigame: string) => {
+  const i = MiniGameInstructions.get(minigame);
+  return (
+    <>
+      <Popover
+        style={{
+          textAlign: "center",
+          color: mainFontColor,
+        }}
+        placement="topRight"
+        title={i?.title}
+        content={i?.content}
+        trigger="click"
+      >
+        <div
+          id={"howto-menu-ico"}
+          style={{
+            textAlign: "center",
+            cursor: "pointer",
+            color: mainFontColor,
+          }}
+        >
+          <InfoCircleFilled
+            style={{
+              fontSize: "20px",
+              color: mainFontColor,
+            }}
+          />
+          how to
+        </div>
+      </Popover>
+    </>
+  );
+};
 
 const SideMenu = () => {
   const { minigame } = useContext(MiniGameCtx);
+  const { user } = useMoralis();
 
   useEffect(() => {
     const howToIco = document.getElementById("howto-menu-ico");
@@ -16,41 +55,6 @@ const SideMenu = () => {
       howToIco.click();
     }
   }, []);
-
-  const miniGameInstructions = () => {
-    const i = MiniGameInstructions.get(minigame);
-    return (
-      <>
-        <Popover
-          style={{
-            textAlign: "center",
-            color: mainFontColor,
-          }}
-          placement="topRight"
-          title={i?.title}
-          content={i?.content}
-          trigger="click"
-        >
-          <div
-            id={"howto-menu-ico"}
-            style={{
-              textAlign: "center",
-              cursor: "pointer",
-              color: mainFontColor,
-            }}
-          >
-            <InfoCircleFilled
-              style={{
-                fontSize: "20px",
-                color: mainFontColor,
-              }}
-            />
-            how to
-          </div>
-        </Popover>
-      </>
-    );
-  };
 
   return (
     <div
@@ -71,30 +75,23 @@ const SideMenu = () => {
           marginBottom: "1rem",
         }}
       >
+        {/* home */}
         <Link to="/">
           <MGLSmallLogo width={43} height={23} viewBox={"0 0 53 43"} />
         </Link>
       </div>
-      <div
-        style={{
-          textAlign: "center",
-        }}
-      >
-        <Link to="/play-setup">
-          <SettingFilled
-            style={{
-              fontSize: "22px",
-              color: mainFontColor,
-            }}
-          />
-        </Link>
-      </div>
+
+      {/* settings */}
+      <SelectWebcamModalWithIcon />
+      {/* user progress */}
+      <UserProgressModalWithIcon user={user} />
+      {/* instructions */}
       <div
         style={{
           marginTop: "2rem",
         }}
       >
-        {miniGameInstructions()}
+        {miniGameInstructions(minigame)}
       </div>
     </div>
   );
