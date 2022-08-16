@@ -60,12 +60,29 @@ const PageWithTitle: React.FC<FlexCenterDivPropsWithTitle> = ({
   );
 };
 
-const ProgressPage: React.FC = () => {
-  const currentLevel = 1;
+const ProgressPage: React.FC = ({
+  currentLevel,
+  currentXP,
+}: {
+  currentLevel?: number;
+  currentXP?: number;
+}) => {
+  const _currentLevel = currentLevel ?? 0;
+  const _currentXP = currentXP ?? 0;
   return (
     <PageWithTitle title="Your progress">
       <div>
-        <Steps current={currentLevel}>
+        <div
+          style={{
+            textAlign: "left",
+            padding: "2rem 0",
+          }}
+        >
+          <p>
+            Current $XP : <b>{_currentXP}</b>
+          </p>
+        </div>
+        <Steps current={_currentLevel}>
           <Step title="Trial" />
           <Step title="Beginner" />
           <Step title="Athlete" />
@@ -75,7 +92,7 @@ const ProgressPage: React.FC = () => {
         <br />
         <FlexCenteredDiv>
           <div>
-            <Steps progressDot current={currentLevel} direction="vertical">
+            <Steps progressDot current={_currentLevel} direction="vertical">
               <Step
                 title="Trial"
                 description={
