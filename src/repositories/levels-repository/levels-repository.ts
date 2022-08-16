@@ -1,7 +1,11 @@
 /**
  * TODO: put to Supabase or Firebase
  */
-export { nameToId, IdToName };
+export { levelsRepository };
+
+const levelsRepository = () => {
+  return { nameToId, IdToName };
+};
 
 const trial = "Trial";
 const beginner = "Beginner";
