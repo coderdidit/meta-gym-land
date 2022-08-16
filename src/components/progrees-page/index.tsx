@@ -1,6 +1,7 @@
 import { descriptionStyle, pageTitleStyle } from "GlobalStyles";
-import { Divider, Steps } from "antd";
+import { Steps } from "antd";
 import React from "react";
+import { StockOutlined } from "@ant-design/icons";
 
 export { ProgressPage };
 
@@ -24,7 +25,7 @@ const FlexCenteredDiv: React.FC<FlexCenterDivProps> = ({ children }) => {
   );
 };
 type FlexCenterDivPropsWithTitle = {
-  title: string;
+  title: string | JSX.Element;
   children: JSX.Element;
 };
 const PageWithTitle: React.FC<FlexCenterDivPropsWithTitle> = ({
@@ -42,7 +43,7 @@ const PageWithTitle: React.FC<FlexCenterDivPropsWithTitle> = ({
       <section
         style={{
           ...pageTitleStyle,
-          marginBottom: "2rem",
+          marginBottom: "1rem",
         }}
       >
         {title}
@@ -70,7 +71,13 @@ const ProgressPage: React.FC = ({
   const _currentLevel = currentLevel ?? 0;
   const _currentXP = currentXP ?? 0;
   return (
-    <PageWithTitle title="Your progress">
+    <PageWithTitle
+      title={
+        <>
+          Your progress <StockOutlined />
+        </>
+      }
+    >
       <div>
         <div
           style={{
