@@ -33,7 +33,7 @@ import {
   waterRoomLockKey,
   runnerRoomLockKey,
   mysteryRoomLockKey,
-} from "@games/games-access";
+} from "@services/games/games-access";
 import { debugLog } from "dev-utils/debug";
 
 const roomDevelopmentYOffset = 0; // 1800

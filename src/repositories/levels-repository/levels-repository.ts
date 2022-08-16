@@ -4,7 +4,15 @@
 export { levelsRepository };
 
 const levelsRepository = () => {
-  return { nameToId, IdToName };
+  return {
+    nameToId,
+    IdToName,
+    trial,
+    beginner,
+    athlete,
+    seniorAthlete,
+    mysterySolver,
+  };
 };
 
 const trial = "Trial";
@@ -13,13 +21,21 @@ const athlete = "Athlete";
 const seniorAthlete = "Senior Athlete";
 const mysterySolver = "Mystery Solver";
 
-const nameToId = new Map<string, number>([
+const _nameToId = new Map<string, number>([
   [trial, 0],
   [beginner, 1],
   [athlete, 2],
   [seniorAthlete, 3],
   [mysterySolver, 4],
 ]);
+
+const nameToId = (name: string): number => {
+  const levelId = _nameToId.get(name);
+  if (!levelId) {
+    throw Error(`[levels config error]: levelName: ${name}`);
+  }
+  return levelId;
+};
 
 const IdToName = new Map<number, string>([
   [0, trial],

@@ -7,7 +7,7 @@ import {
   RACE_TRACK_ACTUAL,
   RUNNER_ACTUAL,
   SPACE_STRETCH_SCENE,
-} from ".";
+} from "@games/index";
 
 export {
   updateMiniGamesPlayedInSession,
