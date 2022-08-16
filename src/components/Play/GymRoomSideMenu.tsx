@@ -6,9 +6,13 @@ import { Link } from "react-router-dom";
 import { mainBgColor, mainFontColor } from "../../GlobalStyles";
 import { Popover } from "antd";
 import { MiniGameInstructions } from "./MiniGamesInstructions";
+import { StockOutlined } from "@ant-design/icons";
+import { openUserProgressModal } from "components/user-progrees";
+import { useMoralis } from "react-moralis";
 
 const SideMenu = () => {
   const { minigame } = useContext(MiniGameCtx);
+  const { user } = useMoralis();
 
   useEffect(() => {
     const howToIco = document.getElementById("howto-menu-ico");
@@ -71,6 +75,7 @@ const SideMenu = () => {
           marginBottom: "1rem",
         }}
       >
+        {/* home */}
         <Link to="/">
           <MGLSmallLogo width={43} height={23} viewBox={"0 0 53 43"} />
         </Link>
@@ -80,6 +85,7 @@ const SideMenu = () => {
           textAlign: "center",
         }}
       >
+        {/* settings */}
         <Link to="/play-setup">
           <SettingFilled
             style={{
@@ -89,6 +95,24 @@ const SideMenu = () => {
           />
         </Link>
       </div>
+      {/* user progress */}
+      <div
+        style={{
+          textAlign: "center",
+          marginTop: "1rem",
+          fontSize: "20px",
+          cursor: "pointer",
+          color: mainFontColor,
+        }}
+        onClick={() =>
+          openUserProgressModal({
+            user,
+          })
+        }
+      >
+        <StockOutlined />
+      </div>
+      {/* instructions */}
       <div
         style={{
           marginTop: "2rem",

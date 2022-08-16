@@ -1,15 +1,14 @@
 import React from "react";
-import { useMoralis } from "react-moralis";
 import Moralis from "moralis/types";
 import { Steps } from "antd";
 const { Step } = Steps;
 
 export { UserProgress };
 
-const UserProgress: React.FC = () => {
-  const { user } = useMoralis();
+const UserProgress: React.FC<{
+  user: Moralis.User<Moralis.Attributes> | null;
+}> = ({ user }: { user: Moralis.User<Moralis.Attributes> | null }) => {
   const currentLevel = 0;
-
   const xpColName = "mbmtBalance";
   const moralisUser = user as Moralis.User<Moralis.Attributes> | null;
   const rawXP =
