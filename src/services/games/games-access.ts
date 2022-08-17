@@ -8,9 +8,13 @@ import {
   RUNNER_ACTUAL,
   SPACE_STRETCH_SCENE,
 } from "@games/index";
+import { UserStats } from "repositories/user-repository/user-repository";
+import { levelsRepository } from "repositories";
+import { Levels } from "repositories/levels-repository/levels-repository";
 
 export {
   updateMiniGamesPlayedInSession,
+  updateMiniGamesAccess,
   isRoomLocked,
   waterRoomLockKey,
   runnerRoomLockKey,
@@ -57,5 +61,39 @@ const updateMiniGamesPlayedInSession = (data: {
     miniGamesPlayedInSession.includes(RACE_TRACK_ACTUAL)
   ) {
     roomLocksState.set(mysteryRoomLockKey, false);
+  }
+};
+
+const updateMiniGamesAccess = (userStats: UserStats) => {
+  const userLevel = userStats.level;
+  const levelsRepo = levelsRepository();
+  // consider to do this logic based on NFT ownership
+  // this logic will tell if you are eligable
+  switch (userLevel) {
+    case Levels.TRIAL:
+      roomLocksState.set(waterRoomLockKey, true);
+      roomLocksState.set(runnerRoomLockKey, true);
+      roomLocksState.set(mysteryRoomLockKey, true);
+      break;
+    case Levels.BEGINNER:
+      roomLocksState.set(waterRoomLockKey, true);
+      roomLocksState.set(runnerRoomLockKey, true);
+      roomLocksState.set(mysteryRoomLockKey, true);
+      break;
+    case Levels.ATHLETE:
+      roomLocksState.set(waterRoomLockKey, false);
+      roomLocksState.set(runnerRoomLockKey, true);
+      roomLocksState.set(mysteryRoomLockKey, true);
+      break;
+    case Levels.SENIOR_ATHLETE:
+      roomLocksState.set(waterRoomLockKey, false);
+      roomLocksState.set(runnerRoomLockKey, false);
+      roomLocksState.set(mysteryRoomLockKey, true);
+      break;
+    case Levels.MYSTERY_SOLVER:
+      roomLocksState.set(waterRoomLockKey, false);
+      roomLocksState.set(runnerRoomLockKey, false);
+      roomLocksState.set(mysteryRoomLockKey, false);
+      break;
   }
 };

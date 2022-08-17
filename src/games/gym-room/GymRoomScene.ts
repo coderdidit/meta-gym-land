@@ -33,8 +33,10 @@ import {
   waterRoomLockKey,
   runnerRoomLockKey,
   mysteryRoomLockKey,
+  updateMiniGamesAccess,
 } from "@services/games/games-access";
 import { debugLog } from "dev-utils/debug";
+import { userRepository } from "repositories";
 
 const roomDevelopmentYOffset = 1800; // 1800
 const roomDevelopmentXOffset = 1800; // 1800
@@ -95,7 +97,9 @@ export class GymRoomScene extends EarnableScene {
     prevSceneScore?: number;
     prevSceneTimeSpentMillis?: number;
   }) => {
-    updateMiniGamesPlayedInSession(data);
+    const userRepo = userRepository({ moralisUser: this.gameUser() });
+    const userStats = userRepo.getStats();
+    updateMiniGamesAccess(userStats);
     this.selectedAvatar = data.selectedAvatar;
   };
 

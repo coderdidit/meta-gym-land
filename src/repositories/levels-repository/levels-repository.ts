@@ -1,12 +1,12 @@
 /**
  * TODO: put to Supabase or Firebase
  */
-export { levelsRepository };
+export { levelsRepository, Levels };
 
 const levelsRepository = () => {
   return {
     nameToId,
-    IdToName,
+    idToName,
     trial,
     beginner,
     athlete,
@@ -20,6 +20,14 @@ const beginner = "Beginner";
 const athlete = "Athlete";
 const seniorAthlete = "Senior Athlete";
 const mysterySolver = "Mystery Solver";
+
+enum Levels {
+  TRIAL = 0,
+  BEGINNER = 1,
+  ATHLETE = 2,
+  SENIOR_ATHLETE = 3,
+  MYSTERY_SOLVER = 3,
+}
 
 const _nameToId = new Map<string, number>([
   [trial, 0],
@@ -37,7 +45,7 @@ const nameToId = (name: string): number => {
   return levelId;
 };
 
-const IdToName = new Map<number, string>([
+const idToName = new Map<number, string>([
   [0, trial],
   [1, beginner],
   [2, athlete],

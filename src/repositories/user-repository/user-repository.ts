@@ -6,6 +6,7 @@ import { minigamesRepository } from "repositories/minigames-repository/minigames
  * TODO: replace with Supabase or Firebase
  */
 export { userRepository };
+export type { UserStats };
 
 const XP_COLUMN = "xp";
 const CURRENT_LEVEL_COLUMN = "current_level";
