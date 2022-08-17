@@ -28,30 +28,26 @@ const resolveLevel = (userPlayedMinigames: number[]): number => {
     })
     .filter((gameName) => gameName !== "");
 
-  debugLog("[userPlayedGamesNames]", { userPlayedGamesNames });
-
   // TODO: change OR to AND
-
-  // working with persistent logic needs to be different
-  // chekc it top to bottom, the other way around
+  let level = levelsRepo.nameToId(levelsRepo.beginner);
   if (
     userPlayedGamesNames.includes(FLY_FIT_SCENE) ||
     userPlayedGamesNames.includes(CHART_SQUATS) ||
     userPlayedGamesNames.includes(SPACE_STRETCH_SCENE)
   ) {
-    return levelsRepo.nameToId(levelsRepo.athlete);
+    level = levelsRepo.nameToId(levelsRepo.athlete);
   }
   if (
     userPlayedGamesNames.includes(GYM_SWAMPS_ACTUAL) ||
     userPlayedGamesNames.includes(INVADERS)
   ) {
-    return levelsRepo.nameToId(levelsRepo.seniorAthlete);
+    level = levelsRepo.nameToId(levelsRepo.seniorAthlete);
   }
   if (
     userPlayedGamesNames.includes(RUNNER_ACTUAL) ||
     userPlayedGamesNames.includes(RACE_TRACK_ACTUAL)
   ) {
-    return levelsRepo.nameToId(levelsRepo.mysterySolver);
+    level = levelsRepo.nameToId(levelsRepo.mysterySolver);
   }
-  return levelsRepo.nameToId(levelsRepo.beginner);
+  return level;
 };

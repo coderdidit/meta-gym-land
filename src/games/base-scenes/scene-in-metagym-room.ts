@@ -4,6 +4,7 @@ import { GYM_ROOM_SCENE } from "..";
 import Key from "ts-key-namespace";
 import { getMainRoomPlayerExitPos } from "@games/utils/Globals";
 import { userRepository } from "repositories";
+import { debugLog } from "dev-utils/debug";
 
 type handleExitParams = {
   thisSceneKey: string;
@@ -18,8 +19,28 @@ export class SceneInMetaGymRoom extends EarnableScene {
     this.selectedAvatar = data.selectedAvatar;
   };
 
-  exit(thisSceneKey?: string) {
+  async exit(thisSceneKey: string) {
     this.game.registry.values?.setMinigame(GYM_ROOM_SCENE);
+
+    const lastExitPositions = getMainRoomPlayerExitPos();
+    const minScore = 1;
+    const userStats = {
+      lastPositionInRoomX: lastExitPositions.x,
+      lastPositionInRoomY: lastExitPositions.y,
+      minigameCompleted: this.score >= minScore,
+      minigameKey: thisSceneKey,
+      timeSpent: Date.now() - this.startTime,
+    };
+    const moralisUser = this.gameUser();
+    const userRepo = userRepository({ moralisUser });
+    if (moralisUser) {
+      debugLog("[exit] will update user stats", {
+        ...userStats,
+        score: this.score,
+      });
+      await userRepo.updateUser(userStats);
+    }
+
     this.scene.start(GYM_ROOM_SCENE, {
       prevScene: thisSceneKey,
       prevSceneScore: this.score,
@@ -48,9 +69,6 @@ export class SceneInMetaGymRoom extends EarnableScene {
         if (key === Key.Escape) {
           if (callbackOnExit) {
             callbackOnExit();
-          }
-          if (moralisUser) {
-            await userRepo.updateUser(userStats);
           }
           this.exit(thisSceneKey);
         }

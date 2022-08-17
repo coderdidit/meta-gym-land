@@ -211,7 +211,7 @@ class RunnerScene extends SceneInMetaGymRoom {
         this.respawnTime = 0;
         this.gameSpeed = 10;
         this.gameOverScreen.setAlpha(1);
-        this.score = 0;
+        // this.score = 0;
         this.hitSound.play();
       },
       undefined,

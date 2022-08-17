@@ -1,8 +1,6 @@
-import { CHART_SQUATS } from "@games/index";
+import { CHART_SQUATS, RACE_TRACK_ACTUAL, RUNNER_ACTUAL } from "@games/index";
 import { INVADERS } from "@games/index";
-import { RACE_TRACK } from "@games/index";
 import { MATRIX } from "@games/index";
-import { RUNNER } from "@games/index";
 import { GYM_SWAMPS_ACTUAL } from "@games/index";
 import { FLY_FIT_SCENE } from "@games/index";
 import { SPACE_STRETCH_SCENE } from "@games/index";
@@ -22,8 +20,8 @@ const _nameToId = new Map<string, number>([
   [CHART_SQUATS, 2],
   [GYM_SWAMPS_ACTUAL, 3],
   [INVADERS, 4],
-  [RUNNER, 5],
-  [RACE_TRACK, 6],
+  [RUNNER_ACTUAL, 5],
+  [RACE_TRACK_ACTUAL, 6],
   [MATRIX, 7],
 ]);
 
@@ -41,7 +39,7 @@ const IdToName = new Map<number, string>([
   [2, CHART_SQUATS],
   [3, GYM_SWAMPS_ACTUAL],
   [4, INVADERS],
-  [5, RUNNER],
-  [6, RACE_TRACK],
+  [5, RUNNER_ACTUAL],
+  [6, RACE_TRACK_ACTUAL],
   [7, MATRIX],
 ]);

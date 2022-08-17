@@ -211,7 +211,7 @@ export class MatrixScene extends SceneInMetaGymRoom {
           );
         setTimeout(() => {
           if (this.exit && this.scene.key === MATRIX) {
-            this.exit();
+            this.exit(MATRIX);
           }
         }, 3500);
       }

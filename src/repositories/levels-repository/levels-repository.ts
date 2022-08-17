@@ -26,7 +26,7 @@ enum Levels {
   BEGINNER = 1,
   ATHLETE = 2,
   SENIOR_ATHLETE = 3,
-  MYSTERY_SOLVER = 3,
+  MYSTERY_SOLVER = 4,
 }
 
 const _nameToId = new Map<string, number>([
