@@ -138,7 +138,6 @@ class RunnerScene extends SceneInMetaGymRoom {
       async (event: KeyboardEvent) => {
         const key = event.key;
         if (key === Key.Escape) {
-          
           this.exit(RUNNER_ACTUAL);
         }
         if (key === "x") {

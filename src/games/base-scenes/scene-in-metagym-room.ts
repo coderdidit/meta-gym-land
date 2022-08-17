@@ -28,22 +28,22 @@ export class SceneInMetaGymRoom extends EarnableScene {
   }
 
   handleExit({ thisSceneKey, callbackOnExit }: handleExitParams) {
-    const lastExitPositions = getMainRoomPlayerExitPos();
-    const minScore = 5;
-    const isGameCompleted = this.score > minScore;
-    const userStats = {
-      lastPositionInRoomX: lastExitPositions.x,
-      lastPositionInRoomY: lastExitPositions.y,
-      minigameCompleted: isGameCompleted ? true : false,
-      minigameKey: thisSceneKey,
-      timeSpent: Date.now() - this.startTime,
-    };
-    const moralisUser = this.gameUser();
-    const userRepo = userRepository({ moralisUser });
     // constrols
     this.input.keyboard.on(
       "keydown",
       async (event: KeyboardEvent) => {
+        const lastExitPositions = getMainRoomPlayerExitPos();
+        const minScore = 1;
+        const userStats = {
+          lastPositionInRoomX: lastExitPositions.x,
+          lastPositionInRoomY: lastExitPositions.y,
+          minigameCompleted: this.score >= minScore,
+          minigameKey: thisSceneKey,
+          timeSpent: Date.now() - this.startTime,
+        };
+        const moralisUser = this.gameUser();
+        const userRepo = userRepository({ moralisUser });
+
         const key = event.key;
         if (key === Key.Escape) {
           if (callbackOnExit) {

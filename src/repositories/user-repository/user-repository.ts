@@ -7,7 +7,7 @@ import { minigamesRepository } from "repositories/minigames-repository/minigames
  */
 export { userRepository };
 
-const XP_COLUMN = "mbmtBalance";
+const XP_COLUMN = "xp";
 const CURRENT_LEVEL_COLUMN = "current_level";
 const COMPLETED_MINIGAMES_COLUMN = "completed_minigames";
 
@@ -15,14 +15,6 @@ const LAST_POSITION_X_COLUMN = "last_position_x";
 const LAST_POSITION_Y_COLUMN = "last_position_y";
 
 const TOTAL_TIME_IN_MINIGAMES_COLUMN = "total_time_in_minigames";
-// interface UserInGame {
-//   xp: number;
-//   currentLevel: number;
-//   completedMinigames: number[];
-//   totalTimeInMinigames: number;
-//   lastPositionX: number;
-//   lastPositionY: number;
-// }
 
 interface MinigameUserStats {
   lastPositionInRoomX: number;
@@ -30,6 +22,17 @@ interface MinigameUserStats {
   minigameCompleted: boolean;
   minigameKey: string;
   timeSpent: number;
+}
+
+interface UserStats {
+  xp: number;
+  completedMinigamesCount: number;
+  fromattedTimeSpentInMinigames: string;
+  lastRoomPosition: {
+    x: number;
+    y: number;
+  };
+  level: number;
 }
 
 type userRepositoryParams = {
@@ -41,6 +44,34 @@ const userRepository = ({ moralisUser }: userRepositoryParams) => {
       moralisUser && moralisUser.get && moralisUser.get(XP_COLUMN);
     const rawXP = hasXpColumn ? moralisUser.get(XP_COLUMN) : 0;
     return rawXP.toFixed(4);
+  };
+
+  const getStats = (): UserStats => {
+    if (!moralisUser) {
+      return {
+        xp: 0,
+        completedMinigamesCount: 0,
+        fromattedTimeSpentInMinigames: "",
+        lastRoomPosition: {
+          x: -1,
+          y: -1,
+        },
+        level: 0,
+      };
+    }
+    const minigames: number[] =
+      moralisUser?.get(COMPLETED_MINIGAMES_COLUMN) ?? ([] as number[]);
+    const timeSpent = moralisUser?.get(TOTAL_TIME_IN_MINIGAMES_COLUMN) ?? 0;
+    return {
+      xp: moralisUser?.get(XP_COLUMN) ?? 0,
+      completedMinigamesCount: minigames.length,
+      fromattedTimeSpentInMinigames: msToHMS(timeSpent),
+      lastRoomPosition: {
+        x: moralisUser?.get(LAST_POSITION_X_COLUMN) ?? -1,
+        y: moralisUser?.get(LAST_POSITION_Y_COLUMN) ?? -1,
+      },
+      level: moralisUser?.get(CURRENT_LEVEL_COLUMN) ?? 0,
+    };
   };
 
   const refresh = async (): Promise<
@@ -100,5 +131,21 @@ const userRepository = ({ moralisUser }: userRepositoryParams) => {
     getXp,
     updateUser,
     refresh,
+    getStats,
   };
+};
+
+const msToHMS = (ms: number) => {
+  // 1- Convert to seconds:
+  let seconds = ms / 1000;
+  // 2- Extract hours:
+  const hours = seconds / 3600; // 3,600 seconds in 1 hour
+  seconds = seconds % 3600; // seconds remaining after extracting hours
+  // 3- Extract minutes:
+  const minutes = seconds / 60; // 60 seconds in 1 minute
+  // 4- Keep only seconds not extracted to minutes:
+  seconds = seconds % 60;
+
+  const { round } = Math;
+  return round(hours) + ":" + round(minutes) + ":" + round(seconds);
 };

@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { MiniGameCtx } from "index";
 import { MGLSmallLogo } from "Logos";
-import { SettingFilled, InfoCircleFilled } from "@ant-design/icons";
+import { InfoCircleFilled } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { mainBgColor, mainFontColor } from "../../GlobalStyles";
 import { Popover } from "antd";

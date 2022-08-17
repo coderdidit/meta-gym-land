@@ -34,6 +34,7 @@ const UserProgressModalWithIcon = ({
             style={{
               textAlign: "center",
               ...pageTitle2Style,
+              color: mainFontColor,
             }}
           >
             <h3>

@@ -1,7 +1,8 @@
 import React from "react";
 import Moralis from "moralis/types";
 import { Steps } from "antd";
-import { descriptionStyle } from "GlobalStyles";
+import { descriptionStyle, mainFontColor } from "GlobalStyles";
+import { userRepository } from "repositories";
 const { Step } = Steps;
 
 export { UserProgress };
@@ -9,14 +10,11 @@ export { UserProgress };
 const UserProgress: React.FC<{
   user: Moralis.User<Moralis.Attributes> | null;
 }> = ({ user }: { user: Moralis.User<Moralis.Attributes> | null }) => {
-  const currentLevel = 0;
-  const xpColName = "mbmtBalance";
-  const moralisUser = user as Moralis.User<Moralis.Attributes> | null;
-  const rawXP =
-    moralisUser && moralisUser.get && moralisUser.get(xpColName)
-      ? moralisUser.get(xpColName)
-      : 0;
-  const currentXP = rawXP.toFixed(4);
+  const userRepo = userRepository({ moralisUser: user });
+  const userStats = userRepo.getStats();
+
+  const currentLevel = userStats.level;
+  const currentXP = userStats.xp;
 
   return (
     <div>
@@ -25,10 +23,19 @@ const UserProgress: React.FC<{
           textAlign: "left",
           padding: "2rem 0",
           ...descriptionStyle,
+          color: mainFontColor,
         }}
       >
         <p>
-          Current $XP : <b>{currentXP}</b>
+          Current $XP&nbsp;:&nbsp;<b>{currentXP}</b>
+        </p>
+        <p>
+          Total minigames completed&nbsp;:&nbsp;
+          <b>{userStats.completedMinigamesCount}</b>
+        </p>
+        <p>
+          Time spent in minigames&nbsp;:&nbsp;
+          <b>{userStats.fromattedTimeSpentInMinigames}</b>
         </p>
       </div>
       <Steps current={currentLevel}>
@@ -63,10 +70,6 @@ const UserProgress: React.FC<{
                   <ul style={{ listStyle: "none" }}>
                     <li>Complete all Minigames in the Beginner Room</li>
                   </ul>
-                  <h4>Current progress</h4>
-                  <ul style={{ listStyle: "none" }}>
-                    <li>Minigames Completed: 0</li>
-                  </ul>
                   <h4>Rewards</h4>
                   <ul style={{ listStyle: "none" }}>
                     <li>Beginner NFT Badge</li>
@@ -87,10 +90,6 @@ const UserProgress: React.FC<{
                   <ul style={{ listStyle: "none" }}>
                     <li>Complete all Minigames in the Athlete Room</li>
                   </ul>
-                  <h4>Current progress</h4>
-                  <ul style={{ listStyle: "none" }}>
-                    <li>Minigames Completed: 0</li>
-                  </ul>
                   <h4>Rewards</h4>
                   <ul style={{ listStyle: "none" }}>
                     <li>Athlete NFT Badge</li>
@@ -110,10 +109,6 @@ const UserProgress: React.FC<{
                   <h4>How to complete</h4>
                   <ul style={{ listStyle: "none" }}>
                     <li>Complete all Minigames in the Senior Athlete Room</li>
-                  </ul>
-                  <h4>Current progress</h4>
-                  <ul style={{ listStyle: "none" }}>
-                    <li>Minigames Completed: 0</li>
                   </ul>
                   <h4>Rewards</h4>
                   <ul style={{ listStyle: "none" }}>

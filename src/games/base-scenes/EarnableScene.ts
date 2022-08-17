@@ -14,8 +14,10 @@ export class EarnableScene extends Phaser.Scene {
     const moralisUserPassedToRegistry = this.game.registry.values?.user;
     // if avatar.user is null
     // it means we are using Demo GymBuddy
-    debugLog("[moralisUserPassedToRegistry] attributes",
-      moralisUserPassedToRegistry?.attributes);
+    debugLog(
+      "[moralisUserPassedToRegistry] attributes",
+      moralisUserPassedToRegistry?.attributes,
+    );
     return avatarHasUser ? moralisUserPassedToRegistry : null;
   }
 
