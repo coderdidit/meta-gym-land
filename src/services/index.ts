@@ -1,3 +1,3 @@
-import { levelsService } from "./levels/levels-service";
+import { gamesService } from "./games/games-service";
 
-export { levelsService };
+export { gamesService };

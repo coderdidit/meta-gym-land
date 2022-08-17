@@ -482,7 +482,7 @@ export class GymRoomScene extends EarnableScene {
     });
     mbmtEarnedInventory.setScrollFactor(0, 0);
     const formattedBalance = () => {
-      if (this.currentXPBalance()) return this.currentXPBalance().toFixed(4);
+      if (this.currentXPBalance()) return this.currentXPBalance();
       return 0;
     };
     mbmtEarnedInventory.start(`${MMT_TICKER}: ${formattedBalance()}`, 10);

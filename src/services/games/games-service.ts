@@ -15,6 +15,8 @@ const gamesService = () => {
   return { resolveLevel };
 };
 
+// if no GymBuddy is owned by the user, no user context is passed to the game
+// so this function will not be called and user level will be 0
 const resolveLevel = (userPlayedMinigames: number[]): number => {
   const gamesRepo = minigamesRepository();
   const levelsRepo = levelsRepository();
@@ -45,7 +47,5 @@ const resolveLevel = (userPlayedMinigames: number[]): number => {
   ) {
     return levelsRepo.nameToId(levelsRepo.mysterySolver);
   }
-  // check if user has GymBuddy
-  // if not then it is trial
   return levelsRepo.nameToId(levelsRepo.beginner);
 };

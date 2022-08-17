@@ -16,7 +16,7 @@ const minigamesRepository = () => {
   return { nameToId, IdToName };
 };
 
-const nameToId = new Map<string, number>([
+const _nameToId = new Map<string, number>([
   [SPACE_STRETCH_SCENE, 0],
   [FLY_FIT_SCENE, 1],
   [CHART_SQUATS, 2],
@@ -26,6 +26,14 @@ const nameToId = new Map<string, number>([
   [RACE_TRACK, 6],
   [MATRIX, 7],
 ]);
+
+const nameToId = (name: string): number => {
+  const id = _nameToId.get(name);
+  if (!id) {
+    throw Error(`[bad minigames repo settings]: ${name}`);
+  }
+  return id;
+};
 
 const IdToName = new Map<number, string>([
   [0, SPACE_STRETCH_SCENE],
