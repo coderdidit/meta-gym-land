@@ -18,10 +18,10 @@ function MenuItems() {
       key: "/marketplace",
       label: <NavLink to="/marketplace">Marketplace</NavLink>,
     },
-    {
-      key: "/rewards",
-      label: <NavLink to="/rewards">Rewards</NavLink>,
-    },
+    // {
+    //   key: "/rewards",
+    //   label: <NavLink to="/rewards">Rewards</NavLink>,
+    // },
     {
       key: "/whitepaper",
       label: (

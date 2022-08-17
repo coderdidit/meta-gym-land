@@ -9,8 +9,17 @@ export { UserProgress };
 
 const UserProgress: React.FC<{
   user: Moralis.User<Moralis.Attributes> | null;
-}> = ({ user }: { user: Moralis.User<Moralis.Attributes> | null }) => {
-  const userRepo = userRepository({ moralisUser: user });
+  avatar: any;
+}> = ({
+  user,
+  avatar,
+}: {
+  user: Moralis.User<Moralis.Attributes> | null;
+  avatar: any;
+}) => {
+  const userCtx =
+    avatar && avatar.name && avatar.name !== "demo buddy" ? user : null;
+  const userRepo = userRepository({ moralisUser: userCtx });
   const userStats = userRepo.getStats();
 
   const currentLevel = userStats.level;

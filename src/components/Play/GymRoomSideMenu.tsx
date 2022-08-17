@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import { MiniGameCtx } from "index";
+import { AvatarCtx, MiniGameCtx } from "index";
 import { MGLSmallLogo } from "Logos";
 import { InfoCircleFilled } from "@ant-design/icons";
 import { Link } from "react-router-dom";
@@ -48,6 +48,7 @@ const miniGameInstructions = (minigame: string) => {
 const SideMenu = () => {
   const { minigame } = useContext(MiniGameCtx);
   const { user } = useMoralis();
+  const [avatar] = useContext(AvatarCtx);
 
   useEffect(() => {
     const howToIco = document.getElementById("howto-menu-ico");
@@ -84,7 +85,7 @@ const SideMenu = () => {
       {/* settings */}
       <SelectWebcamModalWithIcon />
       {/* user progress */}
-      <UserProgressModalWithIcon user={user} />
+      <UserProgressModalWithIcon user={user} avatar={avatar} />
       {/* instructions */}
       <div
         style={{
