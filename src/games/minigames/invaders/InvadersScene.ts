@@ -142,6 +142,8 @@ export class InvadersScene extends SceneInMetaGymRoom {
       undefined,
       this,
     );
+
+    this.score = this.scoreManager.score;
   }
 
   private _shipKeyboardHandler() {

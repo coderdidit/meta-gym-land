@@ -7,6 +7,7 @@ import {
   RUNNER_ACTUAL,
   RACE_TRACK_ACTUAL,
 } from "@games/index";
+import { debugLog } from "dev-utils/debug";
 import { levelsRepository, minigamesRepository } from "repositories";
 
 export { gamesService };
@@ -27,7 +28,12 @@ const resolveLevel = (userPlayedMinigames: number[]): number => {
     })
     .filter((gameName) => gameName !== "");
 
+  debugLog("[userPlayedGamesNames]", { userPlayedGamesNames });
+
   // TODO: change OR to AND
+
+  // working with persistent logic needs to be different
+  // chekc it top to bottom, the other way around
   if (
     userPlayedGamesNames.includes(FLY_FIT_SCENE) ||
     userPlayedGamesNames.includes(CHART_SQUATS) ||

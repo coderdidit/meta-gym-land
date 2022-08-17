@@ -265,5 +265,6 @@ class GymSwampsScene extends SceneInMetaGymRoom {
     }
 
     this.scoreText.setText("SCORE: " + player.score);
+    this.score = this.player.score;
   }
 }
