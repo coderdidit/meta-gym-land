@@ -27,7 +27,7 @@ export class SceneInMetaGymRoom extends EarnableScene {
     const minScore = 1;
     const userStats = {
       lastPositionInRoomX: lastExitPositions?.x ?? -1,
-          lastPositionInRoomY: lastExitPositions?.y ?? -1,
+      lastPositionInRoomY: lastExitPositions?.y ?? -1,
       minigameCompleted: this.score >= minScore,
       minigameKey: thisSceneKey,
       timeSpent: Date.now() - this.startTime,
