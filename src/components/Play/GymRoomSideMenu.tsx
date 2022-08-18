@@ -51,6 +51,10 @@ const SideMenu = () => {
   const [avatar] = useContext(AvatarCtx);
 
   useEffect(() => {
+    const refreshUser = async () => {
+      await user?.fetch();
+    };
+    refreshUser();
     const howToIco = document.getElementById("howto-menu-ico");
     if (howToIco && howToIco.click) {
       howToIco.click();

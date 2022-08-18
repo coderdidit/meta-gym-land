@@ -12,6 +12,7 @@ import card from "./card.png";
 import { useMoralis } from "react-moralis";
 import { Button, Popover } from "antd";
 import { SocialsLinks } from "../SocialsPage";
+import React, { useEffect } from "react";
 
 const colName = "mbmtBalance";
 
@@ -31,6 +32,13 @@ const activeBgStyle = {
 
 const RewardsPage = () => {
   const { user } = useMoralis();
+  useEffect(() => {
+    const refreshUser = async () => {
+      await user?.fetch();
+    };
+    refreshUser();
+  }, []);
+
   const mbmtBalance =
     user && user.get && user.get(colName) ? user.get(colName) : 0;
   return (

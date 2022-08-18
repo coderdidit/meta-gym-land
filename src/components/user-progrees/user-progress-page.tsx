@@ -1,5 +1,5 @@
 import { descriptionStyle, pageTitleStyle } from "GlobalStyles";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { StockOutlined } from "@ant-design/icons";
 import { UserProgress } from "./user-progress";
 import { useMoralis } from "react-moralis";
@@ -47,6 +47,13 @@ const PageWithTitle: React.FC<FlexCenterDivPropsWithTitle> = ({
 const ProgressPage: React.FC = () => {
   const { user } = useMoralis();
   const [avatar] = useContext(AvatarCtx);
+
+  useEffect(() => {
+    const refreshUser = async () => {
+      await user?.fetch();
+    };
+    refreshUser();
+  }, []);
 
   return (
     <PageWithTitle
