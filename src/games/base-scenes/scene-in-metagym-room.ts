@@ -32,7 +32,10 @@ export class SceneInMetaGymRoom extends EarnableScene {
       timeSpent: Date.now() - this.startTime,
     };
     const moralisUser = this.gameUser();
-    const userRepo = userRepository({ moralisUser });
+    const userRepo = userRepository({
+      moralisUser,
+      avatar: this.selectedAvatar,
+    });
     if (moralisUser) {
       debugLog("[exit] will update user stats", {
         ...userStats,
@@ -63,7 +66,10 @@ export class SceneInMetaGymRoom extends EarnableScene {
           timeSpent: Date.now() - this.startTime,
         };
         const moralisUser = this.gameUser();
-        const userRepo = userRepository({ moralisUser });
+        const userRepo = userRepository({
+          moralisUser,
+          avatar: this.selectedAvatar,
+        });
 
         const key = event.key;
         if (key === Key.Escape) {

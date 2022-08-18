@@ -1,4 +1,5 @@
 import { gamesService } from "@services/index";
+import { debugLog } from "dev-utils/debug";
 import Moralis from "moralis/types";
 import { minigamesRepository } from "repositories/minigames-repository/minigames-repository";
 
@@ -29,48 +30,48 @@ interface UserStats {
   xp: number;
   completedMinigamesCount: number;
   fromattedTimeSpentInMinigames: string;
-  lastRoomPosition: {
-    x: number;
-    y: number;
-  };
+  lastRoomPosition:
+    | {
+        x: number;
+        y: number;
+      }
+    | undefined;
   level: number;
 }
 
 type userRepositoryParams = {
   moralisUser: Moralis.User<Moralis.Attributes> | null;
+  avatar: any;
 };
-const userRepository = ({ moralisUser }: userRepositoryParams) => {
-  const getXp = (): number => {
-    const hasXpColumn =
-      moralisUser && moralisUser.get && moralisUser.get(XP_COLUMN);
-    const rawXP = hasXpColumn ? moralisUser.get(XP_COLUMN) : 0;
-    return rawXP.toFixed(4);
-  };
-
-  const getStats = (): UserStats => {
+const userRepository = ({ moralisUser, avatar }: userRepositoryParams) => {
+  const getStats = (): UserStats | undefined => {
+    debugLog("[userRepository] getStats", { moralisUser, avatar });
     if (!moralisUser) {
-      return {
-        xp: 0,
-        completedMinigamesCount: 0,
-        fromattedTimeSpentInMinigames: "",
-        lastRoomPosition: {
-          x: -1,
-          y: -1,
-        },
-        level: 0,
-      };
+      return undefined;
+    }
+    if (!avatar) {
+      return undefined;
+    }
+    if (avatar && avatar.name && avatar.name === "demo buddy") {
+      return undefined;
     }
     const minigames: number[] =
       moralisUser?.get(COMPLETED_MINIGAMES_COLUMN) ?? ([] as number[]);
     const timeSpent = moralisUser?.get(TOTAL_TIME_IN_MINIGAMES_COLUMN) ?? 0;
+    const hasSavedXYPositiosnx =
+      moralisUser?.get(LAST_POSITION_X_COLUMN) &&
+      moralisUser?.get(LAST_POSITION_Y_COLUMN);
+    const savedXYPositiosn = hasSavedXYPositiosnx
+      ? {
+          x: moralisUser?.get(LAST_POSITION_X_COLUMN) ?? -1,
+          y: moralisUser?.get(LAST_POSITION_Y_COLUMN) ?? -1,
+        }
+      : undefined;
     return {
       xp: moralisUser?.get(XP_COLUMN) ?? 0,
       completedMinigamesCount: minigames.length,
       fromattedTimeSpentInMinigames: msToHMS(timeSpent),
-      lastRoomPosition: {
-        x: moralisUser?.get(LAST_POSITION_X_COLUMN) ?? -1,
-        y: moralisUser?.get(LAST_POSITION_Y_COLUMN) ?? -1,
-      },
+      lastRoomPosition: savedXYPositiosn,
       level: moralisUser?.get(CURRENT_LEVEL_COLUMN) ?? 0,
     };
   };
@@ -129,7 +130,6 @@ const userRepository = ({ moralisUser }: userRepositoryParams) => {
   };
 
   return {
-    getXp,
     updateUser,
     refresh,
     getStats,

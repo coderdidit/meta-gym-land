@@ -64,9 +64,14 @@ const updateMiniGamesPlayedInSession = (data: {
   }
 };
 
-const updateMiniGamesAccess = (userStats: UserStats) => {
+const updateMiniGamesAccess = (userStats: UserStats | undefined) => {
+  if (!userStats) {
+    roomLocksState.set(waterRoomLockKey, true);
+    roomLocksState.set(runnerRoomLockKey, true);
+    roomLocksState.set(mysteryRoomLockKey, true);
+    return;
+  }
   const userLevel = userStats.level;
-  const levelsRepo = levelsRepository();
   // consider to do this logic based on NFT ownership
   // this logic will tell if you are eligable
   switch (userLevel) {

@@ -23,7 +23,10 @@ export class EarnableScene extends Phaser.Scene {
 
   currentXPBalance() {
     const moralisUser = this.gameUser();
-    const userRepo = userRepository({ moralisUser });
-    return userRepo.getXp();
+    const userRepo = userRepository({
+      moralisUser,
+      avatar: this.game.registry.values?.avatar,
+    });
+    return userRepo.getStats()?.xp ?? 0;
   }
 }

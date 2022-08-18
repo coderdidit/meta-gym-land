@@ -17,13 +17,14 @@ const UserProgress: React.FC<{
   user: Moralis.User<Moralis.Attributes> | null;
   avatar: any;
 }) => {
-  const userCtx =
-    avatar && avatar.name && avatar.name !== "demo buddy" ? user : null;
-  const userRepo = userRepository({ moralisUser: userCtx });
+  const userRepo = userRepository({ moralisUser: user, avatar });
   const userStats = userRepo.getStats();
 
-  const currentLevel = userStats.level;
-  const currentXP = userStats.xp;
+  const currentLevel = userStats?.level ?? 0;
+  const currentXP = userStats?.xp ?? 0;
+  const completedMinigamesCount = userStats?.completedMinigamesCount ?? 0;
+  const fromattedTimeSpentInMinigames =
+    userStats?.fromattedTimeSpentInMinigames ?? "";
 
   return (
     <div>
@@ -40,11 +41,11 @@ const UserProgress: React.FC<{
         </p>
         <p>
           Total minigames completed&nbsp;:&nbsp;
-          <b>{userStats.completedMinigamesCount}</b>
+          <b>{completedMinigamesCount}</b>
         </p>
         <p>
           Time spent in minigames&nbsp;:&nbsp;
-          <b>{userStats.fromattedTimeSpentInMinigames}</b>
+          <b>{fromattedTimeSpentInMinigames}</b>
         </p>
       </div>
       <Steps current={currentLevel}>

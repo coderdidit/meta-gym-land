@@ -1,7 +1,7 @@
 import Phaser from "phaser";
 import { getGameWidth, getGameHeight } from "../helpers";
 import { Player } from "../objects";
-import { PLAYER_SCALE, GYM_ROOM_SCENE, FLY_FIT_SCENE } from "..";
+import { PLAYER_SCALE, GYM_ROOM_SCENE } from "..";
 import {
   GYM_ROOM_MAP,
   GYM_ROOM_TILESET,
@@ -13,11 +13,7 @@ import {
 } from "../gym-room-boot/assets";
 import { createTextBox } from "../utils/text";
 import { debugCollisonBounds } from "../utils/collision_debugger";
-import {
-  setMainRoomPlayerExitPos,
-  getMainRoomPlayerExitPos,
-  playerHasExitPos,
-} from "../utils/Globals";
+import { playerHasExitPos } from "../utils/Globals";
 import {
   highlightTextColorNum,
   mainBgColorNum,
@@ -28,7 +24,6 @@ import { showSnapchatModal } from "./snapchat";
 import { commingSoonModal } from "./comming-soon";
 import { TextBox } from "phaser3-rex-plugins/templates/ui/ui-components";
 import {
-  updateMiniGamesPlayedInSession,
   isRoomLocked,
   waterRoomLockKey,
   runnerRoomLockKey,
@@ -38,8 +33,10 @@ import {
 import { debugLog } from "dev-utils/debug";
 import { userRepository } from "repositories";
 
-const roomDevelopmentYOffset = 1800; // 1800
-const roomDevelopmentXOffset = 1800; // 1800
+// for debuging
+const roomDevelopmentYOffset = 0; // 1800
+const roomDevelopmentXOffset = 0; // 1800
+
 const debugCollisons = false;
 
 const SceneConfig = {
@@ -86,21 +83,32 @@ export class GymRoomScene extends EarnableScene {
   unlockHintText: TextBox | undefined;
   matHovered = false;
   playMinigameText!: TextBox;
+  savedUserPosition:
+    | {
+        x: number;
+        y: number;
+      }
+    | undefined;
 
   constructor() {
     super(SceneConfig);
   }
 
-  init = (data: {
-    selectedAvatar: any;
-    prevScene?: string;
-    prevSceneScore?: number;
-    prevSceneTimeSpentMillis?: number;
-  }) => {
-    const userRepo = userRepository({ moralisUser: this.gameUser() });
+  init = () => {
+    const userRepo = userRepository({
+      moralisUser: this.gameUser(),
+      avatar: this.game.registry.values?.avatar,
+    });
     const userStats = userRepo.getStats();
+
+    debugLog("[saved userStats]", userStats);
     updateMiniGamesAccess(userStats);
-    this.selectedAvatar = data.selectedAvatar;
+    if (userStats && userStats.lastRoomPosition) {
+      this.savedUserPosition = {
+        ...userStats.lastRoomPosition,
+      };
+    }
+    this.selectedAvatar = this.game.registry.values?.avatar;
   };
 
   create() {
@@ -121,7 +129,6 @@ export class GymRoomScene extends EarnableScene {
         const code = event.keyCode;
         if (sceneToGoOnXclick && code === Phaser.Input.Keyboard.KeyCodes.X) {
           roboTextTimeouts.forEach((t) => clearTimeout(t));
-          setMainRoomPlayerExitPos(this.player.x, this.player.y);
           if (commingSoon.includes(sceneToGoOnXclick)) {
             commingSoonModal(miniGamesMapping.get(sceneToGoOnXclick) ?? "");
           } else if (sceneToGoOnXclick === "snap") {
@@ -215,9 +222,13 @@ export class GymRoomScene extends EarnableScene {
       },
     });
 
-    const resolvePlayerXY = () => {
-      if (playerHasExitPos()) {
-        return getMainRoomPlayerExitPos();
+    const resolvePlayerXY = (): {
+      x: number;
+      y: number;
+    } => {
+      debugLog("[savedUserPosition]", this.savedUserPosition);
+      if (this.savedUserPosition) {
+        return this.savedUserPosition;
       }
       const playerObjLayer = map.getObjectLayer("player");
       const obj = playerObjLayer.objects[0];
@@ -266,7 +277,7 @@ export class GymRoomScene extends EarnableScene {
       .setScrollFactor(0, 0)
       .start("🤖", 50);
 
-    if (!playerHasExitPos()) {
+    if (!this.savedUserPosition) {
       roboTextTimeouts.push(
         setTimeout(() => {
           if (!hintTextBox) return;
