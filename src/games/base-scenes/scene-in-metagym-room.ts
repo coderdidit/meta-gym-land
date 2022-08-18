@@ -13,10 +13,11 @@ type handleExitParams = {
 
 export class SceneInMetaGymRoom extends EarnableScene {
   selectedAvatar: any;
-  startTime = Date.now();
+  startTime!: number;
 
   init = (data: any) => {
     this.selectedAvatar = data.selectedAvatar;
+    this.startTime = Date.now();
   };
 
   async exit(thisSceneKey: string) {

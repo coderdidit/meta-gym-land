@@ -82,7 +82,6 @@ const UserProgress: React.FC<{
                   </ul>
                   <h4>Rewards</h4>
                   <ul style={{ listStyle: "none" }}>
-                    <li>Beginner NFT Badge</li>
                     <li>Access to Athlete Room</li>
                   </ul>
                 </div>
@@ -94,7 +93,7 @@ const UserProgress: React.FC<{
                 <div>
                   <h4>How to enter</h4>
                   <ul style={{ listStyle: "none" }}>
-                    <li>Earn Beginner NFT Badge</li>
+                    <li>Complete all Minigames in the Beginner Room</li>
                   </ul>
                   <h4>How to complete</h4>
                   <ul style={{ listStyle: "none" }}>
@@ -102,7 +101,6 @@ const UserProgress: React.FC<{
                   </ul>
                   <h4>Rewards</h4>
                   <ul style={{ listStyle: "none" }}>
-                    <li>Athlete NFT Badge</li>
                     <li>Access to Senior Athlete Room</li>
                   </ul>
                 </div>
@@ -114,7 +112,7 @@ const UserProgress: React.FC<{
                 <div>
                   <h4>How to enter</h4>
                   <ul style={{ listStyle: "none" }}>
-                    <li>Earn Athlete NFT Badge</li>
+                    <li>Complete all Minigames in the Athlete Room</li>
                   </ul>
                   <h4>How to complete</h4>
                   <ul style={{ listStyle: "none" }}>
@@ -122,7 +120,6 @@ const UserProgress: React.FC<{
                   </ul>
                   <h4>Rewards</h4>
                   <ul style={{ listStyle: "none" }}>
-                    <li>Senior Athlete NFT Badge</li>
                     <li>Access to Mystery Solver Room</li>
                   </ul>
                 </div>
@@ -134,19 +131,15 @@ const UserProgress: React.FC<{
                 <div>
                   <h4>How to enter</h4>
                   <ul style={{ listStyle: "none" }}>
-                    <li>Earn Senior Athlete NFT Badge</li>
+                    <li>Complete all Minigames in the Senior Athlete Room</li>
                   </ul>
                   <h4>How to complete</h4>
                   <ul style={{ listStyle: "none" }}>
                     <li>Find Mystery Mat</li>
                   </ul>
-                  <h4>Current progress in Mystery Solver Room</h4>
-                  <ul style={{ listStyle: "none" }}>
-                    <li>Minigames Completed: 0</li>
-                  </ul>
                   <h4>Rewards</h4>
                   <ul style={{ listStyle: "none" }}>
-                    <li>Mystery Solver NFT Badge</li>
+                    <li>Find out</li>
                   </ul>
                 </div>
               }

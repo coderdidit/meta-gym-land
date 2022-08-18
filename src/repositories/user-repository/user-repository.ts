@@ -55,6 +55,9 @@ const userRepository = ({ moralisUser, avatar }: userRepositoryParams) => {
     if (avatar && avatar.name && avatar.name === "demo buddy") {
       return undefined;
     }
+
+    const defaultLevelForUserWithMintedAvatar = 1;
+
     const minigames: number[] =
       moralisUser?.get(COMPLETED_MINIGAMES_COLUMN) ?? ([] as number[]);
     const timeSpent = moralisUser?.get(TOTAL_TIME_IN_MINIGAMES_COLUMN) ?? 0;
@@ -72,7 +75,9 @@ const userRepository = ({ moralisUser, avatar }: userRepositoryParams) => {
       completedMinigamesCount: minigames.length,
       fromattedTimeSpentInMinigames: msToHMS(timeSpent),
       lastRoomPosition: savedXYPositiosn,
-      level: moralisUser?.get(CURRENT_LEVEL_COLUMN) ?? 0,
+      level:
+        moralisUser?.get(CURRENT_LEVEL_COLUMN) ??
+        defaultLevelForUserWithMintedAvatar,
     };
   };
 
