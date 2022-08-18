@@ -18,7 +18,8 @@
     "baseUrl": "src",
     "types": ["phaser", "jest"],
     "paths": {
-      "@games/*": ["games/*"]
+      "@games/*": ["games/*"],
+      "@services/*": ["services/*"]
     }
   }
 }

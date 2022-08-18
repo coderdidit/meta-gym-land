@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
-import { MiniGameCtx } from "index";
+import { AvatarCtx, MiniGameCtx } from "index";
 import { MGLSmallLogo } from "Logos";
-import { SettingFilled, InfoCircleFilled } from "@ant-design/icons";
+import { InfoCircleFilled } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { mainBgColor, mainFontColor } from "../../GlobalStyles";
 import { Popover } from "antd";
@@ -48,8 +48,13 @@ const miniGameInstructions = (minigame: string) => {
 const SideMenu = () => {
   const { minigame } = useContext(MiniGameCtx);
   const { user } = useMoralis();
+  const [avatar] = useContext(AvatarCtx);
 
   useEffect(() => {
+    const refreshUser = async () => {
+      await user?.fetch();
+    };
+    refreshUser();
     const howToIco = document.getElementById("howto-menu-ico");
     if (howToIco && howToIco.click) {
       howToIco.click();
@@ -84,7 +89,7 @@ const SideMenu = () => {
       {/* settings */}
       <SelectWebcamModalWithIcon />
       {/* user progress */}
-      <UserProgressModalWithIcon user={user} />
+      <UserProgressModalWithIcon user={user} avatar={avatar} />
       {/* instructions */}
       <div
         style={{

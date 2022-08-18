@@ -22,5 +22,6 @@ module.exports = function override(config, env) {
 
   return alias({
     "@games": "src/games",
+    "@services": "src/services",
   })(config);
 };

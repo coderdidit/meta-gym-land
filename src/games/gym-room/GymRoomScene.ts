@@ -1,7 +1,7 @@
 import Phaser from "phaser";
 import { getGameWidth, getGameHeight } from "../helpers";
 import { Player } from "../objects";
-import { PLAYER_SCALE, GYM_ROOM_SCENE, FLY_FIT_SCENE } from "..";
+import { PLAYER_SCALE, GYM_ROOM_SCENE } from "..";
 import {
   GYM_ROOM_MAP,
   GYM_ROOM_TILESET,
@@ -15,8 +15,8 @@ import { createTextBox } from "../utils/text";
 import { debugCollisonBounds } from "../utils/collision_debugger";
 import {
   setMainRoomPlayerExitPos,
-  getMainRoomPlayerExitPos,
   playerHasExitPos,
+  getMainRoomPlayerExitPos,
 } from "../utils/Globals";
 import {
   highlightTextColorNum,
@@ -28,16 +28,19 @@ import { showSnapchatModal } from "./snapchat";
 import { commingSoonModal } from "./comming-soon";
 import { TextBox } from "phaser3-rex-plugins/templates/ui/ui-components";
 import {
-  updateMiniGamesPlayedInSession,
   isRoomLocked,
   waterRoomLockKey,
   runnerRoomLockKey,
   mysteryRoomLockKey,
-} from "@games/games-access";
+  updateMiniGamesAccess,
+} from "@services/games/games-access";
 import { debugLog } from "dev-utils/debug";
+import { userRepository } from "repositories";
 
+// for debuging
 const roomDevelopmentYOffset = 0; // 1800
 const roomDevelopmentXOffset = 0; // 1800
+
 const debugCollisons = false;
 
 const SceneConfig = {
@@ -84,19 +87,32 @@ export class GymRoomScene extends EarnableScene {
   unlockHintText: TextBox | undefined;
   matHovered = false;
   playMinigameText!: TextBox;
+  savedUserPosition:
+    | {
+        x: number;
+        y: number;
+      }
+    | undefined;
 
   constructor() {
     super(SceneConfig);
   }
 
-  init = (data: {
-    selectedAvatar: any;
-    prevScene?: string;
-    prevSceneScore?: number;
-    prevSceneTimeSpentMillis?: number;
-  }) => {
-    updateMiniGamesPlayedInSession(data);
-    this.selectedAvatar = data.selectedAvatar;
+  init = () => {
+    const userRepo = userRepository({
+      moralisUser: this.gameUser(),
+      avatar: this.game.registry.values?.avatar,
+    });
+    const userStats = userRepo.getStats();
+
+    debugLog("[saved userStats]", userStats);
+    updateMiniGamesAccess(userStats);
+    if (userStats && userStats.lastRoomPosition) {
+      this.savedUserPosition = {
+        ...userStats.lastRoomPosition,
+      };
+    }
+    this.selectedAvatar = this.game.registry.values?.avatar;
   };
 
   create() {
@@ -211,7 +227,15 @@ export class GymRoomScene extends EarnableScene {
       },
     });
 
-    const resolvePlayerXY = () => {
+    const resolvePlayerXY = (): {
+      x: number;
+      y: number;
+    } => {
+      debugLog("[savedUserPosition]", this.savedUserPosition);
+      if (this.savedUserPosition) {
+        return this.savedUserPosition;
+      }
+      // this is for in memory like demo gym buddy
       if (playerHasExitPos()) {
         return getMainRoomPlayerExitPos();
       }
@@ -482,8 +506,7 @@ export class GymRoomScene extends EarnableScene {
     });
     mbmtEarnedInventory.setScrollFactor(0, 0);
     const formattedBalance = () => {
-      if (this.currentXPBalance()) return this.currentXPBalance().toFixed(4);
-      return 0;
+      return this.currentXPBalance().toFixed(4);
     };
     mbmtEarnedInventory.start(`${MMT_TICKER}: ${formattedBalance()}`, 10);
     // debugging

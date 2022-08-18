@@ -9,8 +9,10 @@ export { UserProgressModalWithIcon };
 
 const UserProgressModalWithIcon = ({
   user,
+  avatar,
 }: {
   user: Moralis.User<Moralis.Attributes> | null;
+  avatar: any;
 }) => {
   const [visible, setVisible] = useState(false);
 
@@ -34,6 +36,7 @@ const UserProgressModalWithIcon = ({
             style={{
               textAlign: "center",
               ...pageTitle2Style,
+              color: mainFontColor,
             }}
           >
             <h3>
@@ -47,7 +50,7 @@ const UserProgressModalWithIcon = ({
         onCancel={() => setVisible(false)}
         width={1100}
       >
-        <UserProgress user={user} />
+        <UserProgress user={user} avatar={avatar} />
       </Modal>
     </>
   );

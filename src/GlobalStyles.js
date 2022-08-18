@@ -126,7 +126,7 @@ export const descriptionStyle = {
   lineHeight: "28px",
 };
 
-export const MMT_TICKER = "$MMT";
+export const MMT_TICKER = "$XP";
 
 const paddingLRHeaderFooterV = "2rem";
 export const paddingLRHeaderFooter = {

@@ -49,6 +49,10 @@ const GymRoom = ({
   };
 
   useEffect(() => {
+    const refreshUser = async () => {
+      await user?.fetch();
+    };
+    refreshUser();
     const timeout = setTimeout(() => {
       startGame();
     }, 500);

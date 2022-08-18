@@ -27,7 +27,7 @@ import {
   ConnectWalletWarn,
   UseCorrectNetworkWarn,
 } from "./components/Warrnings";
-import RewardsPage from "./components/Rewards";
+// import RewardsPage from "./components/Rewards";
 import { MainChainID } from "MglNftMetadata";
 import { paddingLRHeaderFooter } from "./GlobalStyles";
 import BitKeepConnector from "./components/Account/BitKeepConnector";
@@ -143,7 +143,7 @@ const App = ({ isServerInfo }) => {
             <Route path="player-progress" element={<ProgressPage />} />
 
             <Route path="marketplace" element={<Marketplace />} />
-            <Route path="rewards" element={<RewardsPage />} />
+            {/* <Route path="rewards" element={<RewardsPage />} /> */}
 
             <Route path="demo-avatar" element={<DemoAvatar />} />
             <Route

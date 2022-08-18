@@ -138,7 +138,6 @@ class RunnerScene extends SceneInMetaGymRoom {
       async (event: KeyboardEvent) => {
         const key = event.key;
         if (key === Key.Escape) {
-          await this.updateXP();
           this.exit(RUNNER_ACTUAL);
         }
         if (key === "x") {
@@ -212,7 +211,7 @@ class RunnerScene extends SceneInMetaGymRoom {
         this.respawnTime = 0;
         this.gameSpeed = 10;
         this.gameOverScreen.setAlpha(1);
-        this.score = 0;
+        // this.score = 0;
         this.hitSound.play();
       },
       undefined,
