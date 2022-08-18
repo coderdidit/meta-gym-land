@@ -13,7 +13,11 @@ import {
 } from "../gym-room-boot/assets";
 import { createTextBox } from "../utils/text";
 import { debugCollisonBounds } from "../utils/collision_debugger";
-import { playerHasExitPos } from "../utils/Globals";
+import {
+  setMainRoomPlayerExitPos,
+  playerHasExitPos,
+  getMainRoomPlayerExitPos,
+} from "../utils/Globals";
 import {
   highlightTextColorNum,
   mainBgColorNum,
@@ -129,6 +133,7 @@ export class GymRoomScene extends EarnableScene {
         const code = event.keyCode;
         if (sceneToGoOnXclick && code === Phaser.Input.Keyboard.KeyCodes.X) {
           roboTextTimeouts.forEach((t) => clearTimeout(t));
+          setMainRoomPlayerExitPos(this.player.x, this.player.y);
           if (commingSoon.includes(sceneToGoOnXclick)) {
             commingSoonModal(miniGamesMapping.get(sceneToGoOnXclick) ?? "");
           } else if (sceneToGoOnXclick === "snap") {
@@ -230,6 +235,10 @@ export class GymRoomScene extends EarnableScene {
       if (this.savedUserPosition) {
         return this.savedUserPosition;
       }
+      // this is for in memory like demo gym buddy
+      if (playerHasExitPos()) {
+        return getMainRoomPlayerExitPos();
+      }
       const playerObjLayer = map.getObjectLayer("player");
       const obj = playerObjLayer.objects[0];
       if (!obj.x || !obj.y) {
@@ -277,7 +286,7 @@ export class GymRoomScene extends EarnableScene {
       .setScrollFactor(0, 0)
       .start("🤖", 50);
 
-    if (!this.savedUserPosition) {
+    if (!playerHasExitPos()) {
       roboTextTimeouts.push(
         setTimeout(() => {
           if (!hintTextBox) return;
