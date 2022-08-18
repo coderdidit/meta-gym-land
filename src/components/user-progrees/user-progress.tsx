@@ -37,7 +37,7 @@ const UserProgress: React.FC<{
         }}
       >
         <p>
-          Current $XP&nbsp;:&nbsp;<b>{currentXP}</b>
+          Current $XP&nbsp;:&nbsp;<b>{currentXP.toFixed(4)}</b>
         </p>
         <p>
           Total minigames completed&nbsp;:&nbsp;
