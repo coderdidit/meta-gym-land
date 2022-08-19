@@ -12,10 +12,6 @@ export type { UserStats };
 const XP_COLUMN = "xp";
 const CURRENT_LEVEL_COLUMN = "current_level";
 const COMPLETED_MINIGAMES_COLUMN = "completed_minigames";
-
-const LAST_POSITION_X_COLUMN = "last_position_x";
-const LAST_POSITION_Y_COLUMN = "last_position_y";
-
 const TOTAL_TIME_IN_MINIGAMES_COLUMN = "total_time_in_minigames";
 
 interface MinigameUserStats {
@@ -55,15 +51,6 @@ const userRepository = ({ moralisUser, avatar }: userRepositoryParams) => {
     const minigames: number[] =
       moralisUser?.get(COMPLETED_MINIGAMES_COLUMN) ?? ([] as number[]);
     const timeSpent = moralisUser?.get(TOTAL_TIME_IN_MINIGAMES_COLUMN) ?? 0;
-    const hasSavedXYPositiosnx =
-      moralisUser?.get(LAST_POSITION_X_COLUMN) &&
-      moralisUser?.get(LAST_POSITION_Y_COLUMN);
-    const savedXYPositiosn = hasSavedXYPositiosnx
-      ? {
-          x: moralisUser?.get(LAST_POSITION_X_COLUMN) ?? -1,
-          y: moralisUser?.get(LAST_POSITION_Y_COLUMN) ?? -1,
-        }
-      : undefined;
     return {
       xp: moralisUser?.get(XP_COLUMN) ?? 0,
       completedMinigamesCount: minigames.length,
@@ -119,13 +106,6 @@ const userRepository = ({ moralisUser, avatar }: userRepositoryParams) => {
       );
     }
 
-    if (
-      newUserData.lastPositionInRoomX > 0 &&
-      newUserData.lastPositionInRoomY > 0
-    ) {
-      freshUser?.set(LAST_POSITION_X_COLUMN, newUserData.lastPositionInRoomX);
-      freshUser?.set(LAST_POSITION_Y_COLUMN, newUserData.lastPositionInRoomY);
-    }
     try {
       await freshUser?.save();
     } catch (err) {
