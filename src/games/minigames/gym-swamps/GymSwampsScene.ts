@@ -83,7 +83,8 @@ class GymSwampsScene extends SceneInMetaGymRoom {
     this.physics.world.setBoundsCollision(true, true, true, true);
     this.player.setCollideWorldBounds(true);
 
-    this.cameras.main.startFollow(this.player);
+    const roundPixels = true;
+    this.cameras.main.startFollow(this.player, roundPixels);
     const player = this.player;
 
     this.pills = this.physics.add.group();
