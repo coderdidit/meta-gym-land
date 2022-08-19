@@ -73,13 +73,9 @@ export class InvadersScene extends SceneInMetaGymRoom {
     const height = getGameHeight(this);
 
     this.state = GameState.Playing;
-    this.starfield = this.add.tileSprite(
-      width / 2,
-      height / 2,
-      width,
-      height,
-      AssetType.Starfield,
-    );
+
+    const bg = this.add.image(width / 2, height / 2, AssetType.Starfield);
+    bg.setDisplaySize(width, height);
 
     this.assetManager = new AssetManager(this);
     this.animationFactory = new AnimationFactory(this);
@@ -120,9 +116,6 @@ export class InvadersScene extends SceneInMetaGymRoom {
   }
 
   update() {
-    // scroll background
-    this.starfield.tilePositionY -= 1;
-
     this._shipKeyboardHandler();
     if (this.time.now > this.firingTimer) {
       this._enemyFires();
