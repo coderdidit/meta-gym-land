@@ -88,14 +88,14 @@ export class InvadersScene extends SceneInMetaGymRoom {
     this.scoreManager = new ScoreManager(this);
     this.createTextBoxes();
 
-    this.fireKey.on("down", () => {
-      switch (this.state) {
-        case GameState.Win:
-        case GameState.GameOver:
-          this.restart();
-          break;
-      }
-    });
+    // this.fireKey.on("down", () => {
+    //   switch (this.state) {
+    //     case GameState.Win:
+    //     case GameState.GameOver:
+    //       this.restart();
+    //       break;
+    //   }
+    // });
   }
 
   private createTextBoxes() {
@@ -174,7 +174,9 @@ export class InvadersScene extends SceneInMetaGymRoom {
     this.scoreManager.increaseScore();
     if (!this.alienManager.hasAliveAliens) {
       this.scoreManager.increaseScore(10);
-      this.scoreManager.setWinText();
+      this.scoreManager.setWinText({
+        scene: this,
+      });
       this.state = GameState.Win;
     }
   }
@@ -192,7 +194,7 @@ export class InvadersScene extends SceneInMetaGymRoom {
     explosion.play(AnimationType.Kaboom);
 
     if (this.scoreManager.noMoreLives) {
-      this.scoreManager.setGameOverText();
+      this.scoreManager.setGameOverText({ scene: this });
       this.assetManager.gameOver();
       this.state = GameState.GameOver;
       this.player.disableBody(true, true);

@@ -1,6 +1,11 @@
-import { getGameWidth } from "games/helpers";
-import { InGameFont } from "GlobalStyles";
+import { getGameHeight, getGameWidth } from "games/helpers";
+import {
+  highlightTextColorNum,
+  InGameFont,
+  mainBgColorNum,
+} from "GlobalStyles";
 import { PLAYER_KEY } from "games";
+import { createTextBox } from "@games/utils/text";
 
 export class ScoreManager {
   scoreText!: Phaser.GameObjects.Text;
@@ -83,36 +88,39 @@ export class ScoreManager {
     }
   }
 
-  setWinText() {
-    this._setBigText("YOU WON!", "PRESS SPACE FOR NEW GAME");
+  setWinText({ scene }: { scene: Phaser.Scene }) {
+    const width = getGameWidth(scene);
+    const height = getGameHeight(scene);
+    const youWonText = createTextBox({
+      scene,
+      x: width / 2,
+      y: height / 2,
+      config: { wrapWidth: 280 },
+      bg: mainBgColorNum,
+      stroke: highlightTextColorNum,
+    });
+    youWonText.setOrigin(0.5).setDepth(3).setScrollFactor(0, 0);
+    youWonText.start("YOU WON!" + "\n" + "PRESS X FOR NEW GAME", 30);
   }
 
-  setGameOverText() {
-    this._setBigText("GAME OVER", "PRESS SPACE FOR NEW GAME");
+  setGameOverText({ scene }: { scene: Phaser.Scene }) {
+    const width = getGameWidth(scene);
+    const height = getGameHeight(scene);
+    const gameOverText = createTextBox({
+      scene,
+      x: width / 2,
+      y: height / 2,
+      config: { wrapWidth: 280 },
+      bg: mainBgColorNum,
+      stroke: highlightTextColorNum,
+    });
+    gameOverText.setOrigin(0.5).setDepth(3).setScrollFactor(0, 0);
+    gameOverText.start("GAME OVER!" + "\n" + "PRESS X FOR NEW GAME", 30);
   }
 
   hideText() {
     this.line1Text.setText("").setPadding(0).setDepth(0);
     this.line2Text.setText("").setPadding(0).setDepth(0);
-  }
-
-  private _setBigText(line1: string, line2: string) {
-    const depth = 2;
-    const bgColor = "#FFFFFF";
-    const textColor = "#030404";
-    const padding = 8;
-    this.line1Text
-      .setText(line1)
-      .setBackgroundColor(bgColor)
-      .setColor(textColor)
-      .setPadding(padding)
-      .setDepth(depth);
-    this.line2Text
-      .setText(line2)
-      .setBackgroundColor(bgColor)
-      .setColor(textColor)
-      .setPadding(padding)
-      .setDepth(depth);
   }
 
   setHighScore() {
