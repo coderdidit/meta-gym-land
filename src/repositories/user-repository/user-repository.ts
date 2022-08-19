@@ -30,12 +30,6 @@ interface UserStats {
   xp: number;
   completedMinigamesCount: number;
   fromattedTimeSpentInMinigames: string;
-  lastRoomPosition:
-    | {
-        x: number;
-        y: number;
-      }
-    | undefined;
   level: number;
 }
 
@@ -74,7 +68,6 @@ const userRepository = ({ moralisUser, avatar }: userRepositoryParams) => {
       xp: moralisUser?.get(XP_COLUMN) ?? 0,
       completedMinigamesCount: minigames.length,
       fromattedTimeSpentInMinigames: msToHMS(timeSpent),
-      lastRoomPosition: savedXYPositiosn,
       level:
         moralisUser?.get(CURRENT_LEVEL_COLUMN) ??
         defaultLevelForUserWithMintedAvatar,
