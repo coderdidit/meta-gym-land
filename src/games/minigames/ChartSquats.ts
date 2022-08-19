@@ -64,10 +64,6 @@ export class ChartSquats extends SceneInMetaGymRoom {
     super(SceneConfig);
   }
 
-  init = (data: { selectedAvatar: any }) => {
-    this.selectedAvatar = data.selectedAvatar;
-  };
-
   drawGround(width: number | undefined, height: number) {
     const groundHeight = height * 0.02;
     const rect = new Phaser.Geom.Rectangle(

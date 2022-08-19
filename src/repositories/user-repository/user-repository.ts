@@ -98,6 +98,8 @@ const userRepository = ({ moralisUser, avatar }: userRepositoryParams) => {
   const updateUser = async (newUserData: MinigameUserStats) => {
     const freshUser = await refresh(); // check if this is necessary
 
+    debugLog("[userRepo] updateUser", newUserData);
+
     // update time spent
     freshUser?.increment(TOTAL_TIME_IN_MINIGAMES_COLUMN, newUserData.timeSpent);
     // update xp
@@ -131,7 +133,11 @@ const userRepository = ({ moralisUser, avatar }: userRepositoryParams) => {
       freshUser?.set(LAST_POSITION_X_COLUMN, newUserData.lastPositionInRoomX);
       freshUser?.set(LAST_POSITION_Y_COLUMN, newUserData.lastPositionInRoomY);
     }
-    await freshUser?.save();
+    try {
+      await freshUser?.save();
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return {

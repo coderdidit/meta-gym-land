@@ -232,9 +232,9 @@ export class GymRoomScene extends EarnableScene {
       y: number;
     } => {
       debugLog("[savedUserPosition]", this.savedUserPosition);
-      if (this.savedUserPosition) {
-        return this.savedUserPosition;
-      }
+      // if (this.savedUserPosition) {
+      //   return this.savedUserPosition;
+      // }
       // this is for in memory like demo gym buddy
       if (playerHasExitPos()) {
         return getMainRoomPlayerExitPos();
