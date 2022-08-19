@@ -29,6 +29,7 @@ export class FlyFitScene extends SceneInMetaGymRoom {
   score!: number;
   cursorKeys: any;
   player!: any; // specify type later
+  bGtiTleSprite!: Phaser.GameObjects.TileSprite;
   constructor() {
     super(SceneConfig);
   }
@@ -42,9 +43,21 @@ export class FlyFitScene extends SceneInMetaGymRoom {
     this.graphics = this.add.graphics();
     this.graphics.clear();
     const rect = new Phaser.Geom.Rectangle(0, 0, width, height);
-    this.graphics
-      .fillGradientStyle(0xdce7fc, 0x82b1ff, 0x4281ff, 0x4287f5, 1)
-      .fillRectShape(rect);
+
+    // TODO: check this later
+    // const starGraphics = this.make.graphics({x: 0, y: 0, add: false});
+    // const bgGraphics = starGraphics
+    //   .fillGradientStyle(0xdce7fc, 0x82b1ff, 0x4281ff, 0x4287f5, 1)
+    //   .fillRectShape(rect);
+    // bgGraphics.generateTexture("flySky", width, height);
+
+    this.bGtiTleSprite = this.add.tileSprite(
+      width / 2,
+      height / 2,
+      width,
+      height,
+      "sky",
+    );
 
     // basics
     this.handleExit({
@@ -217,6 +230,9 @@ export class FlyFitScene extends SceneInMetaGymRoom {
 
   // eslint-disable-next-line no-unused-vars
   update(_time: any, _delta: any) {
+    // scroll background
+    this.bGtiTleSprite.tilePositionY -= 1;
+
     if (!this.won && this.score === btcCnt) {
       this.won = true;
       this.youWonMsg();
