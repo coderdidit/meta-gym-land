@@ -2,7 +2,7 @@ import Phaser from "phaser";
 import { getGameWidth, getGameHeight } from "../helpers";
 import { Player } from "../objects";
 import { PLAYER_SCALE, FLY_FIT_SCENE } from "..";
-import { BTC, AIRPLANE } from "../gym-room-boot/assets";
+import { BTC, AIRPLANE, GYM_ROOM_BG } from "../gym-room-boot/assets";
 import { createTextBox } from "../utils/text";
 import party, { sources } from "party-js";
 import * as gstate from "../../ai/gpose/state";
@@ -56,7 +56,7 @@ export class FlyFitScene extends SceneInMetaGymRoom {
       height / 2,
       width,
       height,
-      "sky",
+      GYM_ROOM_BG,
     );
 
     // basics
@@ -231,7 +231,7 @@ export class FlyFitScene extends SceneInMetaGymRoom {
   // eslint-disable-next-line no-unused-vars
   update(_time: any, _delta: any) {
     // scroll background
-    this.bGtiTleSprite.tilePositionY -= 1;
+    this.bGtiTleSprite.tilePositionY -= 0.5;
 
     if (!this.won && this.score === btcCnt) {
       this.won = true;
