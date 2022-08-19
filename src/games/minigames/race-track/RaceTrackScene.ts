@@ -65,7 +65,8 @@ export class RaceTrack extends SceneInMetaGymRoom {
 
     // camera
     this.cameras.main.setOrigin(0.48, 0.88);
-    this.cameras.main.startFollow(this.player);
+    const roundPixels = true;
+    this.cameras.main.startFollow(this.player, roundPixels, 1, 1);
 
     // speed calculation
     this.movesSpeedCaluclator = new MovesSpeedCaluclator({

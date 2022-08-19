@@ -87,12 +87,6 @@ export class GymRoomScene extends EarnableScene {
   unlockHintText: TextBox | undefined;
   matHovered = false;
   playMinigameText!: TextBox;
-  savedUserPosition:
-    | {
-        x: number;
-        y: number;
-      }
-    | undefined;
 
   constructor() {
     super(SceneConfig);
@@ -107,11 +101,6 @@ export class GymRoomScene extends EarnableScene {
 
     debugLog("[saved userStats]", userStats);
     updateMiniGamesAccess(userStats);
-    if (userStats && userStats.lastRoomPosition) {
-      this.savedUserPosition = {
-        ...userStats.lastRoomPosition,
-      };
-    }
     this.selectedAvatar = this.game.registry.values?.avatar;
   };
 
@@ -231,11 +220,6 @@ export class GymRoomScene extends EarnableScene {
       x: number;
       y: number;
     } => {
-      debugLog("[savedUserPosition]", this.savedUserPosition);
-      // if (this.savedUserPosition) {
-      //   return this.savedUserPosition;
-      // }
-      // this is for in memory like demo gym buddy
       if (playerHasExitPos()) {
         return getMainRoomPlayerExitPos();
       }
@@ -264,7 +248,8 @@ export class GymRoomScene extends EarnableScene {
       this.player.height * 0.6,
     );
 
-    this.cameras.main.startFollow(this.player);
+    const roundPixels = true;
+    this.cameras.main.startFollow(this.player, roundPixels, 0.1, 0.1);
 
     // world bounds
     this.physics.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
@@ -386,9 +371,9 @@ export class GymRoomScene extends EarnableScene {
           : "vertical";
         debugLog("[orientation]", orientation);
         if (orientation === "vertical") {
-          lockImage.setOrigin(0.43, 0.15);
+          lockImage.setOrigin(0.43, 0.05);
         } else {
-          lockImage.setOrigin(0.12, 0.5);
+          lockImage.setOrigin(0, 0.5);
         }
 
         this.physics.world.enable(

@@ -7,7 +7,6 @@ import {
   RUNNER_ACTUAL,
   RACE_TRACK_ACTUAL,
 } from "@games/index";
-import { debugLog } from "dev-utils/debug";
 import { levelsRepository, minigamesRepository } from "repositories";
 
 export { gamesService };

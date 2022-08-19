@@ -30,6 +30,8 @@ const miniGamesPlayedInSession: string[] = [];
 
 const isRoomLocked = ({ lockName }: { lockName: string }) => {
   return roomLocksState.get(lockName) ?? true;
+  // debug to false
+  // return false;
 };
 
 const updateMiniGamesPlayedInSession = (data: {
