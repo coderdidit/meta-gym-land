@@ -29,9 +29,9 @@ const roomLocksState = new Map<string, boolean>();
 const miniGamesPlayedInSession: string[] = [];
 
 const isRoomLocked = ({ lockName }: { lockName: string }) => {
-  // return roomLocksState.get(lockName) ?? true;
+  return roomLocksState.get(lockName) ?? true;
   // debug to false
-  return false;
+  // return false;
 };
 
 const updateMiniGamesPlayedInSession = (data: {
