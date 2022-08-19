@@ -59,7 +59,7 @@ const miniGamesMapping = new Map([
   ["chart_squats", "Chart Squats Mat"],
   ["matrix", "Mystery Mat"],
   ["gym_canals", "Gym Canals"],
-  ["invaders", "Octopus Invaders"],
+  ["invaders", "Space Invaders"],
   ["kayaks", "Kayaks"],
   ["runner", "Runner"],
   ["race_track", "Race Track"],
