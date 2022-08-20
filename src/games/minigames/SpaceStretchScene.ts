@@ -1,7 +1,7 @@
 import Phaser from "phaser";
 import { getGameWidth, getGameHeight } from "../helpers";
 import { Player } from "../objects";
-import { PLAYER_SCALE, SPACE_STRETCH_SCENE } from "..";
+import { PLAYER_KEY, PLAYER_SCALE, SPACE_STRETCH_SCENE } from "..";
 import { createTextBox } from "../utils/text";
 import { ASTEROIDS } from "../gym-room-boot/assets";
 import * as gstate from "../../ai/gpose/state";
@@ -34,7 +34,7 @@ const playerSpeed = 100;
 
 export class SpaceStretchScene extends SceneInMetaGymRoom {
   shapes: any;
-  graphics: any;
+  starsGraphics!: Phaser.GameObjects.Graphics;
   won!: boolean;
   lastMovetime!: number;
   score!: number;
@@ -43,7 +43,8 @@ export class SpaceStretchScene extends SceneInMetaGymRoom {
   scoreBoard!: Phaser.GameObjects.Text;
   placedAsteroidPlatforms!: number;
   player: any; // specify type later
-  emitter!: Phaser.GameObjects.Particles.ParticleEmitter;
+  explodeEmitter!: Phaser.GameObjects.Particles.ParticleEmitter;
+  flyEmitter!: Phaser.GameObjects.Particles.ParticleEmitter;
 
   constructor() {
     super(SceneConfig);
@@ -58,7 +59,7 @@ export class SpaceStretchScene extends SceneInMetaGymRoom {
 
   draw() {
     this.shapes.forEach((shape: any, i: any) => {
-      this.graphics.fillStyle(this.color(i), 0.5).fillCircleShape(shape);
+      this.starsGraphics.fillStyle(this.color(i), 0.5).fillCircleShape(shape);
     }, this);
   }
 
@@ -70,7 +71,8 @@ export class SpaceStretchScene extends SceneInMetaGymRoom {
       width,
       groundHeight,
     );
-    this.graphics.fillStyle(0xb8abb2, 1).fillRectShape(rect);
+    const groundGraphics = this.add.graphics();
+    groundGraphics.fillStyle(0xb8abb2, 1).fillRectShape(rect);
     return rect;
   }
 
@@ -87,10 +89,10 @@ export class SpaceStretchScene extends SceneInMetaGymRoom {
     // background
     // this.game.graphics
     // this.cameras.main.backgroundColor = "linear-gradient(180deg, #000207 0%, #003963 100%)";
-    this.graphics = this.add.graphics();
-    this.graphics.clear();
+    this.starsGraphics = this.add.graphics();
+    this.starsGraphics.clear();
     const rect = new Phaser.Geom.Rectangle(0, 0, width, height);
-    this.graphics
+    this.starsGraphics
       .fillGradientStyle(0x023246, 0x1e0338, 0x300240, 0x370232, 1)
       .fillRectShape(rect);
 
@@ -199,15 +201,15 @@ export class SpaceStretchScene extends SceneInMetaGymRoom {
     placeAsteroids();
 
     this.tweens.add({
-      targets: asteroids.getChildren(),
-      y: "-=5",
+      targets: this.starsGraphics,
+      y: "-=10",
       ease: Phaser.Math.Easing.Sine.InOut,
       repeat: -1,
       yoyo: true,
-      duration: 500,
+      duration: 1000,
     });
 
-    this.emitter = this.add.particles(ASTEROIDS).createEmitter({
+    this.explodeEmitter = this.add.particles(ASTEROIDS).createEmitter({
       speed: { min: -800, max: 800 },
       angle: { min: 0, max: 360 },
       scale: { start: 0.5, end: 0 },
@@ -215,7 +217,7 @@ export class SpaceStretchScene extends SceneInMetaGymRoom {
       lifespan: 600,
       gravityY: 800,
     });
-    this.emitter.pause();
+    this.explodeEmitter.stop();
 
     // player
     this.player = new Player({
@@ -226,9 +228,18 @@ export class SpaceStretchScene extends SceneInMetaGymRoom {
     this.player.setScale(PLAYER_SCALE);
     this.player.setDepth(1);
     this.player.body.setCollideWorldBounds(true);
+    this.player.setOrigin(0.5, 1);
 
     // adjust collision box
     this.player.body.setSize(this.player.width * 0.5, this.player.height * 0.8);
+
+    this.flyEmitter = this.add.particles(PLAYER_KEY).createEmitter({
+      speed: 100,
+      scale: { start: 0.2, end: 0 },
+      blendMode: Phaser.BlendModes.ADD,
+    });
+    this.flyEmitter.startFollow(this.player);
+    this.flyEmitter.stop();
 
     const onCollide = (avatar: any, asteroid: any) => {
       if (avatar.body.onFloor()) {
@@ -236,8 +247,8 @@ export class SpaceStretchScene extends SceneInMetaGymRoom {
         asteroid.setTint("0x4f4f4f");
         asteroid.setImmovable(false);
         asteroid.setVelocityY(600);
-        this.emitter.resume();
-        this.emitter.explode(10, asteroid.x, asteroid.y);
+        this.explodeEmitter.start();
+        this.explodeEmitter.explode(10, asteroid.x, asteroid.y);
         this.scoreBoard.setText(`SCORE: ${this.score}`);
       }
     };
@@ -324,9 +335,12 @@ export class SpaceStretchScene extends SceneInMetaGymRoom {
       player.body.setAllowGravity(false);
       this.lastMovetime = now;
     } else if (player.cursorKeys?.up.isDown || curPose === gpose.BA_UP) {
+      this.flyEmitter.start();
       player.body.setVelocityY(playerSpeed * -1);
       player.body.setAllowGravity(false);
       this.lastMovetime = now;
+    } else {
+      this.flyEmitter.stop();
     }
   }
 }
