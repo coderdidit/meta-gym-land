@@ -66,13 +66,7 @@ class RunnerScene extends SceneInMetaGymRoom {
     this.bottomPositionY = height - height * gameYPercentageOffsett;
     const bottomPositionX = width * gameXPercentageOffsett;
 
-    // TODO: improve it later
-    this.physics.world.setBounds(
-      0,
-      0,
-      width,
-      this.bottomPositionY + this.bottomPositionY * 0.025,
-    );
+    this.physics.world.setBounds(0, 0, width, this.bottomPositionY);
 
     this.dino = this.physics.add
       .sprite(bottomPositionX, this.bottomPositionY, PLAYER_KEY)
@@ -81,11 +75,14 @@ class RunnerScene extends SceneInMetaGymRoom {
       .setDepth(1)
       .setOrigin(0, 1);
 
+    this.dino.setBodySize(this.dino.width, this.dino.height);
+
     this.runEmitter = this.add.particles(PLAYER_KEY).createEmitter({
       speed: 100,
       scale: { start: 0.2, end: 0 },
       blendMode: Phaser.BlendModes.ADD,
     });
+    this.runEmitter.pause();
 
     this.ground = this.add
       .tileSprite(bottomPositionX, this.bottomPositionY, 88, 26, "ground")
@@ -256,6 +253,7 @@ class RunnerScene extends SceneInMetaGymRoom {
       callbackScope: this,
       callback: () => {
         this.dino.setVelocityX(80);
+        this.runEmitter.resume();
         this.runEmitter.startFollow(this.dino);
         if (this.ground.width < width) {
           this.ground.width += 17 * 2;
@@ -322,7 +320,7 @@ class RunnerScene extends SceneInMetaGymRoom {
 
   private handleInputsOnUpdate() {
     const curPose = gstate.getPose();
-    this.dino.setAngle(0);
+    this.dino.setScale(1, 1);
 
     if (
       this.cursorKeys?.space.isDown ||
@@ -334,7 +332,7 @@ class RunnerScene extends SceneInMetaGymRoom {
         return;
       }
       this.jumpSound.play();
-      this.dino.body.setSize(this.dino.body.width, 92);
+      this.dino.body.setSize(this.dino.width, this.dino.height);
       this.dino.body.offset.y = 0;
       this.dino.setVelocityY(-1600);
     }
@@ -349,33 +347,32 @@ class RunnerScene extends SceneInMetaGymRoom {
       }
 
       this.dino.body.setSize(undefined, 58);
-      this.dino.setAngle(-90);
+      this.dino.setScale(1, 0.5);
       this.dino.body.offset.y = 34;
     }
     if (curPose === gpose.IDLE) {
       if (this.score !== 0 && !this.isGameRunning) {
         return;
       }
-      this.dino.body.setSize(undefined, 92);
+      this.dino.body.setSize(undefined, this.dino.height);
       this.dino.body.offset.y = 0;
     }
   }
 
-  private restartGame(): void {
-    this.gameOverTextBox.destroy();
-    // gym buddy
-    this.dino.setTint(undefined);
-    this.dino.setVelocityY(0);
-    this.dino.body.setSize(this.dino.body.width, 92);
-    this.dino.body.offset.y = 0;
-    this.runEmitter.resume();
-    this.runEmitter.startFollow(this.dino);
-    this.physics.resume();
-    this.obsticles.clear(true, true);
-    this.isGameRunning = true;
-    this.anims.resumeAll();
-    // this.startGame();
-  }
+  // private restartGame(): void {
+  //   this.gameOverTextBox.destroy();
+  //   // gym buddy
+  //   this.dino.setTint(undefined);
+  //   this.dino.setVelocityY(0);
+  //   this.dino.setBodySize(this.dino.width, this.dino.height);
+  //   this.dino.body.offset.y = 0;
+  //   this.runEmitter.resume();
+  //   this.runEmitter.startFollow(this.dino);
+  //   this.physics.resume();
+  //   this.obsticles.clear(true, true);
+  //   this.isGameRunning = true;
+  //   this.anims.resumeAll();
+  // }
 
   private placeObsticle() {
     const obsticleNum = Math.floor(Math.random() * 7) + 1;
@@ -386,7 +383,7 @@ class RunnerScene extends SceneInMetaGymRoom {
 
     let obsticle;
     if (obsticleNum > 6) {
-      const enemyHeight = [20, 50];
+      const enemyHeight = [20, 45];
       obsticle = this.obsticles
         .create(
           obsticleX,
