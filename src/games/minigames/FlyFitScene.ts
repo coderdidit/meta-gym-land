@@ -51,13 +51,8 @@ export class FlyFitScene extends SceneInMetaGymRoom {
     //   .fillRectShape(rect);
     // bgGraphics.generateTexture("flySky", width, height);
 
-    this.bGtiTleSprite = this.add.tileSprite(
-      width,
-      height,
-      width * 2,
-      height * 2,
-      GYM_ROOM_BG,
-    );
+    const bg = this.add.image(width, height, GYM_ROOM_BG);
+    bg.setDisplaySize(width * 2, height * 2);
     this.physics.world.setBounds(0, 0, width * 2, height * 2);
 
     // basics
@@ -235,9 +230,6 @@ export class FlyFitScene extends SceneInMetaGymRoom {
 
   // eslint-disable-next-line no-unused-vars
   update(_time: any, _delta: any) {
-    // scroll background
-    // this.bGtiTleSprite.tilePositionY -= 0.5;
-
     if (!this.won && this.score === btcCnt) {
       this.won = true;
       this.youWonMsg();
