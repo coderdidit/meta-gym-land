@@ -37,7 +37,6 @@ class RunnerScene extends SceneInMetaGymRoom {
   scoreText!: Phaser.GameObjects.Text;
   highScoreText!: Phaser.GameObjects.Text;
   environment!: Phaser.GameObjects.Group;
-  gameOverScreen!: Phaser.GameObjects.Container;
   gameOverText!: TextBox;
   restart!: Phaser.GameObjects.Image;
   obsticles!: Phaser.Physics.Arcade.Group;
@@ -113,20 +112,6 @@ class RunnerScene extends SceneInMetaGymRoom {
     ]);
     this.environment.setAlpha(0);
 
-    this.gameOverScreen = this.add
-      .container(width / 2, height / 2 - 50)
-      .setAlpha(0);
-    this.gameOverText = createTextBox({
-      scene: this,
-      x: width / 2,
-      y: height / 2,
-      config: { wrapWidth: 280 },
-      bg: mainBgColorNum,
-      stroke: highlightTextColorNum,
-      padding: 5,
-    }).start("game over" + "\n" + "press x to restart", 10);
-    this.gameOverScreen.add([this.gameOverText]);
-
     this.obsticles = this.physics.add.group();
     this.cursorKeys = this.input.keyboard.createCursorKeys();
 
@@ -154,6 +139,19 @@ class RunnerScene extends SceneInMetaGymRoom {
       },
       this,
     );
+  }
+
+  private displayGameOverText() {
+    const { width, height } = this.gameDimentions();
+    createTextBox({
+      scene: this,
+      x: width / 2,
+      y: height / 2,
+      config: {},
+      bg: mainBgColorNum,
+      stroke: highlightTextColorNum,
+      padding: 25,
+    }).start("GAME OVER" + "\n" + "press x to restart", 30);
   }
 
   private createTextBoxes() {
@@ -210,7 +208,7 @@ class RunnerScene extends SceneInMetaGymRoom {
         this.dino.setTexture("dino-hurt");
         this.respawnTime = 0;
         this.gameSpeed = 10;
-        this.gameOverScreen.setAlpha(1);
+        this.displayGameOverText();
         // this.score = 0;
         this.hitSound.play();
       },
@@ -377,7 +375,6 @@ class RunnerScene extends SceneInMetaGymRoom {
     this.physics.resume();
     this.obsticles.clear(true, true);
     this.isGameRunning = true;
-    this.gameOverScreen.setAlpha(0);
     this.anims.resumeAll();
     // this.startGame();
   }
