@@ -52,8 +52,8 @@ export class FlyFitScene extends SceneInMetaGymRoom {
     // bgGraphics.generateTexture("flySky", width, height);
 
     const bg = this.add.image(width, height, GYM_ROOM_BG);
-    bg.setDisplaySize(width * 2, height * 2);
-    this.physics.world.setBounds(0, 0, width * 2, height * 2);
+    bg.setDisplaySize(width * 1.5, height * 1.5);
+    this.physics.world.setBounds(0, 0, width * 1.5, height * 1.5);
 
     // basics
     this.handleExit({
@@ -149,8 +149,8 @@ export class FlyFitScene extends SceneInMetaGymRoom {
     const btcRect = new Phaser.Geom.Rectangle(
       width * 0.04,
       height * 0.13,
-      width * 2,
-      height * 2,
+      width * 1.5,
+      height * 1.5,
     );
     // for degub
     // this.graphics.fillGradientStyle(0x023246, 0x1E0338, 0x300240, 0x370232, 1)
