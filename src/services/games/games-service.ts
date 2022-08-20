@@ -41,9 +41,7 @@ const resolveLevel = (userPlayedMinigames: number[]): number => {
   ) {
     level = levelsRepo.nameToId(levelsRepo.seniorAthlete);
   }
-  if (
-    userPlayedGamesNames.includes(RUNNER_ACTUAL)
-  ) {
+  if (userPlayedGamesNames.includes(RUNNER_ACTUAL)) {
     level = levelsRepo.nameToId(levelsRepo.mysterySolver);
   }
   return level;
