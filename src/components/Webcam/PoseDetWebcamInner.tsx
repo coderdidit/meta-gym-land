@@ -4,7 +4,6 @@ import { BgColorsOutlined } from "@ant-design/icons";
 import { setWebcamBG, getWebcamBG } from "./state";
 
 const blackBgClass = "black-bg";
-const grennClass = "green-color";
 
 interface PoseDetWebcamInnerProps {
   videoConstraints: MediaTrackSettings;
@@ -90,16 +89,14 @@ export class PoseDetWebcamInner extends Component<
           />
         </div>
         <div
+          id={"pose-det-webcam-canvas-cam-toggle-div"}
           style={{
-            marginTop: "-25px",
-            marginLeft: "6%",
             zIndex: 10,
             cursor: "pointer",
           }}
         >
           <BgColorsOutlined
             id={"pose-det-webcam-canvas-cam-toggle-icon"}
-            className={getWebcamBG() !== "" ? grennClass : ""}
             onClick={() => {
               const icon = document.getElementById(
                 "pose-det-webcam-canvas-cam-toggle-icon",
@@ -110,7 +107,6 @@ export class PoseDetWebcamInner extends Component<
               if (webCamCanvas && icon) {
                 if (webCamCanvas.className !== blackBgClass) {
                   webCamCanvas.className = blackBgClass;
-                  icon.className = grennClass;
                 } else {
                   webCamCanvas.className = "";
                   icon.className = "";

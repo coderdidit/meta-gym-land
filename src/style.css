@@ -96,6 +96,12 @@ h6 {
   background-color: black;
 }
 
-.green-color {
+#pose-det-webcam-canvas-cam-toggle-icon {
   color: #06ff00;
+  font-size: calc(160%);
+}
+
+#pose-det-webcam-canvas-cam-toggle-div {
+  margin-top: calc(-12%);
+  margin-left: calc(2%);
 }
