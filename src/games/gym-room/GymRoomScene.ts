@@ -38,8 +38,8 @@ import { debugLog } from "dev-utils/debug";
 import { userRepository } from "repositories";
 
 // for debuging
-const roomDevelopmentYOffset = 1800; // 1800
-const roomDevelopmentXOffset = 1800; // 1800
+const roomDevelopmentYOffset = 0; // 1800
+const roomDevelopmentXOffset = 0; // 1800
 
 const debugCollisons = false;
 
