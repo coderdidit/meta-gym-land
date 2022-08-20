@@ -297,7 +297,7 @@ export class GymRoomScene extends EarnableScene {
         `\n\n` +
         `You need to earn access pass\n` +
         `By training in this room first\n\n` +
-        `Click ...level... in side menu\n` +
+        `Click ...level... in the Side Menu\n` +
         `To check the rules`;
       if (!this.unlockHintText) {
         this.unlockHintText = createTextBox({

@@ -27,24 +27,22 @@ const resolveLevel = (userPlayedMinigames: number[]): number => {
     })
     .filter((gameName) => gameName !== "");
 
-  // TODO: change OR to AND
   let level = levelsRepo.nameToId(levelsRepo.beginner);
   if (
-    userPlayedGamesNames.includes(FLY_FIT_SCENE) ||
-    userPlayedGamesNames.includes(CHART_SQUATS) ||
+    userPlayedGamesNames.includes(FLY_FIT_SCENE) &&
+    userPlayedGamesNames.includes(CHART_SQUATS) &&
     userPlayedGamesNames.includes(SPACE_STRETCH_SCENE)
   ) {
     level = levelsRepo.nameToId(levelsRepo.athlete);
   }
   if (
-    userPlayedGamesNames.includes(GYM_SWAMPS_ACTUAL) ||
+    userPlayedGamesNames.includes(GYM_SWAMPS_ACTUAL) &&
     userPlayedGamesNames.includes(INVADERS)
   ) {
     level = levelsRepo.nameToId(levelsRepo.seniorAthlete);
   }
   if (
-    userPlayedGamesNames.includes(RUNNER_ACTUAL) ||
-    userPlayedGamesNames.includes(RACE_TRACK_ACTUAL)
+    userPlayedGamesNames.includes(RUNNER_ACTUAL)
   ) {
     level = levelsRepo.nameToId(levelsRepo.mysterySolver);
   }
