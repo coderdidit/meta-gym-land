@@ -98,11 +98,11 @@ class GymSwampsScene extends SceneInMetaGymRoom {
     this.map.filterObjects(
       "objects",
       (value: any, _index: number, _array: Phaser.GameObjects.GameObject[]) => {
-        if (value.name == "seed") {
+        if (["bottle", "fish"].includes(value.name)) {
           const pill = this.physics.add.sprite(
-            value.x * mapScale + pillOffset * mapScale,
-            value.y * mapScale - pillOffset * mapScale,
-            "seed",
+            value.x * mapScale,
+            value.y * mapScale,
+            value.name,
           );
           this.pills.add(pill);
           this.pillsCount++;

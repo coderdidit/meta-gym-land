@@ -47,6 +47,18 @@
                  "width":0,
                  "x":800,
                  "y":766.210526315789
+                }, 
+                {
+                 "class":"",
+                 "height":0,
+                 "id":923,
+                 "name":"bottle",
+                 "point":true,
+                 "rotation":0,
+                 "visible":true,
+                 "width":0,
+                 "x":688.132285728958,
+                 "y":765.846727948099
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -55,7 +67,7 @@
          "y":0
         }],
  "nextlayerid":5,
- "nextobjectid":922,
+ "nextobjectid":925,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.9.1",
