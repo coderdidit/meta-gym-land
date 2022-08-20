@@ -82,22 +82,34 @@ function DemoAvatar() {
         >
           {demoNFTContract}
         </Button>
-        <p
+        <div
           style={{
             color: "#535353",
             marginBottom: "1rem",
             marginTop: "1rem",
-            textDecorationLine: "underline",
           }}
         >
-          {fixMoralisTokenUri(nft)}&nbsp;
-          <CopyOutlined
-            onClick={() =>
-              navigator.clipboard.writeText(fixMoralisTokenUri(nft))
-            }
-            style={{ cursor: "pointer" }}
-          />
-        </p>
+          <p
+            style={{
+              textDecorationLine: "underline",
+            }}
+          >
+            {fixMoralisTokenUri(nft)}&nbsp;
+            <CopyOutlined
+              onClick={() => {
+                navigator.clipboard.writeText(fixMoralisTokenUri(nft));
+                document.getElementById(
+                  "clipboard-span-dg",
+                ).innerHTML = `<p style="color: #3F8CFD;">Copied.</p>`;
+                setTimeout(() => {
+                  document.getElementById("clipboard-span-dg").innerHTML = "";
+                }, 2000);
+              }}
+              style={{ cursor: "pointer" }}
+            />
+          </p>
+          <div id="clipboard-span-dg"></div>
+        </div>
       </section>
     );
   };
