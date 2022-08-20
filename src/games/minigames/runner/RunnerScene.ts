@@ -5,7 +5,7 @@ import {
   mainBgColorNum,
 } from "GlobalStyles";
 import Phaser from "phaser";
-import { PLAYER_KEY, RUNNER, RUNNER_ACTUAL } from "../..";
+import { PLAYER_KEY, RUNNER_ACTUAL } from "../..";
 import * as gstate from "../../../ai/gpose/state";
 import * as gpose from "../../../ai/gpose/pose";
 import { createTextBox } from "games/utils/text";
@@ -41,7 +41,7 @@ class RunnerScene extends SceneInMetaGymRoom {
   obsticles!: Phaser.Physics.Arcade.Group;
   cursorKeys!: Phaser.Types.Input.Keyboard.CursorKeys;
   bottomPositionY!: number;
-  gameOverBox!: TextBox;
+  gameOverTextBox!: TextBox;
   runEmitter!: Phaser.GameObjects.Particles.ParticleEmitter;
   constructor() {
     super(SceneConfig);
@@ -67,18 +67,21 @@ class RunnerScene extends SceneInMetaGymRoom {
     const bottomPositionX = width * gameXPercentageOffsett;
 
     // TODO: improve it later
-    this.physics.world.setBounds(0, 0, width, this.bottomPositionY);
+    this.physics.world.setBounds(
+      0,
+      0,
+      width,
+      this.bottomPositionY + this.bottomPositionY * 0.025,
+    );
 
     this.dino = this.physics.add
       .sprite(bottomPositionX, this.bottomPositionY, PLAYER_KEY)
       .setCollideWorldBounds(true)
       .setGravityY(3000)
-      .setBodySize(44, 92)
       .setDepth(1)
       .setOrigin(0, 1);
 
-    const gymBuddy = this.add.particles(PLAYER_KEY);
-    this.runEmitter = gymBuddy.createEmitter({
+    this.runEmitter = this.add.particles(PLAYER_KEY).createEmitter({
       speed: 100,
       scale: { start: 0.2, end: 0 },
       blendMode: Phaser.BlendModes.ADD,
@@ -140,8 +143,8 @@ class RunnerScene extends SceneInMetaGymRoom {
         this.exit(RUNNER_ACTUAL);
       }
       if (key === "x") {
-        this.gameOverBox?.destroy();
-        this.restartGame();
+        this.scene.start(RUNNER_ACTUAL);
+        // this.restartGame();
       }
     };
     this.input.keyboard.on("keydown", fn, this);
@@ -149,7 +152,7 @@ class RunnerScene extends SceneInMetaGymRoom {
 
   private displayGameOverText() {
     const { width, height } = this.gameDimentions();
-    this.gameOverBox = createTextBox({
+    this.gameOverTextBox = createTextBox({
       scene: this,
       x: width / 2,
       y: height / 2,
@@ -346,12 +349,6 @@ class RunnerScene extends SceneInMetaGymRoom {
       }
 
       this.dino.body.setSize(undefined, 58);
-      // if (curPose === gpose.HTL) {
-      //   this.dino.setAngle(-90);
-      // }
-      // if (curPose === gpose.HTR) {
-      //   this.dino.setAngle(90);
-      // }
       this.dino.setAngle(-90);
       this.dino.body.offset.y = 34;
     }
@@ -365,6 +362,7 @@ class RunnerScene extends SceneInMetaGymRoom {
   }
 
   private restartGame(): void {
+    this.gameOverTextBox.destroy();
     // gym buddy
     this.dino.setTint(undefined);
     this.dino.setVelocityY(0);
