@@ -198,6 +198,15 @@ export class SpaceStretchScene extends SceneInMetaGymRoom {
 
     placeAsteroids();
 
+    this.tweens.add({
+      targets: asteroids.getChildren(),
+      y: "-=5",
+      ease: Phaser.Math.Easing.Sine.InOut,
+      repeat: -1,
+      yoyo: true,
+      duration: 500,
+    });
+
     this.emitter = this.add.particles(ASTEROIDS).createEmitter({
       speed: { min: -800, max: 800 },
       angle: { min: 0, max: 360 },
