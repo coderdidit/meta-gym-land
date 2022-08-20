@@ -35,7 +35,7 @@ export class FlyFitScene extends SceneInMetaGymRoom {
   }
 
   create() {
-    this.cameras.main.backgroundColor.setTo(179, 201, 217);
+    this.cameras.main.backgroundColor.setTo(113, 190, 208);
     // basic props
     this.won = false;
     const width = getGameWidth(this);
