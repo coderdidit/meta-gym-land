@@ -10,6 +10,7 @@ import * as gstate from "../../../ai/gpose/state";
 import * as gpose from "../../../ai/gpose/pose";
 import { createTextBox } from "games/utils/text";
 import Key from "ts-key-namespace";
+import { TextBox } from "phaser3-rex-plugins/templates/ui/ui-components";
 
 export { RunnerScene };
 
@@ -37,7 +38,7 @@ class RunnerScene extends SceneInMetaGymRoom {
   highScoreText!: Phaser.GameObjects.Text;
   environment!: Phaser.GameObjects.Group;
   gameOverScreen!: Phaser.GameObjects.Container;
-  gameOverText!: Phaser.GameObjects.Image;
+  gameOverText!: TextBox;
   restart!: Phaser.GameObjects.Image;
   obsticles!: Phaser.Physics.Arcade.Group;
   cursorKeys!: Phaser.Types.Input.Keyboard.CursorKeys;
@@ -115,9 +116,16 @@ class RunnerScene extends SceneInMetaGymRoom {
     this.gameOverScreen = this.add
       .container(width / 2, height / 2 - 50)
       .setAlpha(0);
-    this.gameOverText = this.add.image(0, 0, "game-over");
-    this.restart = this.add.image(0, 80, "restart").setInteractive();
-    this.gameOverScreen.add([this.gameOverText, this.restart]);
+    this.gameOverText = createTextBox({
+      scene: this,
+      x: width / 2,
+      y: height / 2,
+      config: { wrapWidth: 280 },
+      bg: mainBgColorNum,
+      stroke: highlightTextColorNum,
+      padding: 5,
+    }).start("game over" + "\n" + "press x to restart", 10);
+    this.gameOverScreen.add([this.gameOverText]);
 
     this.obsticles = this.physics.add.group();
     this.cursorKeys = this.input.keyboard.createCursorKeys();
@@ -143,14 +151,6 @@ class RunnerScene extends SceneInMetaGymRoom {
         if (key === "x") {
           this.restartGame();
         }
-      },
-      this,
-    );
-
-    this.restart.on(
-      "pointerdown",
-      () => {
-        this.restartGame();
       },
       this,
     );
