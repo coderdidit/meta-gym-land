@@ -175,7 +175,7 @@ const MiniGameInstructions = new Map([
         <>
           <p>How to play</p>
           <p>
-            <b>Octopus Invaders</b>
+            <b>Space Invaders</b>
           </p>
         </>
       ),

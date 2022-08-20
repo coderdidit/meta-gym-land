@@ -8,11 +8,11 @@ import { createTextBox } from "games/utils/text";
 import TextBox from "phaser3-rex-plugins/templates/ui/textbox/TextBox";
 import * as gstate from "../../../ai/gpose/state";
 import * as gpose from "../../../ai/gpose/pose";
+import { GYM_ROOM_BG } from "@games/gym-room-boot/assets";
 
 export { GymSwampsScene };
 
 const gridSize = 32;
-const pillOffset = gridSize / 2;
 const mapScale = 2;
 
 const SceneConfig = {
@@ -32,13 +32,13 @@ class GymSwampsScene extends SceneInMetaGymRoom {
   graphics!: Phaser.GameObjects.Graphics;
   scoreText!: TextBox;
   flipFlop = false;
+  floor!: Phaser.Tilemaps.TilemapLayer;
 
   constructor() {
     super(SceneConfig);
   }
 
   create() {
-    // this.cameras.main.backgroundColor.setTo(179, 201, 217);
     // basics
     this.handleExit({
       thisSceneKey: GYM_SWAMPS_ACTUAL,
@@ -51,11 +51,16 @@ class GymSwampsScene extends SceneInMetaGymRoom {
       tileHeight: gridSize,
     });
 
+    this.cameras.main.backgroundColor.setTo(179, 201, 217);
+
     const tileset = this.map.addTilesetImage(tiles);
 
     this.walls = this.map.createLayer("walls", [tileset]);
     this.walls.setCollisionByProperty({ collides: true });
     this.walls.setScale(mapScale);
+
+    this.floor = this.map.createLayer("floor", [tileset]);
+    this.floor.setScale(mapScale);
 
     const spawnPoint = this.map.findObject(
       "objects",
@@ -71,7 +76,7 @@ class GymSwampsScene extends SceneInMetaGymRoom {
       x: spawnPoint.x * mapScale,
       y: spawnPoint.y * mapScale,
     });
-    this.player.setScale(0.8);
+    this.player;
 
     // world bounds
     this.physics.world.setBounds(
@@ -84,18 +89,18 @@ class GymSwampsScene extends SceneInMetaGymRoom {
     this.player.setCollideWorldBounds(true);
 
     const roundPixels = true;
-    this.cameras.main.startFollow(this.player, roundPixels);
+    this.cameras.main.startFollow(this.player, roundPixels, 0.1, 0.1);
     const player = this.player;
 
     this.pills = this.physics.add.group();
     this.map.filterObjects(
       "objects",
       (value: any, _index: number, _array: Phaser.GameObjects.GameObject[]) => {
-        if (value.name == "seed") {
+        if (["bottle", "fish"].includes(value.name)) {
           const pill = this.physics.add.sprite(
-            value.x * mapScale + pillOffset * mapScale,
-            value.y * mapScale - pillOffset * mapScale,
-            "seed",
+            value.x * mapScale,
+            value.y * mapScale,
+            value.name,
           );
           this.pills.add(pill);
           this.pillsCount++;

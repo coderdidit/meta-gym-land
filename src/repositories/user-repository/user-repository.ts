@@ -15,8 +15,6 @@ const COMPLETED_MINIGAMES_COLUMN = "completed_minigames";
 const TOTAL_TIME_IN_MINIGAMES_COLUMN = "total_time_in_minigames";
 
 interface MinigameUserStats {
-  lastPositionInRoomX: number;
-  lastPositionInRoomY: number;
   minigameCompleted: boolean;
   minigameKey: string;
   timeSpent: number;

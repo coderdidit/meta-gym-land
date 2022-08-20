@@ -1,8 +1,6 @@
 import { EarnableScene } from "./EarnableScene";
-import Phaser from "phaser";
 import { GYM_ROOM_SCENE } from "..";
 import Key from "ts-key-namespace";
-import { getMainRoomPlayerExitPos } from "@games/utils/Globals";
 import { userRepository } from "repositories";
 import { debugLog } from "dev-utils/debug";
 
@@ -22,13 +20,8 @@ export class SceneInMetaGymRoom extends EarnableScene {
 
   async exit(thisSceneKey: string) {
     this.game.registry.values?.setMinigame(GYM_ROOM_SCENE);
-
-    const lastExitPositions = getMainRoomPlayerExitPos();
-    const minScore = 1;
     const userStats = {
-      lastPositionInRoomX: lastExitPositions?.x ?? -1,
-      lastPositionInRoomY: lastExitPositions?.y ?? -1,
-      minigameCompleted: this.score >= minScore,
+      minigameCompleted: this.minigameCompleted(),
       minigameKey: thisSceneKey,
       timeSpent: Date.now() - this.startTime,
     };
@@ -52,17 +45,19 @@ export class SceneInMetaGymRoom extends EarnableScene {
     });
   }
 
+  private minigameCompleted() {
+    // TODO: make minScore higher in the future
+    const minScore = 1;
+    return this.score >= minScore;
+  }
+
   handleExit({ thisSceneKey, callbackOnExit }: handleExitParams) {
     // constrols
     this.input.keyboard.on(
       "keydown",
       async (event: KeyboardEvent) => {
-        const lastExitPositions = getMainRoomPlayerExitPos();
-        const minScore = 1;
         const userStats = {
-          lastPositionInRoomX: lastExitPositions?.x ?? -1,
-          lastPositionInRoomY: lastExitPositions?.y ?? -1,
-          minigameCompleted: this.score >= minScore,
+          minigameCompleted: this.minigameCompleted(),
           minigameKey: thisSceneKey,
           timeSpent: Date.now() - this.startTime,
         };

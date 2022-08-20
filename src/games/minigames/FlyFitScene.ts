@@ -2,7 +2,7 @@ import Phaser from "phaser";
 import { getGameWidth, getGameHeight } from "../helpers";
 import { Player } from "../objects";
 import { PLAYER_SCALE, FLY_FIT_SCENE } from "..";
-import { BTC, AIRPLANE } from "../gym-room-boot/assets";
+import { BTC, AIRPLANE, GYM_ROOM_BG } from "../gym-room-boot/assets";
 import { createTextBox } from "../utils/text";
 import party, { sources } from "party-js";
 import * as gstate from "../../ai/gpose/state";
@@ -29,22 +29,31 @@ export class FlyFitScene extends SceneInMetaGymRoom {
   score!: number;
   cursorKeys: any;
   player!: any; // specify type later
+  bGtiTleSprite!: Phaser.GameObjects.TileSprite;
   constructor() {
     super(SceneConfig);
   }
 
   create() {
+    this.cameras.main.backgroundColor.setTo(113, 190, 208);
     // basic props
     this.won = false;
     const width = getGameWidth(this);
     const height = getGameHeight(this);
 
-    this.graphics = this.add.graphics();
-    this.graphics.clear();
-    const rect = new Phaser.Geom.Rectangle(0, 0, width, height);
-    this.graphics
-      .fillGradientStyle(0xdce7fc, 0x82b1ff, 0x4281ff, 0x4287f5, 1)
-      .fillRectShape(rect);
+    // TODO: check this later
+    // this.graphics = this.add.graphics();
+    // this.graphics.clear();
+    // const rect = new Phaser.Geom.Rectangle(0, 0, width, height);
+    // const starGraphics = this.make.graphics({x: 0, y: 0, add: false});
+    // const bgGraphics = starGraphics
+    //   .fillGradientStyle(0xdce7fc, 0x82b1ff, 0x4281ff, 0x4287f5, 1)
+    //   .fillRectShape(rect);
+    // bgGraphics.generateTexture("flySky", width, height);
+
+    const bg = this.add.image(width, height, GYM_ROOM_BG);
+    bg.setDisplaySize(width * 1.5, height * 1.5);
+    this.physics.world.setBounds(0, 0, width * 1.5, height * 1.5);
 
     // basics
     this.handleExit({
@@ -55,14 +64,18 @@ export class FlyFitScene extends SceneInMetaGymRoom {
     });
 
     // text
-    this.scoreBoard = this.add.text(width * 0.05, height * 0.015, "SCORE: 0", {
-      font: `500 20px ${InGameFont}`,
-      color: "#ba3a3a",
-    });
-    this.add.text(width * 0.05, height * 0.04, "press ESC to go back", {
-      font: `500 17px ${InGameFont}`,
-      color: "#202020",
-    });
+    this.scoreBoard = this.add
+      .text(width * 0.05, height * 0.015, "SCORE: 0", {
+        font: `500 20px ${InGameFont}`,
+        color: "#ba3a3a",
+      })
+      .setScrollFactor(0, 0);
+    this.add
+      .text(width * 0.05, height * 0.04, "press ESC to go back", {
+        font: `500 17px ${InGameFont}`,
+        color: "#202020",
+      })
+      .setScrollFactor(0, 0);
 
     // hint
     const hintTextBox = createTextBox({
@@ -71,7 +84,7 @@ export class FlyFitScene extends SceneInMetaGymRoom {
       y: height * 0.015,
       config: { wrapWidth: 280 },
     });
-    hintTextBox.setDepth(1);
+    hintTextBox.setDepth(2);
     hintTextBox.setScrollFactor(0, 0);
     hintTextBox.start("🤖", 50);
     roboTextTimeouts.push(
@@ -136,8 +149,8 @@ export class FlyFitScene extends SceneInMetaGymRoom {
     const btcRect = new Phaser.Geom.Rectangle(
       width * 0.04,
       height * 0.13,
-      width - width * 0.04,
-      height - height * 0.13,
+      width * 1.5,
+      height * 1.5,
     );
     // for degub
     // this.graphics.fillGradientStyle(0x023246, 0x1E0338, 0x300240, 0x370232, 1)
@@ -168,14 +181,14 @@ export class FlyFitScene extends SceneInMetaGymRoom {
     // this made the plane to have body element
     this.physics.world.enable(plane);
     this.add.existing(plane);
-    this.player = this.add.container(width / 2, height / 2, [
-      plane,
-      playerInner,
-    ]);
+    this.player = this.add.container(width, height, [plane, playerInner]);
 
     this.physics.world.enableBody(this.player);
 
     this.player.body.setCollideWorldBounds(true);
+
+    const roundPixels = true;
+    this.cameras.main.startFollow(this.player, roundPixels, 0.1, 0.1);
 
     const collectBtc = (_avatar: any, btcItem: { destroy: () => void }) => {
       btcItem.destroy();
@@ -211,7 +224,7 @@ export class FlyFitScene extends SceneInMetaGymRoom {
       y: height / 2,
       config: { wrapWidth: 280 },
     });
-    youWonText.setOrigin(0.5).setDepth(1).setScrollFactor(0, 0);
+    youWonText.setOrigin(0.5).setDepth(3).setScrollFactor(0, 0);
     youWonText.start(msg, 50);
   }
 

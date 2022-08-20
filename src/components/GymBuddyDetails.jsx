@@ -110,21 +110,33 @@ function GymBuddyDetails() {
             marginBottom: "1rem",
           }}
         >
-          <p
+          <div
             style={{
               color: "#535353",
               marginBottom: "1rem",
-              textDecorationLine: "underline",
             }}
           >
-            {fixMoralisTokenUri(nft)}&nbsp;
-            <CopyOutlined
-              onClick={() =>
-                navigator.clipboard.writeText(fixMoralisTokenUri(nft))
-              }
-              style={{ cursor: "pointer" }}
-            />
-          </p>
+            <p
+              style={{
+                textDecorationLine: "underline",
+              }}
+            >
+              {fixMoralisTokenUri(nft)}&nbsp;
+              <CopyOutlined
+                onClick={() => {
+                  navigator.clipboard.writeText(fixMoralisTokenUri(nft));
+                  document.getElementById(
+                    "clipboard-span",
+                  ).innerHTML = `<p style="padding: 1rem; color: #3F8CFD;">Copied.</p>`;
+                  setTimeout(() => {
+                    document.getElementById("clipboard-span").innerHTML = "";
+                  }, 2000);
+                }}
+                style={{ cursor: "pointer" }}
+              />
+            </p>
+            <div id="clipboard-span"></div>
+          </div>
           <Button
             style={{
               marginBottom: "0.5rem",

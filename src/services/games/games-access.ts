@@ -30,7 +30,7 @@ const miniGamesPlayedInSession: string[] = [];
 
 const isRoomLocked = ({ lockName }: { lockName: string }) => {
   return roomLocksState.get(lockName) ?? true;
-  // debug to false
+  // set to false for debug
   // return false;
 };
 
@@ -44,24 +44,20 @@ const updateMiniGamesPlayedInSession = (data: {
   if (data?.prevScene) {
     miniGamesPlayedInSession.push(data?.prevScene);
   }
-  // TODO: change OR to AND
   if (
-    miniGamesPlayedInSession.includes(FLY_FIT_SCENE) ||
-    miniGamesPlayedInSession.includes(CHART_SQUATS) ||
+    miniGamesPlayedInSession.includes(FLY_FIT_SCENE) &&
+    miniGamesPlayedInSession.includes(CHART_SQUATS) &&
     miniGamesPlayedInSession.includes(SPACE_STRETCH_SCENE)
   ) {
     roomLocksState.set(waterRoomLockKey, false);
   }
   if (
-    miniGamesPlayedInSession.includes(GYM_SWAMPS_ACTUAL) ||
+    miniGamesPlayedInSession.includes(GYM_SWAMPS_ACTUAL) &&
     miniGamesPlayedInSession.includes(INVADERS)
   ) {
     roomLocksState.set(runnerRoomLockKey, false);
   }
-  if (
-    miniGamesPlayedInSession.includes(RUNNER_ACTUAL) ||
-    miniGamesPlayedInSession.includes(RACE_TRACK_ACTUAL)
-  ) {
+  if (miniGamesPlayedInSession.includes(RUNNER_ACTUAL)) {
     roomLocksState.set(mysteryRoomLockKey, false);
   }
 };

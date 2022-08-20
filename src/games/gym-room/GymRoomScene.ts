@@ -59,7 +59,7 @@ const miniGamesMapping = new Map([
   ["chart_squats", "Chart Squats Mat"],
   ["matrix", "Mystery Mat"],
   ["gym_canals", "Gym Canals"],
-  ["invaders", "Octopus Invaders"],
+  ["invaders", "Space Invaders"],
   ["kayaks", "Kayaks"],
   ["runner", "Runner"],
   ["race_track", "Race Track"],
@@ -296,7 +296,9 @@ export class GymRoomScene extends EarnableScene {
         ` is locked` +
         `\n\n` +
         `You need to earn access pass\n` +
-        `By training in this room first`;
+        `By training in this room first\n\n` +
+        `Click ...level... in the Side Menu\n` +
+        `To check the rules`;
       if (!this.unlockHintText) {
         this.unlockHintText = createTextBox({
           scene: this,
@@ -309,10 +311,10 @@ export class GymRoomScene extends EarnableScene {
           .setOrigin(0.5)
           .setDepth(1)
           .setScrollFactor(0, 0)
-          .start(msg, 20);
+          .start(msg, 10);
 
         this.time.addEvent({
-          delay: 5000,
+          delay: 10000,
           callback: () => {
             if (this.unlockHintText) {
               this.unlockHintText.destroy();

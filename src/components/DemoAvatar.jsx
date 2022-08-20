@@ -21,7 +21,7 @@ import { useNFTTokenIds } from "hooks/useNFTTokenIds";
 import { useVerifyMetadata } from "hooks/useVerifyMetadata";
 import { MainChainID } from "../MglNftMetadata";
 import { resolveNftSprite } from "../helpers/nft-props-resolvers";
-import { pageTitleStyle, descriptionStyle } from "GlobalStyles";
+import { pageTitleStyle, descriptionStyle, mainFontColor } from "GlobalStyles";
 import Loader from "./Loader";
 import SnapArBtn from "./SnapArBtn";
 
@@ -56,8 +56,21 @@ function DemoAvatar() {
         style={{
           ...descriptionStyle,
           padding: "1rem 0",
+          marginTop: "1rem",
         }}
       >
+        <div
+          style={{
+            padding: "1rem",
+          }}
+        >
+          <hr
+            style={{
+              border: "1px solid #D6D3CF",
+            }}
+          />
+          <p>Check my contract and metadata&nbsp;👇</p>
+        </div>
         <Button
           style={BtnInfo}
           onClick={() =>
@@ -69,22 +82,34 @@ function DemoAvatar() {
         >
           {demoNFTContract}
         </Button>
-        <p
+        <div
           style={{
             color: "#535353",
             marginBottom: "1rem",
             marginTop: "1rem",
-            textDecorationLine: "underline",
           }}
         >
-          {fixMoralisTokenUri(nft)}&nbsp;
-          <CopyOutlined
-            onClick={() =>
-              navigator.clipboard.writeText(fixMoralisTokenUri(nft))
-            }
-            style={{ cursor: "pointer" }}
-          />
-        </p>
+          <p
+            style={{
+              textDecorationLine: "underline",
+            }}
+          >
+            {fixMoralisTokenUri(nft)}&nbsp;
+            <CopyOutlined
+              onClick={() => {
+                navigator.clipboard.writeText(fixMoralisTokenUri(nft));
+                document.getElementById(
+                  "clipboard-span-dg",
+                ).innerHTML = `<p style="color: #3F8CFD;">Copied.</p>`;
+                setTimeout(() => {
+                  document.getElementById("clipboard-span-dg").innerHTML = "";
+                }, 2000);
+              }}
+              style={{ cursor: "pointer" }}
+            />
+          </p>
+          <div id="clipboard-span-dg"></div>
+        </div>
       </section>
     );
   };
@@ -206,31 +231,48 @@ function DemoAvatar() {
 
   const call2ActionBtns = (
     <section
-      style={{
-        display: "grid",
-        justifyContent: "center",
-        alignContent: "center",
-        marginTop: "1rem",
-      }}
+      style={
+        {
+          // marginBottom: "1rem",
+        }
+      }
     >
       <div
         style={{
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr",
-          gap: "2rem",
+          ...descriptionStyle,
         }}
       >
-        <Button
-          type="primary"
+        <p> If you dont have your awesome GymBuddy yet,</p>
+        <p>simply mint your first GymBuddy or visit Marketplace</p>
+        <p> and start your MetaGymLand Metaverse adventure!</p>
+      </div>
+      <div
+        style={{
+          display: "grid",
+          justifyContent: "center",
+          alignContent: "center",
+          marginTop: "1rem",
+        }}
+      >
+        <div
           style={{
-            ...BtnPrimary,
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            gap: "2rem",
           }}
         >
-          <Link to="/mint">Mint</Link>
-        </Button>
-        <Button type="primary" style={BtnInfo}>
-          <Link to="/marketplace">Marketplace</Link>
-        </Button>
+          <Button
+            type="primary"
+            style={{
+              ...BtnPrimary,
+            }}
+          >
+            <Link to="/mint">Mint</Link>
+          </Button>
+          <Button type="primary" style={BtnInfo}>
+            <Link to="/marketplace">Marketplace</Link>
+          </Button>
+        </div>
       </div>
     </section>
   );
@@ -243,15 +285,9 @@ function DemoAvatar() {
           marginBottom: "1rem",
         }}
       >
-        You can try me first before buying your own GymBuddy NFT,&nbsp;
+        You can try me first before having your own GymBuddy NFT,&nbsp;
         <span style={{ fontWeight: 700 }}>but I will disappear soon</span>
         &nbsp;&nbsp;😱
-      </section>
-
-      <section>
-        <p> If you dont have your awesome GymBuddy yet,</p>
-        <p>simply mint your first GymBuddy or visit Marketplace</p>
-        <p> and start your MetaGymLand Metaverse adventure!</p>
       </section>
     </>
   );
@@ -273,6 +309,7 @@ function DemoAvatar() {
         <section
           style={{
             ...pageTitleStyle,
+            marginBottom: "1rem",
           }}
         >
           I am a Demo GymBuddy <SmileFilled style={{ color: "#FFBE59" }} />
@@ -284,10 +321,16 @@ function DemoAvatar() {
           const snapArMinatureLink = nft?.snap_ar_miniature_link ?? "";
           return (
             <div key={index}>
-              {displayNftContractAndIpfsLink(nft)}
               {gymBuddyText}
+              <section
+                style={{
+                  marginBottom: "2rem",
+                }}
+              >
+                {displayNftCard(nft, snapArMinatureLink)}
+              </section>
               {call2ActionBtns}
-              {displayNftCard(nft, snapArMinatureLink)}
+              {displayNftContractAndIpfsLink(nft)}
             </div>
           );
         })}

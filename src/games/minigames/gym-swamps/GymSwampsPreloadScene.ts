@@ -20,7 +20,8 @@ class GymSwampsPreloadScene extends Phaser.Scene {
     this.load.setBaseURL("/assets/minigames/gym-swamps");
     this.load.tilemapTiledJSON("swamp-map", "swamp-map.json");
     this.load.image("swamp-tiles", "swamp-tiles.png");
-    this.load.image("seed", "seed.png");
+    this.load.image("bottle", "bottle.png");
+    this.load.image("fish", "fish.png");
   }
 
   create() {

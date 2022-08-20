@@ -73,13 +73,9 @@ export class InvadersScene extends SceneInMetaGymRoom {
     const height = getGameHeight(this);
 
     this.state = GameState.Playing;
-    this.starfield = this.add.tileSprite(
-      width / 2,
-      height / 2,
-      width,
-      height,
-      AssetType.Starfield,
-    );
+
+    const bg = this.add.image(width / 2, height / 2, AssetType.Starfield);
+    bg.setDisplaySize(width, height);
 
     this.assetManager = new AssetManager(this);
     this.animationFactory = new AnimationFactory(this);
@@ -92,14 +88,14 @@ export class InvadersScene extends SceneInMetaGymRoom {
     this.scoreManager = new ScoreManager(this);
     this.createTextBoxes();
 
-    this.fireKey.on("down", () => {
-      switch (this.state) {
-        case GameState.Win:
-        case GameState.GameOver:
-          this.restart();
-          break;
-      }
-    });
+    // this.fireKey.on("down", () => {
+    //   switch (this.state) {
+    //     case GameState.Win:
+    //     case GameState.GameOver:
+    //       this.restart();
+    //       break;
+    //   }
+    // });
   }
 
   private createTextBoxes() {
@@ -120,9 +116,6 @@ export class InvadersScene extends SceneInMetaGymRoom {
   }
 
   update() {
-    // scroll background
-    this.starfield.tilePositionY -= 1;
-
     this._shipKeyboardHandler();
     if (this.time.now > this.firingTimer) {
       this._enemyFires();
@@ -181,7 +174,9 @@ export class InvadersScene extends SceneInMetaGymRoom {
     this.scoreManager.increaseScore();
     if (!this.alienManager.hasAliveAliens) {
       this.scoreManager.increaseScore(10);
-      this.scoreManager.setWinText();
+      this.scoreManager.setWinText({
+        scene: this,
+      });
       this.state = GameState.Win;
     }
   }
@@ -199,7 +194,7 @@ export class InvadersScene extends SceneInMetaGymRoom {
     explosion.play(AnimationType.Kaboom);
 
     if (this.scoreManager.noMoreLives) {
-      this.scoreManager.setGameOverText();
+      this.scoreManager.setGameOverText({ scene: this });
       this.assetManager.gameOver();
       this.state = GameState.GameOver;
       this.player.disableBody(true, true);
