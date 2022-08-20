@@ -82,7 +82,8 @@ class RunnerScene extends SceneInMetaGymRoom {
       scale: { start: 0.2, end: 0 },
       blendMode: Phaser.BlendModes.ADD,
     });
-    this.runEmitter.pause();
+    this.runEmitter.startFollow(this.player);
+    this.runEmitter.stop();
 
     this.ground = this.add
       .tileSprite(bottomPositionX, this.bottomPositionY, 88, 26, "ground")
@@ -216,7 +217,7 @@ class RunnerScene extends SceneInMetaGymRoom {
         this.isGameRunning = false;
         this.anims.pauseAll();
         this.player.setTint(0x808080);
-        this.runEmitter.pause();
+        this.runEmitter.stop();
 
         this.respawnTime = 0;
         this.gameSpeed = 10;
@@ -257,8 +258,7 @@ class RunnerScene extends SceneInMetaGymRoom {
       callbackScope: this,
       callback: () => {
         this.player.setVelocityX(80);
-        this.runEmitter.resume();
-        this.runEmitter.startFollow(this.player);
+        this.runEmitter.start();
         if (this.ground.width < width) {
           this.ground.width += 17 * 2;
         }
@@ -370,8 +370,7 @@ class RunnerScene extends SceneInMetaGymRoom {
   //   this.player.setVelocityY(0);
   //   this.player.setBodySize(this.player.width, this.player.height);
   //   this.player.body.offset.y = 0;
-  //   this.runEmitter.resume();
-  //   this.runEmitter.startFollow(this.player);
+  //   this.runEmitter.start();
   //   this.physics.resume();
   //   this.obsticles.clear(true, true);
   //   this.isGameRunning = true;
