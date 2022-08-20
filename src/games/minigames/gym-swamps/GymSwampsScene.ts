@@ -13,7 +13,6 @@ import { GYM_ROOM_BG } from "@games/gym-room-boot/assets";
 export { GymSwampsScene };
 
 const gridSize = 32;
-const pillOffset = gridSize / 2;
 const mapScale = 2;
 
 const SceneConfig = {
@@ -40,18 +39,17 @@ class GymSwampsScene extends SceneInMetaGymRoom {
   }
 
   create() {
-    // this.cameras.main.backgroundColor.setTo(179, 201, 217);
     // basics
     this.handleExit({
       thisSceneKey: GYM_SWAMPS_ACTUAL,
     });
 
     const tiles = "swamp-tiles";
-    const map = (this.map = this.make.tilemap({
+    this.map = this.make.tilemap({
       key: "swamp-map",
       tileWidth: gridSize,
       tileHeight: gridSize,
-    }));
+    });
 
     this.cameras.main.backgroundColor.setTo(179, 201, 217);
 

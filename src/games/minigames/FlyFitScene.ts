@@ -35,16 +35,16 @@ export class FlyFitScene extends SceneInMetaGymRoom {
   }
 
   create() {
+    this.cameras.main.backgroundColor.setTo(179, 201, 217);
     // basic props
     this.won = false;
     const width = getGameWidth(this);
     const height = getGameHeight(this);
 
-    this.graphics = this.add.graphics();
-    this.graphics.clear();
-    const rect = new Phaser.Geom.Rectangle(0, 0, width, height);
-
     // TODO: check this later
+    // this.graphics = this.add.graphics();
+    // this.graphics.clear();
+    // const rect = new Phaser.Geom.Rectangle(0, 0, width, height);
     // const starGraphics = this.make.graphics({x: 0, y: 0, add: false});
     // const bgGraphics = starGraphics
     //   .fillGradientStyle(0xdce7fc, 0x82b1ff, 0x4281ff, 0x4287f5, 1)
@@ -52,12 +52,13 @@ export class FlyFitScene extends SceneInMetaGymRoom {
     // bgGraphics.generateTexture("flySky", width, height);
 
     this.bGtiTleSprite = this.add.tileSprite(
-      width / 2,
-      height / 2,
       width,
       height,
+      width * 2,
+      height * 2,
       GYM_ROOM_BG,
     );
+    this.physics.world.setBounds(0, 0, width * 2, height * 2);
 
     // basics
     this.handleExit({
@@ -68,14 +69,18 @@ export class FlyFitScene extends SceneInMetaGymRoom {
     });
 
     // text
-    this.scoreBoard = this.add.text(width * 0.05, height * 0.015, "SCORE: 0", {
-      font: `500 20px ${InGameFont}`,
-      color: "#ba3a3a",
-    });
-    this.add.text(width * 0.05, height * 0.04, "press ESC to go back", {
-      font: `500 17px ${InGameFont}`,
-      color: "#202020",
-    });
+    this.scoreBoard = this.add
+      .text(width * 0.05, height * 0.015, "SCORE: 0", {
+        font: `500 20px ${InGameFont}`,
+        color: "#ba3a3a",
+      })
+      .setScrollFactor(0, 0);
+    this.add
+      .text(width * 0.05, height * 0.04, "press ESC to go back", {
+        font: `500 17px ${InGameFont}`,
+        color: "#202020",
+      })
+      .setScrollFactor(0, 0);
 
     // hint
     const hintTextBox = createTextBox({
@@ -84,7 +89,7 @@ export class FlyFitScene extends SceneInMetaGymRoom {
       y: height * 0.015,
       config: { wrapWidth: 280 },
     });
-    hintTextBox.setDepth(1);
+    hintTextBox.setDepth(2);
     hintTextBox.setScrollFactor(0, 0);
     hintTextBox.start("🤖", 50);
     roboTextTimeouts.push(
@@ -149,8 +154,8 @@ export class FlyFitScene extends SceneInMetaGymRoom {
     const btcRect = new Phaser.Geom.Rectangle(
       width * 0.04,
       height * 0.13,
-      width - width * 0.04,
-      height - height * 0.13,
+      width * 2,
+      height * 2,
     );
     // for degub
     // this.graphics.fillGradientStyle(0x023246, 0x1E0338, 0x300240, 0x370232, 1)
@@ -181,14 +186,14 @@ export class FlyFitScene extends SceneInMetaGymRoom {
     // this made the plane to have body element
     this.physics.world.enable(plane);
     this.add.existing(plane);
-    this.player = this.add.container(width / 2, height / 2, [
-      plane,
-      playerInner,
-    ]);
+    this.player = this.add.container(width, height, [plane, playerInner]);
 
     this.physics.world.enableBody(this.player);
 
     this.player.body.setCollideWorldBounds(true);
+
+    const roundPixels = true;
+    this.cameras.main.startFollow(this.player, roundPixels, 0.1, 0.1);
 
     const collectBtc = (_avatar: any, btcItem: { destroy: () => void }) => {
       btcItem.destroy();
@@ -224,14 +229,14 @@ export class FlyFitScene extends SceneInMetaGymRoom {
       y: height / 2,
       config: { wrapWidth: 280 },
     });
-    youWonText.setOrigin(0.5).setDepth(1).setScrollFactor(0, 0);
+    youWonText.setOrigin(0.5).setDepth(3).setScrollFactor(0, 0);
     youWonText.start(msg, 50);
   }
 
   // eslint-disable-next-line no-unused-vars
   update(_time: any, _delta: any) {
     // scroll background
-    this.bGtiTleSprite.tilePositionY -= 0.5;
+    // this.bGtiTleSprite.tilePositionY -= 0.5;
 
     if (!this.won && this.score === btcCnt) {
       this.won = true;
