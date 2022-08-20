@@ -27,7 +27,7 @@ const _nameToId = new Map<string, number>([
 
 const nameToId = (name: string): number => {
   const id = _nameToId.get(name);
-  if (!id) {
+  if (id === undefined) {
     throw Error(`[bad minigames repo settings]: ${name}`);
   }
   return id;
