@@ -1,22 +1,23 @@
 export const TestGymBuddiesContract =
-  "0xaf442b8249278126cc04038079a43f1721f48e1e";
+  "0x9Ce8A78593969Cd5281bd75A62477BaC3983789F";
 export const TestGymBuddiesWithSnapLensContract =
-  "0x63fDE70f34e23dC272d53dcB2aCd34B9A8DD0526";
-export const AvaxMoralis2021HackatonNfts =
-  "0xbba97ea3912c598a39ce0802d5cd67dd3d873457";
-export const DemoNFT = "0xC5879FCFB810db94C6018Bb5BED41e64E10c016c";
+  "0xeD4b46C4Ec9a072E7Fd02E960B04D9e144388C5D";
+export const DemoNFT = "0xe577B81994f23ba777a4057753Ad8adcF3d38E84";
 export const AllowedNftContracts = new Map([
   [
-    "0xa869", // AVAX fuji testnet
+    "0x13881",
     [TestGymBuddiesContract, TestGymBuddiesWithSnapLensContract],
   ],
 ]);
 
 export const DemoNFTContracts = new Map([
   [
-    "0xa869", // AVAX fuji testnet
+    "0x13881",
     DemoNFT,
   ],
 ]);
 
-export const MainChainID = "0xa869"; // AVAX fuji testnet
+export const MainChainID = "0x13881";
+
+// 0x13881 // Polygon Mumbai testnet
+// 0x13881 // AVAX fuji testnet

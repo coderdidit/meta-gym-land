@@ -27,7 +27,7 @@ const ConnectWalletWarn = () => {
             ...descriptionStyle,
           }}
         >
-          To see your&nbsp;MetaGymLAnd NFTs
+          To see your&nbsp;MetaGymLand NFTs
         </p>
         <p
           style={{
@@ -67,21 +67,20 @@ const UseCorrectNetworkWarn = () => {
             ...pageTitleStyle,
           }}
         >
-          Avalanche Fuji Testnet Network
+          Polygon Mumbai Testnet Network
         </h1>
         <div
           style={{
             margin: "1rem",
           }}
         >
-          <AvaxLogo width={"60"} height={"60"} />
         </div>
         <p
           style={{
             ...descriptionStyle,
           }}
         >
-          To see your&nbsp; MetaGymLAnd NFTs
+          To see your&nbsp; MetaGymLand NFTs
         </p>
         <p
           style={{
