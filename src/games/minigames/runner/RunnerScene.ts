@@ -5,7 +5,7 @@ import {
   mainBgColorNum,
 } from "GlobalStyles";
 import Phaser from "phaser";
-import { RUNNER, RUNNER_ACTUAL } from "../..";
+import { PLAYER_KEY, RUNNER, RUNNER_ACTUAL } from "../..";
 import * as gstate from "../../../ai/gpose/state";
 import * as gpose from "../../../ai/gpose/pose";
 import { createTextBox } from "games/utils/text";
@@ -37,11 +37,12 @@ class RunnerScene extends SceneInMetaGymRoom {
   scoreText!: Phaser.GameObjects.Text;
   highScoreText!: Phaser.GameObjects.Text;
   environment!: Phaser.GameObjects.Group;
-  gameOverText!: TextBox;
   restart!: Phaser.GameObjects.Image;
   obsticles!: Phaser.Physics.Arcade.Group;
   cursorKeys!: Phaser.Types.Input.Keyboard.CursorKeys;
   bottomPositionY!: number;
+  gameOverBox!: TextBox;
+  runEmitter!: Phaser.GameObjects.Particles.ParticleEmitter;
   constructor() {
     super(SceneConfig);
   }
@@ -69,12 +70,19 @@ class RunnerScene extends SceneInMetaGymRoom {
     this.physics.world.setBounds(0, 0, width, this.bottomPositionY);
 
     this.dino = this.physics.add
-      .sprite(bottomPositionX, this.bottomPositionY, "dino-idle")
+      .sprite(bottomPositionX, this.bottomPositionY, PLAYER_KEY)
       .setCollideWorldBounds(true)
       .setGravityY(3000)
       .setBodySize(44, 92)
       .setDepth(1)
       .setOrigin(0, 1);
+
+    const gymBuddy = this.add.particles(PLAYER_KEY);
+    this.runEmitter = gymBuddy.createEmitter({
+      speed: 100,
+      scale: { start: 0.2, end: 0 },
+      blendMode: Phaser.BlendModes.ADD,
+    });
 
     this.ground = this.add
       .tileSprite(bottomPositionX, this.bottomPositionY, 88, 26, "ground")
@@ -126,24 +134,22 @@ class RunnerScene extends SceneInMetaGymRoom {
 
   private handleExitRestart() {
     // exit or restart
-    this.input.keyboard.on(
-      "keydown",
-      async (event: KeyboardEvent) => {
-        const key = event.key;
-        if (key === Key.Escape) {
-          this.exit(RUNNER_ACTUAL);
-        }
-        if (key === "x") {
-          this.restartGame();
-        }
-      },
-      this,
-    );
+    const fn = async (event: KeyboardEvent) => {
+      const key = event.key;
+      if (key === Key.Escape) {
+        this.exit(RUNNER_ACTUAL);
+      }
+      if (key === "x") {
+        this.gameOverBox?.destroy();
+        this.restartGame();
+      }
+    };
+    this.input.keyboard.on("keydown", fn, this);
   }
 
   private displayGameOverText() {
     const { width, height } = this.gameDimentions();
-    createTextBox({
+    this.gameOverBox = createTextBox({
       scene: this,
       x: width / 2,
       y: height / 2,
@@ -205,7 +211,9 @@ class RunnerScene extends SceneInMetaGymRoom {
         this.physics.pause();
         this.isGameRunning = false;
         this.anims.pauseAll();
-        this.dino.setTexture("dino-hurt");
+        this.dino.setTint(0x808080);
+        this.runEmitter.pause();
+
         this.respawnTime = 0;
         this.gameSpeed = 10;
         this.displayGameOverText();
@@ -245,8 +253,7 @@ class RunnerScene extends SceneInMetaGymRoom {
       callbackScope: this,
       callback: () => {
         this.dino.setVelocityX(80);
-        this.dino.play("dino-run", true);
-
+        this.runEmitter.startFollow(this.dino);
         if (this.ground.width < width) {
           this.ground.width += 17 * 2;
         }
@@ -264,23 +271,6 @@ class RunnerScene extends SceneInMetaGymRoom {
   }
 
   private initAnims() {
-    this.anims.create({
-      key: "dino-run",
-      frames: this.anims.generateFrameNumbers("dino", { start: 2, end: 3 }),
-      frameRate: 10,
-      repeat: -1,
-    });
-
-    this.anims.create({
-      key: "dino-down-anim",
-      frames: this.anims.generateFrameNumbers("dino-down", {
-        start: 0,
-        end: 1,
-      }),
-      frameRate: 10,
-      repeat: -1,
-    });
-
     this.anims.create({
       key: "enemy-dino-fly",
       frames: this.anims.generateFrameNumbers("enemy-bird", {
@@ -329,6 +319,7 @@ class RunnerScene extends SceneInMetaGymRoom {
 
   private handleInputsOnUpdate() {
     const curPose = gstate.getPose();
+    this.dino.setAngle(0);
 
     if (
       this.cursorKeys?.space.isDown ||
@@ -343,7 +334,6 @@ class RunnerScene extends SceneInMetaGymRoom {
       this.dino.body.setSize(this.dino.body.width, 92);
       this.dino.body.offset.y = 0;
       this.dino.setVelocityY(-1600);
-      this.dino.setTexture("dino", 0);
     }
 
     if (
@@ -356,6 +346,13 @@ class RunnerScene extends SceneInMetaGymRoom {
       }
 
       this.dino.body.setSize(undefined, 58);
+      // if (curPose === gpose.HTL) {
+      //   this.dino.setAngle(-90);
+      // }
+      // if (curPose === gpose.HTR) {
+      //   this.dino.setAngle(90);
+      // }
+      this.dino.setAngle(-90);
       this.dino.body.offset.y = 34;
     }
     if (curPose === gpose.IDLE) {
@@ -368,10 +365,13 @@ class RunnerScene extends SceneInMetaGymRoom {
   }
 
   private restartGame(): void {
-    // dino
+    // gym buddy
+    this.dino.setTint(undefined);
     this.dino.setVelocityY(0);
     this.dino.body.setSize(this.dino.body.width, 92);
     this.dino.body.offset.y = 0;
+    this.runEmitter.resume();
+    this.runEmitter.startFollow(this.dino);
     this.physics.resume();
     this.obsticles.clear(true, true);
     this.isGameRunning = true;
@@ -440,12 +440,12 @@ class RunnerScene extends SceneInMetaGymRoom {
     });
 
     if (this.dino.body.deltaAbsY() > 0) {
-      this.dino.anims.stop();
-      this.dino.setTexture("dino", 0);
+      // this.dino.anims.stop();
+      // this.dino.setTexture("dino", 0);
     } else {
-      this.dino.body.height <= 58
-        ? this.dino.play("dino-down-anim", true)
-        : this.dino.play("dino-run", true);
+      // this.dino.body.height <= 58
+      //   ? this.dino.play("dino-down-anim", true)
+      //   : this.dino.play("dino-run", true);
     }
   }
 }
