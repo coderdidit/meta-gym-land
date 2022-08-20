@@ -90,6 +90,7 @@ const SideMenu = () => {
       <SelectWebcamModalWithIcon />
       {/* user progress */}
       <UserProgressModalWithIcon user={user} avatar={avatar} />
+      <div>level</div>
       {/* instructions */}
       <div
         style={{
