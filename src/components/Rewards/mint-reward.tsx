@@ -1,6 +1,10 @@
-import { Button } from "antd";
+import { Button, Modal } from "antd";
+import Loader from "components/Loader";
 import { BtnPrimary, descriptionStyle } from "GlobalStyles";
+import { GymBuddyMagesContract, MainChainID } from "MglNftMetadata";
 import Moralis from "moralis/types";
+import { useState } from "react";
+import { useMoralis, useWeb3ExecuteFunction } from "react-moralis";
 import { userRepository, levelsRepository } from "repositories";
 
 export { MintReward };
@@ -38,16 +42,7 @@ const MintReward: React.FC<{
           Your xp is <b>{currentXP}</b>
         </p>
         <br />
-
-        <Button
-          type="primary"
-          style={{
-            ...BtnPrimary,
-          }}
-          onClick={() => alert("Comming soon!")}
-        >
-          Mint you reward
-        </Button>
+        <MintBtn />
       </div>
     );
   }
@@ -83,4 +78,94 @@ const MintReward: React.FC<{
       </ul>
     </div>
   );
+};
+
+const mintPrice = 0.001;
+
+const MintBtn = () => {
+  const { chainId, isAuthenticated, Moralis } = useMoralis();
+  const [loading, setLoading] = useState(false);
+  const userChainId = chainId;
+  const contractProcessor = useWeb3ExecuteFunction();
+  const mintContractAddress = GymBuddyMagesContract;
+
+  const handleMintClick = async () => {
+    if (!isAuthenticated) {
+      alert(`
+            You need to connect your wallet\n
+            to be able to buy NFTs
+            `);
+      return;
+    } else if (userChainId !== MainChainID) {
+      alert(`
+            Please switch to\n
+            Polygon Mumbai testnet\n
+            to be able to buy NFTs
+            `);
+      return;
+    }
+    setLoading(true);
+    const ops = {
+      contractAddress: mintContractAddress,
+      functionName: "requestNft",
+      abi: [
+        {
+          inputs: [],
+          name: "requestNft",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "requestId",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "payable",
+          type: "function",
+        },
+      ],
+      msgValue: Moralis.Units.ETH(mintPrice),
+    };
+    await contractProcessor.fetch({
+      params: ops,
+      onSuccess: async () => {
+        setLoading(false);
+        Modal.success({
+          title: "Success",
+          content: (
+            <div>
+              <p>You minted your GymBuddy&nbsp;🎉</p>
+              <br />
+              <p>Check your GymBuddies tab</p>
+              <p>Bear in mind it may take a few minutes</p>
+              <p>until your newly minted GymBuddy appear</p>
+            </div>
+          ),
+        });
+      },
+      onError: (error) => {
+        console.error(error);
+        setLoading(false);
+        Modal.error({
+          title: "Oops, something went worng",
+          content: <div>{error.message}</div>,
+        });
+      },
+    });
+  };
+
+  if (loading) {
+    return <Loader />;
+  } else {
+    return (
+      <Button
+        type="primary"
+        style={{
+          ...BtnPrimary,
+        }}
+        onClick={handleMintClick}
+      >
+        Mint you reward
+      </Button>
+    );
+  }
 };
