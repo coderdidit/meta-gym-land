@@ -9,17 +9,6 @@ class NoEthereumProviderError extends Error {
   }
 }
 
-// async function getProvider() {
-//     // 0x13881 // Polygon Mumbai testnet
-//     const wallet = await sequence.initWallet("0x13881");
-//     debugLog('[SequenceConnector] wallet init', wallet);
-//     const provider = wallet.getProvider();
-//     if (provider === undefined) {
-//         throw Error("failed to get sequence wallet provider");
-//     }
-//     return provider;
-// }
-
 function getProvider() {
   if (!window?.sequence.isSequence) {
     window.open("https://sequence.xyz");
