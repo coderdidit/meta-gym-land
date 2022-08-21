@@ -395,7 +395,7 @@ function NFTBalance() {
               <br />
               <p>Simply mint your first GymBuddy or visit Marketplace</p>
               <p>and start your MetaGymLand Metaverse adventure!</p>
-
+              <br />
               <section
                 style={{
                   display: "grid",

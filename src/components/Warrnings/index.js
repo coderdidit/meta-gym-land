@@ -73,8 +73,7 @@ const UseCorrectNetworkWarn = () => {
           style={{
             margin: "1rem",
           }}
-        >
-        </div>
+        ></div>
         <p
           style={{
             ...descriptionStyle,
