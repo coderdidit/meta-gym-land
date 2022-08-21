@@ -42,7 +42,7 @@ const MintGymBuddyPage = () => {
     } else if (userChainId !== MainChainID) {
       alert(`
             Please switch to\n
-            Avalanche Fuji Testnet Network\n
+            Polygon Mumbai testnet\n
             to be able to buy NFTs
             `);
       return;
@@ -106,7 +106,7 @@ const MintGymBuddyPage = () => {
     } else if (userChainId !== MainChainID) {
       alert(`
             Please switch to\n
-            Avalanche Fuji Testnet Network\n
+            Polygon Mumbai testnet\n
             to be able to buy NFTs
             `);
       return;
@@ -192,7 +192,7 @@ const MintGymBuddyPage = () => {
                 fontSize: "1.5rem",
               }}
             >
-              {mintPrice} AVAX
+              {mintPrice} MATIC
             </span>{" "}
             + network fee
           </p>

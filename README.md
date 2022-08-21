@@ -39,7 +39,7 @@ https://github.com/coderdidit/meta-gym-land-nft-utils
 ### Technologies used:
 
 - Moralis
-- Avalanche
+- Polygon
 - Solidity
 - IPFS and Filecoin for NFT storage
 - nft.storage

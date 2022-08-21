@@ -3,7 +3,7 @@ import {
   pageTitle3Style,
   descriptionStyle,
 } from "../../GlobalStyles";
-import { AvaxLogo } from "../Chains/Logos";
+import { PolygonLogo } from "../Chains/Logos";
 
 const ConnectWalletWarn = () => {
   return (
@@ -27,7 +27,7 @@ const ConnectWalletWarn = () => {
             ...descriptionStyle,
           }}
         >
-          To see your&nbsp;MetaGymLAnd NFTs
+          To see your&nbsp;MetaGymLand NFTs
         </p>
         <p
           style={{
@@ -67,21 +67,21 @@ const UseCorrectNetworkWarn = () => {
             ...pageTitleStyle,
           }}
         >
-          Avalanche Fuji Testnet Network
+          Polygon Mumbai Testnet Network
         </h1>
         <div
           style={{
             margin: "1rem",
           }}
         >
-          <AvaxLogo width={"60"} height={"60"} />
+          <PolygonLogo />,
         </div>
         <p
           style={{
             ...descriptionStyle,
           }}
         >
-          To see your&nbsp; MetaGymLAnd NFTs
+          To see your&nbsp; MetaGymLand NFTs
         </p>
         <p
           style={{

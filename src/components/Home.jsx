@@ -160,7 +160,7 @@ export default function Home() {
             >
               1. Connect your wallet
             </p>
-            <p>Currently, we are on Avalanche fuji testnet.</p>
+            <p>Currently, we are on Polygon Mumbai testnet.</p>
           </div>
           <div>
             <Image

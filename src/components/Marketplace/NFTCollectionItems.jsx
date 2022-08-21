@@ -125,7 +125,7 @@ function NFTCollectionItems({ nftAddress, colName }) {
     } else if (userChainId !== MainChainID) {
       alert(`
             Please switch to\n
-            Avalanche Fuji Testnet Network\n
+            Polygon Mumbai testnet\n
             to be able to buy NFTs
             `);
       return;
