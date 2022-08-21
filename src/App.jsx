@@ -33,6 +33,7 @@ import { paddingLRHeaderFooter } from "./GlobalStyles";
 import BitKeepConnector from "./components/Account/BitKeepConnector";
 import { MiniGamesPage } from "components/minigames-page";
 import { ProgressPage } from "components/user-progrees";
+import SequenceConnector from "components/Account/SequenceConnector";
 
 const { Header } = Layout;
 
@@ -81,6 +82,8 @@ const App = ({ isServerInfo }) => {
     if (isAuthenticated && !isWeb3Enabled && !isWeb3EnableLoading) {
       if (connectorId === "bitkeep") {
         enableWeb3({ provider: connectorId, connector: BitKeepConnector });
+      } else if (connectorId === "sequence") {
+        enableWeb3({ provider: connectorId, connector: SequenceConnector });
       } else {
         enableWeb3({ provider: connectorId });
       }
