@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/static/css/main.f118c4ed.css",
-    "main.js": "/static/js/main.e2be6af1.js",
+    "main.js": "/static/js/main.43be96fb.js",
     "polyfills-dom.js": "/static/js/polyfills-dom.c5971dae.chunk.js",
     "polyfills-core-js.js": "/static/js/polyfills-core-js.dfe3610a.chunk.js",
     "static/js/340.06454d93.chunk.js": "/static/js/340.06454d93.chunk.js",
     "static/media/gym-buddies.gif": "/static/media/gym-buddies.69d615296299b980a9cf.gif",
     "static/media/home_page_img.png": "/static/media/home_page_img.28db05a891d22deb2b58.png",
     "static/media/how_it_works_2.png": "/static/media/how_it_works_2.c1f5b87b2c7417b12fdc.png",
-    "static/media/how_it_works_1.png": "/static/media/how_it_works_1.15e82802e4a84030769e.png",
     "static/media/how_it_works_3.png": "/static/media/how_it_works_3.0f5a8e1a691e406ed962.png",
+    "static/media/how_it_works_1.png": "/static/media/how_it_works_1.724d3a7e070d991cdf36.png",
     "static/media/Coin98.png": "/static/media/Coin98.1e4e40738d77467e19ba.png",
     "static/media/bkWallet.png": "/static/media/bkWallet.5341cb4efc42c0d0159c.png",
     "static/media/pump_the_price.png": "/static/media/pump_the_price.3ab944d471f388c0473e.png",
@@ -20,13 +20,13 @@
     "SafePal.svg": "/e7068bbce0757878c2ef3e30191ce580.svg",
     "index.html": "/index.html",
     "main.f118c4ed.css.map": "/static/css/main.f118c4ed.css.map",
-    "main.e2be6af1.js.map": "/static/js/main.e2be6af1.js.map",
+    "main.43be96fb.js.map": "/static/js/main.43be96fb.js.map",
     "polyfills-dom.c5971dae.chunk.js.map": "/static/js/polyfills-dom.c5971dae.chunk.js.map",
     "polyfills-core-js.dfe3610a.chunk.js.map": "/static/js/polyfills-core-js.dfe3610a.chunk.js.map",
     "340.06454d93.chunk.js.map": "/static/js/340.06454d93.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.f118c4ed.css",
-    "static/js/main.e2be6af1.js"
+    "static/js/main.43be96fb.js"
   ]
 }
