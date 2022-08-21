@@ -1,5 +1,5 @@
 import { debugLog } from "dev-utils/debug";
-import Moralis from "moralis/types";
+import Moralis from "moralis-v1/types";
 import Phaser from "phaser";
 import { userRepository } from "repositories";
 

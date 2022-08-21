@@ -1,7 +1,7 @@
 import { StockOutlined } from "@ant-design/icons";
 import { Modal } from "antd";
 import { pageTitle2Style, mainFontColor } from "GlobalStyles";
-import Moralis from "moralis/types";
+import Moralis from "moralis-v1/types";
 import { useState } from "react";
 import { UserProgress } from "./user-progress";
 
