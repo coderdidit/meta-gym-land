@@ -30,11 +30,15 @@ const UserProgressModalWithIcon = ({
       >
         <StockOutlined />
       </div>
-      <div style={{
+      <div
+        style={{
           textAlign: "center",
           display: "flex",
           justifyContent: "center",
-        }}>level</div>
+        }}
+      >
+        level
+      </div>
       <Modal
         title={
           <div

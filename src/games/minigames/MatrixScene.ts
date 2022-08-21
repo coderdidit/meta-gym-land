@@ -99,9 +99,9 @@ export class MatrixScene extends SceneInMetaGymRoom {
     hintTextBox.setScrollFactor(0, 0);
     hintTextBox.start(
       "🤖 Welcome, I am the MetaGymLand Architect\n\n" +
-        "choose\n" +
-        "RED PILL or BLUE PILL?\n" +
-        "You can fly in this room!",
+      "choose\n" +
+      "RED PILL or BLUE PILL?\n" +
+      "You can fly in this room!",
       50,
     );
 
@@ -179,10 +179,13 @@ export class MatrixScene extends SceneInMetaGymRoom {
           .setScrollFactor(0, 0)
           .start(
             "🤖 You have chosen the RED PILL\n" +
-              "Good choice!\n\n" +
-              "NOW, join our social channels\n" +
-              "if you would like to see\n" +
-              "how deep the rabbit hole goes [CLICK THIS MESSAGE]",
+            "Good choice!\n\n" +
+            "NOW, join our social channels\n" +
+            "if you would like to see\n\n" +
+            "how deep the rabbit hole goes [CLICK THIS MESSAGE]\n\n" +
+            "After that, go back to the gym\n" +
+            "Train more to increase your $XP\n" +
+            "so you can earn rewards",
             50,
           );
         info.setInteractive({ useHandCursor: true });

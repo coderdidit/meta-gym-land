@@ -31,8 +31,12 @@ const MintReward: React.FC<{
         }}
       >
         <h4>Congrats!</h4>
-        <p>Your level is {levelsRepo.idToName(currentLevel)}</p>
-        <p>Your xp is {currentXP}</p>
+        <p>
+          Your level is <b>{levelsRepo.idToName(currentLevel)}</b>
+        </p>
+        <p>
+          Your xp is <b>{currentXP}</b>
+        </p>
         <br />
 
         <Button
@@ -42,7 +46,7 @@ const MintReward: React.FC<{
           }}
           onClick={() => alert("Comming soon!")}
         >
-          click to mint you reward
+          Mint you reward
         </Button>
       </div>
     );

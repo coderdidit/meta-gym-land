@@ -40,11 +40,15 @@ const miniGameInstructions = (minigame: string) => {
             }}
           />
         </div>
-        <div style={{
-          textAlign: "center",
-          display: "flex",
-          justifyContent: "center",
-        }}>how to</div>
+        <div
+          style={{
+            textAlign: "center",
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          how to
+        </div>
       </Popover>
     </>
   );

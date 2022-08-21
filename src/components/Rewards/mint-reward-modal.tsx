@@ -34,10 +34,14 @@ const MintRewardModalWithIcon = ({
           }}
         />
       </div>
-      <div style={{
-        display: "flex",
-        justifyContent: "center",
-      }}>rewards</div>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
+        rewards
+      </div>
       <Modal
         title={
           <div
