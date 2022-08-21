@@ -185,7 +185,7 @@ export class MatrixScene extends SceneInMetaGymRoom {
               "how deep the rabbit hole goes\n" +
               "[CLICK THIS MESSAGE]\n\n" +
               "Then... go back to the gym\n" +
-              "Increase your $XP and earn rewards",
+              "Increase your $XP and check rewards",
             50,
           );
         info.setInteractive({ useHandCursor: true });
