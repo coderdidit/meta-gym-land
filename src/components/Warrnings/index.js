@@ -3,7 +3,7 @@ import {
   pageTitle3Style,
   descriptionStyle,
 } from "../../GlobalStyles";
-import { AvaxLogo } from "../Chains/Logos";
+import { PolygonLogo } from "../Chains/Logos";
 
 const ConnectWalletWarn = () => {
   return (
@@ -73,7 +73,9 @@ const UseCorrectNetworkWarn = () => {
           style={{
             margin: "1rem",
           }}
-        ></div>
+        >
+          <PolygonLogo />,
+        </div>
         <p
           style={{
             ...descriptionStyle,
