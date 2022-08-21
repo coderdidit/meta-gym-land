@@ -1,4 +1,5 @@
-import { AbstractWeb3Connector } from "moralis-v1";
+import { AbstractWeb3Connector } from "moralis";
+import { sequence } from "0xsequence";
 import { debugLog } from "dev-utils/debug";
 
 class NoEthereumProviderError extends Error {

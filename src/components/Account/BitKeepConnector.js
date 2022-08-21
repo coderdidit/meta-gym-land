@@ -1,4 +1,4 @@
-import { AbstractWeb3Connector } from "moralis-v1";
+import { AbstractWeb3Connector } from "moralis";
 
 class NoEthereumProviderError extends Error {
   constructor() {
