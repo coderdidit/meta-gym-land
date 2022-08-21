@@ -5,7 +5,6 @@ import {
   GYM_SWAMPS_ACTUAL,
   INVADERS,
   RUNNER_ACTUAL,
-  RACE_TRACK_ACTUAL,
 } from "@games/index";
 import { levelsRepository, minigamesRepository } from "repositories";
 

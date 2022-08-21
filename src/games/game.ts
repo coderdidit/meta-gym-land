@@ -12,7 +12,7 @@ import { GymSwampsPreloadScene, GymSwampsScene } from "./minigames/gym-swamps";
 
 import { GymRoomScene } from "./gym-room/GymRoomScene";
 
-import Moralis from "moralis/types";
+import Moralis from "moralis-v1/types";
 import { RaceTrackPreloadScene } from "./minigames/race-track/RaceTrackPreloadScene";
 
 export { getGameConfig, preBoot };

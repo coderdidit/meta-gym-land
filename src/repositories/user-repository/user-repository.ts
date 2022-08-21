@@ -1,6 +1,6 @@
 import { gamesService } from "@services/index";
 import { debugLog } from "dev-utils/debug";
-import Moralis from "moralis/types";
+import Moralis from "moralis-v1/types";
 import { minigamesRepository } from "repositories/minigames-repository/minigames-repository";
 
 /**

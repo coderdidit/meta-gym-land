@@ -1,5 +1,5 @@
 import React from "react";
-import Moralis from "moralis/types";
+import Moralis from "moralis-v1/types";
 import { Steps } from "antd";
 import { descriptionStyle, mainFontColor } from "GlobalStyles";
 import { userRepository } from "repositories";
