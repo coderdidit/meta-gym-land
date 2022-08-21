@@ -1,13 +1,13 @@
-import { StockOutlined } from "@ant-design/icons";
+import { DollarOutlined } from "@ant-design/icons";
 import { Modal } from "antd";
-import { pageTitle2Style, mainFontColor } from "GlobalStyles";
+import { mainFontColor, pageTitle2Style } from "GlobalStyles";
 import Moralis from "moralis/types";
 import { useState } from "react";
-import { UserProgress } from "./user-progress";
+import { MintReward } from "./mint-reward";
 
-export { UserProgressModalWithIcon };
+export { MintRewardModalWithIcon };
 
-const UserProgressModalWithIcon = ({
+const MintRewardModalWithIcon = ({
   user,
   avatar,
 }: {
@@ -23,18 +23,21 @@ const UserProgressModalWithIcon = ({
           textAlign: "center",
           marginTop: "1rem",
           cursor: "pointer",
-          fontSize: "20px",
           color: mainFontColor,
         }}
         onClick={() => setVisible(true)}
       >
-        <StockOutlined />
+        <DollarOutlined
+          style={{
+            fontSize: "20px",
+            color: mainFontColor,
+          }}
+        />
       </div>
       <div style={{
-          textAlign: "center",
-          display: "flex",
-          justifyContent: "center",
-        }}>level</div>
+        display: "flex",
+        justifyContent: "center",
+      }}>rewards</div>
       <Modal
         title={
           <div
@@ -45,7 +48,7 @@ const UserProgressModalWithIcon = ({
             }}
           >
             <h3>
-              Your progress <StockOutlined />
+              Rewards <DollarOutlined />
             </h3>
           </div>
         }
@@ -55,7 +58,7 @@ const UserProgressModalWithIcon = ({
         onCancel={() => setVisible(false)}
         width={1100}
       >
-        <UserProgress user={user} avatar={avatar} />
+        <MintReward user={user} avatar={avatar} />
       </Modal>
     </>
   );
