@@ -6,6 +6,7 @@ import Moralis from "moralis/types";
 import { useState } from "react";
 import { useMoralis, useWeb3ExecuteFunction } from "react-moralis";
 import { userRepository, levelsRepository } from "repositories";
+import { UserRepository } from "repositories/user-repository/user-repository";
 
 export { MintReward };
 
@@ -26,6 +27,8 @@ const MintReward: React.FC<{
   const currentLevel = userStats?.level ?? 0;
   const currentXP = userStats?.xp ?? 0;
 
+  const rewardMinted = userStats && userStats.gymBuddyMageMinted;
+
   if (currentLevel >= 4 && currentXP > 10) {
     return (
       <div
@@ -42,7 +45,8 @@ const MintReward: React.FC<{
           Your xp is <b>{currentXP}</b>
         </p>
         <br />
-        <MintBtn />
+        {!rewardMinted && <MintBtn userRepo={userRepo} />}
+        {rewardMinted && <p>Reward Already Claimed</p>}
       </div>
     );
   }
@@ -82,8 +86,8 @@ const MintReward: React.FC<{
 
 const mintPrice = 0.001;
 
-const MintBtn = () => {
-  const { chainId, isAuthenticated, Moralis } = useMoralis();
+const MintBtn = ({ userRepo }: { userRepo: UserRepository }) => {
+  const { chainId, isAuthenticated, Moralis, user } = useMoralis();
   const [loading, setLoading] = useState(false);
   const [minted, setMinted] = useState(false);
   const userChainId = chainId;
@@ -131,6 +135,7 @@ const MintBtn = () => {
       onSuccess: async () => {
         setLoading(false);
         setMinted(true);
+        await userRepo.updateRewardsStatus();
         Modal.success({
           title: "Success",
           content: (

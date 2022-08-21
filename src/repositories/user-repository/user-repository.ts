@@ -7,12 +7,13 @@ import { minigamesRepository } from "repositories/minigames-repository/minigames
  * TODO: replace with Supabase or Firebase
  */
 export { userRepository };
-export type { UserStats };
+export type { UserStats, UserRepository };
 
 const XP_COLUMN = "xp";
 const CURRENT_LEVEL_COLUMN = "current_level";
 const COMPLETED_MINIGAMES_COLUMN = "completed_minigames";
 const TOTAL_TIME_IN_MINIGAMES_COLUMN = "total_time_in_minigames";
+const GYM_BUDDY_MAGE_MINTED_COLUMN = "gym_buddy_mage_minted";
 
 interface MinigameUserStats {
   minigameCompleted: boolean;
@@ -25,13 +26,23 @@ interface UserStats {
   completedMinigamesCount: number;
   fromattedTimeSpentInMinigames: string;
   level: number;
+  gymBuddyMageMinted: boolean;
 }
 
+type UserRepository = {
+  updateUser: (newUserData: MinigameUserStats) => Promise<void>;
+  refresh: () => Promise<Moralis.User<Moralis.Attributes> | undefined>;
+  getStats: () => UserStats | undefined;
+  updateRewardsStatus: () => Promise<void>;
+};
 type userRepositoryParams = {
   moralisUser: Moralis.User<Moralis.Attributes> | null;
   avatar: any;
 };
-const userRepository = ({ moralisUser, avatar }: userRepositoryParams) => {
+const userRepository = ({
+  moralisUser,
+  avatar,
+}: userRepositoryParams): UserRepository => {
   const getStats = (): UserStats | undefined => {
     debugLog("[userRepository] getStats", { moralisUser, avatar });
     if (!moralisUser) {
@@ -56,6 +67,8 @@ const userRepository = ({ moralisUser, avatar }: userRepositoryParams) => {
       level:
         moralisUser?.get(CURRENT_LEVEL_COLUMN) ??
         defaultLevelForUserWithMintedAvatar,
+      gymBuddyMageMinted:
+        moralisUser?.get(GYM_BUDDY_MAGE_MINTED_COLUMN) ?? false,
     };
   };
 
@@ -71,6 +84,16 @@ const userRepository = ({ moralisUser, avatar }: userRepositoryParams) => {
         return undefined;
       },
     );
+  };
+
+  const updateRewardsStatus = async () => {
+    const freshUser = await refresh();
+    freshUser?.set(GYM_BUDDY_MAGE_MINTED_COLUMN, true);
+    try {
+      await freshUser?.save();
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   const updateUser = async (newUserData: MinigameUserStats) => {
@@ -115,6 +138,7 @@ const userRepository = ({ moralisUser, avatar }: userRepositoryParams) => {
     updateUser,
     refresh,
     getStats,
+    updateRewardsStatus,
   };
 };
 
