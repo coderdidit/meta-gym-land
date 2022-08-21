@@ -1,7 +1,12 @@
-import { Button } from "antd";
+import { Button, Modal } from "antd";
+import Loader from "components/Loader";
 import { BtnPrimary, descriptionStyle } from "GlobalStyles";
+import { GymBuddyMagesContract, MainChainID } from "MglNftMetadata";
 import Moralis from "moralis/types";
+import { useState } from "react";
+import { useMoralis, useWeb3ExecuteFunction } from "react-moralis";
 import { userRepository, levelsRepository } from "repositories";
+import { UserRepository } from "repositories/user-repository/user-repository";
 
 export { MintReward };
 
@@ -22,6 +27,8 @@ const MintReward: React.FC<{
   const currentLevel = userStats?.level ?? 0;
   const currentXP = userStats?.xp ?? 0;
 
+  const rewardMinted = userStats && userStats.gymBuddyMageMinted;
+
   if (currentLevel >= 4 && currentXP > 10) {
     return (
       <div
@@ -38,16 +45,8 @@ const MintReward: React.FC<{
           Your xp is <b>{currentXP}</b>
         </p>
         <br />
-
-        <Button
-          type="primary"
-          style={{
-            ...BtnPrimary,
-          }}
-          onClick={() => alert("Comming soon!")}
-        >
-          Mint you reward
-        </Button>
+        {!rewardMinted && <MintBtn userRepo={userRepo} />}
+        {rewardMinted && <p>Reward Already Claimed</p>}
       </div>
     );
   }
@@ -83,4 +82,101 @@ const MintReward: React.FC<{
       </ul>
     </div>
   );
+};
+
+const mintPrice = 0.001;
+
+const MintBtn = ({ userRepo }: { userRepo: UserRepository }) => {
+  const { chainId, isAuthenticated, Moralis, user } = useMoralis();
+  const [loading, setLoading] = useState(false);
+  const [minted, setMinted] = useState(false);
+  const userChainId = chainId;
+  const contractProcessor = useWeb3ExecuteFunction();
+  const mintContractAddress = GymBuddyMagesContract;
+
+  const handleMintClick = async () => {
+    if (!isAuthenticated) {
+      alert(`
+            You need to connect your wallet\n
+            to be able to buy NFTs
+            `);
+      return;
+    } else if (userChainId !== MainChainID) {
+      alert(`
+            Please switch to\n
+            Polygon Mumbai testnet\n
+            to be able to buy NFTs
+            `);
+      return;
+    }
+    setLoading(true);
+    const ops = {
+      contractAddress: mintContractAddress,
+      functionName: "requestNft",
+      abi: [
+        {
+          inputs: [],
+          name: "requestNft",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "requestId",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "payable",
+          type: "function",
+        },
+      ],
+      msgValue: Moralis.Units.ETH(mintPrice),
+    };
+    await contractProcessor.fetch({
+      params: ops,
+      onSuccess: async () => {
+        setLoading(false);
+        setMinted(true);
+        await userRepo.updateRewardsStatus();
+        Modal.success({
+          title: "Success",
+          content: (
+            <div>
+              <p>You minted your GymBuddy Mage&nbsp;🎉</p>
+              <br />
+              <p>Check your GymBuddies tab</p>
+              <p>you will get either</p>
+              <p>A Gold or Silver GymBuddy Mage</p>
+              <p>Bear in mind it may take a few minutes</p>
+              <p>until your newly minted reward appear</p>
+            </div>
+          ),
+        });
+      },
+      onError: (error) => {
+        console.error(error);
+        setLoading(false);
+        Modal.error({
+          title: "Oops, something went worng",
+          content: <div>{error.message}</div>,
+        });
+      },
+    });
+  };
+
+  if (loading) {
+    return <Loader />;
+  } else if (minted) {
+    return null;
+  } else {
+    return (
+      <Button
+        type="primary"
+        style={{
+          ...BtnPrimary,
+        }}
+        onClick={handleMintClick}
+      >
+        Mint you reward
+      </Button>
+    );
+  }
 };

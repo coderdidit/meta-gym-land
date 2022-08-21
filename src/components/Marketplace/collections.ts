@@ -1,4 +1,4 @@
-import { TestGymBuddiesContract } from "../../MglNftMetadata";
+import { GymBuddiesContract } from "../../MglNftMetadata";
 
 const AvaxTestnetChainID = "0xa869";
 const PolygonTestnetChainID = "0x13881";
@@ -6,14 +6,14 @@ const PolygonTestnetChainID = "0x13881";
 const AvaxTestChainCollections = [
   {
     name: "Initially Minted GymBuddies",
-    addrs: TestGymBuddiesContract,
+    addrs: GymBuddiesContract,
   },
 ];
 
 const PolygonTestChainCollections = [
   {
     name: "Initially Minted GymBuddies",
-    addrs: TestGymBuddiesContract,
+    addrs: GymBuddiesContract,
   },
 ];
 
@@ -22,4 +22,5 @@ export const networkCollections = new Map([
   [PolygonTestnetChainID, PolygonTestChainCollections],
 ]);
 
-export const getCollectionsByChain = (chain) => networkCollections.get(chain);
+export const getCollectionsByChain = (chain: string) =>
+  networkCollections.get(chain);
