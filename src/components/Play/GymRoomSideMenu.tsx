@@ -9,6 +9,7 @@ import { MiniGameInstructions } from "./MiniGamesInstructions";
 import { UserProgressModalWithIcon } from "components/user-progrees";
 import { useMoralis } from "react-moralis";
 import { SelectWebcamModalWithIcon } from "components/Webcam/select-webcam-modal";
+import { MintRewardModalWithIcon } from "components/Rewards/mint-reward-modal";
 
 const miniGameInstructions = (minigame: string) => {
   const i = MiniGameInstructions.get(minigame);
@@ -38,6 +39,14 @@ const miniGameInstructions = (minigame: string) => {
               color: mainFontColor,
             }}
           />
+        </div>
+        <div
+          style={{
+            textAlign: "center",
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
           how to
         </div>
       </Popover>
@@ -90,7 +99,8 @@ const SideMenu = () => {
       <SelectWebcamModalWithIcon />
       {/* user progress */}
       <UserProgressModalWithIcon user={user} avatar={avatar} />
-      <div>level</div>
+      {/* rewards */}
+      <MintRewardModalWithIcon user={user} avatar={avatar} />
       {/* instructions */}
       <div
         style={{

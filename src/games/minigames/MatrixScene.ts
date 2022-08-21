@@ -168,7 +168,7 @@ export class MatrixScene extends SceneInMetaGymRoom {
           scene: this,
           x: width / 2,
           y: height / 2,
-          config: { wrapWidth: 280 },
+          config: {},
           bg: 0x010000,
           stroke: 0x3b6a59,
           align: "center",
@@ -182,7 +182,10 @@ export class MatrixScene extends SceneInMetaGymRoom {
               "Good choice!\n\n" +
               "NOW, join our social channels\n" +
               "if you would like to see\n" +
-              "how deep the rabbit hole goes [CLICK THIS MESSAGE]",
+              "how deep the rabbit hole goes\n" +
+              "[CLICK THIS MESSAGE]\n\n" +
+              "Then... go back to the gym\n" +
+              "Increase your $XP and check rewards",
             50,
           );
         info.setInteractive({ useHandCursor: true });

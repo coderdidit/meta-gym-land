@@ -45,7 +45,15 @@ const nameToId = (name: string): number => {
   return levelId;
 };
 
-const idToName = new Map<number, string>([
+const idToName = (id: number): string => {
+  const levelName = _idToName.get(id);
+  if (!levelName) {
+    throw Error(`[levels config error]: id: ${id}`);
+  }
+  return levelName;
+};
+
+const _idToName = new Map<number, string>([
   [0, trial],
   [1, beginner],
   [2, athlete],
