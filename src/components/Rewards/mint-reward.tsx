@@ -85,6 +85,7 @@ const mintPrice = 0.001;
 const MintBtn = () => {
   const { chainId, isAuthenticated, Moralis } = useMoralis();
   const [loading, setLoading] = useState(false);
+  const [minted, setMinted] = useState(false);
   const userChainId = chainId;
   const contractProcessor = useWeb3ExecuteFunction();
   const mintContractAddress = GymBuddyMagesContract;
@@ -129,15 +130,18 @@ const MintBtn = () => {
       params: ops,
       onSuccess: async () => {
         setLoading(false);
+        setMinted(true);
         Modal.success({
           title: "Success",
           content: (
             <div>
-              <p>You minted your GymBuddy&nbsp;🎉</p>
+              <p>You minted your GymBuddy Mage&nbsp;🎉</p>
               <br />
               <p>Check your GymBuddies tab</p>
+              <p>you will get either</p>
+              <p>A Gold or Silver GymBuddy Mage</p>
               <p>Bear in mind it may take a few minutes</p>
-              <p>until your newly minted GymBuddy appear</p>
+              <p>until your newly minted reward appear</p>
             </div>
           ),
         });
@@ -155,6 +159,8 @@ const MintBtn = () => {
 
   if (loading) {
     return <Loader />;
+  } else if (minted) {
+    return null;
   } else {
     return (
       <Button
