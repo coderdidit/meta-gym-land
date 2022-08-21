@@ -1,10 +1,13 @@
-export const TestGymBuddiesContract =
-  "0x9Ce8A78593969Cd5281bd75A62477BaC3983789F";
-export const TestGymBuddiesWithSnapLensContract =
+export const GymBuddiesContract = "0x9Ce8A78593969Cd5281bd75A62477BaC3983789F";
+export const GymBuddiesWithSnapLensContract =
   "0xeD4b46C4Ec9a072E7Fd02E960B04D9e144388C5D";
+export const GymBuddyMages = "0xeD4b46C4Ec9a072E7Fd02E960B04D9e144388C5D";
 export const DemoNFT = "0xe577B81994f23ba777a4057753Ad8adcF3d38E84";
 export const AllowedNftContracts = new Map([
-  ["0x13881", [TestGymBuddiesContract, TestGymBuddiesWithSnapLensContract]],
+  [
+    "0x13881",
+    [GymBuddiesContract, GymBuddiesWithSnapLensContract, GymBuddyMages],
+  ],
 ]);
 
 export const DemoNFTContracts = new Map([["0x13881", DemoNFT]]);

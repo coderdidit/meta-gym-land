@@ -7,8 +7,8 @@ import {
 } from "GlobalStyles";
 import { getExplorer } from "helpers/networks";
 import {
-  TestGymBuddiesContract,
-  TestGymBuddiesWithSnapLensContract,
+  GymBuddiesContract,
+  GymBuddiesWithSnapLensContract,
   MainChainID,
 } from "../MglNftMetadata";
 import { SelectOutlined } from "@ant-design/icons";
@@ -28,8 +28,8 @@ const MintGymBuddyPage = () => {
   const { chainId, isAuthenticated, Moralis } = useMoralis();
   const userChainId = chainId;
   const contractProcessor = useWeb3ExecuteFunction();
-  const baseContractAddress = TestGymBuddiesContract;
-  const nftWithSnapContractAddress = TestGymBuddiesWithSnapLensContract;
+  const baseContractAddress = GymBuddiesContract;
+  const nftWithSnapContractAddress = GymBuddiesWithSnapLensContract;
   const [loading, setLoading] = useState(false);
 
   const handleBaseMintClick = async () => {
