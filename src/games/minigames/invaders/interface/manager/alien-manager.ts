@@ -34,15 +34,15 @@ export class AlienManager {
     const width = getGameWidth(this._scene);
     const height = getGameHeight(this._scene);
 
-    const ORIGIN_X = width / 6;
+    const ORIGIN_X = width / 7;
     const ORIGIN_Y = height / 3;
 
     this.aliens.clear(true, true);
     for (let y = 0; y < 4; y++) {
       for (let x = 0; x < 10; x++) {
         const alien: Alien = this.aliens.create(
-          ORIGIN_X + x * 48,
-          ORIGIN_Y + y * 50,
+          ORIGIN_X + x * 62,
+          ORIGIN_Y + y * 58,
         );
         alien.setOrigin(0.5, 0.5);
         alien.play(AnimationType.Fly);

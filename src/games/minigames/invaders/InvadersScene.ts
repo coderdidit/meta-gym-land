@@ -52,8 +52,8 @@ export class InvadersScene extends SceneInMetaGymRoom {
     this.load.image(AssetType.Bullet, "/images/bullet.png");
     this.load.image(AssetType.EnemyBullet, "/images/enemy-bullet.png");
     this.load.spritesheet(AssetType.Alien, "/images/invader.png", {
-      frameWidth: 32,
-      frameHeight: 32,
+      frameWidth: 64,
+      frameHeight: 64,
     });
 
     this.load.image(AssetType.Ship, "/images/player.png");
