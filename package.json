@@ -1,6 +1,6 @@
 {
   "name": "meta-gym-land",
-  "version": "0.0.1.5.46",
+  "version": "0.0.1.5.47",
   "dependencies": {
     "0xsequence": "^0.40.5",
     "@ant-design/icons": "^4.7.0",
