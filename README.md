@@ -12,7 +12,7 @@ https://metagymland.com/
 - NFT marketplace `[temporary turned off]` and NFT avatars portfolio page
 - AI for pose detection via Webcam
 - Metaverse and MiniGames code
-- Stretch to earn very basic logic powered with Moralis Objects and Stretch to earn page teaser
+- Stretch to earn very basic logic powered with Moralis Objects and NFT rewards
 
 `earning XP points is currently off chain`
 
