@@ -27,7 +27,6 @@ import {
   ConnectWalletWarn,
   UseCorrectNetworkWarn,
 } from "./components/Warrnings";
-// import RewardsPage from "./components/Rewards";
 import { MainChainID } from "MglNftMetadata";
 import { paddingLRHeaderFooter } from "./GlobalStyles";
 import BitKeepConnector from "./components/Account/BitKeepConnector";
