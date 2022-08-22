@@ -425,7 +425,12 @@ function NFTBalance() {
                 </div>
               </section>
               <br />
-              <b>If this is not right? Refresh the page</b>
+              <p>
+                <b>If this is not right? Refresh the page</b>
+              </p>
+              <br />
+              <p>Bare in mind it may take up to 5 minutes</p>
+              <p>Before you will be able to see your newly minted GymBuddy</p>
             </div>
           </section>
         )}
