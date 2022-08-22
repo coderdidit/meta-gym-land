@@ -47,6 +47,7 @@ https://github.com/coderdidit/meta-gym-land-nft-utils
 - Tensorflow and MediaPipe for pose detection
 - Phaser game engine
 - React
+- TypeScript
 
 ## Running locally
 
