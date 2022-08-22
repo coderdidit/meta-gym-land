@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.f118c4ed.css",
-    "main.js": "/static/js/main.f9421939.js",
+    "main.js": "/static/js/main.0b974b75.js",
     "polyfills-dom.js": "/static/js/polyfills-dom.c5971dae.chunk.js",
     "polyfills-core-js.js": "/static/js/polyfills-core-js.dfe3610a.chunk.js",
     "static/js/340.06454d93.chunk.js": "/static/js/340.06454d93.chunk.js",
@@ -17,13 +17,13 @@
     "static/media/sequence.svg": "/static/media/sequence.044c3f117bf4a2779d11d94a7f0380d5.svg",
     "index.html": "/index.html",
     "main.f118c4ed.css.map": "/static/css/main.f118c4ed.css.map",
-    "main.f9421939.js.map": "/static/js/main.f9421939.js.map",
+    "main.0b974b75.js.map": "/static/js/main.0b974b75.js.map",
     "polyfills-dom.c5971dae.chunk.js.map": "/static/js/polyfills-dom.c5971dae.chunk.js.map",
     "polyfills-core-js.dfe3610a.chunk.js.map": "/static/js/polyfills-core-js.dfe3610a.chunk.js.map",
     "340.06454d93.chunk.js.map": "/static/js/340.06454d93.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.f118c4ed.css",
-    "static/js/main.f9421939.js"
+    "static/js/main.0b974b75.js"
   ]
 }
