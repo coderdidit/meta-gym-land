@@ -145,7 +145,6 @@ const App = ({ isServerInfo }) => {
             <Route path="player-progress" element={<ProgressPage />} />
 
             <Route path="marketplace" element={<Marketplace />} />
-            {/* <Route path="rewards" element={<RewardsPage />} /> */}
 
             <Route path="demo-avatar" element={<DemoAvatar />} />
             <Route
