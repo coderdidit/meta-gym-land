@@ -8,7 +8,6 @@ import TrustWallet from "./WalletIcons/TrustWallet.png";
 import SequenceWallet from "./WalletIcons/sequence.svg";
 import BitKeepWallet from "./WalletIcons/bkWallet.png";
 import BitKeepConnector from "./BitKeepConnector";
-import SequenceConnector from "./SequenceConnector";
 
 export const connectors = [
   {
@@ -23,13 +22,13 @@ export const connectors = [
     connectorId: "walletconnect",
     priority: 2,
   },
-  {
-    title: "Sequence Wallet",
-    icon: SequenceWallet,
-    connectorId: "sequence",
-    customConnector: SequenceConnector,
-    priority: 3,
-  },
+  // {
+  //   title: "Sequence Wallet",
+  //   icon: SequenceWallet,
+  //   connectorId: "sequence",
+  //   customConnector: SequenceConnector,
+  //   priority: 3,
+  // },
   {
     title: "Trust Wallet",
     icon: TrustWallet,
