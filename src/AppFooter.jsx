@@ -1,11 +1,7 @@
 import { Divider } from "antd";
 import packageJson from "../package.json";
 import { mainFontColor, descriptionStyle } from "GlobalStyles";
-import {
-  MGLSmallLogo,
-  CoderDitiLogo,
-  PoweredByPolygonLogo,
-} from "Logos";
+import { MGLSmallLogo, CoderDitiLogo, PoweredByPolygonLogo } from "Logos";
 
 export const AppFooter = ({ style }) => {
   return (
@@ -84,10 +80,12 @@ export const AppFooter = ({ style }) => {
         </div>
 
         <div>
-          <PoweredByPolygonLogo style={{
-            border: `1px solid ${mainFontColor}`,
-            borderRadius: '15px',
-          }} />
+          <PoweredByPolygonLogo
+            style={{
+              border: `1px solid ${mainFontColor}`,
+              borderRadius: "15px",
+            }}
+          />
         </div>
 
         <div style={{ color: mainFontColor }}>
