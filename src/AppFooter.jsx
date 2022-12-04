@@ -80,12 +80,18 @@ export const AppFooter = ({ style }) => {
         </div>
 
         <div>
-          <PoweredByPolygonLogo
-            style={{
-              border: `1px solid ${mainFontColor}`,
-              borderRadius: "15px",
-            }}
-          />
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href="https://polygon.technology"
+          >
+            <PoweredByPolygonLogo
+              style={{
+                border: `1px solid ${mainFontColor}`,
+                borderRadius: "15px",
+              }}
+            />
+          </a>
         </div>
 
         <div style={{ color: mainFontColor }}>
