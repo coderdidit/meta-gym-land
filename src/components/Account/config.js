@@ -5,7 +5,6 @@ import WalletConnect from "./WalletIcons/wallet-connect.svg";
 // import SafePal from "!file-loader!./WalletIcons/SafePal.svg";
 // import Coin98 from "./WalletIcons/Coin98.png";
 import TrustWallet from "./WalletIcons/TrustWallet.png";
-import SequenceWallet from "./WalletIcons/sequence.svg";
 import BitKeepWallet from "./WalletIcons/bkWallet.png";
 import BitKeepConnector from "./BitKeepConnector";
 

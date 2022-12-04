@@ -3,15 +3,8 @@ import packageJson from "../package.json";
 import { mainFontColor, descriptionStyle } from "GlobalStyles";
 import {
   MGLSmallLogo,
-  MoralisLogo,
-  AvaxLogo,
-  ChainLinkLogo,
   CoderDitiLogo,
-  TfJSLogo,
-  MediaPipeLogo,
-  FileCoinLogo,
-  IpfsLogo,
-  PhaserLogo,
+  PoweredByPolygonLogo,
 } from "Logos";
 
 export const AppFooter = ({ style }) => {
@@ -88,6 +81,13 @@ export const AppFooter = ({ style }) => {
           >
             Whitepaper
           </a>
+        </div>
+
+        <div>
+          <PoweredByPolygonLogo style={{
+            border: `1px solid ${mainFontColor}`,
+            borderRadius: '15px',
+          }} />
         </div>
 
         <div style={{ color: mainFontColor }}>
