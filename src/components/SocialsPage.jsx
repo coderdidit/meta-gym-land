@@ -4,10 +4,10 @@ import {
   Twitter,
   TikTok,
   Instagram,
-  Newsletter,
+  // Newsletter,
 } from "../SocialLinksCfg";
-import { Button } from "antd";
-import { BtnPrimary, pageTitleStyle } from "../GlobalStyles";
+// import { Button } from "antd";
+import { pageTitleStyle } from "../GlobalStyles";
 
 const btnsPadding = "0.5rem";
 
@@ -148,7 +148,7 @@ export const SocialsLinks = () => {
             padding: btnsPadding,
           }}
         >
-          <Button
+          {/* <Button
             style={{
               ...BtnPrimary,
             }}
@@ -156,7 +156,7 @@ export const SocialsLinks = () => {
             <a href={Newsletter} target="_blank" rel="noreferrer">
               Sing up to newsletter{" "}
             </a>
-          </Button>
+          </Button> */}
         </div>
       </div>
     </>
