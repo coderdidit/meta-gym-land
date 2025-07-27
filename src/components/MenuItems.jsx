@@ -23,6 +23,10 @@ function MenuItems() {
     //   label: <NavLink to="/rewards">Rewards</NavLink>,
     // },
     {
+      key: "/minigames",
+      label: <NavLink to="/minigames">Minigames</NavLink>,
+    },
+    {
       key: "/how-to",
       label: (
         <div
