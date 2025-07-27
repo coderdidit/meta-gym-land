@@ -1,7 +1,7 @@
 import { gamesService } from "@services/index";
 import { debugLog } from "dev-utils/debug";
-import Moralis from "moralis/types";
 import { minigamesRepository } from "repositories/minigames-repository/minigames-repository";
+import { SimpleUser } from "../../types/user";
 
 /**
  * TODO: replace with Supabase or Firebase
@@ -31,14 +31,16 @@ interface UserStats {
 
 type UserRepository = {
   updateUser: (newUserData: MinigameUserStats) => Promise<void>;
-  refresh: () => Promise<Moralis.User<Moralis.Attributes> | undefined>;
+  refresh: () => Promise<SimpleUser | undefined>;
   getStats: () => UserStats | undefined;
   updateRewardsStatus: () => Promise<void>;
 };
+
 type userRepositoryParams = {
-  moralisUser: Moralis.User<Moralis.Attributes> | null;
+  moralisUser: SimpleUser | null;
   avatar: any;
 };
+
 const userRepository = ({
   moralisUser,
   avatar,
@@ -72,9 +74,7 @@ const userRepository = ({
     };
   };
 
-  const refresh = async (): Promise<
-    Moralis.User<Moralis.Attributes> | undefined
-  > => {
+  const refresh = async (): Promise<SimpleUser | undefined> => {
     return moralisUser?.fetch().then(
       (usr) => {
         return usr;

@@ -1,15 +1,9 @@
 import React, { useState, useEffect, useRef, StrictMode } from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
-import { MoralisProvider } from "react-moralis";
 import "./index.css";
-import Home from "components/Home";
 import { GYM_ROOM_SCENE } from "./games";
 import { MglPoseDetector } from "./ai/MglPoseDetector";
-
-// Moralis vals
-const APP_ID = process.env.REACT_APP_MORALIS_APPLICATION_ID;
-const SERVER_URL = process.env.REACT_APP_MORALIS_SERVER_URL;
 
 // Avatar global state
 export const AvatarCtx = React.createContext();
@@ -88,33 +82,17 @@ const PoseDetectorCtxProvider = ({ children }) => {
 };
 
 const Application = () => {
-  const isServerInfo = APP_ID && SERVER_URL ? true : false;
-  //Validate
-  if (!APP_ID || !SERVER_URL)
-    throw new Error(
-      "Missing Moralis Application ID or Server URL. Make sure to set your .env file.",
-    );
-  if (isServerInfo)
-    return (
-      <MoralisProvider appId={APP_ID} serverUrl={SERVER_URL}>
-        <PoseDetectorCtxProvider>
-          <AvatarCtxProvider>
-            <WebcamCtxProvider>
-              <MiniGameCtxProvider>
-                <App isServerInfo />
-              </MiniGameCtxProvider>
-            </WebcamCtxProvider>
-          </AvatarCtxProvider>
-        </PoseDetectorCtxProvider>
-      </MoralisProvider>
-    );
-  else {
-    return (
-      <div style={{ display: "flex", justifyContent: "center" }}>
-        <Home />
-      </div>
-    );
-  }
+  return (
+    <PoseDetectorCtxProvider>
+      <AvatarCtxProvider>
+        <WebcamCtxProvider>
+          <MiniGameCtxProvider>
+            <App />
+          </MiniGameCtxProvider>
+        </WebcamCtxProvider>
+      </AvatarCtxProvider>
+    </PoseDetectorCtxProvider>
+  );
 };
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

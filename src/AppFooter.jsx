@@ -79,7 +79,7 @@ export const AppFooter = ({ style }) => {
           </a>
         </div>
 
-        <div>
+        {/* <div>
           <a
             target="_blank"
             rel="noopener noreferrer"
@@ -92,7 +92,7 @@ export const AppFooter = ({ style }) => {
               }}
             />
           </a>
-        </div>
+        </div> */}
 
         <div style={{ color: mainFontColor }}>
           <div

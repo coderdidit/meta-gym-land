@@ -7,9 +7,8 @@ import { mainBgColor, mainFontColor } from "../../GlobalStyles";
 import { Popover } from "antd";
 import { MiniGameInstructions } from "./MiniGamesInstructions";
 import { UserProgressModalWithIcon } from "components/user-progrees";
-import { useMoralis } from "react-moralis";
 import { SelectWebcamModalWithIcon } from "components/Webcam/select-webcam-modal";
-import { MintRewardModalWithIcon } from "components/Rewards/mint-reward-modal";
+import { createMockUser } from "../../types/user";
 
 const miniGameInstructions = (minigame: string) => {
   const i = MiniGameInstructions.get(minigame);
@@ -56,14 +55,11 @@ const miniGameInstructions = (minigame: string) => {
 
 const SideMenu = () => {
   const { minigame } = useContext(MiniGameCtx);
-  const { user } = useMoralis();
   const [avatar] = useContext(AvatarCtx);
+  // Use mock user instead of Moralis user
+  const user = createMockUser();
 
   useEffect(() => {
-    const refreshUser = async () => {
-      await user?.fetch();
-    };
-    refreshUser();
     const howToIco = document.getElementById("howto-menu-ico");
     if (howToIco && howToIco.click) {
       howToIco.click();
@@ -98,9 +94,7 @@ const SideMenu = () => {
       {/* settings */}
       <SelectWebcamModalWithIcon />
       {/* user progress */}
-      <UserProgressModalWithIcon user={user} avatar={avatar} />
-      {/* rewards */}
-      <MintRewardModalWithIcon user={user} avatar={avatar} />
+      <UserProgressModalWithIcon avatar={avatar} />
       {/* instructions */}
       <div
         style={{

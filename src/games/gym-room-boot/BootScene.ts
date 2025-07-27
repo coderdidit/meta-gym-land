@@ -40,17 +40,28 @@ export class BootScene extends Phaser.Scene {
     this.load.on(
       "filecomplete",
       (key: string) => {
+        console.log("load_asset", key);
         // As the spritesheet is the last asset to load in, we can attempt to start the game
         if (key === PLAYER_KEY) {
+          console.log("PLAYER_LOADED_!!!", key);
           this.assetsLoaded = true;
           this.loadingText?.setText(`Loading Player Avatar...`);
           console.log("pickedMiniGame", this.pickedMiniGame);
           this.startGame(this.pickedMiniGame);
         }
         if (this.loadIndex === assets.length && this.selectedAvatar) {
+          console.log("selectedAvatar", this.selectedAvatar);
           const uri = this.selectedAvatar.uri;
           console.log("loading NFT avatar into game", this.selectedAvatar);
-          this.load.image(PLAYER_KEY, uri);
+          this.textures.addBase64(PLAYER_KEY, uri);
+          this.add.image(100, 100, PLAYER_KEY);
+          // tmp fixes
+          this.assetsLoaded = true;
+          this.loadingText?.setText(`Loading Player Avatar...`);
+          this.startGame(this.pickedMiniGame);
+
+          // previous
+          // this.load.image(PLAYER_KEY, uri);
         } else {
           this.loadNextFile(this.loadIndex);
         }

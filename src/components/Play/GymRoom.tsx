@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useContext } from "react";
-import { useMoralis } from "react-moralis";
 import { GameInstance, IonPhaser } from "@ion-phaser/react";
 import { MiniGameCtx } from "index";
 import PoseDetWebcam from "components/Webcam/PoseDetWebcam";
 import SideMenu from "./GymRoomSideMenu";
 import { getGameConfig, preBoot } from "games/game";
+import { createMockUser } from "../../types/user";
 
 type ionGameInstance = GameInstance | undefined;
 
@@ -22,7 +22,8 @@ const GymRoom = ({
   // needs to be undefined at start, otherwise 2 game canvases will load
   const [config, setConfig] = useState(undefined as ionGameInstance);
   const { setMinigame } = useContext(MiniGameCtx);
-  const { user } = useMoralis();
+  // Use mock user instead of Moralis user
+  const user = createMockUser();
 
   const startGame = () => {
     if (miniGameId) {
@@ -49,18 +50,13 @@ const GymRoom = ({
   };
 
   useEffect(() => {
-    const refreshUser = async () => {
-      await user?.fetch();
-    };
-    refreshUser();
     const timeout = setTimeout(() => {
       startGame();
-    }, 500);
+    }, 100);
     return () => {
       clearTimeout(timeout);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user]);
+  }, [avatar, miniGameId]);
 
   return (
     <IonPhaser

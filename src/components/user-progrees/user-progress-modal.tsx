@@ -1,20 +1,16 @@
 import { StockOutlined } from "@ant-design/icons";
 import { Modal } from "antd";
 import { pageTitle2Style, mainFontColor } from "GlobalStyles";
-import Moralis from "moralis/types";
 import { useState } from "react";
 import { UserProgress } from "./user-progress";
+import { createMockUser } from "../../types/user";
 
 export { UserProgressModalWithIcon };
 
-const UserProgressModalWithIcon = ({
-  user,
-  avatar,
-}: {
-  user: Moralis.User<Moralis.Attributes> | null;
-  avatar: any;
-}) => {
+const UserProgressModalWithIcon = ({ avatar }: { avatar: any }) => {
   const [visible, setVisible] = useState(false);
+  // Use mock user instead of Moralis user
+  const user = createMockUser();
 
   return (
     <>
