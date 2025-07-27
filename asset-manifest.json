@@ -1,28 +1,25 @@
 {
   "files": {
-    "main.css": "/static/css/main.f118c4ed.css",
-    "main.js": "/static/js/main.33d15489.js",
-    "polyfills-dom.js": "/static/js/polyfills-dom.c5971dae.chunk.js",
-    "polyfills-core-js.js": "/static/js/polyfills-core-js.dfe3610a.chunk.js",
-    "static/js/340.06454d93.chunk.js": "/static/js/340.06454d93.chunk.js",
-    "static/media/gym-buddies.gif": "/static/media/gym-buddies.69d615296299b980a9cf.gif",
+    "main.css": "/static/css/main.c7e3dd4e.css",
+    "main.js": "/static/js/main.dd1695b7.js",
+    "polyfills-dom.js": "/static/js/polyfills-dom.5cf7b497.chunk.js",
+    "polyfills-core-js.js": "/static/js/polyfills-core-js.0ea8ef72.chunk.js",
+    "static/js/340.acada4c8.chunk.js": "/static/js/340.acada4c8.chunk.js",
     "static/media/home_page_img.png": "/static/media/home_page_img.28db05a891d22deb2b58.png",
     "static/media/how_it_works_2.png": "/static/media/how_it_works_2.c1f5b87b2c7417b12fdc.png",
     "static/media/how_it_works_1.png": "/static/media/how_it_works_1.e627e605c2ba1fe1795f.png",
     "static/media/how_it_works_3.png": "/static/media/how_it_works_3.0f5a8e1a691e406ed962.png",
-    "static/media/bkWallet.png": "/static/media/bkWallet.5341cb4efc42c0d0159c.png",
     "static/media/pump_the_price.png": "/static/media/pump_the_price.3ab944d471f388c0473e.png",
-    "static/media/wallet-connect.svg": "/static/media/wallet-connect.304e327744ae5c9b1b62b58f50df6734.svg",
     "static/media/move_up2.png": "/static/media/move_up2.34b48d45558f5c0e2475.png",
     "index.html": "/index.html",
-    "main.f118c4ed.css.map": "/static/css/main.f118c4ed.css.map",
-    "main.33d15489.js.map": "/static/js/main.33d15489.js.map",
-    "polyfills-dom.c5971dae.chunk.js.map": "/static/js/polyfills-dom.c5971dae.chunk.js.map",
-    "polyfills-core-js.dfe3610a.chunk.js.map": "/static/js/polyfills-core-js.dfe3610a.chunk.js.map",
-    "340.06454d93.chunk.js.map": "/static/js/340.06454d93.chunk.js.map"
+    "main.c7e3dd4e.css.map": "/static/css/main.c7e3dd4e.css.map",
+    "main.dd1695b7.js.map": "/static/js/main.dd1695b7.js.map",
+    "polyfills-dom.5cf7b497.chunk.js.map": "/static/js/polyfills-dom.5cf7b497.chunk.js.map",
+    "polyfills-core-js.0ea8ef72.chunk.js.map": "/static/js/polyfills-core-js.0ea8ef72.chunk.js.map",
+    "340.acada4c8.chunk.js.map": "/static/js/340.acada4c8.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.f118c4ed.css",
-    "static/js/main.33d15489.js"
+    "static/css/main.c7e3dd4e.css",
+    "static/js/main.dd1695b7.js"
   ]
 }
