@@ -3,6 +3,7 @@ import { GYM_ROOM_SCENE } from "..";
 import Key from "ts-key-namespace";
 import { userRepository } from "repositories";
 import { debugLog } from "dev-utils/debug";
+import { SimpleUser } from "../../types/user";
 
 type handleExitParams = {
   thisSceneKey: string;
@@ -83,5 +84,25 @@ export class SceneInMetaGymRoom extends EarnableScene {
       },
       this,
     );
+  }
+
+  gameUser(): SimpleUser | null {
+    const moralisUserPassedToRegistry = this.game.registry.values?.user;
+    const avatarHasUser = this.game.registry.values?.avatar;
+
+    debugLog(
+      "[moralisUserPassedToRegistry] attributes",
+      moralisUserPassedToRegistry?.attributes,
+    );
+    return avatarHasUser ? moralisUserPassedToRegistry : null;
+  }
+
+  updateUserStats(newUserData: any) {
+    const moralisUser = this.gameUser();
+    debugLog("[SceneInMetaGymRoom] updateUserStats", moralisUser);
+    if (moralisUser) {
+      // Update user stats logic here
+      console.log("Updating user stats:", newUserData);
+    }
   }
 }

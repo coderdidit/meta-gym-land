@@ -1,22 +1,17 @@
 import React from "react";
-import Moralis from "moralis/types";
 import { Steps } from "antd";
 import { descriptionStyle, mainFontColor } from "GlobalStyles";
 import { userRepository } from "repositories";
+import { SimpleUser } from "../../types/user";
+
 const { Step } = Steps;
 
 export { UserProgress };
 
 const UserProgress: React.FC<{
-  user: Moralis.User<Moralis.Attributes> | null;
+  user: SimpleUser | null;
   avatar: any;
-}> = ({
-  user,
-  avatar,
-}: {
-  user: Moralis.User<Moralis.Attributes> | null;
-  avatar: any;
-}) => {
+}> = ({ user, avatar }: { user: SimpleUser | null; avatar: any }) => {
   const userRepo = userRepository({ moralisUser: user, avatar });
   const userStats = userRepo.getStats();
 

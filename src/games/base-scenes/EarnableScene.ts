@@ -1,12 +1,11 @@
 import { debugLog } from "dev-utils/debug";
-import Moralis from "moralis/types";
-import Phaser from "phaser";
+import { SimpleUser } from "../../types/user";
 import { userRepository } from "repositories";
 
-export class EarnableScene extends Phaser.Scene {
+export abstract class EarnableScene extends Phaser.Scene {
   score = 0;
 
-  gameUser(): Moralis.User<Moralis.Attributes> | null {
+  gameUser(): SimpleUser | null {
     // add refresh data logic
     // same in rewards page
     const avatarUserProp = this.game.registry.values?.avatar?.user;
@@ -28,5 +27,14 @@ export class EarnableScene extends Phaser.Scene {
       avatar: this.game.registry.values?.avatar,
     });
     return userRepo.getStats()?.xp ?? 0;
+  }
+
+  updateUserStats(newUserData: any) {
+    const moralisUser = this.gameUser();
+    debugLog("[EarnableScene] updateUserStats", moralisUser);
+    if (moralisUser) {
+      // Update user stats logic here
+      console.log("Updating user stats:", newUserData);
+    }
   }
 }

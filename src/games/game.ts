@@ -1,23 +1,33 @@
+import { GYM_ROOM_SCENE } from "./index";
+import { SimpleUser } from "../types/user";
 import Phaser from "phaser";
+import { BootScene } from "./gym-room-boot/BootScene";
+import { GymRoomScene } from "./gym-room/GymRoomScene";
 import { SpaceStretchScene } from "./minigames/SpaceStretchScene";
 import { FlyFitScene } from "./minigames/FlyFitScene";
 import { ChartSquats } from "./minigames/ChartSquats";
-import { BootScene } from "./gym-room-boot/BootScene";
 import { MatrixScene } from "./minigames/MatrixScene";
+import { RaceTrackPreloadScene } from "./minigames/race-track/RaceTrackPreloadScene";
 import { RaceTrack } from "./minigames/race-track/RaceTrackScene";
 import { InvadersScene } from "./minigames/invaders/InvadersScene";
-import { RunnerScene } from "./minigames/runner/RunnerScene";
 import { RunnerPreloadScene } from "./minigames/runner/RunnerPreloadScene";
-import { GymSwampsPreloadScene, GymSwampsScene } from "./minigames/gym-swamps";
+import { RunnerScene } from "./minigames/runner/RunnerScene";
+import { GymSwampsPreloadScene } from "./minigames/gym-swamps/GymSwampsPreloadScene";
+import { GymSwampsScene } from "./minigames/gym-swamps/GymSwampsScene";
 
-import { GymRoomScene } from "./gym-room/GymRoomScene";
+export interface Game {
+  scene: string;
+  user: SimpleUser | null;
+}
 
-import Moralis from "moralis/types";
-import { RaceTrackPreloadScene } from "./minigames/race-track/RaceTrackPreloadScene";
+export const createGame = (): Game => {
+  return {
+    scene: GYM_ROOM_SCENE,
+    user: null,
+  };
+};
 
-export { getGameConfig, preBoot };
-
-const getGameConfig = () => {
+export const getGameConfig = () => {
   const [width, height] = setWidthAndHeight();
   const Scenes = [
     BootScene,
@@ -75,9 +85,10 @@ type preBootParams = {
   avatar: any;
   setMinigame: React.Dispatch<React.SetStateAction<string>>;
   pickedMiniGame: string | null;
-  user: Moralis.User<Moralis.Attributes> | null;
+  user: SimpleUser | null;
 };
-const preBoot = (params: preBootParams) => {
+
+export const preBoot = (params: preBootParams) => {
   const { game, avatar, setMinigame, pickedMiniGame, user } = params;
   game.registry.merge({
     avatar,

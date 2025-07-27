@@ -1,69 +1,23 @@
-import { descriptionStyle, pageTitleStyle } from "GlobalStyles";
-import React, { useContext, useEffect } from "react";
-import { StockOutlined } from "@ant-design/icons";
-import { UserProgress } from "./user-progress";
-import { useMoralis } from "react-moralis";
+import React, { useContext } from "react";
 import { AvatarCtx } from "index";
+import { UserProgress } from "./user-progress";
+import { createMockUser } from "../../types/user";
 
 export { ProgressPage };
 
-type FlexCenterDivPropsWithTitle = {
-  title: string | JSX.Element;
-  children: JSX.Element;
-};
-const PageWithTitle: React.FC<FlexCenterDivPropsWithTitle> = ({
-  title,
-  children,
-}) => {
+const ProgressPage: React.FC = () => {
+  const [avatar] = useContext(AvatarCtx);
+  // Use mock user instead of Moralis user
+  const user = createMockUser();
+
   return (
     <div
       style={{
         textAlign: "center",
-        marginTop: "3rem",
-        marginBottom: "15rem",
+        padding: "2rem",
       }}
     >
-      <section
-        style={{
-          ...pageTitleStyle,
-          marginBottom: "1rem",
-        }}
-      >
-        {title}
-      </section>
-      <section
-        style={{
-          ...descriptionStyle,
-          padding: "0 5rem",
-          textAlign: "center",
-        }}
-      >
-        {children}
-      </section>
-    </div>
-  );
-};
-
-const ProgressPage: React.FC = () => {
-  const { user } = useMoralis();
-  const [avatar] = useContext(AvatarCtx);
-
-  useEffect(() => {
-    const refreshUser = async () => {
-      await user?.fetch();
-    };
-    refreshUser();
-  }, []);
-
-  return (
-    <PageWithTitle
-      title={
-        <>
-          Your progress <StockOutlined />
-        </>
-      }
-    >
       <UserProgress user={user} avatar={avatar} />
-    </PageWithTitle>
+    </div>
   );
 };

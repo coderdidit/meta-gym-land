@@ -77,7 +77,7 @@ export default function Home() {
               paddingTop: "1.5rem",
             }}
           >
-            <Button
+            {/* <Button
               type="primary"
               style={{
                 ...BtnPrimary,
@@ -85,7 +85,7 @@ export default function Home() {
               }}
             >
               <Link to="/avatars">Play now</Link>
-            </Button>
+            </Button> */}
             <Button
               style={{
                 ...BtnInfo,
@@ -158,9 +158,10 @@ export default function Home() {
                 // marginBottom: "1rem",
               }}
             >
-              1. Connect your wallet
+              1. Connect your wallet (deprecated)
             </p>
-            <p>Currently, we are on Polygon Mumbai testnet.</p>
+            <p>We used to be a Web3 App</p>
+            <p>Now it is not necessary.</p>
           </div>
           <div>
             <Image
@@ -179,12 +180,10 @@ export default function Home() {
                 marginBottom: "1rem",
               }}
             >
-              2. Buy or mint your GymBuddy
+              2. Buy or generate your GymBuddy
             </p>
-            <p>You can buy your GymBuddy in</p>
-            <p>'Marketplace' or Mint on 'Mint' page</p>
-            <p>Play with your existing GymBuddies</p>
-            <p>or try MetaGymLand with Free demo GymBuddy</p>
+            <p>Not available right now</p>
+            <p>Just try DemoGymBuddy</p>
           </div>
           <div>
             <Image
