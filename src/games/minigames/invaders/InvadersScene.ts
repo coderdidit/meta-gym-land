@@ -43,7 +43,7 @@ export class InvadersScene extends SceneInMetaGymRoom {
   escTextBox: any;
 
   constructor() {
-    super({ key: INVADERS });
+    super(SceneConfig);
   }
 
   preload() {

@@ -237,7 +237,7 @@ export class GymRoomScene extends EarnableScene {
       ...resolvePlayerXY(),
     });
     this.player.setScale(PLAYER_SCALE);
-    if (this.player && this.player.body) {
+    if (this.player?.body) {
       this.player.setDepth(1);
       this.player.body.setSize(
         this.player.width * 0.5,
@@ -330,7 +330,7 @@ export class GymRoomScene extends EarnableScene {
       }
     };
     const roomLocksLayer = map.getObjectLayer("room_locks");
-    if (roomLocksLayer && roomLocksLayer.objects) {
+    if (roomLocksLayer?.objects) {
       for (const roomLock of roomLocksLayer.objects) {
         debugLog("[roomLock]", roomLock);
         if (
@@ -397,7 +397,7 @@ export class GymRoomScene extends EarnableScene {
 
     const trainingMats: Phaser.GameObjects.Rectangle[] = [];
     const miniGamesLayer = map.getObjectLayer("mini_games");
-    if (miniGamesLayer && miniGamesLayer.objects) {
+    if (miniGamesLayer?.objects) {
       miniGamesLayer.objects.forEach((object) => {
         if (!object.x || !object.y || !object.width || !object.height) {
           throw Error(
@@ -510,7 +510,7 @@ export class GymRoomScene extends EarnableScene {
   // eslint-disable-next-line no-unused-vars
   update(_time: any, _delta: any) {
     // overlapend event
-    if (this.player && this.player.body) {
+    if (this.player?.body) {
       const touching = !this.player.body.touching.none;
       const wasTouching = !this.player.body.wasTouching.none;
       // if (touching && !wasTouching) block.emit("overlapstart");

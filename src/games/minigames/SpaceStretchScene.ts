@@ -120,6 +120,94 @@ export class SpaceStretchScene extends SceneInMetaGymRoom {
     this.lastMovetime = Date.now();
     this.score = 0;
     this.cursors = this.input?.keyboard?.createCursorKeys();
+    this.landingAcceleration = 2;
+
+    // openingText
+    // hint
+    const hintTextBox = createTextBox({
+      scene: this,
+      x: width / 2 + width / 4,
+      y: height * 0.015,
+      config: { wrapWidth: 280 },
+      bg: mainBgColorNum,
+      stroke: highlightTextColorNum,
+    });
+    hintTextBox.setDepth(1);
+    hintTextBox.setScrollFactor(0, 0);
+    hintTextBox.start("🤖", 50);
+    roboTextTimeouts.push(
+      setTimeout(() => {
+        if (!hintTextBox) return;
+        hintTextBox.start(
+          "🤖 Land 🚀 on asteroids\n" +
+            "and crush them 💥\n\n" +
+            "Move your hands up\n" +
+            "Tilt your head to the sides\n" +
+            "Use the GRAVITY!",
+          50,
+        );
+        roboTextTimeouts.push(
+          setTimeout(() => {
+            if (!hintTextBox) return;
+            hintTextBox.start("🤖", 50);
+          }, 15000),
+        );
+      }, 500),
+    );
+
+    // Add the scoreboard in
+    this.scoreBoard = this.add.text(width * 0.05, height * 0.015, "SCORE: 0", {
+      color: highlightTextColor,
+      font: `500 20px ${InGameFont}`,
+    });
+    this.add.text(width * 0.05, height * 0.04, "press ESC to go back", {
+      color: "#FFBE59",
+      font: `500 17px ${InGameFont}`,
+    });
+
+    const asteroidGroupProps = {
+      immovable: true,
+      allowGravity: false,
+    };
+    const asteroids = this.physics.add.group(asteroidGroupProps);
+    const worldWidth = this.physics.world.bounds.width;
+    const worldHeight = this.physics.world.bounds.height;
+    this.placedAsteroidPlatforms = 0;
+
+    const placeAsteroids = () => {
+      const yOffset = 32 * 1.5;
+      const xOffset = worldWidth * 0.1;
+      const step = 100;
+      let asteroidYPos = yOffset + 45;
+      for (let i = 0; i < maxAsteroidPlatformsCnt; i++) {
+        if (asteroidYPos < worldHeight - (yOffset + 15)) {
+          // add biased randomnes to keep some tiles on left some on right
+          let x = 0;
+          if (i % 2 === 0) {
+            // bias towards left
+            x = Phaser.Math.Between(xOffset, worldWidth / 2.3);
+          } else {
+            // bias towards right
+            x = Phaser.Math.Between(worldWidth / 1.3, worldWidth - xOffset);
+          }
+          const asteroidTile = asteroids.create(x, asteroidYPos, ASTEROIDS);
+          asteroidTile.setScale(asteroidScale);
+          asteroidYPos += step;
+          this.placedAsteroidPlatforms += 1;
+        }
+      }
+    };
+
+    placeAsteroids();
+
+    this.tweens.add({
+      targets: this.starsGraphics,
+      y: "-=10",
+      ease: Phaser.Math.Easing.Sine.InOut,
+      repeat: -1,
+      yoyo: true,
+      duration: 1000,
+    });
 
     this.explodeEmitter = this.add.particles(0, 0, ASTEROIDS, {
       speed: { min: -800, max: 800 },
@@ -128,37 +216,50 @@ export class SpaceStretchScene extends SceneInMetaGymRoom {
       blendMode: Phaser.BlendModes.SCREEN,
       lifespan: 600,
       gravityY: 800,
-      emitting: false, // Start stopped
+      emitting: false, // Start paused
     }) as any;
+
+    // player
+    this.player = new Player({
+      scene: this,
+      x: Phaser.Math.Between(width * 0.1, this.physics.world.bounds.width - 80),
+      y: this.physics.world.bounds.height,
+    });
+    this.player.setScale(PLAYER_SCALE);
+    this.player.setDepth(1);
+    this.player.body.setCollideWorldBounds(true);
+    this.player.setOrigin(0.5, 1);
+
+    // adjust collision box
+    this.player.body.setSize(this.player.width * 0.5, this.player.height * 0.8);
 
     this.flyEmitter = this.add.particles(0, 0, PLAYER_KEY, {
       speed: 100,
       scale: { start: 0.2, end: 0 },
       blendMode: Phaser.BlendModes.ADD,
-      emitting: false, // Start stopped
+      emitting: false, // Start paused
     }) as any;
     this.flyEmitter.startFollow(this.player);
 
     const onCollide = (avatar: any, asteroid: any) => {
-      this.explodeEmitter.setPosition(asteroid.x, asteroid.y);
-      this.explodeEmitter.explode(10);
-      asteroid.destroy();
-      this.score++;
-      this.scoreBoard.setText(`SCORE: ${this.score}`);
+      if (avatar.body.onFloor()) {
+        this.score += 1;
+        asteroid.setTint("0x4f4f4f");
+        asteroid.setImmovable(false);
+        asteroid.setVelocityY(600);
+        this.explodeEmitter.setPosition(asteroid.x, asteroid.y);
+        this.explodeEmitter.explode(10);
+        this.scoreBoard.setText(`SCORE: ${this.score}`);
+      }
     };
 
-    // Create asteroids group for collision detection
-    const asteroidsGroup = this.physics.add.group();
-
-    // Add asteroids to the group (this would be done where asteroids are created)
-    // For now, we'll comment out the collider until we have the proper group
-    // this.physics.add.collider(
-    //   this.player,
-    //   asteroidsGroup,
-    //   onCollide,
-    //   undefined,
-    //   this,
-    // );
+    this.physics.add.collider(
+      this.player,
+      asteroids,
+      onCollide,
+      undefined,
+      this,
+    );
   }
 
   youWonMsg() {

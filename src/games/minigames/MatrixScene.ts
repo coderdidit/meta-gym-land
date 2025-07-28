@@ -69,6 +69,7 @@ export class MatrixScene extends SceneInMetaGymRoom {
       angle: 0,
       blendMode: "ADD",
       emitZone: { source: codeRain, type: "edge", quantity: 2000 },
+      frame: Phaser.Utils.Array.NumberArray(8, 58),
       frequency: 100,
       lifespan: 6000,
       quantity: 25,
