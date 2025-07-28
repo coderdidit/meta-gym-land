@@ -155,15 +155,10 @@ export class FlyFitScene extends SceneInMetaGymRoom {
     // for degub
     // this.graphics.fillGradientStyle(0x023246, 0x1E0338, 0x300240, 0x370232, 1)
     //     .fillRectShape(btcRect);
-    btcGroup.getChildren().forEach((item) => {
-      if (item.body && (item.body as any).gameObject) {
-        const gameObject = (item.body as any).gameObject;
-        if (typeof gameObject.setScale === "function") {
-          gameObject.setScale(btcScale);
-        }
-        if (typeof gameObject.setDepth === "function") {
-          gameObject.setDepth(1);
-        }
+    btcGroup.getChildren().forEach((sprite) => {
+      if (sprite instanceof Phaser.Physics.Arcade.Sprite) {
+        sprite.setScale(btcScale);
+        sprite.setDepth(1);
       }
     });
     Phaser.Actions.RandomRectangle(btcGroup.getChildren(), btcRect);

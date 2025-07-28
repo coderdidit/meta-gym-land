@@ -258,8 +258,12 @@ export class GymRoomScene extends EarnableScene {
     this.player.playerBody().setCollideWorldBounds(true);
 
     // colliders
-    this.physics.add.collider(this.player!, wallsLayer);
-    this.physics.add.collider(this.player!, itemsLayer);
+    if (!this.player) {
+      throw new Error("Player not initialized in GymRoomScene");
+    }
+
+    this.physics.add.collider(this.player, wallsLayer);
+    this.physics.add.collider(this.player, itemsLayer);
 
     // text
     const hintTextBox = createTextBox({
