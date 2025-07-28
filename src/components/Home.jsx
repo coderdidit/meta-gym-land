@@ -183,7 +183,7 @@ export default function Home() {
               2. Buy or generate your GymBuddy
             </p>
             <p>Not available right now</p>
-            <p>Just try DemoGymBuddy</p>
+            <p>Just try DemoGym Buddy</p>
           </div>
           <div>
             <Image
