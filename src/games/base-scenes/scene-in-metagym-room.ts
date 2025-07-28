@@ -53,8 +53,8 @@ export class SceneInMetaGymRoom extends EarnableScene {
   }
 
   handleExit({ thisSceneKey, callbackOnExit }: handleExitParams) {
-    // constrols
-    this.input.keyboard.on(
+    // controls
+    this.input?.keyboard?.on(
       "keydown",
       async (event: KeyboardEvent) => {
         const userStats = {

@@ -4,7 +4,7 @@ import { GYM_SWAMPS_ACTUAL } from "../..";
 import { Player } from "./objects";
 import { highlightTextColorNum, mainBgColorNum } from "GlobalStyles";
 import { getGameWidth, getGameHeight } from "../../helpers";
-import { createTextBox } from "games/utils/text";
+import { createTextBox, GameUI, TimeoutManager } from "games/utils";
 import TextBox from "phaser3-rex-plugins/templates/ui/textbox/TextBox";
 import * as gstate from "../../../ai/gpose/state";
 import * as gpose from "../../../ai/gpose/pose";
@@ -28,11 +28,11 @@ class GymSwampsScene extends SceneInMetaGymRoom {
   pills!: Phaser.Physics.Arcade.Group;
   pillsCount = 0;
   pillsAte = 0;
-  cursors!: Phaser.Types.Input.Keyboard.CursorKeys;
+  cursors!: Phaser.Types.Input.Keyboard.CursorKeys | undefined;
   graphics!: Phaser.GameObjects.Graphics;
   scoreText!: TextBox;
   flipFlop = false;
-  floor!: Phaser.Tilemaps.TilemapLayer;
+  floor: Phaser.Tilemaps.TilemapLayer | null = null;
 
   constructor() {
     super(SceneConfig);
@@ -54,12 +54,14 @@ class GymSwampsScene extends SceneInMetaGymRoom {
     this.cameras.main.backgroundColor.setTo(179, 201, 217);
 
     const tileset = this.map.addTilesetImage(tiles);
-
+    if (!tileset) throw new Error("Tileset not found");
     this.walls = this.map.createLayer("walls", [tileset]);
+    if (!this.walls) throw new Error("Walls layer not found");
     this.walls.setCollisionByProperty({ collides: true });
     this.walls.setScale(mapScale);
 
     this.floor = this.map.createLayer("floor", [tileset]);
+    if (!this.floor) throw new Error("Floor layer not found");
     this.floor.setScale(mapScale);
 
     const spawnPoint = this.map.findObject(
@@ -104,7 +106,9 @@ class GymSwampsScene extends SceneInMetaGymRoom {
           );
           this.pills.add(pill);
           this.pillsCount++;
+          return true;
         }
+        return false;
       },
     );
 
@@ -159,7 +163,7 @@ class GymSwampsScene extends SceneInMetaGymRoom {
       this,
     );
 
-    this.cursors = this.input.keyboard.createCursorKeys();
+    this.cursors = this.input?.keyboard?.createCursorKeys();
 
     this.graphics = this.add.graphics();
 
@@ -177,22 +181,12 @@ class GymSwampsScene extends SceneInMetaGymRoom {
     const width = getGameWidth(this);
     const height = getGameHeight(this);
 
-    const escTextBoxY = height * 0.015;
-    const escTextBox = createTextBox({
-      scene: this,
-      x: width * 0.05,
-      y: escTextBoxY,
-      config: { wrapWidth: 280 },
-      bg: mainBgColorNum,
-      stroke: highlightTextColorNum,
-    })
-      .start("press ESC to go back", 10)
-      .setScrollFactor(0, 0);
+    GameUI.createEscHint(this, width, height, 10);
 
     this.scoreText = createTextBox({
       scene: this,
       x: width * 0.05,
-      y: escTextBoxY + escTextBox.height * 1.8,
+      y: height * 0.04,
       config: { wrapWidth: 280 },
       bg: 0xfffefe,
       stroke: 0x00ff00,
@@ -202,19 +196,13 @@ class GymSwampsScene extends SceneInMetaGymRoom {
       .setScrollFactor(0, 0)
       .start("SCORE: " + this.player.score, 0);
 
-    const hintTextBox = createTextBox({
-      scene: this,
-      x: width / 2 + width / 4,
-      y: height * 0.015,
-      config: { wrapWidth: 280 },
-      bg: 0xfffefe,
-      stroke: 0x00ff00,
-      align: "center",
-      txtColor: "#212125",
-    });
-    hintTextBox.setDepth(1);
-    hintTextBox.setScrollFactor(0, 0);
-    hintTextBox.start("🤖 Welcome in MetaGymLand Canals", 10);
+    GameUI.createHintTextBox(
+      this,
+      width,
+      height,
+      "🤖 Welcome in MetaGymLand Canals",
+      10,
+    );
   }
 
   update() {
@@ -223,20 +211,20 @@ class GymSwampsScene extends SceneInMetaGymRoom {
     const curPose = gstate.getPose();
 
     let inMove = false;
-    if (cursors.left.isDown || curPose === gpose.HTL) {
+    if (cursors?.left.isDown || curPose === gpose.HTL) {
       if (!this.flipFlop) {
         this.flipFlop = true;
         player.setTurn(Phaser.LEFT);
         inMove = true;
       }
-    } else if (cursors.right.isDown || curPose === gpose.HTR) {
+    } else if (cursors?.right.isDown || curPose === gpose.HTR) {
       if (!this.flipFlop) {
         this.flipFlop = true;
         player.setTurn(Phaser.RIGHT);
         inMove = true;
       }
     } else if (
-      cursors.up.isDown ||
+      cursors?.up.isDown ||
       curPose === gpose.LA_UP ||
       curPose === gpose.RA_UP ||
       curPose === gpose.BA_UP

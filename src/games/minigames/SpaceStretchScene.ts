@@ -2,7 +2,12 @@ import Phaser from "phaser";
 import { getGameWidth, getGameHeight } from "../helpers";
 import { Player } from "../objects";
 import { PLAYER_KEY, PLAYER_SCALE, SPACE_STRETCH_SCENE } from "..";
-import { createTextBox } from "../utils/text";
+import {
+  createTextBox,
+  GameUI,
+  TimeoutManager,
+  ParticlePresets,
+} from "../utils";
 import { ASTEROIDS } from "../gym-room-boot/assets";
 import * as gstate from "../../ai/gpose/state";
 import * as gpose from "../../ai/gpose/pose";
@@ -22,14 +27,14 @@ const SceneConfig = {
   physics: {
     default: "arcade",
     arcade: {
-      gravity: { y: 3000 },
+      gravity: { x: 0, y: 3000 },
     },
   },
 };
 
 const asteroidScale = 1;
 const maxAsteroidPlatformsCnt = 7;
-const roboTextTimeouts: NodeJS.Timeout[] = [];
+const timeoutManager = new TimeoutManager();
 const playerSpeed = 100;
 
 export class SpaceStretchScene extends SceneInMetaGymRoom {
@@ -38,7 +43,7 @@ export class SpaceStretchScene extends SceneInMetaGymRoom {
   won!: boolean;
   lastMovetime!: number;
   score!: number;
-  cursors!: Phaser.Types.Input.Keyboard.CursorKeys;
+  cursors!: Phaser.Types.Input.Keyboard.CursorKeys | undefined;
   landingAcceleration!: number;
   scoreBoard!: Phaser.GameObjects.Text;
   placedAsteroidPlatforms!: number;
@@ -113,57 +118,37 @@ export class SpaceStretchScene extends SceneInMetaGymRoom {
     this.handleExit({
       thisSceneKey: SPACE_STRETCH_SCENE,
       callbackOnExit: () => {
-        roboTextTimeouts.forEach((t) => clearTimeout(t));
+        timeoutManager.clear();
       },
     });
 
     this.lastMovetime = Date.now();
     this.score = 0;
-    this.cursors = this.input.keyboard.createCursorKeys();
+    this.cursors = this.input?.keyboard?.createCursorKeys();
     this.landingAcceleration = 2;
 
     // openingText
     // hint
-    const hintTextBox = createTextBox({
-      scene: this,
-      x: width / 2 + width / 4,
-      y: height * 0.015,
-      config: { wrapWidth: 280 },
-      bg: mainBgColorNum,
-      stroke: highlightTextColorNum,
-    });
-    hintTextBox.setDepth(1);
-    hintTextBox.setScrollFactor(0, 0);
-    hintTextBox.start("🤖", 50);
-    roboTextTimeouts.push(
-      setTimeout(() => {
-        if (!hintTextBox) return;
-        hintTextBox.start(
-          "🤖 Land 🚀 on asteroids\n" +
-            "and crush them 💥\n\n" +
-            "Move your hands up\n" +
-            "Tilt your head to the sides\n" +
-            "Use the GRAVITY!",
-          50,
-        );
-        roboTextTimeouts.push(
-          setTimeout(() => {
-            if (!hintTextBox) return;
-            hintTextBox.start("🤖", 50);
-          }, 15000),
-        );
-      }, 500),
+    const hintTextBox = GameUI.createHintTextBox(
+      this,
+      width,
+      height,
+      "🤖 Land 🚀 on asteroids\n" +
+        "and crush them 💥\n\n" +
+        "Move your hands up\n" +
+        "Tilt your head to the sides\n" +
+        "Use the GRAVITY!",
+      50,
     );
 
+    timeoutManager.setTimeout(() => {
+      if (!hintTextBox) return;
+      hintTextBox.start("🤖", 50);
+    }, 15000);
+
     // Add the scoreboard in
-    this.scoreBoard = this.add.text(width * 0.05, height * 0.015, "SCORE: 0", {
-      color: highlightTextColor,
-      font: `500 20px ${InGameFont}`,
-    });
-    this.add.text(width * 0.05, height * 0.04, "press ESC to go back", {
-      color: "#FFBE59",
-      font: `500 17px ${InGameFont}`,
-    });
+    this.scoreBoard = GameUI.createScoreBoard(this, width, height, 0);
+    GameUI.createEscHint(this, width, height, 10);
 
     const asteroidGroupProps = {
       immovable: true,
@@ -209,15 +194,7 @@ export class SpaceStretchScene extends SceneInMetaGymRoom {
       duration: 1000,
     });
 
-    this.explodeEmitter = this.add.particles(ASTEROIDS).createEmitter({
-      speed: { min: -800, max: 800 },
-      angle: { min: 0, max: 360 },
-      scale: { start: 0.5, end: 0 },
-      blendMode: Phaser.BlendModes.SCREEN,
-      lifespan: 600,
-      gravityY: 800,
-    });
-    this.explodeEmitter.stop();
+    this.explodeEmitter = ParticlePresets.explosion(this, ASTEROIDS) as any;
 
     // player
     this.player = new Player({
@@ -233,13 +210,8 @@ export class SpaceStretchScene extends SceneInMetaGymRoom {
     // adjust collision box
     this.player.body.setSize(this.player.width * 0.5, this.player.height * 0.8);
 
-    this.flyEmitter = this.add.particles(PLAYER_KEY).createEmitter({
-      speed: 100,
-      scale: { start: 0.2, end: 0 },
-      blendMode: Phaser.BlendModes.ADD,
-    });
+    this.flyEmitter = ParticlePresets.trail(this, PLAYER_KEY) as any;
     this.flyEmitter.startFollow(this.player);
-    this.flyEmitter.stop();
 
     const onCollide = (avatar: any, asteroid: any) => {
       if (avatar.body.onFloor()) {
@@ -247,8 +219,8 @@ export class SpaceStretchScene extends SceneInMetaGymRoom {
         asteroid.setTint("0x4f4f4f");
         asteroid.setImmovable(false);
         asteroid.setVelocityY(600);
-        this.explodeEmitter.start();
-        this.explodeEmitter.explode(10, asteroid.x, asteroid.y);
+        this.explodeEmitter.setPosition(asteroid.x, asteroid.y);
+        this.explodeEmitter.explode(10);
         this.scoreBoard.setText(`SCORE: ${this.score}`);
       }
     };

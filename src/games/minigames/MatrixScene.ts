@@ -3,7 +3,7 @@ import { getGameWidth, getGameHeight } from "../helpers";
 import { PlayerWithName } from "../objects";
 import { MATRIX } from "..";
 import { FONT, PILL_BLUE, PILL_RED } from "../gym-room-boot/assets";
-import { createTextBox } from "../utils/text";
+import { createTextBox, GameUI, TimeoutManager } from "../utils";
 import { mainBgColorNum, highlightTextColorNum } from "../../GlobalStyles";
 import { SceneInMetaGymRoom } from "../base-scenes/scene-in-metagym-room";
 
@@ -63,7 +63,8 @@ export class MatrixScene extends SceneInMetaGymRoom {
       },
     };
 
-    this.add.particles(FONT).createEmitter({
+    // Create particle emitters directly with config
+    const codeRainEmitter = this.add.particles(0, 0, FONT, {
       alpha: { start: 1, end: 0.25, ease: "Expo.easeOut" },
       angle: 0,
       blendMode: "ADD",
@@ -76,27 +77,15 @@ export class MatrixScene extends SceneInMetaGymRoom {
       tint: 0x0066ff00,
     });
 
-    createTextBox({
-      scene: this,
-      x: width * 0.05,
-      y: height * 0.015,
-      config: { wrapWidth: 280 },
-      bg: mainBgColorNum,
-      stroke: highlightTextColorNum,
-    }).start("press ESC to go back", 10);
+    GameUI.createEscHint(this, width, height, 10);
 
-    const hintTextBox = createTextBox({
-      scene: this,
-      x: width / 2 + width / 4,
-      y: height * 0.015,
-      config: { wrapWidth: 280 },
-      bg: 0xfffefe,
-      stroke: 0x00ff00,
-      align: "center",
-      txtColor: "#212125",
-    });
-    hintTextBox.setDepth(1);
-    hintTextBox.setScrollFactor(0, 0);
+    const hintTextBox = GameUI.createHintTextBox(
+      this,
+      width,
+      height,
+      "🤖 Welcome to the Matrix\n" + "Choose your pill\n" + "Red or Blue?",
+      50,
+    );
     hintTextBox.start(
       "🤖 Welcome, I am the MetaGymLand Architect\n\n" +
         "choose\n" +
@@ -136,32 +125,33 @@ export class MatrixScene extends SceneInMetaGymRoom {
     this.player.setDepth(1);
     this.player.body.setCollideWorldBounds(true);
 
-    this.redPillEmmiter = this.add.particles(PILL_RED).createEmitter({
+    // Create emitters with config
+    this.redPillEmmiter = this.add.particles(0, 0, PILL_RED, {
       speed: { min: -800, max: 800 },
       angle: { min: 0, max: 360 },
       scale: { start: 0.5, end: 0 },
       blendMode: Phaser.BlendModes.SCREEN,
       lifespan: 600,
       gravityY: 800,
-    });
-    this.redPillEmmiter.pause();
+      emitting: false, // Start paused
+    }) as any;
 
-    this.bluePillEmmiter = this.add.particles(PILL_BLUE).createEmitter({
+    this.bluePillEmmiter = this.add.particles(0, 0, PILL_BLUE, {
       speed: { min: -800, max: 800 },
       angle: { min: 0, max: 360 },
       scale: { start: 0.5, end: 0 },
       blendMode: Phaser.BlendModes.SCREEN,
       lifespan: 600,
       gravityY: 800,
-    });
-    this.bluePillEmmiter.pause();
+      emitting: false, // Start paused
+    }) as any;
 
     const onCollide = (_avatar: any, item: any) => {
       if (item.name === PILL_RED) {
         this.cameras.main.setBackgroundColor("#23BD32");
 
-        this.redPillEmmiter.resume();
-        this.redPillEmmiter.explode(10, item.x, item.y);
+        this.redPillEmmiter.setPosition(item.x, item.y);
+        this.redPillEmmiter.explode(10);
 
         hintTextBox.start("🤖", 50);
         const info = createTextBox({
@@ -191,8 +181,8 @@ export class MatrixScene extends SceneInMetaGymRoom {
         info.setInteractive({ useHandCursor: true });
         info.on("pointerdown", openExternalLink, this);
       } else {
-        this.bluePillEmmiter.resume();
-        this.bluePillEmmiter.explode(10, item.x, item.y);
+        this.bluePillEmmiter.setPosition(item.x, item.y);
+        this.bluePillEmmiter.explode(10);
 
         hintTextBox.start("🤖", 50);
         createTextBox({
@@ -218,7 +208,6 @@ export class MatrixScene extends SceneInMetaGymRoom {
           }
         }, 3500);
       }
-      pillis.forEach((i) => i.destroy());
     };
     this.physics.add.collider(this.player, pillis, onCollide, undefined, this);
   }

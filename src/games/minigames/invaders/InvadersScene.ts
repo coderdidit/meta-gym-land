@@ -18,7 +18,7 @@ import { Ship } from "./interface/ship";
 import { getGameWidth, getGameHeight } from "games/helpers";
 import * as gstate from "../../../ai/gpose/state";
 import * as gpose from "../../../ai/gpose/pose";
-import { createTextBox } from "games/utils/text";
+import { createTextBox, GameUI, TimeoutManager } from "games/utils";
 import { highlightTextColorNum, mainBgColorNum } from "GlobalStyles";
 
 const SceneConfig = {
@@ -37,8 +37,8 @@ export class InvadersScene extends SceneInMetaGymRoom {
   starfield!: Phaser.GameObjects.TileSprite;
   player!: Phaser.Physics.Arcade.Sprite;
   alienManager!: AlienManager;
-  cursors!: Phaser.Types.Input.Keyboard.CursorKeys;
-  fireKey!: Phaser.Input.Keyboard.Key;
+  cursors!: Phaser.Types.Input.Keyboard.CursorKeys | undefined;
+  fireKey!: Phaser.Input.Keyboard.Key | undefined;
   flipFlop = false;
   escTextBox: any;
 
@@ -79,8 +79,8 @@ export class InvadersScene extends SceneInMetaGymRoom {
 
     this.assetManager = new AssetManager(this);
     this.animationFactory = new AnimationFactory(this);
-    this.cursors = this.input.keyboard.createCursorKeys();
-    this.fireKey = this.input.keyboard.addKey(
+    this.cursors = this.input?.keyboard?.createCursorKeys();
+    this.fireKey = this.input?.keyboard?.addKey(
       Phaser.Input.Keyboard.KeyCodes.SPACE,
     );
     this.player = Ship.create(this);
@@ -102,17 +102,7 @@ export class InvadersScene extends SceneInMetaGymRoom {
     const width = getGameWidth(this);
     const height = getGameHeight(this);
 
-    const escTextBoxY = height * 0.015;
-    this.escTextBox = createTextBox({
-      scene: this,
-      x: width * 0.05,
-      y: escTextBoxY,
-      config: { wrapWidth: 280 },
-      bg: mainBgColorNum,
-      stroke: highlightTextColorNum,
-    })
-      .start("press ESC to go back", 3)
-      .setScrollFactor(0, 0);
+    this.escTextBox = GameUI.createEscHint(this, width, height, 3);
   }
 
   update() {
@@ -145,14 +135,14 @@ export class InvadersScene extends SceneInMetaGymRoom {
 
     const curPose = gstate.getPose();
 
-    if (this.cursors.left.isDown || curPose === gpose.HTL) {
+    if (this.cursors?.left.isDown || curPose === gpose.HTL) {
       playerBody.setVelocityX(-200);
-    } else if (this.cursors.right.isDown || curPose === gpose.HTR) {
+    } else if (this.cursors?.right.isDown || curPose === gpose.HTR) {
       playerBody.setVelocityX(200);
     }
 
     if (
-      this.fireKey.isDown ||
+      this.fireKey?.isDown ||
       curPose === gpose.LA_UP ||
       curPose === gpose.RA_UP
     ) {
