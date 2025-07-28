@@ -3,7 +3,13 @@ import { getGameWidth, getGameHeight } from "../helpers";
 import { Player } from "../objects";
 import { PLAYER_SCALE, FLY_FIT_SCENE } from "..";
 import { BTC, AIRPLANE, GYM_ROOM_BG } from "../gym-room-boot/assets";
-import { createTextBox } from "../utils/text";
+import {
+  createTextBox,
+  GameUI,
+  TimeoutManager,
+  TweenPresets,
+  ParticlePresets,
+} from "../utils";
 import party, { sources } from "party-js";
 import * as gstate from "../../ai/gpose/state";
 import * as gpose from "../../ai/gpose/pose";
@@ -16,7 +22,7 @@ const SceneConfig = {
   key: FLY_FIT_SCENE,
 };
 
-const roboTextTimeouts: NodeJS.Timeout[] = [];
+const timeoutManager = new TimeoutManager();
 const playerNgSpeed = 30;
 const playerSpeed = 80;
 const btcScale = 0.11;
@@ -59,52 +65,30 @@ export class FlyFitScene extends SceneInMetaGymRoom {
     this.handleExit({
       thisSceneKey: FLY_FIT_SCENE,
       callbackOnExit: () => {
-        roboTextTimeouts.forEach((t) => clearTimeout(t));
+        timeoutManager.clear();
       },
     });
 
     // text
-    this.scoreBoard = this.add
-      .text(width * 0.05, height * 0.015, "SCORE: 0", {
-        font: `500 20px ${InGameFont}`,
-        color: "#ba3a3a",
-      })
-      .setScrollFactor(0, 0);
-    this.add
-      .text(width * 0.05, height * 0.04, "press ESC to go back", {
-        font: `500 17px ${InGameFont}`,
-        color: "#202020",
-      })
-      .setScrollFactor(0, 0);
+    this.scoreBoard = GameUI.createScoreBoard(this, width, height, 0);
+    GameUI.createEscHint(this, width, height, 10);
 
     // hint
-    const hintTextBox = createTextBox({
-      scene: this,
-      x: width / 2 + width / 4,
-      y: height * 0.015,
-      config: { wrapWidth: 280 },
-    });
-    hintTextBox.setDepth(2);
-    hintTextBox.setScrollFactor(0, 0);
-    hintTextBox.start("🤖", 50);
-    roboTextTimeouts.push(
-      setTimeout(() => {
-        if (!hintTextBox) return;
-        hintTextBox.start(
-          "🤖 Look! it's flying tokens airdrop\n" +
-            "try to catch them all\n" +
-            "by moving your body\n\n" +
-            "like a BIRD",
-          50,
-        );
-        roboTextTimeouts.push(
-          setTimeout(() => {
-            if (!hintTextBox) return;
-            hintTextBox.start("🤖", 50);
-          }, 15000),
-        );
-      }, 500),
+    const hintTextBox = GameUI.createHintTextBox(
+      this,
+      width,
+      height,
+      "🤖 Look! it's flying tokens airdrop\n" +
+        "try to catch them all\n" +
+        "by moving your body\n\n" +
+        "like a BIRD",
+      50,
     );
+
+    timeoutManager.setTimeout(() => {
+      if (!hintTextBox) return;
+      hintTextBox.start("🤖", 50);
+    }, 15000);
 
     this.score = 0;
     const btcGroup = this.physics.add.group({
@@ -113,38 +97,7 @@ export class FlyFitScene extends SceneInMetaGymRoom {
       collideWorldBounds: true,
     });
 
-    this.tweens.add({
-      targets: btcGroup.getChildren(),
-      props: {
-        y: "+=8",
-        angle: {
-          getEnd: function (target: { angle: number }, _key: any, _value: any) {
-            let a = 45;
-            if (Math.random() > 0.5) {
-              a = 60;
-            }
-            // direction
-            if (Math.random() > 0.5) {
-              return target.angle + a;
-            } else {
-              return target.angle - a;
-            }
-          },
-
-          getStart: function (
-            target: { angle: number },
-            _key: any,
-            _value: any,
-          ) {
-            return target.angle;
-          },
-        },
-      },
-      ease: Phaser.Math.Easing.Sine.InOut,
-      repeat: -1,
-      yoyo: true,
-      duration: 500,
-    });
+    TweenPresets.rotatingAnimation(this, btcGroup.getChildren(), 500);
 
     const btcRect = new Phaser.Geom.Rectangle(
       width * 0.04,

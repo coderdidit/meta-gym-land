@@ -8,7 +8,12 @@ import Phaser from "phaser";
 import { PLAYER_KEY, RUNNER_ACTUAL } from "../..";
 import * as gstate from "../../../ai/gpose/state";
 import * as gpose from "../../../ai/gpose/pose";
-import { createTextBox } from "games/utils/text";
+import {
+  createTextBox,
+  GameUI,
+  TimeoutManager,
+  ParticlePresets,
+} from "games/utils";
 import Key from "ts-key-namespace";
 import { TextBox } from "phaser3-rex-plugins/templates/ui/ui-components";
 
@@ -79,12 +84,7 @@ class RunnerScene extends SceneInMetaGymRoom {
 
     this.cursorKeys = this.input?.keyboard?.createCursorKeys();
 
-    this.runEmitter = this.add.particles(0, 0, PLAYER_KEY, {
-      speed: 100,
-      scale: { start: 0.2, end: 0 },
-      blendMode: Phaser.BlendModes.ADD,
-      emitting: false, // Start stopped
-    }) as any;
+    this.runEmitter = ParticlePresets.trail(this, PLAYER_KEY) as any;
     this.runEmitter.startFollow(this.player);
 
     this.ground = this.add
@@ -170,30 +170,17 @@ class RunnerScene extends SceneInMetaGymRoom {
     const { width, height } = this.gameDimentions();
 
     const escTextBoxY = height * 0.015;
-    const escTextBox = createTextBox({
-      scene: this,
-      x: width * 0.05,
-      y: escTextBoxY,
-      config: { wrapWidth: 280 },
-      bg: mainBgColorNum,
-      stroke: highlightTextColorNum,
-    })
-      .start("press ESC to go back", 3)
-      .setScrollFactor(0, 0);
+    // ESC text box
+    GameUI.createEscHint(this, width, height, 3);
 
     // hints
-    createTextBox({
-      scene: this,
-      x: width * 0.05,
-      y: escTextBoxY + escTextBox.height * 1.8,
-      config: { wrapWidth: 280 },
-      bg: 0xfffefe,
-      stroke: 0x00ff00,
-      align: "center",
-      txtColor: "#212125",
-    })
-      .setScrollFactor(0, 0)
-      .start("🤖 Move your hands up to start", 3);
+    GameUI.createHintTextBox(
+      this,
+      width,
+      height,
+      "🤖 Move your hands up to start",
+      3,
+    );
   }
 
   private initColliders() {

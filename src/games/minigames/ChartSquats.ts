@@ -9,7 +9,7 @@ import {
   RED_WOJAK,
   GREEN_WOJAK,
 } from "../gym-room-boot/assets";
-import { createTextBox } from "../utils/text";
+import { createTextBox, GameUI, TimeoutManager } from "../utils";
 import party, { sources } from "party-js";
 import {
   highlightTextColorNum,
@@ -124,26 +124,9 @@ export class ChartSquats extends SceneInMetaGymRoom {
 
     // Add the scoreboard
     // how to esc hint
-    const escText = createTextBox({
-      scene: this,
-      x: width * 0.05,
-      y: height * 0.015,
-      config: { wrapWidth: 280 },
-      bg: mainBgColorNum,
-      stroke: highlightTextColorNum,
-      padding: 5,
-    }).start("press ESC to go back", 10);
+    GameUI.createEscHint(this, width, height, 10);
 
-    const escTextY = height * 0.015;
-    this.scoreBoard = this.add.text(
-      width * 0.055,
-      escTextY + escText.width * 2.1,
-      "SCORE: 0",
-      {
-        font: `500 17px ${InGameFont}`,
-        color: "#FFFFFF",
-      },
-    );
+    this.scoreBoard = GameUI.createScoreBoard(this, width, height, 0);
 
     // generate stock data
     this.generateFakeStocksData();
@@ -187,18 +170,10 @@ export class ChartSquats extends SceneInMetaGymRoom {
     this.playerInitialY = this.player.y;
 
     // hint text
-    this.hintTextBox = createTextBox({
-      scene: this,
-      x: width / 2,
-      y: height / 2,
-      config: { wrapWidth: 280 },
-      bg: mainBgColorNum,
-      stroke: highlightTextColorNum,
-    }).setOrigin(0.5);
-    const hintTextBox = this.hintTextBox;
-    hintTextBox.setDepth(1);
-    hintTextBox.setScrollFactor(0, 0);
-    hintTextBox.start(
+    this.hintTextBox = GameUI.createCenteredTextBox(
+      this,
+      width,
+      height,
       "🤖 BTC price will start go down!\n\n" +
         "But, you can PUMP IT UP\n\n" +
         "By doing SQUATS!",

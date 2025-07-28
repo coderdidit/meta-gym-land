@@ -3,7 +3,7 @@ import { getGameWidth, getGameHeight } from "../helpers";
 import { PlayerWithName } from "../objects";
 import { MATRIX } from "..";
 import { FONT, PILL_BLUE, PILL_RED } from "../gym-room-boot/assets";
-import { createTextBox } from "../utils/text";
+import { createTextBox, GameUI, TimeoutManager } from "../utils";
 import { mainBgColorNum, highlightTextColorNum } from "../../GlobalStyles";
 import { SceneInMetaGymRoom } from "../base-scenes/scene-in-metagym-room";
 
@@ -77,27 +77,15 @@ export class MatrixScene extends SceneInMetaGymRoom {
       tint: 0x0066ff00,
     });
 
-    createTextBox({
-      scene: this,
-      x: width * 0.05,
-      y: height * 0.015,
-      config: { wrapWidth: 280 },
-      bg: mainBgColorNum,
-      stroke: highlightTextColorNum,
-    }).start("press ESC to go back", 10);
+    GameUI.createEscHint(this, width, height, 10);
 
-    const hintTextBox = createTextBox({
-      scene: this,
-      x: width / 2 + width / 4,
-      y: height * 0.015,
-      config: { wrapWidth: 280 },
-      bg: 0xfffefe,
-      stroke: 0x00ff00,
-      align: "center",
-      txtColor: "#212125",
-    });
-    hintTextBox.setDepth(1);
-    hintTextBox.setScrollFactor(0, 0);
+    const hintTextBox = GameUI.createHintTextBox(
+      this,
+      width,
+      height,
+      "🤖 Welcome to the Matrix\n" + "Choose your pill\n" + "Red or Blue?",
+      50,
+    );
     hintTextBox.start(
       "🤖 Welcome, I am the MetaGymLand Architect\n\n" +
         "choose\n" +

@@ -18,7 +18,7 @@ import { Ship } from "./interface/ship";
 import { getGameWidth, getGameHeight } from "games/helpers";
 import * as gstate from "../../../ai/gpose/state";
 import * as gpose from "../../../ai/gpose/pose";
-import { createTextBox } from "games/utils/text";
+import { createTextBox, GameUI, TimeoutManager } from "games/utils";
 import { highlightTextColorNum, mainBgColorNum } from "GlobalStyles";
 
 const SceneConfig = {
@@ -102,17 +102,7 @@ export class InvadersScene extends SceneInMetaGymRoom {
     const width = getGameWidth(this);
     const height = getGameHeight(this);
 
-    const escTextBoxY = height * 0.015;
-    this.escTextBox = createTextBox({
-      scene: this,
-      x: width * 0.05,
-      y: escTextBoxY,
-      config: { wrapWidth: 280 },
-      bg: mainBgColorNum,
-      stroke: highlightTextColorNum,
-    })
-      .start("press ESC to go back", 3)
-      .setScrollFactor(0, 0);
+    this.escTextBox = GameUI.createEscHint(this, width, height, 3);
   }
 
   update() {

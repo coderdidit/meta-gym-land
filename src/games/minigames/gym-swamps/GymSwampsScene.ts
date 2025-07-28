@@ -4,7 +4,7 @@ import { GYM_SWAMPS_ACTUAL } from "../..";
 import { Player } from "./objects";
 import { highlightTextColorNum, mainBgColorNum } from "GlobalStyles";
 import { getGameWidth, getGameHeight } from "../../helpers";
-import { createTextBox } from "games/utils/text";
+import { createTextBox, GameUI, TimeoutManager } from "games/utils";
 import TextBox from "phaser3-rex-plugins/templates/ui/textbox/TextBox";
 import * as gstate from "../../../ai/gpose/state";
 import * as gpose from "../../../ai/gpose/pose";
@@ -181,22 +181,12 @@ class GymSwampsScene extends SceneInMetaGymRoom {
     const width = getGameWidth(this);
     const height = getGameHeight(this);
 
-    const escTextBoxY = height * 0.015;
-    const escTextBox = createTextBox({
-      scene: this,
-      x: width * 0.05,
-      y: escTextBoxY,
-      config: { wrapWidth: 280 },
-      bg: mainBgColorNum,
-      stroke: highlightTextColorNum,
-    })
-      .start("press ESC to go back", 10)
-      .setScrollFactor(0, 0);
+    GameUI.createEscHint(this, width, height, 10);
 
     this.scoreText = createTextBox({
       scene: this,
       x: width * 0.05,
-      y: escTextBoxY + escTextBox.height * 1.8,
+      y: height * 0.04,
       config: { wrapWidth: 280 },
       bg: 0xfffefe,
       stroke: 0x00ff00,
@@ -206,19 +196,13 @@ class GymSwampsScene extends SceneInMetaGymRoom {
       .setScrollFactor(0, 0)
       .start("SCORE: " + this.player.score, 0);
 
-    const hintTextBox = createTextBox({
-      scene: this,
-      x: width / 2 + width / 4,
-      y: height * 0.015,
-      config: { wrapWidth: 280 },
-      bg: 0xfffefe,
-      stroke: 0x00ff00,
-      align: "center",
-      txtColor: "#212125",
-    });
-    hintTextBox.setDepth(1);
-    hintTextBox.setScrollFactor(0, 0);
-    hintTextBox.start("🤖 Welcome in MetaGymLand Canals", 10);
+    GameUI.createHintTextBox(
+      this,
+      width,
+      height,
+      "🤖 Welcome in MetaGymLand Canals",
+      10,
+    );
   }
 
   update() {
