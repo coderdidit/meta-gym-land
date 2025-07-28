@@ -53,16 +53,16 @@ export class AlienManager {
 
   private _animate() {
     const width = getGameWidth(this._scene);
-    this.aliens.children.iterate((c: any) => {
-      this._scene.tweens.add({
-        targets: c,
-        ease: "Linear",
-        duration: 1000,
-        yoyo: true,
-        repeat: -1,
-        alpha: 0.5,
-      });
-      return false;
+    // Create a single tween that moves the entire group
+    this._scene.tweens.add({
+      targets: this.aliens.getChildren(),
+      ease: "Linear",
+      duration: 4000,
+      x: `+=${width / 2}`,
+      paused: false,
+      delay: 0,
+      yoyo: true,
+      repeat: -1,
     });
   }
 }

@@ -39,7 +39,7 @@ class RunnerScene extends SceneInMetaGymRoom {
   environment!: Phaser.GameObjects.Group;
   restart!: Phaser.GameObjects.Image;
   obsticles!: Phaser.Physics.Arcade.Group;
-  cursorKeys!: Phaser.Types.Input.Keyboard.CursorKeys;
+  cursorKeys!: Phaser.Types.Input.Keyboard.CursorKeys | undefined;
   bottomPositionY!: number;
   gameOverTextBox!: TextBox;
   runEmitter!: Phaser.GameObjects.Particles.ParticleEmitter;
@@ -77,9 +77,7 @@ class RunnerScene extends SceneInMetaGymRoom {
 
     this.player.setBodySize(this.player.width, this.player.height);
 
-    if (this.input && this.input.keyboard) {
-      this.cursorKeys = this.input.keyboard.createCursorKeys();
-    }
+    this.cursorKeys = this.input?.keyboard?.createCursorKeys();
 
     this.runEmitter = this.add.particles(0, 0, PLAYER_KEY, {
       speed: 100,
@@ -152,9 +150,7 @@ class RunnerScene extends SceneInMetaGymRoom {
         // this.restartGame();
       }
     };
-    if (this.input && this.input.keyboard) {
-      this.input.keyboard.on("keydown", fn, this);
-    }
+    this.input?.keyboard?.on("keydown", fn, this);
   }
 
   private displayGameOverText() {

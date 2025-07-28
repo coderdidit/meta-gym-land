@@ -37,13 +37,13 @@ export class InvadersScene extends SceneInMetaGymRoom {
   starfield!: Phaser.GameObjects.TileSprite;
   player!: Phaser.Physics.Arcade.Sprite;
   alienManager!: AlienManager;
-  cursors!: Phaser.Types.Input.Keyboard.CursorKeys;
-  fireKey!: Phaser.Input.Keyboard.Key;
+  cursors!: Phaser.Types.Input.Keyboard.CursorKeys | undefined;
+  fireKey!: Phaser.Input.Keyboard.Key | undefined;
   flipFlop = false;
   escTextBox: any;
 
   constructor() {
-    super(SceneConfig);
+    super({ key: INVADERS });
   }
 
   preload() {
@@ -79,12 +79,10 @@ export class InvadersScene extends SceneInMetaGymRoom {
 
     this.assetManager = new AssetManager(this);
     this.animationFactory = new AnimationFactory(this);
-    if (this.input && this.input.keyboard) {
-      this.cursors = this.input.keyboard.createCursorKeys();
-      this.fireKey = this.input.keyboard.addKey(
-        Phaser.Input.Keyboard.KeyCodes.SPACE,
-      );
-    }
+    this.cursors = this.input?.keyboard?.createCursorKeys();
+    this.fireKey = this.input?.keyboard?.addKey(
+      Phaser.Input.Keyboard.KeyCodes.SPACE,
+    );
     this.player = Ship.create(this);
     this.alienManager = new AlienManager(this);
     this.scoreManager = new ScoreManager(this);
@@ -147,14 +145,14 @@ export class InvadersScene extends SceneInMetaGymRoom {
 
     const curPose = gstate.getPose();
 
-    if (this.cursors.left.isDown || curPose === gpose.HTL) {
+    if (this.cursors?.left.isDown || curPose === gpose.HTL) {
       playerBody.setVelocityX(-200);
-    } else if (this.cursors.right.isDown || curPose === gpose.HTR) {
+    } else if (this.cursors?.right.isDown || curPose === gpose.HTR) {
       playerBody.setVelocityX(200);
     }
 
     if (
-      this.fireKey.isDown ||
+      this.fireKey?.isDown ||
       curPose === gpose.LA_UP ||
       curPose === gpose.RA_UP
     ) {

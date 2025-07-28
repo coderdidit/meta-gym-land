@@ -116,27 +116,25 @@ export class GymRoomScene extends EarnableScene {
 
     // this.cameras.main.backgroundColor.setTo(179, 201, 217);
     // constrols
-    if (this.input && this.input.keyboard) {
-      this.input.keyboard.on(
-        "keydown",
-        (event: { keyCode: any }) => {
-          const code = event.keyCode;
-          if (sceneToGoOnXclick && code === Phaser.Input.Keyboard.KeyCodes.X) {
-            roboTextTimeouts.forEach((t) => clearTimeout(t));
-            setMainRoomPlayerExitPos(this.player.x, this.player.y);
-            if (commingSoon.includes(sceneToGoOnXclick)) {
-              commingSoonModal(miniGamesMapping.get(sceneToGoOnXclick) ?? "");
-            } else if (sceneToGoOnXclick === "snap") {
-              showSnapchatModal(this.selectedAvatar.snapARLink);
-            } else {
-              this.game.registry.values?.setMinigame(sceneToGoOnXclick);
-              this.scene.start(sceneToGoOnXclick);
-            }
+    this.input?.keyboard?.on(
+      "keydown",
+      (event: { keyCode: any }) => {
+        const code = event.keyCode;
+        if (sceneToGoOnXclick && code === Phaser.Input.Keyboard.KeyCodes.X) {
+          roboTextTimeouts.forEach((t) => clearTimeout(t));
+          setMainRoomPlayerExitPos(this.player.x, this.player.y);
+          if (commingSoon.includes(sceneToGoOnXclick)) {
+            commingSoonModal(miniGamesMapping.get(sceneToGoOnXclick) ?? "");
+          } else if (sceneToGoOnXclick === "snap") {
+            showSnapchatModal(this.selectedAvatar.snapARLink);
+          } else {
+            this.game.registry.values?.setMinigame(sceneToGoOnXclick);
+            this.scene.start(sceneToGoOnXclick);
           }
-        },
-        this,
-      );
-    }
+        }
+      },
+      this,
+    );
     // map
     const map = this.make.tilemap({
       key: GYM_ROOM_MAP,

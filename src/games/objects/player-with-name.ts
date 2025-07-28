@@ -48,9 +48,7 @@ export class PlayerWithName extends Phaser.GameObjects.Container {
     // this.body.setImmovable(true);
 
     // input
-    if (scene.input && scene.input.keyboard) {
-      this.cursorKeys = scene.input.keyboard.createCursorKeys();
-    }
+    this.cursorKeys = scene.input?.keyboard?.createCursorKeys();
   }
 
   update(allowSquats = false) {

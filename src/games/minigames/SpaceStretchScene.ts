@@ -38,7 +38,7 @@ export class SpaceStretchScene extends SceneInMetaGymRoom {
   won!: boolean;
   lastMovetime!: number;
   score!: number;
-  cursors!: Phaser.Types.Input.Keyboard.CursorKeys;
+  cursors!: Phaser.Types.Input.Keyboard.CursorKeys | undefined;
   landingAcceleration!: number;
   scoreBoard!: Phaser.GameObjects.Text;
   placedAsteroidPlatforms!: number;
@@ -119,9 +119,7 @@ export class SpaceStretchScene extends SceneInMetaGymRoom {
 
     this.lastMovetime = Date.now();
     this.score = 0;
-    if (this.input && this.input.keyboard) {
-      this.cursors = this.input.keyboard.createCursorKeys();
-    }
+    this.cursors = this.input?.keyboard?.createCursorKeys();
 
     this.explodeEmitter = this.add.particles(0, 0, ASTEROIDS, {
       speed: { min: -800, max: 800 },

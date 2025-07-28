@@ -28,7 +28,7 @@ class GymSwampsScene extends SceneInMetaGymRoom {
   pills!: Phaser.Physics.Arcade.Group;
   pillsCount = 0;
   pillsAte = 0;
-  cursors!: Phaser.Types.Input.Keyboard.CursorKeys;
+  cursors!: Phaser.Types.Input.Keyboard.CursorKeys | undefined;
   graphics!: Phaser.GameObjects.Graphics;
   scoreText!: TextBox;
   flipFlop = false;
@@ -163,9 +163,7 @@ class GymSwampsScene extends SceneInMetaGymRoom {
       this,
     );
 
-    if (this.input && this.input.keyboard) {
-      this.cursors = this.input.keyboard.createCursorKeys();
-    }
+    this.cursors = this.input?.keyboard?.createCursorKeys();
 
     this.graphics = this.add.graphics();
 
@@ -229,20 +227,20 @@ class GymSwampsScene extends SceneInMetaGymRoom {
     const curPose = gstate.getPose();
 
     let inMove = false;
-    if (cursors.left.isDown || curPose === gpose.HTL) {
+    if (cursors?.left.isDown || curPose === gpose.HTL) {
       if (!this.flipFlop) {
         this.flipFlop = true;
         player.setTurn(Phaser.LEFT);
         inMove = true;
       }
-    } else if (cursors.right.isDown || curPose === gpose.HTR) {
+    } else if (cursors?.right.isDown || curPose === gpose.HTR) {
       if (!this.flipFlop) {
         this.flipFlop = true;
         player.setTurn(Phaser.RIGHT);
         inMove = true;
       }
     } else if (
-      cursors.up.isDown ||
+      cursors?.up.isDown ||
       curPose === gpose.LA_UP ||
       curPose === gpose.RA_UP ||
       curPose === gpose.BA_UP

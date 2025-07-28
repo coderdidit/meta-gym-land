@@ -35,9 +35,7 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
     // this.body.setCollideWorldBounds(true);
 
     // input
-    if (scene.input && scene.input.keyboard) {
-      this.cursorKeys = scene.input.keyboard.createCursorKeys();
-    }
+    this.cursorKeys = scene.input?.keyboard?.createCursorKeys();
 
     this.scene.add.existing(this);
   }
