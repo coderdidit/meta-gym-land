@@ -57,13 +57,12 @@ export class AlienManager {
       this._scene.tweens.add({
         targets: c,
         ease: "Linear",
-        duration: 4000,
-        x: `+=${width / 2}`,
-        paused: false,
-        delay: 0,
+        duration: 1000,
         yoyo: true,
         repeat: -1,
+        alpha: 0.5,
       });
+      return false;
     });
   }
 }

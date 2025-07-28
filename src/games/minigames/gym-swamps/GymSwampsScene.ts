@@ -32,7 +32,7 @@ class GymSwampsScene extends SceneInMetaGymRoom {
   graphics!: Phaser.GameObjects.Graphics;
   scoreText!: TextBox;
   flipFlop = false;
-  floor!: Phaser.Tilemaps.TilemapLayer;
+  floor: Phaser.Tilemaps.TilemapLayer | null = null;
 
   constructor() {
     super(SceneConfig);
@@ -54,12 +54,14 @@ class GymSwampsScene extends SceneInMetaGymRoom {
     this.cameras.main.backgroundColor.setTo(179, 201, 217);
 
     const tileset = this.map.addTilesetImage(tiles);
-
+    if (!tileset) throw new Error("Tileset not found");
     this.walls = this.map.createLayer("walls", [tileset]);
+    if (!this.walls) throw new Error("Walls layer not found");
     this.walls.setCollisionByProperty({ collides: true });
     this.walls.setScale(mapScale);
 
     this.floor = this.map.createLayer("floor", [tileset]);
+    if (!this.floor) throw new Error("Floor layer not found");
     this.floor.setScale(mapScale);
 
     const spawnPoint = this.map.findObject(
@@ -104,7 +106,9 @@ class GymSwampsScene extends SceneInMetaGymRoom {
           );
           this.pills.add(pill);
           this.pillsCount++;
+          return true;
         }
+        return false;
       },
     );
 
@@ -159,7 +163,9 @@ class GymSwampsScene extends SceneInMetaGymRoom {
       this,
     );
 
-    this.cursors = this.input.keyboard.createCursorKeys();
+    if (this.input && this.input.keyboard) {
+      this.cursors = this.input.keyboard.createCursorKeys();
+    }
 
     this.graphics = this.add.graphics();
 

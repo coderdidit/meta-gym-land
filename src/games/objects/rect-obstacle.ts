@@ -34,7 +34,15 @@ export class RectObstacle extends Phaser.GameObjects.Rectangle {
       | Phaser.GameObjects.Group
       | Phaser.GameObjects.Group[],
   ) {
-    this.scene.physics.add.collider(obj, this.obstacleGraphics);
+    if (Array.isArray(obj)) {
+      obj.forEach((o) => {
+        if (o && "body" in o) {
+          this.scene.physics.add.collider(o, this.obstacleGraphics);
+        }
+      });
+    } else if (obj && "body" in obj) {
+      this.scene.physics.add.collider(obj, this.obstacleGraphics);
+    }
   }
 
   setVelocityY(vel: any) {

@@ -77,13 +77,17 @@ class RunnerScene extends SceneInMetaGymRoom {
 
     this.player.setBodySize(this.player.width, this.player.height);
 
-    this.runEmitter = this.add.particles(PLAYER_KEY).createEmitter({
+    if (this.input && this.input.keyboard) {
+      this.cursorKeys = this.input.keyboard.createCursorKeys();
+    }
+
+    this.runEmitter = this.add.particles(0, 0, PLAYER_KEY, {
       speed: 100,
       scale: { start: 0.2, end: 0 },
       blendMode: Phaser.BlendModes.ADD,
-    });
+      emitting: false, // Start stopped
+    }) as any;
     this.runEmitter.startFollow(this.player);
-    this.runEmitter.stop();
 
     this.ground = this.add
       .tileSprite(bottomPositionX, this.bottomPositionY, 88, 26, "ground")
@@ -126,7 +130,6 @@ class RunnerScene extends SceneInMetaGymRoom {
     this.environment.setAlpha(0);
 
     this.obsticles = this.physics.add.group();
-    this.cursorKeys = this.input.keyboard.createCursorKeys();
 
     this.createTextBoxes();
     this.initAnims();
@@ -149,7 +152,9 @@ class RunnerScene extends SceneInMetaGymRoom {
         // this.restartGame();
       }
     };
-    this.input.keyboard.on("keydown", fn, this);
+    if (this.input && this.input.keyboard) {
+      this.input.keyboard.on("keydown", fn, this);
+    }
   }
 
   private displayGameOverText() {

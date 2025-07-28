@@ -79,10 +79,12 @@ export class InvadersScene extends SceneInMetaGymRoom {
 
     this.assetManager = new AssetManager(this);
     this.animationFactory = new AnimationFactory(this);
-    this.cursors = this.input.keyboard.createCursorKeys();
-    this.fireKey = this.input.keyboard.addKey(
-      Phaser.Input.Keyboard.KeyCodes.SPACE,
-    );
+    if (this.input && this.input.keyboard) {
+      this.cursors = this.input.keyboard.createCursorKeys();
+      this.fireKey = this.input.keyboard.addKey(
+        Phaser.Input.Keyboard.KeyCodes.SPACE,
+      );
+    }
     this.player = Ship.create(this);
     this.alienManager = new AlienManager(this);
     this.scoreManager = new ScoreManager(this);

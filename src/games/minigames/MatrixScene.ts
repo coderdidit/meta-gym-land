@@ -63,12 +63,12 @@ export class MatrixScene extends SceneInMetaGymRoom {
       },
     };
 
-    this.add.particles(FONT).createEmitter({
+    // Create particle emitters directly with config
+    const codeRainEmitter = this.add.particles(0, 0, FONT, {
       alpha: { start: 1, end: 0.25, ease: "Expo.easeOut" },
       angle: 0,
       blendMode: "ADD",
       emitZone: { source: codeRain, type: "edge", quantity: 2000 },
-      frame: Phaser.Utils.Array.NumberArray(8, 58),
       frequency: 100,
       lifespan: 6000,
       quantity: 25,
@@ -136,32 +136,33 @@ export class MatrixScene extends SceneInMetaGymRoom {
     this.player.setDepth(1);
     this.player.body.setCollideWorldBounds(true);
 
-    this.redPillEmmiter = this.add.particles(PILL_RED).createEmitter({
+    // Create emitters with config
+    this.redPillEmmiter = this.add.particles(0, 0, PILL_RED, {
       speed: { min: -800, max: 800 },
       angle: { min: 0, max: 360 },
       scale: { start: 0.5, end: 0 },
       blendMode: Phaser.BlendModes.SCREEN,
       lifespan: 600,
       gravityY: 800,
-    });
-    this.redPillEmmiter.pause();
+      emitting: false, // Start paused
+    }) as any;
 
-    this.bluePillEmmiter = this.add.particles(PILL_BLUE).createEmitter({
+    this.bluePillEmmiter = this.add.particles(0, 0, PILL_BLUE, {
       speed: { min: -800, max: 800 },
       angle: { min: 0, max: 360 },
       scale: { start: 0.5, end: 0 },
       blendMode: Phaser.BlendModes.SCREEN,
       lifespan: 600,
       gravityY: 800,
-    });
-    this.bluePillEmmiter.pause();
+      emitting: false, // Start paused
+    }) as any;
 
     const onCollide = (_avatar: any, item: any) => {
       if (item.name === PILL_RED) {
         this.cameras.main.setBackgroundColor("#23BD32");
 
-        this.redPillEmmiter.resume();
-        this.redPillEmmiter.explode(10, item.x, item.y);
+        this.redPillEmmiter.setPosition(item.x, item.y);
+        this.redPillEmmiter.explode(10);
 
         hintTextBox.start("🤖", 50);
         const info = createTextBox({
@@ -191,8 +192,8 @@ export class MatrixScene extends SceneInMetaGymRoom {
         info.setInteractive({ useHandCursor: true });
         info.on("pointerdown", openExternalLink, this);
       } else {
-        this.bluePillEmmiter.resume();
-        this.bluePillEmmiter.explode(10, item.x, item.y);
+        this.bluePillEmmiter.setPosition(item.x, item.y);
+        this.bluePillEmmiter.explode(10);
 
         hintTextBox.start("🤖", 50);
         createTextBox({
@@ -218,7 +219,6 @@ export class MatrixScene extends SceneInMetaGymRoom {
           }
         }, 3500);
       }
-      pillis.forEach((i) => i.destroy());
     };
     this.physics.add.collider(this.player, pillis, onCollide, undefined, this);
   }

@@ -53,37 +53,39 @@ export class SceneInMetaGymRoom extends EarnableScene {
   }
 
   handleExit({ thisSceneKey, callbackOnExit }: handleExitParams) {
-    // constrols
-    this.input.keyboard.on(
-      "keydown",
-      async (event: KeyboardEvent) => {
-        const userStats = {
-          minigameCompleted: this.minigameCompleted(),
-          minigameKey: thisSceneKey,
-          timeSpent: Date.now() - this.startTime,
-        };
-        const moralisUser = this.gameUser();
-        const userRepo = userRepository({
-          moralisUser,
-          avatar: this.selectedAvatar,
-        });
+    // controls
+    if (this.input && this.input.keyboard) {
+      this.input.keyboard.on(
+        "keydown",
+        async (event: KeyboardEvent) => {
+          const userStats = {
+            minigameCompleted: this.minigameCompleted(),
+            minigameKey: thisSceneKey,
+            timeSpent: Date.now() - this.startTime,
+          };
+          const moralisUser = this.gameUser();
+          const userRepo = userRepository({
+            moralisUser,
+            avatar: this.selectedAvatar,
+          });
 
-        const key = event.key;
-        if (key === Key.Escape) {
-          if (callbackOnExit) {
-            callbackOnExit();
+          const key = event.key;
+          if (key === Key.Escape) {
+            if (callbackOnExit) {
+              callbackOnExit();
+            }
+            this.exit(thisSceneKey);
           }
-          this.exit(thisSceneKey);
-        }
-        if (key === "x") {
-          if (moralisUser) {
-            await userRepo.updateUser(userStats);
+          if (key === "x") {
+            if (moralisUser) {
+              await userRepo.updateUser(userStats);
+            }
+            this.scene.start(thisSceneKey);
           }
-          this.scene.start(thisSceneKey);
-        }
-      },
-      this,
-    );
+        },
+        this,
+      );
+    }
   }
 
   gameUser(): SimpleUser | null {

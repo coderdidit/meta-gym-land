@@ -116,25 +116,27 @@ export class GymRoomScene extends EarnableScene {
 
     // this.cameras.main.backgroundColor.setTo(179, 201, 217);
     // constrols
-    this.input.keyboard.on(
-      "keydown",
-      (event: { keyCode: any }) => {
-        const code = event.keyCode;
-        if (sceneToGoOnXclick && code === Phaser.Input.Keyboard.KeyCodes.X) {
-          roboTextTimeouts.forEach((t) => clearTimeout(t));
-          setMainRoomPlayerExitPos(this.player.x, this.player.y);
-          if (commingSoon.includes(sceneToGoOnXclick)) {
-            commingSoonModal(miniGamesMapping.get(sceneToGoOnXclick) ?? "");
-          } else if (sceneToGoOnXclick === "snap") {
-            showSnapchatModal(this.selectedAvatar.snapARLink);
-          } else {
-            this.game.registry.values?.setMinigame(sceneToGoOnXclick);
-            this.scene.start(sceneToGoOnXclick);
+    if (this.input && this.input.keyboard) {
+      this.input.keyboard.on(
+        "keydown",
+        (event: { keyCode: any }) => {
+          const code = event.keyCode;
+          if (sceneToGoOnXclick && code === Phaser.Input.Keyboard.KeyCodes.X) {
+            roboTextTimeouts.forEach((t) => clearTimeout(t));
+            setMainRoomPlayerExitPos(this.player.x, this.player.y);
+            if (commingSoon.includes(sceneToGoOnXclick)) {
+              commingSoonModal(miniGamesMapping.get(sceneToGoOnXclick) ?? "");
+            } else if (sceneToGoOnXclick === "snap") {
+              showSnapchatModal(this.selectedAvatar.snapARLink);
+            } else {
+              this.game.registry.values?.setMinigame(sceneToGoOnXclick);
+              this.scene.start(sceneToGoOnXclick);
+            }
           }
-        }
-      },
-      this,
-    );
+        },
+        this,
+      );
+    }
     // map
     const map = this.make.tilemap({
       key: GYM_ROOM_MAP,
@@ -149,30 +151,24 @@ export class GymRoomScene extends EarnableScene {
     );
     bg.setDisplaySize(map.widthInPixels * 1.5, map.heightInPixels * 1.5);
 
-    const tileset_main_v2 = map.addTilesetImage(
-      GYM_ROOM_TILESET, // ? filename ?? name of the tileset in json file
-      GYM_ROOM_TILESET, // key
-      tileMapSizing,
-      tileMapSizing,
-    );
-    const groundLayer = map.createLayer("floor", [tileset_main_v2]);
+    const tileset = map.addTilesetImage("gym_room_tileset", "gym_room_tileset");
+    if (!tileset) throw new Error("Tileset 'gym_room_tileset' not found");
+    const groundLayer = map.createLayer("floor", [tileset]);
+    if (!groundLayer) throw new Error("Layer 'floor' not found");
     groundLayer.setScale(mapScale);
 
-    const wallsLayer = map.createLayer("walls", [tileset_main_v2]);
+    const wallsLayer = map.createLayer("walls", [tileset]);
+    if (!wallsLayer) throw new Error("Layer 'walls' not found");
     wallsLayer.setScale(mapScale);
-    wallsLayer.setCollisionByProperty({
-      collides: true,
-    });
+    wallsLayer.setCollisionByProperty({ collides: true });
 
-    const itemsLayer = map.createLayer("items", [tileset_main_v2]);
+    const itemsLayer = map.createLayer("items", [tileset]);
+    if (!itemsLayer) throw new Error("Layer 'items' not found");
     itemsLayer.setScale(mapScale);
-    itemsLayer.setCollisionByProperty({
-      collides: true,
-    });
+    itemsLayer.setCollisionByProperty({ collides: true });
 
-    const trainingMatsLayer = map.createLayer("training_mats", [
-      tileset_main_v2,
-    ]);
+    const trainingMatsLayer = map.createLayer("training_mats", [tileset]);
+    if (!trainingMatsLayer) throw new Error("Layer 'training_mats' not found");
     trainingMatsLayer.setScale(mapScale);
 
     this.tweens.add({
@@ -202,11 +198,12 @@ export class GymRoomScene extends EarnableScene {
       yoyo: true,
       onUpdate: (tween) => {
         const value = tween.getValue();
+        const safeValue = value === null ? undefined : value;
         const colorObject = Phaser.Display.Color.Interpolate.ColorWithColor(
           primaryColor,
           secondaryColor,
           100,
-          value,
+          safeValue,
         );
         const { r, g, b } = colorObject;
         const color = Phaser.Display.Color.GetColor(r, g, b);
@@ -224,6 +221,8 @@ export class GymRoomScene extends EarnableScene {
         return getMainRoomPlayerExitPos();
       }
       const playerObjLayer = map.getObjectLayer("player");
+      if (!playerObjLayer || !playerObjLayer.objects.length)
+        throw new Error("Player object layer missing or empty");
       const obj = playerObjLayer.objects[0];
       if (!obj.x || !obj.y) {
         throw Error(
@@ -240,13 +239,17 @@ export class GymRoomScene extends EarnableScene {
       ...resolvePlayerXY(),
     });
     this.player.setScale(PLAYER_SCALE);
-    this.player.setDepth(1);
-    // adjust collision box
-    this.player.body.setSize(this.player.width * 0.5, this.player.height * 0.3);
-    this.player.body.setOffset(
-      this.player.width * 0.25,
-      this.player.height * 0.6,
-    );
+    if (this.player && this.player.body) {
+      this.player.setDepth(1);
+      this.player.body.setSize(
+        this.player.width * 0.5,
+        this.player.height * 0.3,
+      );
+      this.player.body.setOffset(
+        this.player.width * 0.25,
+        this.player.height * 0.6,
+      );
+    }
 
     const roundPixels = true;
     this.cameras.main.startFollow(this.player, roundPixels, 0.1, 0.1);
@@ -257,8 +260,8 @@ export class GymRoomScene extends EarnableScene {
     this.player.playerBody().setCollideWorldBounds(true);
 
     // colliders
-    this.physics.add.collider(this.player, wallsLayer);
-    this.physics.add.collider(this.player, itemsLayer);
+    this.physics.add.collider(this.player!, wallsLayer);
+    this.physics.add.collider(this.player!, itemsLayer);
 
     // text
     const hintTextBox = createTextBox({
@@ -329,93 +332,97 @@ export class GymRoomScene extends EarnableScene {
       }
     };
     const roomLocksLayer = map.getObjectLayer("room_locks");
-    for (const roomLock of roomLocksLayer.objects) {
-      debugLog("[roomLock]", roomLock);
-      if (
-        !roomLock.name ||
-        !roomLock.x ||
-        !roomLock.y ||
-        !roomLock.width ||
-        !roomLock.height ||
-        !roomLock.properties
-      ) {
-        throw Error(
-          `roomLock object has undefined values (name, properties, x, y, width, height) ${JSON.stringify(
-            roomLock,
-          )}`,
-        );
-      }
-      const { name, properties, x, y, width, height } = roomLock;
-      if (
-        isRoomLocked({
-          lockName: name,
-        })
-      ) {
-        const roomLockRect = this.add
-          .rectangle(
-            x * mapScale,
-            y * mapScale,
-            width * mapScale,
-            height * mapScale,
-          )
-          .setName(name)
-          .setOrigin(0)
-          .setFillStyle(0x000000, 0.8);
-
-        const lockImage = this.add.image(x * mapScale, y * mapScale, LOCK);
-        const objProps = properties as any[];
-        type orientationPropType = { value: string } | undefined;
-        const orientationProp = objProps.find(
-          (p) => p.name === "orientation",
-        ) as orientationPropType;
-        const orientation = orientationProp
-          ? orientationProp && orientationProp.value
-          : "vertical";
-        debugLog("[orientation]", orientation);
-        if (orientation === "vertical") {
-          lockImage.setOrigin(0.43, 0.05);
-        } else {
-          lockImage.setOrigin(0, 0.5);
+    if (roomLocksLayer && roomLocksLayer.objects) {
+      for (const roomLock of roomLocksLayer.objects) {
+        debugLog("[roomLock]", roomLock);
+        if (
+          !roomLock.name ||
+          !roomLock.x ||
+          !roomLock.y ||
+          !roomLock.width ||
+          !roomLock.height ||
+          !roomLock.properties
+        ) {
+          throw Error(
+            `roomLock object has undefined values (name, properties, x, y, width, height) ${JSON.stringify(
+              roomLock,
+            )}`,
+          );
         }
+        const { name, properties, x, y, width, height } = roomLock;
+        if (
+          isRoomLocked({
+            lockName: name,
+          })
+        ) {
+          const roomLockRect = this.add
+            .rectangle(
+              x * mapScale,
+              y * mapScale,
+              width * mapScale,
+              height * mapScale,
+            )
+            .setName(name)
+            .setOrigin(0)
+            .setFillStyle(0x000000, 0.8);
 
-        this.physics.world.enable(
-          roomLockRect,
-          Phaser.Physics.Arcade.STATIC_BODY,
-        );
-        this.physics.add.collider(
-          this.player,
-          roomLockRect,
-          playerHandelCollideWithLock,
-          undefined,
-          this,
-        );
+          const lockImage = this.add.image(x * mapScale, y * mapScale, LOCK);
+          const objProps = properties as any[];
+          type orientationPropType = { value: string } | undefined;
+          const orientationProp = objProps.find(
+            (p) => p.name === "orientation",
+          ) as orientationPropType;
+          const orientation = orientationProp
+            ? orientationProp && orientationProp.value
+            : "vertical";
+          debugLog("[orientation]", orientation);
+          if (orientation === "vertical") {
+            lockImage.setOrigin(0.43, 0.05);
+          } else {
+            lockImage.setOrigin(0, 0.5);
+          }
+
+          this.physics.world.enable(
+            roomLockRect,
+            Phaser.Physics.Arcade.STATIC_BODY,
+          );
+          this.physics.add.collider(
+            this.player,
+            roomLockRect,
+            playerHandelCollideWithLock,
+            undefined,
+            this,
+          );
+        }
       }
     }
 
     const trainingMats: Phaser.GameObjects.Rectangle[] = [];
     const miniGamesLayer = map.getObjectLayer("mini_games");
-    miniGamesLayer.objects.forEach((object) => {
-      if (!object.x || !object.y || !object.width || !object.height) {
-        throw Error(
-          `player object has undefined values (x, y, width, height) ${JSON.stringify(
-            object,
-          )}`,
+    if (miniGamesLayer && miniGamesLayer.objects) {
+      miniGamesLayer.objects.forEach((object) => {
+        if (!object.x || !object.y || !object.width || !object.height) {
+          throw Error(
+            `player object has undefined values (x, y, width, height) ${JSON.stringify(
+              object,
+            )}`,
+          );
+        }
+        const x = object.x * mapScale;
+        const y = object.y * mapScale;
+        const objWidth = object.width * mapScale;
+        const objHeight = object.height * mapScale;
+        const trainingMatRect = this.add
+          .rectangle(x, y, objWidth, objHeight)
+          .setName(object.name)
+          .setOrigin(0);
+        this.physics.world.enable(
+          trainingMatRect,
+          Phaser.Physics.Arcade.STATIC_BODY,
         );
-      }
-      const x = object.x * mapScale;
-      const y = object.y * mapScale;
-      const objWidth = object.width * mapScale;
-      const objHeight = object.height * mapScale;
-      const trainingMatRect = this.add
-        .rectangle(x, y, objWidth, objHeight)
-        .setName(object.name)
-        .setOrigin(0);
-      this.physics.world.enable(
-        trainingMatRect,
-        Phaser.Physics.Arcade.STATIC_BODY,
-      );
-      trainingMats.push(trainingMatRect);
-    });
+        trainingMats.push(trainingMatRect);
+      });
+    }
 
     const playerMatHandelOverlap = (player: any, matRectangle: any) => {
       const objName = matRectangle.name;
@@ -505,10 +512,12 @@ export class GymRoomScene extends EarnableScene {
   // eslint-disable-next-line no-unused-vars
   update(_time: any, _delta: any) {
     // overlapend event
-    const touching = !this.player.body.touching.none;
-    const wasTouching = !this.player.body.wasTouching.none;
-    // if (touching && !wasTouching) block.emit("overlapstart");
-    if (!touching && wasTouching) this.player.emit("overlapend");
+    if (this.player && this.player.body) {
+      const touching = !this.player.body.touching.none;
+      const wasTouching = !this.player.body.wasTouching.none;
+      // if (touching && !wasTouching) block.emit("overlapstart");
+      if (!touching && wasTouching) this.player.emit("overlapend");
+    }
     const now = Date.now();
     const walkSoundPlayedTimeElasped = now - this.lastWalksSoundPlayed;
 
