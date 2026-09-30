@@ -10,7 +10,7 @@ import {
   GREEN_WOJAK,
 } from "../gym-room-boot/assets";
 import { createTextBox, GameUI, TimeoutManager } from "../utils";
-import party, { sources } from "party-js";
+import party, { sources, Emitter } from "party-js";
 import {
   highlightTextColorNum,
   InGameFont,
@@ -39,9 +39,8 @@ const changeFactor = 0.3;
 const longColor = 0x00ff00;
 const shortColor = 0xaa0000;
 
-const intervals: ReturnType<typeof setInterval>[] = [];
-
 export class ChartSquats extends SceneInMetaGymRoom {
+  private confettiEmitters: Emitter[] = [];
   graphics: any;
   createTime!: number;
   frameTime!: number;
@@ -91,6 +90,16 @@ export class ChartSquats extends SceneInMetaGymRoom {
     if (webCamContainer) {
       webCamContainer.style.marginLeft = "30rem";
     }
+    this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
+      if (webCamContainer) {
+        webCamContainer.style.marginLeft = "";
+      }
+      this.confettiEmitters.forEach((emitter) => {
+        emitter.options.loops = 0;
+        emitter.clearParticles();
+      });
+      this.confettiEmitters = [];
+    });
     // basic props
     const width = getGameWidth(this);
     const height = getGameHeight(this);
@@ -106,14 +115,6 @@ export class ChartSquats extends SceneInMetaGymRoom {
     // basics
     this.handleExit({
       thisSceneKey: CHART_SQUATS,
-      callbackOnExit: () => {
-        if (webCamContainer) {
-          webCamContainer.style.marginLeft = "";
-        }
-        intervals.forEach((i) => {
-          clearInterval(i);
-        });
-      },
     });
 
     this.graphics = this.add.graphics();
@@ -309,12 +310,21 @@ export class ChartSquats extends SceneInMetaGymRoom {
         this.score += 1;
         this.scoreBoard.setText(`SCORE: ${this.score}`);
         this.add.image(width * 0.8, height * 0.5, GREEN_WOJAK).setDepth(5);
-        if (canvasParent) party.confetti(canvasParent);
-        intervals.push(
-          setInterval(() => {
-            if (canvasParent) party.confetti(canvasParent);
-          }, 1000),
-        );
+        if (canvasParent) {
+          const emitConfetti = () => {
+            this.confettiEmitters = this.confettiEmitters.filter(
+              (emitter) => !emitter.canRemove,
+            );
+            this.confettiEmitters.push(party.confetti(canvasParent));
+          };
+          emitConfetti();
+          // Phaser removes scene timers on shutdown, including restarts.
+          this.time.addEvent({
+            delay: 1000,
+            loop: true,
+            callback: emitConfetti,
+          });
+        }
         const msg =
           "🤖 You saved the BTC price 🎉\n\n" +
           "It went to the MOOOON" +

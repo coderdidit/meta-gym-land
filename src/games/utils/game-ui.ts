@@ -30,15 +30,12 @@ export class GameUI {
     height: number,
     initialScore = 0,
   ) {
-    return scene.add.text(
-      width * 0.05,
-      height * 0.04,
-      `SCORE: ${initialScore}`,
-      {
+    return scene.add
+      .text(width * 0.95, height * 0.04, `SCORE: ${initialScore}`, {
         color: highlightTextColor,
         font: `500 20px ${InGameFont}`,
-      },
-    );
+      })
+      .setOrigin(1, 0);
   }
 
   static createHintTextBox(
