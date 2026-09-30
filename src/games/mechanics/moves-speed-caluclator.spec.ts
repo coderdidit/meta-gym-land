@@ -1,3 +1,4 @@
+import { describe, expect, it } from "vitest";
 import {
   MovesSpeedCaluclator,
   IDLE_SPEED,
@@ -190,7 +191,7 @@ describe(MovesSpeedCaluclator.name, () => {
     });
   });
 
-  describe("secondsPassed", () => {
+  it("should track secondsPassed since the last speed calculation", () => {
     const timeNow = new Date("2022-01-01 10:00:00").getTime();
     const movesSpeedCaluclator = new MovesSpeedCaluclator({
       timeNow,

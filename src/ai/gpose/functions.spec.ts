@@ -1,4 +1,4 @@
-export {}; // remove it later, added to resolve compiler issues
+import { describe, expect, it } from "vitest";
 
 const testMediaPipeResutls = {
   image: null, // normally this is canvas object

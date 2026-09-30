@@ -1,10 +1,15 @@
 import path from "path";
-import { defineConfig, transformWithEsbuild } from "vite";
+import { transformWithEsbuild } from "vite";
+import { defineConfig } from "vitest/config";
 import react from "@vitejs/plugin-react";
 
 const src = path.resolve(__dirname, "src");
 
 export default defineConfig({
+  test: {
+    environment: "node",
+    include: ["src/**/*.{test,spec}.{js,jsx,ts,tsx}"],
+  },
   plugins: [
     {
       name: "treat-js-files-as-jsx",

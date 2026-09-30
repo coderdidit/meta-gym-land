@@ -39,7 +39,7 @@ const changeFactor = 0.3;
 const longColor = 0x00ff00;
 const shortColor = 0xaa0000;
 
-const intervals: NodeJS.Timer[] = [];
+const intervals: ReturnType<typeof setInterval>[] = [];
 
 export class ChartSquats extends SceneInMetaGymRoom {
   graphics: any;

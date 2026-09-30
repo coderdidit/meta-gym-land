@@ -6,9 +6,6 @@
     "@ant-design/icons": "^6.1.0",
     "@mediapipe/drawing_utils": "^0.3.1620248257",
     "@mediapipe/pose": "^0.5.1635988162",
-    "@testing-library/jest-dom": "^5.11.4",
-    "@testing-library/react": "^11.1.0",
-    "@testing-library/user-event": "^12.1.10",
     "antd": "^6.3.1",
     "assert": "^2.0.0",
     "crypto-browserify": "^3.12.0",
@@ -23,7 +20,6 @@
     "react-dom": "^19.2.4",
     "react-router": "^6.3.0",
     "react-router-dom": "^6.3.0",
-    "react-scripts": "^5.0.0",
     "react-webcam": "^7.0.1",
     "stream-browserify": "^3.0.0",
     "stream-http": "^3.2.0",
@@ -37,7 +33,7 @@
     "start": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "test": "react-scripts test",
+    "test": "vitest run",
     "deploypage": "echo 'app.metagymland.com' > ./dist/CNAME && gh-pages -d dist",
     "clean": "npx gh-pages-clean",
     "lint:check": "eslint .",
@@ -45,13 +41,8 @@
     "prettier:check": "prettier --check .",
     "prettier:fix": "prettier --write \"**/*.{js,jsx,ts,tsx,css,md,json,html}\" .prettierrc --config ./.prettierrc",
     "format": "npm run lint:fix && npm run prettier:fix",
-    "prepare": "husky install"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+    "prepare": "husky install",
+    "test:watch": "vitest"
   },
   "browserslist": {
     "production": [
@@ -67,8 +58,7 @@
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^5.1.4",
-    "@types/jest": "^28.1.6",
-    "@types/node": "^18.6.2",
+    "@types/node": "^24.0.0",
     "@types/qrcode": "^1.4.2",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
@@ -82,8 +72,12 @@
     "gh-pages": "^3.2.3",
     "husky": "^7.0.0",
     "prettier": "^2.5.1",
-    "typescript": "^4.7.4",
-    "vite": "^7.3.1"
+    "typescript": "^5.9.3",
+    "vite": "^7.3.1",
+    "vitest": "^5.0.3"
   },
-  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e",
+  "engines": {
+    "node": "^22.12.0 || ^24.0.0 || >=26.0.0"
+  }
 }

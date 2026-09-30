@@ -7,4 +7,4 @@
 - GlobalStyles.js retains game constants and styles still consumed outside React pages.
 - Preserve default library focus, hover and disabled behavior.
 
-The CRA test runner is separate migration work. Static React page styles live in CSS Modules; runtime sizes and optional caller-provided styles remain inline.
+Static React page styles live in CSS Modules; runtime sizes and optional caller-provided styles remain inline.
