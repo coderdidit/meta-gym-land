@@ -1,6 +1,6 @@
 {
   "name": "meta-gym-land",
-  "version": "0.0.1.5.52",
+  "version": "0.0.1.5.53",
   "license": "UNLICENSED",
   "dependencies": {
     "@ant-design/icons": "^6.1.0",
