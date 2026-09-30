@@ -12,13 +12,17 @@
 }
 
 .heroTitle {
-  color: #ffffff;
+  font-family: "Source Serif Pro", serif;
+  font-size: 40px;
+  font-weight: bold;
+  color: var(--mgl-main-bg);
   padding-top: 3rem;
 }
 
 .heroSubtitle {
-  color: #ffffff;
+  color: var(--mgl-main-bg);
   font-size: 20px;
+  line-height: 28px;
 }
 
 .heroCtaWrap {
@@ -69,16 +73,12 @@
   font-weight: 500;
 }
 
-.spacer {
-  flex-basis: 100%;
-}
-
 .socialSection {
   margin-top: 3rem;
   padding: 2.8rem;
   align-items: center;
   justify-content: center;
-  background-color: #f8f8f8;
+  background-color: var(--mgl-surface);
 }
 
 .socialInner {
@@ -121,4 +121,15 @@
     gap: 1.5rem;
     padding: 0 1rem;
   }
+}
+
+.sectionTitle {
+  font-family: "Source Serif Pro", serif;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.imageRoot {
+  display: flex;
+  justify-content: center;
 }

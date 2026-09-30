@@ -1,3 +1,4 @@
+import pageStyles from "./user-progress-page.styles.module.css";
 import React, { useContext } from "react";
 import { AvatarCtx } from "index";
 import { UserProgress } from "./user-progress";
@@ -11,12 +12,7 @@ const ProgressPage: React.FC = () => {
   const user = createMockUser();
 
   return (
-    <div
-      style={{
-        textAlign: "center",
-        padding: "2rem",
-      }}
-    >
+    <div className={pageStyles.page}>
       <UserProgress user={user} avatar={avatar} />
     </div>
   );

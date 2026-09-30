@@ -66,11 +66,6 @@ select {
   font: inherit;
 }
 
-.ant-image {
-  display: flex;
-  justify-content: center;
-}
-
 @font-face {
   font-family: InGameFont;
   src: url("../public/assets/fonts/font.png");

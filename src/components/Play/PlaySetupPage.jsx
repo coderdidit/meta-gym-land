@@ -2,10 +2,9 @@ import { useContext } from "react";
 import { useParams } from "react-router";
 import { AvatarCtx } from "index";
 import { Navigate } from "react-router-dom";
-import { Image, Button } from "antd";
+import { Image } from "antd";
 import { RightOutlined, LeftOutlined } from "@ant-design/icons";
-import { Link } from "react-router-dom";
-import { NFTImg, BreakFlexDiv } from "../../GlobalStyles";
+import AppButton from "../AppButton";
 import { SelectWebcam } from "components/Webcam/SelectWebcam";
 import { WebcamCtx } from "index";
 import PoseDetWebcam from "components/Webcam/PoseDetWebcam";
@@ -37,24 +36,18 @@ const PlaySetupPage = () => {
             </h1>
             <div className={styles.avatarWrap}>
               <Image
+                classNames={{ root: styles.imageRoot }}
                 preview={false}
                 src={avatar?.coverUri || "error"}
                 alt=""
-                style={{
-                  ...NFTImg,
-                  borderRadius: "20px",
-                }}
                 className={styles.avatarImage}
               />
             </div>
             <div className={styles.backWrap}>
-              <Button
-                className="mgl-btn mgl-btn-primary"
-                onClick={() => window.history.back()}
-              >
+              <AppButton onClick={() => window.history.back()}>
                 <LeftOutlined />
                 Back
-              </Button>
+              </AppButton>
             </div>
           </div>
 
@@ -62,6 +55,7 @@ const PlaySetupPage = () => {
             <PoseDetWebcam
               sizeProps={{
                 maxWidth: "380px",
+                width: "100%",
                 height: "auto",
                 margin: "0",
               }}
@@ -77,11 +71,6 @@ const PlaySetupPage = () => {
               <div className={styles.selectWrap}>
                 <SelectWebcam width={"15rem"} />
               </div>
-              <div
-                style={{
-                  ...BreakFlexDiv,
-                }}
-              ></div>
               <p className={styles.hint}>
                 <u>Having trouble with your video?</u>
               </p>
@@ -90,14 +79,13 @@ const PlaySetupPage = () => {
         </div>
 
         <div className={styles.footer}>
-          <Button
+          <AppButton
+            intent="success"
             disabled={webcamId == null}
-            className={`mgl-btn mgl-btn-info ${styles.joinBtn}`}
+            to={linkToJoinMetaGymLand()}
           >
-            <Link to={linkToJoinMetaGymLand()}>
-              Join MetaGymLand <RightOutlined />
-            </Link>
-          </Button>
+            Join MetaGymLand <RightOutlined />
+          </AppButton>
         </div>
       </div>
     </div>

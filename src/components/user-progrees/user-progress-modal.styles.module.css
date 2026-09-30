@@ -1,0 +1,21 @@
+.trigger {
+  text-align: center;
+  margin-top: 1rem;
+  cursor: pointer;
+  font-size: 20px;
+  color: var(--mgl-main-text);
+}
+
+.label {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
+.title {
+  text-align: center;
+  font-family: Source Serif Pro;
+  font-weight: bold;
+  font-size: 30px;
+  color: var(--mgl-main-text);
+}

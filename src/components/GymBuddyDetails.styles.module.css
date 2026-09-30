@@ -1,0 +1,12 @@
+.page {
+  text-align: center;
+  padding: 6rem;
+}
+
+.spacing {
+  margin-bottom: 10px;
+}
+
+.backButton {
+  float: left;
+}

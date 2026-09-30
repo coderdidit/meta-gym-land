@@ -1,0 +1,14 @@
+.snapButton {
+  background-color: #f6f403;
+  color: black;
+  z-index: 2;
+  margin: 1rem;
+  padding: 0.5rem;
+  border-radius: 50%;
+  border: 1px solid black;
+  height: 42px;
+  width: 42px;
+  grid-area: overlap;
+  align-self: start;
+  justify-self: end;
+}

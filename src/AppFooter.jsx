@@ -1,63 +1,27 @@
+import pageStyles from "./AppFooter.styles.module.css";
 import { Divider } from "antd";
 import packageJson from "../package.json";
-import { mainFontColor, descriptionStyle } from "GlobalStyles";
-import { MGLSmallLogo, CoderDitiLogo, PoweredByPolygonLogo } from "Logos";
+
+import { MGLSmallLogo, CoderDitiLogo } from "Logos";
 
 export const AppFooter = ({ style }) => {
   return (
     <>
-      <Divider
-        style={{
-          ...style,
-          backgroundColor: mainFontColor,
-          marginTop: 0,
-        }}
-      />
+      <Divider className={pageStyles.divider} />
 
-      <footer
-        style={{
-          ...style,
-          display: "grid",
-          gap: "2rem",
-          gridTemplateColumns: "9fr 1fr 1fr 1fr 1fr",
-          lineHeight: 2,
-        }}
-      >
-        <div
-          style={{
-            textAlign: "left",
-          }}
-        >
+      <footer className={pageStyles.footer} style={style}>
+        <div className={pageStyles.brand}>
           <MGLSmallLogo />
         </div>
 
         <div>
-          <div
-            style={{
-              fontSize: "18px",
-              fontWeight: 700,
-              marginBottom: "1rem",
-            }}
-          >
-            MetaGymLand
-          </div>
-          <a
-            style={{
-              ...descriptionStyle,
-              textDecoration: "none",
-              color: mainFontColor,
-            }}
-            href="/#"
-          >
+          <div className={pageStyles.heading}>MetaGymLand</div>
+          <a className={pageStyles.link} href="/#">
             Home
           </a>
           <br />
           <a
-            style={{
-              ...descriptionStyle,
-              textDecoration: "none",
-              color: mainFontColor,
-            }}
+            className={pageStyles.link}
             href="https://metagymland.com/"
             target="_blank"
             rel="noopener noreferrer"
@@ -66,11 +30,7 @@ export const AppFooter = ({ style }) => {
           </a>
           <br />
           <a
-            style={{
-              ...descriptionStyle,
-              textDecoration: "none",
-              color: mainFontColor,
-            }}
+            className={pageStyles.link}
             href="https://docs.metagymland.com/"
             target="_blank"
             rel="noopener noreferrer"
@@ -79,31 +39,8 @@ export const AppFooter = ({ style }) => {
           </a>
         </div>
 
-        {/* <div>
-          <a
-            target="_blank"
-            rel="noopener noreferrer"
-            href="https://polygon.technology"
-          >
-            <PoweredByPolygonLogo
-              style={{
-                border: `1px solid ${mainFontColor}`,
-                borderRadius: "15px",
-              }}
-            />
-          </a>
-        </div> */}
-
-        <div style={{ color: mainFontColor }}>
-          <div
-            style={{
-              fontSize: "18px",
-              fontWeight: 700,
-              marginBottom: "1rem",
-            }}
-          >
-            Coded by
-          </div>
+        <div className={pageStyles.credits}>
+          <div className={pageStyles.heading}>Coded by</div>
           <a
             target="_blank"
             rel="noopener noreferrer"
@@ -113,11 +50,7 @@ export const AppFooter = ({ style }) => {
           </a>
         </div>
         <div>
-          <div
-            style={{
-              textAlign: "right",
-            }}
-          >
+          <div className={pageStyles.version}>
             <b>v{packageJson.version}</b>
           </div>
         </div>

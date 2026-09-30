@@ -1,3 +1,5 @@
+import pageStyles from "./DemoAvatar.styles.module.css";
+import AppButton from "./AppButton";
 import { useContext } from "react";
 import { Button, Card, Image, Tooltip, Alert, Badge } from "antd";
 import {
@@ -6,20 +8,12 @@ import {
   CopyOutlined,
 } from "@ant-design/icons";
 import { getExplorer } from "helpers/networks";
-import { Link } from "react-router-dom";
-import {
-  NFTCardStyle,
-  NFTsDiv,
-  NFTImg,
-  BtnPrimary,
-  BtnInfo,
-  NFTImgWrapperStyle,
-} from "../GlobalStyles";
+import { NFTImgWrapperStyle } from "../GlobalStyles";
 import { DemoNFTContracts } from "../MglNftMetadata";
 import { AvatarCtx } from "index";
 import { MainChainID } from "../MglNftMetadata";
 import { resolveNftSprite } from "../helpers/nft-props-resolvers";
-import { pageTitleStyle, descriptionStyle, mainFontColor } from "GlobalStyles";
+
 import Loader from "./Loader";
 import SnapArBtn from "./SnapArBtn";
 
@@ -37,47 +31,26 @@ function DemoAvatar() {
   const [avatar, setAvatar] = useContext(AvatarCtx);
   // Demo fallback UI since NFT logic is removed
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        minHeight: "80vh",
-        padding: "2rem",
-      }}
-    >
-      <section
-        style={{ ...pageTitleStyle, marginBottom: "2rem", textAlign: "center" }}
-      >
-        I am a Demo GymBuddy <SmileFilled style={{ color: "#FFBE59" }} />
+    <div className={pageStyles.page}>
+      <section className={pageStyles.title}>
+        I am a Demo GymBuddy <SmileFilled className={pageStyles.titleIcon} />
       </section>
       <Card
-        style={{
-          ...NFTCardStyle,
-          maxWidth: "300px",
-          width: "100%",
-        }}
+        className={pageStyles.avatarCard}
         cover={
           <Image
             preview={false}
             src={demoGymBuddyCoverUri}
             fallback={fallbackImg}
             alt="Demo Avatar"
-            style={NFTImg}
-            wrapperStyle={NFTImgWrapperStyle}
+            className={pageStyles.avatarImage}
+            classNames={{ root: pageStyles.imageRoot }}
           />
         }
       >
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            marginTop: "1rem",
-          }}
-        >
-          <Button
+        <div className={pageStyles.actions}>
+          <AppButton
+            to="/play-setup"
             onClick={() => {
               if (!demoGymBuddySpriteUri) return;
               const curAvatar = {
@@ -95,11 +68,9 @@ function DemoAvatar() {
                 console.warn("Failed to persist avatar to localStorage", e);
               }
             }}
-            type="primary"
-            style={BtnPrimary}
           >
-            <Link to="/play-setup">Play with me</Link>
-          </Button>
+            Play with me
+          </AppButton>
         </div>
       </Card>
     </div>

@@ -1,63 +1,8 @@
 .menu {
-  display: flex;
-  align-items: center;
-  height: 100%;
-  width: 100%;
-  justify-content: right;
-  background: none;
-  padding: 0;
+  flex: 1;
+  min-width: 0;
+  justify-content: flex-end;
   font-size: 17px;
   font-weight: 700;
-}
-
-.menu:global(.ant-menu-horizontal) {
-  height: 100%;
-  line-height: normal;
-  align-items: center;
-  color: var(--mgl-main-text);
-  box-shadow: none;
-  border: none;
-  background: transparent;
-}
-
-.menu:global(.ant-menu-horizontal) > :global(.ant-menu-item),
-.menu:global(.ant-menu-horizontal) > :global(.ant-menu-submenu) {
-  display: inline-flex;
-  align-items: center;
-  height: 100%;
-  line-height: normal;
-}
-
-.menu :global(.ant-menu-title-content) {
-  display: inline-flex;
-  align-items: center;
-}
-
-.menu :global(.ant-menu-item a) {
-  color: var(--mgl-main-text);
-}
-
-.menu :global(.ant-menu-item:hover a) {
-  color: var(--mgl-active);
-}
-
-.menu :global(.ant-menu-item-selected a) {
-  color: var(--mgl-main-text);
-}
-
-.menu:global(.ant-menu-horizontal) > :global(.ant-menu-item)::after,
-.menu:global(.ant-menu-horizontal) > :global(.ant-menu-submenu)::after {
-  border-bottom-width: 4px;
-}
-
-.menu:global(.ant-menu-horizontal) > :global(.ant-menu-item:hover)::after,
-.menu:global(.ant-menu-horizontal) > :global(.ant-menu-submenu:hover)::after,
-.menu:global(.ant-menu-horizontal) > :global(.ant-menu-item-active)::after,
-.menu:global(.ant-menu-horizontal) > :global(.ant-menu-submenu-active)::after,
-.menu:global(.ant-menu-horizontal) > :global(.ant-menu-item-open)::after,
-.menu:global(.ant-menu-horizontal) > :global(.ant-menu-submenu-open)::after,
-.menu:global(.ant-menu-horizontal) > :global(.ant-menu-item-selected)::after,
-.menu:global(.ant-menu-horizontal)
-  > :global(.ant-menu-submenu-selected)::after {
-  border-bottom-color: var(--mgl-active);
+  border-bottom: 0;
 }

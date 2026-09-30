@@ -1,0 +1,41 @@
+.instructions {
+  text-align: center;
+  color: var(--mgl-main-text);
+}
+
+.instructionsTrigger {
+  text-align: center;
+  cursor: pointer;
+  color: var(--mgl-main-text);
+}
+
+.instructionsIcon {
+  font-size: 20px;
+  color: var(--mgl-main-text);
+}
+
+.instructionsLabel {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
+.sidebar {
+  width: 60px;
+  padding: 1rem 0.5rem;
+  height: 100%;
+  position: fixed;
+  left: 0;
+  top: 0;
+  background-color: var(--mgl-main-bg);
+}
+
+.brand {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.instructionsWrap {
+  margin-top: 2rem;
+}

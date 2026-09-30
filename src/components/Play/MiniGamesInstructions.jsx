@@ -1,3 +1,4 @@
+import pageStyles from "./MiniGamesInstructions.styles.module.css";
 import {
   GYM_ROOM_SCENE,
   SPACE_STRETCH_SCENE,
@@ -24,7 +25,7 @@ export { MiniGameInstructions };
 
 const imgInDiv = (png) => {
   return (
-    <div style={{ padding: "0.3rem" }}>
+    <div className={pageStyles.instructions}>
       <img src={png} alt="" />
     </div>
   );
@@ -43,7 +44,7 @@ const turnLeftImg = imgInDiv(turnLeftPng);
 const turnRightImg = imgInDiv(turnRightPng);
 
 const beCreative = (
-  <div style={{ padding: "0.3rem" }}>
+  <div className={pageStyles.instructions}>
     <hr />
     <div>
       <b>Be creative!</b>

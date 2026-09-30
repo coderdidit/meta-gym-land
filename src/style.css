@@ -1,28 +1,10 @@
-.ant-modal-content {
-  overflow: auto;
-  border-radius: 1rem;
-}
-
-.ant-card-head {
-  border-bottom: none;
-}
-
 h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
-  color: inherit !important;
-}
-
-.ant-card-body {
-  padding-top: 1rem;
-  margin-top: 0 !important;
-}
-
-.ant-card-actions {
-  border-radius: 1rem !important;
+  color: inherit;
 }
 
 .demo-video:hover {
@@ -37,14 +19,4 @@ h6 {
 
 .black-bg {
   background-color: black;
-}
-
-#pose-det-webcam-canvas-cam-toggle-icon {
-  color: #06ff00;
-  font-size: calc(160%);
-}
-
-#pose-det-webcam-canvas-cam-toggle-div {
-  margin-top: calc(-12%);
-  margin-left: calc(2%);
 }

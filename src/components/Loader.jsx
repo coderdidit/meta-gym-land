@@ -1,12 +1,9 @@
+import pageStyles from "./Loader.styles.module.css";
 import { Spin } from "antd";
 import { MGLSmallLogo } from "Logos";
 
 const mglLogo = (
-  <div
-    style={{
-      padding: "1rem",
-    }}
-  >
+  <div className={pageStyles.logo}>
     <MGLSmallLogo />
   </div>
 );

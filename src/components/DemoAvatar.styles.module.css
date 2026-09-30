@@ -1,0 +1,47 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh;
+  padding: 2rem;
+}
+
+.title {
+  font-family: Source Serif Pro;
+  font-weight: bold;
+  font-size: 40px;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.titleIcon {
+  color: #ffbe59;
+}
+
+.avatarCard {
+  width: 100%;
+  text-align: left;
+  box-shadow: 0 0 10px 2px #a19f9f;
+  border-radius: 20px;
+  color: var(--mgl-main-text);
+  max-width: 300px;
+}
+
+.avatarImage {
+  border-radius: 20px 20px 0px 0px;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.imageRoot {
+  display: flex;
+  justify-content: center;
+  min-height: 320px;
+  border-radius: 20px 20px 0 0;
+}

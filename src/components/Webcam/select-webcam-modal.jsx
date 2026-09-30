@@ -1,6 +1,7 @@
+import pageStyles from "./select-webcam-modal.styles.module.css";
 import { SettingFilled } from "@ant-design/icons";
 import { Modal } from "antd";
-import { pageTitle2Style, mainFontColor } from "GlobalStyles";
+
 import { useState } from "react";
 import { SelectWebcam } from "./SelectWebcam";
 
@@ -11,31 +12,12 @@ const SelectWebcamModalWithIcon = () => {
 
   return (
     <>
-      <div
-        style={{
-          textAlign: "center",
-          marginTop: "1rem",
-          cursor: "pointer",
-          color: mainFontColor,
-        }}
-        onClick={() => setVisible(true)}
-      >
-        <SettingFilled
-          style={{
-            fontSize: "22px",
-            color: mainFontColor,
-          }}
-        />
+      <div className={pageStyles.trigger} onClick={() => setVisible(true)}>
+        <SettingFilled className={pageStyles.settingsIcon} />
       </div>
       <Modal
         title={
-          <div
-            style={{
-              textAlign: "center",
-              ...pageTitle2Style,
-              color: mainFontColor,
-            }}
-          >
+          <div className={pageStyles.title}>
             <h4>
               Select webcam <SettingFilled />
             </h4>
@@ -46,16 +28,7 @@ const SelectWebcamModalWithIcon = () => {
         onOk={() => setVisible(false)}
         onCancel={() => setVisible(false)}
       >
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            paddingTop: "1rem",
-            paddingBottom: "1rem",
-            textAlign: "center",
-          }}
-        >
+        <div className={pageStyles.selector}>
           <SelectWebcam width={"15rem"} />
         </div>
       </Modal>

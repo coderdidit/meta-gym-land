@@ -42,30 +42,6 @@ export const NFTImg = {
   borderRadius: "20px 20px 0px 0px",
 };
 
-const BtnBase = {
-  fontFamily: "Roboto, sans-serif",
-  border: "none",
-  color: "#FFFFFF",
-  borderRadius: "20px",
-  fontSize: "15px",
-  fontWeight: "500",
-};
-
-export const BtnInfo = {
-  ...BtnBase,
-  backgroundColor: "#408CFD",
-};
-
-export const BtnPrimary = {
-  ...BtnBase,
-  backgroundColor: "#FF74A6",
-};
-
-export const BtnSecondary = {
-  ...BtnBase,
-  backgroundColor: "#AD9BFF",
-};
-
 export const BreakFlexDiv = {
   flexBasis: "100%",
   height: "0px",

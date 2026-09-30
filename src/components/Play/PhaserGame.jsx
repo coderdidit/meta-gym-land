@@ -1,7 +1,13 @@
 import { useLayoutEffect, useRef } from "react";
 import Phaser from "phaser";
 
-const PhaserGame = ({ config, id, style, children }) => {
+const PhaserGame = ({
+  config,
+  id,
+  style = undefined,
+  className = "",
+  children,
+}) => {
   const containerRef = useRef(null);
   const gameRef = useRef();
 
@@ -24,7 +30,7 @@ const PhaserGame = ({ config, id, style, children }) => {
   }, [config]);
 
   return (
-    <div id={id} ref={containerRef} style={style}>
+    <div id={id} ref={containerRef} style={style} className={className}>
       {children}
     </div>
   );

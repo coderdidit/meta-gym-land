@@ -1,0 +1,36 @@
+.walletWarning {
+  display: grid;
+  place-items: center;
+  margin-top: 4rem;
+}
+
+.title {
+  font-family: Source Serif Pro;
+  font-weight: bold;
+  font-size: 40px;
+}
+
+.description {
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 28px;
+}
+
+.subtitle {
+  font-family: Source Serif Pro;
+  font-weight: 700;
+  font-size: 25px;
+  margin-top: 3rem;
+}
+
+.networkWarning {
+  display: grid;
+  place-items: center;
+  margin-top: 4rem;
+  margin-bottom: 4rem;
+  text-align: center;
+}
+
+.actions {
+  margin: 1rem;
+}

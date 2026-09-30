@@ -7,22 +7,6 @@ function MenuItems() {
   const { pathname } = useLocation();
 
   const menuItems = [
-    // {
-    //   key: "/avatars",
-    //   label: <NavLink to="/avatars">Your GymBuddies</NavLink>,
-    // },
-    // {
-    //   key: "/mint",
-    //   label: <NavLink to="/mint">Mint</NavLink>,
-    // },
-    // {
-    //   key: "/marketplace",
-    //   label: <NavLink to="/marketplace">Marketplace</NavLink>,
-    // },
-    // {
-    //   key: "/rewards",
-    //   label: <NavLink to="/rewards">Rewards</NavLink>,
-    // },
     {
       key: "/minigames",
       label: <NavLink to="/minigames">Minigames</NavLink>,
@@ -30,11 +14,13 @@ function MenuItems() {
     {
       key: "/how-to",
       label: (
-        <div
-          onClick={() => window.open("https://docs.metagymland.com/", "_blank")}
+        <a
+          href="https://docs.metagymland.com/"
+          target="_blank"
+          rel="noopener noreferrer"
         >
           How to use the app
-        </div>
+        </a>
       ),
     },
   ];

@@ -1,8 +1,7 @@
 import React from "react";
-import { Button, Image } from "antd";
+import { Image } from "antd";
 import { PlaySquareOutlined } from "@ant-design/icons";
-import { pageTitleStyle, pageTitle2Style } from "GlobalStyles";
-import { Link } from "react-router-dom";
+import AppButton from "./AppButton";
 import homePageImg from "./assets/home_page/home_page_img.png";
 import howItWorks1 from "./assets/home_page/how_it_works_1.png";
 import howItWorks2 from "./assets/home_page/how_it_works_2.png";
@@ -16,30 +15,20 @@ export default function Home() {
     <div>
       <section className={stylesCss.hero}>
         <div className={stylesCss.heroContent}>
-          <div className={stylesCss.heroTitle} style={pageTitleStyle}>
-            Ready to get started?
-          </div>
+          <div className={stylesCss.heroTitle}>Ready to get started?</div>
           <div className={stylesCss.heroSubtitle}>
             Follow steps below, have fun and get fit!
           </div>
 
           <div className={stylesCss.heroCtaWrap}>
-            {/* <Button
-              type="primary"
-              style={{
-                ...BtnPrimary,
-                marginRight: "1rem",
-              }}
-            >
-              <Link to="/demo-avatar">Play now</Link>
-            </Button> */}
-            <Button className="mgl-btn mgl-btn-info">
-              <Link to="/demo-avatar">Try with Demo GymBuddy</Link>
-            </Button>
+            <AppButton intent="info" to="/demo-avatar">
+              Try with Demo GymBuddy
+            </AppButton>
           </div>
         </div>
 
         <Image
+          classNames={{ root: stylesCss.imageRoot }}
           preview={false}
           src={homePageImg}
           alt=""
@@ -49,10 +38,11 @@ export default function Home() {
 
       <section className={stylesCss.howItWorksSection}>
         <div className={stylesCss.howItWorksHeader}>
-          <div style={pageTitle2Style}>How it works?</div>
+          <div className={stylesCss.sectionTitle}>How it works?</div>
 
-          <Button
-            className={`mgl-btn mgl-btn-secondary ${stylesCss.watchVideoBtn}`}
+          <AppButton
+            intent="secondary"
+            className={stylesCss.watchVideoBtn}
             onClick={() =>
               window.open(
                 "https://www.youtube.com/watch?v=vTWeE7YJnj4",
@@ -61,11 +51,12 @@ export default function Home() {
             }
           >
             <PlaySquareOutlined /> Watch video
-          </Button>
+          </AppButton>
         </div>
         <div className={stylesCss.howItWorksGrid}>
           <div>
             <Image
+              classNames={{ root: stylesCss.imageRoot }}
               preview={false}
               src={howItWorks1}
               alt=""
@@ -79,6 +70,7 @@ export default function Home() {
           </div>
           <div>
             <Image
+              classNames={{ root: stylesCss.imageRoot }}
               preview={false}
               src={howItWorks2}
               alt=""
@@ -92,6 +84,7 @@ export default function Home() {
           </div>
           <div>
             <Image
+              classNames={{ root: stylesCss.imageRoot }}
               preview={false}
               src={howItWorks3}
               alt=""
@@ -107,7 +100,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <div className={stylesCss.spacer} />
 
       <section className={stylesCss.socialSection}>
         <div className={stylesCss.socialInner}>

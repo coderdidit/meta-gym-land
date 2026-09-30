@@ -1,3 +1,4 @@
+import pageStyles from "./SnapArBtn.styles.module.css";
 import { SnapChatLogo } from "../Logos";
 import QRCode from "qrcode";
 
@@ -6,22 +7,7 @@ const SnapArBtn = ({ snapARLink }) => {
 
   return (
     <div
-      className="snap-btn"
-      style={{
-        backgroundColor: "#F6F403",
-        color: "black",
-        zIndex: "2",
-        margin: "1rem",
-        padding: "0.5rem",
-        borderRadius: "50%",
-        border: "1px solid black",
-        height: "42px",
-        width: "42px",
-        // grid props
-        gridArea: "overlap",
-        alignSelf: "start",
-        justifySelf: "end",
-      }}
+      className={["snap-btn", pageStyles.snapButton].filter(Boolean).join(" ")}
       onClick={async () => {
         if (!link) {
           window.alert("Your GymBuddy does not have a Snap Lens.");

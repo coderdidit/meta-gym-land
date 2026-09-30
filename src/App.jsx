@@ -6,11 +6,11 @@ import {
 } from "react-router-dom";
 import DemoAvatar from "components/DemoAvatar";
 import GymBuddyDetails from "components/GymBuddyDetails";
-import { Layout, Divider, ConfigProvider } from "antd";
+import { Layout, ConfigProvider } from "antd";
 import "antd/dist/reset.css";
 import "./style.css";
 import "./styles/tokens.css";
-import "./styles/buttons.css";
+import { appTheme } from "./styles/theme";
 import Home from "components/Home";
 import SocialsPage from "components/SocialsPage";
 import LoaderTest from "components/LoaderTest";
@@ -21,7 +21,6 @@ import { AppFooter } from "AppFooter";
 import PlayPage from "components/Play";
 import GymRoomSandbox from "components/Play/GymRoomSandbox";
 import PlaySetupPage from "components/Play/PlaySetupPage";
-import { paddingLRHeaderFooter } from "./GlobalStyles";
 import { MiniGamesPage } from "components/minigames-page";
 import { ProgressPage } from "components/user-progrees";
 import styles from "./App.module.css";
@@ -31,7 +30,7 @@ const { Header } = Layout;
 const App = () => {
   return (
     <div className={styles.appRoot}>
-      <ConfigProvider wave={{ disabled: true }}>
+      <ConfigProvider theme={appTheme} wave={{ disabled: true }}>
         <Router>
           <Header className={styles.header}>
             <div className={styles.headerBrandWrap}>
@@ -79,7 +78,7 @@ const App = () => {
           </div>
         </Router>
       </ConfigProvider>
-      <AppFooter style={{ ...paddingLRHeaderFooter }} />
+      <AppFooter />
     </div>
   );
 };

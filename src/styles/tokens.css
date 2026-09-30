@@ -1,4 +1,5 @@
 :root {
+  --mgl-surface: #f8f8f8;
   --mgl-main-bg: #ffffff;
   --mgl-main-text: #595959;
   --mgl-active: #ffa2c4;
@@ -6,15 +7,4 @@
   --main-bg-color: var(--mgl-main-bg);
   --main-text-color: var(--mgl-main-text);
   --active-color: var(--mgl-active);
-
-  --mgl-btn-radius: 20px;
-  --mgl-btn-font-size: 15px;
-  --mgl-btn-font-weight: 500;
-  --mgl-btn-min-height: 52px;
-  --mgl-btn-padding-x: 12px;
-  --mgl-btn-padding-y: 8px;
-
-  --mgl-btn-info-bg: #408cfd;
-  --mgl-btn-primary-bg: #ff74a6;
-  --mgl-btn-secondary-bg: #ad9bff;
 }

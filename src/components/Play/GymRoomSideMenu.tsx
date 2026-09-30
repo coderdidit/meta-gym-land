@@ -1,9 +1,10 @@
+import pageStyles from "./GymRoomSideMenu.styles.module.css";
 import React, { useContext, useEffect } from "react";
 import { AvatarCtx, MiniGameCtx } from "index";
 import { MGLSmallLogo } from "Logos";
 import { InfoCircleFilled } from "@ant-design/icons";
 import { Link } from "react-router-dom";
-import { mainBgColor, mainFontColor } from "../../GlobalStyles";
+
 import { Popover } from "antd";
 import { MiniGameInstructions } from "./MiniGamesInstructions";
 import { UserProgressModalWithIcon } from "components/user-progrees";
@@ -17,39 +18,16 @@ const miniGameInstructions = (minigame: string) => {
   return (
     <>
       <Popover
-        style={{
-          textAlign: "center",
-          color: mainFontColor,
-        }}
+        className={pageStyles.instructions}
         placement="topRight"
         title={i?.title}
         content={i?.content}
         trigger="click"
       >
-        <div
-          id={"howto-menu-ico"}
-          style={{
-            textAlign: "center",
-            cursor: "pointer",
-            color: mainFontColor,
-          }}
-        >
-          <InfoCircleFilledIcon
-            style={{
-              fontSize: "20px",
-              color: mainFontColor,
-            }}
-          />
+        <div id={"howto-menu-ico"} className={pageStyles.instructionsTrigger}>
+          <InfoCircleFilledIcon className={pageStyles.instructionsIcon} />
         </div>
-        <div
-          style={{
-            textAlign: "center",
-            display: "flex",
-            justifyContent: "center",
-          }}
-        >
-          how to
-        </div>
+        <div className={pageStyles.instructionsLabel}>how to</div>
       </Popover>
     </>
   );
@@ -69,24 +47,8 @@ const SideMenu = () => {
   }, []);
 
   return (
-    <div
-      style={{
-        width: "60px",
-        padding: "1rem",
-        height: "100%",
-        position: "fixed",
-        left: "0",
-        top: "0",
-        backgroundColor: mainBgColor,
-      }}
-    >
-      <div
-        style={{
-          width: "inherit",
-          marginLeft: "-9px",
-          marginBottom: "1rem",
-        }}
-      >
+    <div className={pageStyles.sidebar}>
+      <div className={pageStyles.brand}>
         {/* home */}
         <Link to="/">
           <MGLSmallLogo width={43} height={23} viewBox={"0 0 53 43"} />
@@ -98,11 +60,7 @@ const SideMenu = () => {
       {/* user progress */}
       <UserProgressModalWithIcon avatar={avatar} />
       {/* instructions */}
-      <div
-        style={{
-          marginTop: "2rem",
-        }}
-      >
+      <div className={pageStyles.instructionsWrap}>
         {miniGameInstructions(minigame)}
       </div>
     </div>

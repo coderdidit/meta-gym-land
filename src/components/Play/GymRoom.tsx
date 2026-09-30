@@ -1,3 +1,4 @@
+import pageStyles from "./GymRoom.styles.module.css";
 import React, { useState, useEffect, useContext } from "react";
 import { MiniGameCtx } from "index";
 import PoseDetWebcam from "components/Webcam/PoseDetWebcam";
@@ -64,29 +65,11 @@ const GymRoom = ({
   }, [avatar, miniGameId]);
 
   return (
-    <PhaserGame
-      config={config}
-      id="phaser-app"
-      style={{
-        position: "absolute",
-        top: "0px",
-        bottom: "0px",
-        width: "100%",
-        height: "100%",
-        zIndex: "1",
-      }}
-    >
+    <PhaserGame config={config} id="phaser-app" className={pageStyles.game}>
       <SideMenu />
 
       {useWebcam && (
-        <div
-          style={{
-            position: "fixed",
-            top: "1%",
-            left: "45%",
-            bottom: "0px",
-          }}
-        >
+        <div className={pageStyles.loading}>
           <PoseDetWebcam
             sizeProps={{
               width: "220px",
