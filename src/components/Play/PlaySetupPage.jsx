@@ -80,7 +80,7 @@ const PlaySetupPage = () => {
 
         <div className={styles.footer}>
           <AppButton
-            intent="success"
+            intent="info"
             disabled={webcamId == null}
             to={linkToJoinMetaGymLand()}
           >

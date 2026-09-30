@@ -9,12 +9,17 @@ function MenuItems() {
   const menuItems = [
     {
       key: "/minigames",
-      label: <NavLink to="/minigames">Minigames</NavLink>,
+      label: (
+        <NavLink className={styles.link} to="/minigames">
+          Minigames
+        </NavLink>
+      ),
     },
     {
       key: "/how-to",
       label: (
         <a
+          className={styles.link}
           href="https://docs.metagymland.com/"
           target="_blank"
           rel="noopener noreferrer"
@@ -28,6 +33,8 @@ function MenuItems() {
   return (
     <Menu
       className={styles.menu}
+      classNames={{ itemContent: styles.itemContent }}
+      styles={{ item: { lineHeight: "60px" } }}
       theme="light"
       mode="horizontal"
       selectedKeys={[pathname]}

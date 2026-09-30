@@ -46,8 +46,18 @@ ol[class] {
   list-style: none;
 }
 
-a:not([class]) {
+a {
+  color: var(--mgl-link);
+  text-decoration: none;
   text-decoration-skip-ink: auto;
+}
+
+a:hover {
+  color: var(--mgl-link-hover);
+}
+
+a:active {
+  color: var(--mgl-link-active);
 }
 
 img {

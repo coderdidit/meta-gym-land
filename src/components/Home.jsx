@@ -1,5 +1,4 @@
 import React from "react";
-import { Image } from "antd";
 import { PlaySquareOutlined } from "@ant-design/icons";
 import AppButton from "./AppButton";
 import homePageImg from "./assets/home_page/home_page_img.png";
@@ -27,16 +26,10 @@ export default function Home() {
           </div>
         </div>
 
-        <Image
-          classNames={{ root: stylesCss.imageRoot }}
-          preview={false}
-          src={homePageImg}
-          alt=""
-          className={stylesCss.heroImage}
-        />
+        <img src={homePageImg} alt="" className={stylesCss.heroImage} />
       </section>
 
-      <section className={stylesCss.howItWorksSection}>
+      <section>
         <div className={stylesCss.howItWorksHeader}>
           <div className={stylesCss.sectionTitle}>How it works?</div>
 
@@ -55,9 +48,7 @@ export default function Home() {
         </div>
         <div className={stylesCss.howItWorksGrid}>
           <div>
-            <Image
-              classNames={{ root: stylesCss.imageRoot }}
-              preview={false}
+            <img
               src={howItWorks1}
               alt=""
               className={stylesCss.howItWorksImage}
@@ -69,9 +60,7 @@ export default function Home() {
             <p>Now it is not necessary.</p>
           </div>
           <div>
-            <Image
-              classNames={{ root: stylesCss.imageRoot }}
-              preview={false}
+            <img
               src={howItWorks2}
               alt=""
               className={stylesCss.howItWorksImage}
@@ -83,9 +72,7 @@ export default function Home() {
             <p>Just try DemoGym Buddy</p>
           </div>
           <div>
-            <Image
-              classNames={{ root: stylesCss.imageRoot }}
-              preview={false}
+            <img
               src={howItWorks3}
               alt=""
               className={stylesCss.howItWorksImage}

@@ -1,4 +1,7 @@
 :root {
+  --mgl-link: #1890ff;
+  --mgl-link-hover: #40a9ff;
+  --mgl-link-active: #096dd9;
   --mgl-surface: #f8f8f8;
   --mgl-main-bg: #ffffff;
   --mgl-main-text: #595959;

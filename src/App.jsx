@@ -9,7 +9,7 @@ import GymBuddyDetails from "components/GymBuddyDetails";
 import { Layout, ConfigProvider } from "antd";
 import "antd/dist/reset.css";
 import "./style.css";
-import "./styles/tokens.css";
+import "./styles/variables.css";
 import { appTheme } from "./styles/theme";
 import Home from "components/Home";
 import SocialsPage from "components/SocialsPage";
