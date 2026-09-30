@@ -1,0 +1,9 @@
+.cameraIcon {
+  font-size: 1.2rem;
+}
+
+.deviceLabel {
+  width: 185px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

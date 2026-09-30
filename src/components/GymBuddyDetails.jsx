@@ -1,13 +1,8 @@
+import pageStyles from "./GymBuddyDetails.styles.module.css";
 import { Button, Image, List, Alert } from "antd";
 import { SelectOutlined, HeartFilled, CopyOutlined } from "@ant-design/icons";
 import { getExplorer } from "helpers/networks";
-import {
-  mainFontColor,
-  mainBgColor,
-  pageTitle2Style,
-  pageTitleStyle,
-  descriptionStyle,
-} from "../GlobalStyles";
+
 import { MainChainID, AllowedNftContracts } from "../MglNftMetadata";
 import Loader from "./Loader";
 import { useParams } from "react-router";
@@ -20,21 +15,16 @@ const fallbackImg =
 function GymBuddyDetails() {
   // Fallback UI since NFT logic is removed
   return (
-    <div style={{ textAlign: "center", padding: "6rem" }}>
+    <div className={pageStyles.page}>
       <Alert
         message="NFT details are no longer available in this version."
         type="info"
       />
-      <div style={{ marginBottom: "10px" }}></div>
+      <div className={pageStyles.spacing}></div>
       <Button
         type="primary"
         onClick={() => window.history.back()}
-        style={{
-          float: "left",
-          backgroundColor: mainBgColor,
-          color: mainFontColor,
-          border: `1px solid ${mainFontColor}`,
-        }}
+        className={pageStyles.backButton}
       >
         <LeftOutlined />
         Back

@@ -1,3 +1,4 @@
+import pageStyles from "./SelectWebcam.styles.module.css";
 import React, { useState, useCallback, useEffect, useContext } from "react";
 import { VideoCameraFilled } from "@ant-design/icons";
 import { Select } from "antd";
@@ -75,11 +76,7 @@ const SelectWebcam = ({ width = "auto" }) => {
   return (
     videoDevices.length > 0 && (
       <>
-        <VideoCameraFilled
-          style={{
-            fontSize: "1.2rem",
-          }}
-        />
+        <VideoCameraFilled className={pageStyles.cameraIcon} />
         &nbsp;&nbsp;
         <Select
           value={webcamId}
@@ -92,13 +89,7 @@ const SelectWebcam = ({ width = "auto" }) => {
         >
           {videoDevices.map((device, key) => (
             <Option key={key} value={device.deviceId}>
-              <div
-                style={{
-                  width: "185px",
-                  overflow: "hidden",
-                  textOverflow: "ellipsis",
-                }}
-              >
+              <div className={pageStyles.deviceLabel}>
                 {device.label || `Device ${key + 1}`}
               </div>
             </Option>

@@ -1,0 +1,22 @@
+.menu {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  justify-content: flex-end;
+  font-size: 17px;
+  font-weight: 700;
+  border-bottom: 0;
+}
+
+.itemContent {
+  color: var(--mgl-main-text);
+}
+
+.link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.link:hover {
+  color: var(--mgl-active);
+}

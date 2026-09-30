@@ -50,7 +50,19 @@ https://github.com/coderdidit/meta-gym-land-nft-utils
 
 ## Running locally
 
+Use Node.js 24 LTS (Node.js 22.12+ is also supported).
+
 ```
 yarn install
 yarn start
 ```
+
+## Tests
+
+```sh
+yarn test        # Run the unit tests once, including in CI
+yarn test:watch  # Rerun tests as files change
+```
+
+Tests use Vitest and share the Vite configuration and import aliases. The current
+unit tests run in Node; desktop gameplay and webcam checks are performed manually.

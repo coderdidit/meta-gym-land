@@ -16,6 +16,7 @@ const sceneConfig = {
 export class BootScene extends Phaser.Scene {
   assetsLoaded!: boolean;
   selectedAvatar!: { uri: any };
+  playerTextureOverridden = false;
   loadIndex;
   progressBarContainer!: Phaser.GameObjects.Rectangle;
   progressBar!: Phaser.GameObjects.Rectangle;
@@ -43,8 +44,12 @@ export class BootScene extends Phaser.Scene {
         console.log("load_asset", key);
         if (key === PLAYER_KEY) {
           const uri = this.selectedAvatar?.uri;
-          if (typeof uri === "string" && uri) {
+          if (typeof uri === "string" && uri && !this.playerTextureOverridden) {
+            if (this.textures.exists(PLAYER_KEY)) {
+              this.textures.remove(PLAYER_KEY);
+            }
             this.textures.addBase64(PLAYER_KEY, uri);
+            this.playerTextureOverridden = true;
           }
           this.assetsLoaded = true;
           this.loadingText?.setText(`Loading Player Avatar...`);

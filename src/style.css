@@ -1,85 +1,10 @@
-.ant-modal-content {
-  overflow: auto;
-  border-radius: 1rem;
-}
-
-.ant-card-head {
-  border-bottom: none;
-}
-
-:root {
-  --main-bg-color: #ffffff;
-  --main-text-color: #595959;
-  --active-color: #ffa2c4;
-}
-
 h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
-  color: inherit !important;
-}
-
-.ant-layout-header,
-.ant-menu,
-.ant-menu-root {
-  color: var(--main-text-color);
-  box-shadow: none;
-  border: none;
-  border-bottom: none;
-}
-
-.ant-typography,
-.ant-layout {
-  color: var(--main-text-color);
-}
-
-.ant-menu-item a {
-  color: var(--main-text-color) !important;
-}
-
-.ant-menu-horizontal > .ant-menu-item-selected a {
-  color: var(--main-text-color) !important;
-}
-
-.ant-card-body {
-  padding-top: 1rem;
-  margin-top: 0 !important;
-}
-
-.ant-card-actions {
-  border-radius: 1rem !important;
-}
-
-.ant-menu-horizontal > .ant-menu-item a:hover {
-  color: var(--active-color) !important;
-}
-
-.ant-menu-horizontal > .ant-menu-item-selected a {
-  color: var(--main-text-color) !important;
-}
-
-.ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item:hover::after,
-.ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-submenu:hover::after,
-.ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item-active::after,
-.ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-submenu-active::after,
-.ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item-open::after,
-.ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-submenu-open::after,
-.ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item-selected::after,
-.ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-submenu-selected::after {
-  border-bottom: 4px solid var(--active-color) !important;
-}
-
-.join-mgl-btn {
-  background-color: #20bf96;
-}
-
-.join-mgl-btn:hover {
-  color: #474646;
-  background-color: #20bf96;
-  box-shadow: inset 0 0 100px 100px rgba(255, 255, 255, 0.1);
+  color: inherit;
 }
 
 .demo-video:hover {
@@ -94,14 +19,4 @@ h6 {
 
 .black-bg {
   background-color: black;
-}
-
-#pose-det-webcam-canvas-cam-toggle-icon {
-  color: #06ff00;
-  font-size: calc(160%);
-}
-
-#pose-det-webcam-canvas-cam-toggle-div {
-  margin-top: calc(-12%);
-  margin-left: calc(2%);
 }

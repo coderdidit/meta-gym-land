@@ -1,0 +1,13 @@
+:root {
+  --mgl-link: #1890ff;
+  --mgl-link-hover: #40a9ff;
+  --mgl-link-active: #096dd9;
+  --mgl-surface: #f8f8f8;
+  --mgl-main-bg: #ffffff;
+  --mgl-main-text: #595959;
+  --mgl-active: #ffa2c4;
+  /* Backward-compatible aliases for existing legacy CSS rules */
+  --main-bg-color: var(--mgl-main-bg);
+  --main-text-color: var(--mgl-main-text);
+  --active-color: var(--mgl-active);
+}

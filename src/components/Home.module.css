@@ -1,0 +1,126 @@
+.hero {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  padding: 4rem 6rem;
+  background: linear-gradient(
+    135deg,
+    rgb(78, 51, 175) 14%,
+    rgb(255, 116, 166) 55%,
+    rgb(27, 222, 210) 85%,
+    rgb(27, 222, 210)
+  );
+}
+
+.heroTitle {
+  font-family: "Source Serif Pro", serif;
+  font-size: 40px;
+  font-weight: bold;
+  color: var(--mgl-main-bg);
+  padding-top: 3rem;
+}
+
+.heroSubtitle {
+  color: var(--mgl-main-bg);
+  font-size: 20px;
+  line-height: 28px;
+}
+
+.heroCtaWrap {
+  padding-top: 1.5rem;
+}
+
+.heroImage {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.heroContent {
+  color: #fff;
+}
+
+.howItWorksHeader {
+  text-align: center;
+  padding: 1.5rem 1rem 1rem;
+}
+
+.howItWorksGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  justify-content: center;
+  text-align: center;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 28px;
+}
+
+.howItWorksImage {
+  width: 80%;
+  padding: 0;
+  margin: 0 auto;
+}
+
+.stepTitle {
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+.stepTitleNoMargin {
+  font-weight: 500;
+}
+
+.socialSection {
+  margin-top: 3rem;
+  padding: 2.8rem;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--mgl-surface);
+}
+
+.socialInner {
+  display: grid;
+  place-items: center;
+}
+
+.contactWrap {
+  margin-top: 2rem;
+  text-align: center;
+  font-size: 18px;
+}
+
+.contactEmailWrap {
+  margin-top: 1rem;
+}
+
+.contactEmail {
+  text-decoration: none;
+  color: var(--mgl-main-text);
+}
+
+.watchVideoBtn {
+  margin: 1rem;
+}
+
+@media (max-width: 1024px) {
+  .hero {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding: 3rem 2rem;
+  }
+
+  .heroTitle {
+    padding-top: 0;
+  }
+
+  .howItWorksGrid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 0 1rem;
+  }
+}
+
+.sectionTitle {
+  font-family: "Source Serif Pro", serif;
+  font-size: 30px;
+  font-weight: bold;
+}

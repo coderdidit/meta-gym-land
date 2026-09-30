@@ -1,0 +1,86 @@
+.page {
+  display: grid;
+  place-items: center;
+  margin-top: 3rem;
+  margin-bottom: 6rem;
+  padding-inline: 1rem;
+}
+
+.card {
+  box-shadow: 0 0 20px 2px #020811;
+  border-radius: 1rem;
+  padding: 3rem;
+  max-width: 100%;
+  margin-top: 1.5rem;
+  background-color: var(--mgl-surface);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2rem;
+}
+
+.title {
+  font-family: "Source Serif Pro", serif;
+  font-size: 25px;
+}
+
+.avatarWrap {
+  text-align: center;
+  margin: 1.5rem 0;
+  max-width: 300px;
+}
+
+.avatarImage {
+  border-radius: 20px;
+}
+
+.backWrap {
+  padding-top: 1rem;
+}
+
+.cameraWrap {
+  padding: 2rem 0;
+  text-align: center;
+  margin: 1.5rem 0;
+}
+
+.selectWrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  text-align: center;
+}
+
+.hint {
+  opacity: 0.5;
+  text-align: center;
+}
+
+.footer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+@media (max-width: 1024px) {
+  .card {
+    width: min(100%, 700px);
+    padding: 2rem 1.25rem;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+.imageRoot {
+  display: flex;
+  justify-content: center;
+}

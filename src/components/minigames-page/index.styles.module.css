@@ -1,0 +1,59 @@
+.page {
+  text-align: center;
+  margin-top: 3rem;
+  margin-bottom: 4rem;
+}
+
+.title {
+  font-family: Source Serif Pro;
+  font-weight: bold;
+  font-size: 40px;
+  margin-bottom: 1rem;
+}
+
+.titleIcon {
+  color: #ffbe59;
+}
+
+.description {
+  margin-bottom: 4rem;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 28px;
+}
+
+.gamesSection {
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 28px;
+  margin-bottom: 15rem;
+  padding: 0 5rem;
+}
+
+.games {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.unlockedIcon {
+  color: #4290fc;
+}
+
+.gameCard {
+  flex: 0 0 33.333333%;
+  margin: 5px;
+  height: 100px;
+  background-color: #f7f7f8;
+  border: 1px solid #898988;
+  padding: 1rem;
+}
+.locked {
+  opacity: 0.5;
+}
+@media (max-width: 768px) {
+  .gameCard {
+    flex-basis: 100%;
+    height: auto;
+  }
+}

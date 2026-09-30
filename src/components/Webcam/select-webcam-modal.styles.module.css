@@ -1,0 +1,28 @@
+.trigger {
+  text-align: center;
+  margin-top: 1rem;
+  cursor: pointer;
+  color: var(--mgl-main-text);
+}
+
+.settingsIcon {
+  font-size: 22px;
+  color: var(--mgl-main-text);
+}
+
+.title {
+  text-align: center;
+  font-family: Source Serif Pro;
+  font-weight: bold;
+  font-size: 30px;
+  color: var(--mgl-main-text);
+}
+
+.selector {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  text-align: center;
+}

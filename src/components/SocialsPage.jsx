@@ -1,3 +1,4 @@
+import pageStyles from "./SocialsPage.styles.module.css";
 import {
   Discord,
   Telegram,
@@ -7,7 +8,6 @@ import {
   // Newsletter,
 } from "../SocialLinksCfg";
 // import { Button } from "antd";
-import { pageTitleStyle } from "../GlobalStyles";
 
 const btnsPadding = "0.5rem";
 
@@ -76,88 +76,36 @@ const InstagramIcon = (props) => (
 export const SocialsLinks = () => {
   return (
     <>
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr 1fr 1fr 1fr",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <div
-          style={{
-            display: "grid",
-            justifyContent: "center",
-          }}
-        >
+      <div className={pageStyles.socialGrid}>
+        <div className={pageStyles.socialLink}>
           <a href={Discord} target="_blank" rel="noreferrer">
             <DiscordIcon />
           </a>
         </div>
-        <div
-          style={{
-            display: "grid",
-            justifyContent: "center",
-          }}
-        >
+        <div className={pageStyles.socialLink}>
           <a href={Telegram} target="_blank" rel="noreferrer">
             <TelegramIcon />
           </a>
         </div>
-        <div
-          style={{
-            display: "grid",
-            justifyContent: "center",
-          }}
-        >
+        <div className={pageStyles.socialLink}>
           <a href={Twitter} target="_blank" rel="noreferrer">
             <TwitterIcon />
           </a>
         </div>
-        <div
-          style={{
-            display: "grid",
-            justifyContent: "center",
-          }}
-        >
+        <div className={pageStyles.socialLink}>
           <a href={Instagram} target="_blank" rel="noreferrer">
             <InstagramIcon />
           </a>
         </div>
 
-        <div
-          style={{
-            display: "grid",
-            justifyContent: "center",
-          }}
-        >
+        <div className={pageStyles.socialLink}>
           <a href={TikTok} target="_blank" rel="noreferrer">
             <TikTokIcon />
           </a>
         </div>
       </div>
-      <div
-        style={{
-          marginTop: "1rem",
-          display: "grid",
-          justifyContent: "center",
-        }}
-      >
-        <div
-          style={{
-            padding: btnsPadding,
-          }}
-        >
-          {/* <Button
-            style={{
-              ...BtnPrimary,
-            }}
-          >
-            <a href={Newsletter} target="_blank" rel="noreferrer">
-              Sing up to newsletter{" "}
-            </a>
-          </Button> */}
-        </div>
+      <div className={pageStyles.newsletter}>
+        <div className={pageStyles.newsletterContent}></div>
       </div>
     </>
   );
@@ -166,14 +114,7 @@ export const SocialsLinks = () => {
 export const SocialsComponent = () => {
   return (
     <div>
-      <div
-        style={{
-          ...pageTitleStyle,
-          paddingBottom: "2rem",
-        }}
-      >
-        Join MetaGymLand community
-      </div>
+      <div className={pageStyles.title}>Join MetaGymLand community</div>
       <SocialsLinks />
     </div>
   );
@@ -181,13 +122,7 @@ export const SocialsComponent = () => {
 
 const SocialsPage = () => {
   return (
-    <div
-      style={{
-        display: "grid",
-        placeItems: "center",
-        minHeight: "70vh",
-      }}
-    >
+    <div className={pageStyles.page}>
       <SocialsComponent />
     </div>
   );

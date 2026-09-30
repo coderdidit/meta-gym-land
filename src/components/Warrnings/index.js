@@ -1,41 +1,16 @@
-import {
-  pageTitleStyle,
-  pageTitle3Style,
-  descriptionStyle,
-} from "../../GlobalStyles";
+import pageStyles from "./index.styles.module.css";
+
 import { PolygonLogo } from "../Chains/Logos";
 
 const ConnectWalletWarn = () => {
   return (
     <div>
-      <div
-        style={{
-          display: "grid",
-          placeItems: "center",
-          marginTop: "4rem",
-        }}
-      >
-        <h1
-          style={{
-            ...pageTitleStyle,
-          }}
-        >
-          Please connect your wallet
-        </h1>
-        <p
-          style={{
-            ...descriptionStyle,
-          }}
-        >
+      <div className={pageStyles.walletWarning}>
+        <h1 className={pageStyles.title}>Please connect your wallet</h1>
+        <p className={pageStyles.description}>
           To see your&nbsp;MetaGymLand NFTs
         </p>
-        <p
-          style={{
-            ...pageTitle3Style,
-            fontWeight: 700,
-            marginTop: "3rem",
-          }}
-        >
+        <p className={pageStyles.subtitle}>
           If it does not look right? Hit refresh
         </p>
       </div>
@@ -46,50 +21,16 @@ const ConnectWalletWarn = () => {
 const UseCorrectNetworkWarn = () => {
   return (
     <div>
-      <div
-        style={{
-          display: "grid",
-          placeItems: "center",
-          marginTop: "4rem",
-          marginBottom: "4rem",
-          textAlign: "center",
-        }}
-      >
-        <h1
-          style={{
-            ...pageTitleStyle,
-          }}
-        >
-          Please switch to
-        </h1>
-        <h1
-          style={{
-            ...pageTitleStyle,
-          }}
-        >
-          Polygon Mumbai Testnet Network
-        </h1>
-        <div
-          style={{
-            margin: "1rem",
-          }}
-        >
+      <div className={pageStyles.networkWarning}>
+        <h1 className={pageStyles.title}>Please switch to</h1>
+        <h1 className={pageStyles.title}>Polygon Mumbai Testnet Network</h1>
+        <div className={pageStyles.actions}>
           <PolygonLogo />,
         </div>
-        <p
-          style={{
-            ...descriptionStyle,
-          }}
-        >
+        <p className={pageStyles.description}>
           To see your&nbsp; MetaGymLand NFTs
         </p>
-        <p
-          style={{
-            ...pageTitle3Style,
-            fontWeight: 700,
-            marginTop: "3rem",
-          }}
-        >
+        <p className={pageStyles.subtitle}>
           If it does not look right? Hit refresh
         </p>
       </div>

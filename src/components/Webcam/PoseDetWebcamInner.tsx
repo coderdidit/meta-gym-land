@@ -1,11 +1,11 @@
+import styles from "./PoseDetWebcamInner.module.css";
 import { Component } from "react";
 import Webcam from "react-webcam";
 import { BgColorsOutlined } from "@ant-design/icons";
 import { setWebcamBG, getWebcamBG } from "./state";
 
 const blackBgClass = "black-bg";
-const BgColorsOutlinedIcon =
-  BgColorsOutlined as unknown as React.ComponentType<any>;
+const BgColorsOutlinedIcon = BgColorsOutlined as any;
 
 export interface PoseDetWebcamInnerProps {
   videoConstraints: MediaTrackConstraints | Record<string, never>;
@@ -36,23 +36,8 @@ export class PoseDetWebcamInner extends Component<
     const { sizeProps, styleProps, videoConstraints, webcamRef, canvasRef } =
       this.props;
     return (
-      <div
-        id={"pose-det-webcam-container"}
-        style={{
-          display: "grid",
-          gridTemplateRows: "1fr",
-          gridTemplateColumns: "1fr",
-          gridTemplateAreas: "overlap",
-        }}
-      >
-        <div
-          style={{
-            display: "grid",
-            gridTemplateRows: "1fr",
-            gridTemplateColumns: "1fr",
-            gridTemplateAreas: "overlap",
-          }}
-        >
+      <div id={"pose-det-webcam-container"} className={styles.container}>
+        <div className={styles.preview}>
           <Webcam
             key={(() => {
               const d = videoConstraints?.deviceId;
@@ -95,34 +80,21 @@ export class PoseDetWebcamInner extends Component<
             }}
           />
         </div>
-        <div
-          id={"pose-det-webcam-canvas-cam-toggle-div"}
-          style={{
-            zIndex: 10,
-            cursor: "pointer",
+        <button
+          type="button"
+          className={styles.toggle}
+          aria-label="Toggle webcam background"
+          onClick={() => {
+            const canvas = canvasRef.current;
+            if (!canvas) return;
+            canvas.classList.toggle(blackBgClass);
+            setWebcamBG(
+              canvas.classList.contains(blackBgClass) ? blackBgClass : "",
+            );
           }}
         >
-          <BgColorsOutlinedIcon
-            id={"pose-det-webcam-canvas-cam-toggle-icon"}
-            onClick={() => {
-              const icon = document.getElementById(
-                "pose-det-webcam-canvas-cam-toggle-icon",
-              );
-              const webCamCanvas = document.getElementById(
-                "pose-det-webcam-canvas",
-              );
-              if (webCamCanvas && icon) {
-                if (webCamCanvas.className !== blackBgClass) {
-                  webCamCanvas.className = blackBgClass;
-                } else {
-                  webCamCanvas.className = "";
-                  icon.className = "";
-                }
-                setWebcamBG(webCamCanvas.className);
-              }
-            }}
-          />
-        </div>
+          <BgColorsOutlinedIcon />
+        </button>
       </div>
     );
   }

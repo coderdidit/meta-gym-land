@@ -1,12 +1,13 @@
+import pageStyles from "./user-progress-modal.styles.module.css";
 import { StockOutlined } from "@ant-design/icons";
 import { Modal } from "antd";
-import { pageTitle2Style, mainFontColor } from "GlobalStyles";
+
 import { useState } from "react";
 import { UserProgress } from "./user-progress";
 import { createMockUser } from "../../types/user";
 
 export { UserProgressModalWithIcon };
-const StockOutlinedIcon = StockOutlined as unknown as React.ComponentType<any>;
+const StockOutlinedIcon = StockOutlined as any;
 
 const UserProgressModalWithIcon = ({ avatar }: { avatar: any }) => {
   const [visible, setVisible] = useState(false);
@@ -15,43 +16,20 @@ const UserProgressModalWithIcon = ({ avatar }: { avatar: any }) => {
 
   return (
     <>
-      <div
-        style={{
-          textAlign: "center",
-          marginTop: "1rem",
-          cursor: "pointer",
-          fontSize: "20px",
-          color: mainFontColor,
-        }}
-        onClick={() => setVisible(true)}
-      >
+      <div className={pageStyles.trigger} onClick={() => setVisible(true)}>
         <StockOutlinedIcon />
       </div>
-      <div
-        style={{
-          textAlign: "center",
-          display: "flex",
-          justifyContent: "center",
-        }}
-      >
-        level
-      </div>
+      <div className={pageStyles.label}>level</div>
       <Modal
         title={
-          <div
-            style={{
-              textAlign: "center",
-              ...pageTitle2Style,
-              color: mainFontColor,
-            }}
-          >
+          <div className={pageStyles.title}>
             <h3>
               Your progress <StockOutlinedIcon />
             </h3>
           </div>
         }
         centered
-        visible={visible}
+        open={visible}
         onOk={() => setVisible(false)}
         onCancel={() => setVisible(false)}
         width={1100}

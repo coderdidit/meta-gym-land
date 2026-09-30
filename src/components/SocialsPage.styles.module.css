@@ -1,0 +1,34 @@
+.socialGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  justify-content: center;
+  align-items: center;
+}
+
+.socialLink {
+  display: grid;
+  justify-content: center;
+}
+
+.newsletter {
+  margin-top: 1rem;
+  display: grid;
+  justify-content: center;
+}
+
+.newsletterContent {
+  padding: 0.5rem;
+}
+
+.title {
+  font-family: Source Serif Pro;
+  font-weight: bold;
+  font-size: 40px;
+  padding-bottom: 2rem;
+}
+
+.page {
+  display: grid;
+  place-items: center;
+  min-height: 70vh;
+}

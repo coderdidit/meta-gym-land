@@ -8,7 +8,7 @@ const PlayPage = () => {
   const [avatar] = useContext(AvatarCtx);
   const { miniGameId } = useParams();
   if (!avatar) {
-    return <Navigate to="/avatars" />;
+    return <Navigate to="/demo-avatar" />;
   }
   return (
     <>
