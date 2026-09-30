@@ -1,13 +1,7 @@
 import React from "react";
 import { Button, Image } from "antd";
 import { PlaySquareOutlined } from "@ant-design/icons";
-import {
-  mainFontColor,
-  pageTitleStyle,
-  pageTitle2Style,
-  descriptionStyle,
-  secondaryBgColor,
-} from "GlobalStyles";
+import { pageTitleStyle, pageTitle2Style } from "GlobalStyles";
 import { Link } from "react-router-dom";
 import homePageImg from "./assets/home_page/home_page_img.png";
 import howItWorks1 from "./assets/home_page/how_it_works_1.png";
@@ -17,35 +11,15 @@ import { SocialsComponent } from "./SocialsPage";
 import { MGLSmallLogo } from "../Logos";
 import stylesCss from "./Home.module.css";
 
-const styles = {
-  homeGlobal: {
-    color: mainFontColor,
-  },
-  titleText: {
-    ...pageTitleStyle,
-  },
-  text: {
-    ...descriptionStyle,
-    color: "#FFFFFF",
-  },
-  card: {
-    border: "none",
-    borderBottom: "none",
-    background: "none",
-    color: mainFontColor,
-    lineHeight: "0.8",
-  },
-};
-
 export default function Home() {
   return (
     <div>
       <section className={stylesCss.hero}>
-        <div style={{}}>
-          <div className={stylesCss.heroTitle} style={styles.titleText}>
+        <div className={stylesCss.heroContent}>
+          <div className={stylesCss.heroTitle} style={pageTitleStyle}>
             Ready to get started?
           </div>
-          <div className={stylesCss.heroSubtitle} style={styles.text}>
+          <div className={stylesCss.heroSubtitle}>
             Follow steps below, have fun and get fit!
           </div>
 
@@ -73,18 +47,12 @@ export default function Home() {
         />
       </section>
 
-      <section>
-        <div
-          style={{
-            textAlign: "center",
-            padding: "1.5rem 1rem 1rem 1rem",
-          }}
-        >
+      <section className={stylesCss.howItWorksSection}>
+        <div className={stylesCss.howItWorksHeader}>
           <div style={pageTitle2Style}>How it works?</div>
 
           <Button
-            className="mgl-btn mgl-btn-secondary"
-            style={{ margin: "1rem" }}
+            className={`mgl-btn mgl-btn-secondary ${stylesCss.watchVideoBtn}`}
             onClick={() =>
               window.open(
                 "https://www.youtube.com/watch?v=vTWeE7YJnj4",
@@ -95,32 +63,15 @@ export default function Home() {
             <PlaySquareOutlined /> Watch video
           </Button>
         </div>
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr 1fr",
-            justifyContent: "center",
-            textAlign: "center",
-            ...descriptionStyle,
-          }}
-        >
+        <div className={stylesCss.howItWorksGrid}>
           <div>
             <Image
               preview={false}
               src={howItWorks1}
               alt=""
-              style={{
-                width: "80%",
-                padding: "0px",
-                margin: "0px",
-              }}
+              className={stylesCss.howItWorksImage}
             />
-            <p
-              style={{
-                fontWeight: 500,
-                // marginBottom: "1rem",
-              }}
-            >
+            <p className={stylesCss.stepTitleNoMargin}>
               1. Connect your wallet (deprecated)
             </p>
             <p>We used to be a Web3 App</p>
@@ -131,18 +82,9 @@ export default function Home() {
               preview={false}
               src={howItWorks2}
               alt=""
-              style={{
-                width: "80%",
-                padding: "0px",
-                margin: "0px",
-              }}
+              className={stylesCss.howItWorksImage}
             />
-            <p
-              style={{
-                fontWeight: 500,
-                marginBottom: "1rem",
-              }}
-            >
+            <p className={stylesCss.stepTitle}>
               2. Buy or generate your GymBuddy
             </p>
             <p>Not available right now</p>
@@ -153,18 +95,9 @@ export default function Home() {
               preview={false}
               src={howItWorks3}
               alt=""
-              style={{
-                width: "80%",
-                padding: "0px",
-                margin: "0px",
-              }}
+              className={stylesCss.howItWorksImage}
             />
-            <p
-              style={{
-                fontWeight: 500,
-                marginBottom: "1rem",
-              }}
-            >
+            <p className={stylesCss.stepTitle}>
               3. Enable your Webcam and join MetaGymLand
             </p>
 
@@ -174,49 +107,18 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <div
-        style={{
-          flexBasis: "100%",
-        }}
-      />
+      <div className={stylesCss.spacer} />
 
-      <section
-        style={{
-          marginTop: "3rem",
-          // marginBottom: "3rem",
-          padding: "2.8rem",
-          alignItems: "center",
-          justifyContent: "center",
-          backgroundColor: secondaryBgColor,
-        }}
-      >
-        <div
-          style={{
-            display: "grid",
-            placeItems: "center",
-          }}
-        >
+      <section className={stylesCss.socialSection}>
+        <div className={stylesCss.socialInner}>
           <SocialsComponent />
         </div>
 
-        <div
-          style={{
-            marginTop: "2rem",
-            textAlign: "center",
-            fontSize: "18px",
-          }}
-        >
+        <div className={stylesCss.contactWrap}>
           <MGLSmallLogo />
-          <div
-            style={{
-              marginTop: "1rem",
-            }}
-          >
+          <div className={stylesCss.contactEmailWrap}>
             <a
-              style={{
-                textDecoration: "none",
-                color: mainFontColor,
-              }}
+              className={stylesCss.contactEmail}
               href="mailto:metagymland@gmail.com"
             >
               metagymland@gmail.com

@@ -2,6 +2,7 @@
   background: none;
   color: var(--mgl-main-text);
   font-family: Roboto, sans-serif;
+  min-height: 100vh;
 }
 
 .header {
@@ -11,6 +12,7 @@
   align-items: center;
   background: none;
   height: 60px;
+  padding: 0 2rem;
 }
 
 .headerBrandWrap {

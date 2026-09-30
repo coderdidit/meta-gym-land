@@ -16,7 +16,6 @@ import SocialsPage from "components/SocialsPage";
 import LoaderTest from "components/LoaderTest";
 import MenuItems from "./components/MenuItems";
 import { Link } from "react-router-dom";
-import { mainFontColor } from "GlobalStyles";
 import { MGLLogo } from "Logos";
 import { AppFooter } from "AppFooter";
 import PlayPage from "components/Play";
@@ -31,15 +30,10 @@ const { Header } = Layout;
 
 const App = () => {
   return (
-    <div className={styles.appRoot} style={{ color: mainFontColor }}>
+    <div className={styles.appRoot}>
       <ConfigProvider wave={{ disabled: true }}>
         <Router>
-          <Header
-            className={styles.header}
-            style={{
-              ...paddingLRHeaderFooter,
-            }}
-          >
+          <Header className={styles.header}>
             <div className={styles.headerBrandWrap}>
               <Link to="/" className={styles.headerBrandLink}>
                 <MGLLogo />

@@ -30,3 +30,95 @@
   padding: 0;
   margin: 0;
 }
+
+.heroContent {
+  color: #fff;
+}
+
+.howItWorksSection {
+  margin-top: 1rem;
+}
+
+.howItWorksHeader {
+  text-align: center;
+  padding: 1.5rem 1rem 1rem;
+}
+
+.howItWorksGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  justify-content: center;
+  text-align: center;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 28px;
+}
+
+.howItWorksImage {
+  width: 80%;
+  padding: 0;
+  margin: 0;
+}
+
+.stepTitle {
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+.stepTitleNoMargin {
+  font-weight: 500;
+}
+
+.spacer {
+  flex-basis: 100%;
+}
+
+.socialSection {
+  margin-top: 3rem;
+  padding: 2.8rem;
+  align-items: center;
+  justify-content: center;
+  background-color: #f8f8f8;
+}
+
+.socialInner {
+  display: grid;
+  place-items: center;
+}
+
+.contactWrap {
+  margin-top: 2rem;
+  text-align: center;
+  font-size: 18px;
+}
+
+.contactEmailWrap {
+  margin-top: 1rem;
+}
+
+.contactEmail {
+  text-decoration: none;
+  color: var(--mgl-main-text);
+}
+
+.watchVideoBtn {
+  margin: 1rem;
+}
+
+@media (max-width: 1024px) {
+  .hero {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding: 3rem 2rem;
+  }
+
+  .heroTitle {
+    padding-top: 0;
+  }
+
+  .howItWorksGrid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 0 1rem;
+  }
+}
