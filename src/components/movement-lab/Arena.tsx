@@ -310,7 +310,13 @@ export default function Arena() {
           <h1>Arena</h1>
           <p>Read the attack. Move to survive. Strike back.</p>
         </div>
-        <Link to="/minigames">All minigames</Link>
+        <nav aria-label="Compare prototypes">
+          <Link to="/mirror_arena">Mirror Arena</Link>
+          {" / "}
+          <Link to="/dark_arena">Dark Arena</Link>
+          {" / "}
+          <Link to="/minigames">All minigames</Link>
+        </nav>
       </header>
       <div className={styles.layout}>
         <section className={styles.game} aria-label="Arena game">

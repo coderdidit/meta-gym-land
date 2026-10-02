@@ -26,6 +26,7 @@ import { ProgressPage } from "components/user-progrees";
 import styles from "./App.module.css";
 import MovementLab from "./components/movement-lab/MovementLab";
 import Arena from "./components/movement-lab/Arena";
+import BodyArena from "./components/body-arena/BodyArena";
 
 const { Header } = Layout;
 
@@ -49,6 +50,14 @@ const App = () => {
               <Route path="minigames" element={<MiniGamesPage />} />
               <Route path="movement-lab" element={<MovementLab />} />
               <Route path="arena" element={<Arena />} />
+              <Route
+                path="mirror_arena"
+                element={<BodyArena key="mirror" presentation="mirror" />}
+              />
+              <Route
+                path="dark_arena"
+                element={<BodyArena key="dark" presentation="dark" />}
+              />
               <Route path="player-progress" element={<ProgressPage />} />
               <Route path="demo-avatar" element={<DemoAvatar />} />
               <Route

@@ -39,6 +39,12 @@ const MiniGamesPage = () => {
           Try Arena: dodge, block and strike in a body-controlled battle
         </Link>
       </p>
+      <p>
+        Webcam-first movement circuits:{" "}
+        <Link to="/mirror_arena">Mirror Arena</Link>
+        {" / "}
+        <Link to="/dark_arena">Dark Arena</Link>
+      </p>
       <section className={pageStyles.gamesSection}>
         <div className={pageStyles.games}>
           <div
