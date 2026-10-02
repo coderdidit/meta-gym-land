@@ -10,15 +10,24 @@ import {
 import Webcam from "react-webcam";
 import { Results } from "@mediapipe/pose";
 import { WindowWithProps } from "window-with-props";
-import {
-  startPoseEstimationLoop,
-  lastAnimationTimerId,
-} from "./pose-estimation-loop";
+import { startPoseEstimationLoop } from "./pose-estimation-loop";
 
 declare let window: WindowWithProps;
 
-type PoseDetWebcamProps = { sizeProps: any; styleProps: any };
-const PoseDetWebcam = ({ sizeProps, styleProps }: PoseDetWebcamProps) => {
+type PoseDetWebcamProps = {
+  sizeProps: any;
+  styleProps: any;
+  onPoseResults?: (results: Results) => void;
+  onCameraError?: () => void;
+};
+const PoseDetWebcam = ({
+  sizeProps,
+  styleProps,
+  onPoseResults,
+  onCameraError,
+}: PoseDetWebcamProps) => {
+  const resultsListener = useRef(onPoseResults);
+  resultsListener.current = onPoseResults;
   const { webcamId, setWebcamId } = useContext(WebcamCtx);
   const { poseDetector } = useContext(PoseDetectorCtx);
   const canvasRef: React.MutableRefObject<HTMLCanvasElement | null> =
@@ -64,13 +73,14 @@ const PoseDetWebcam = ({ sizeProps, styleProps }: PoseDetWebcamProps) => {
         webcamId,
       });
     }
+    let stopEstimation: (() => void) | undefined;
     const startPoseEstimationDebounce = setTimeout(() => {
       if (webcamId) {
         if (isInDebug()) {
           console.log("[PoseDetWebcam] startPredictions useEffect");
         }
         poseDetector.onResults(onResults);
-        startPoseEstimationLoop({
+        stopEstimation = startPoseEstimationLoop({
           poseDetector,
           webcamRef,
           window,
@@ -83,20 +93,14 @@ const PoseDetWebcam = ({ sizeProps, styleProps }: PoseDetWebcamProps) => {
         console.log("[PoseDetWebcam] exit");
       }
       clearTimeout(startPoseEstimationDebounce);
-      // this is super important to do
-      // cancelAnimationFrame on webcamId change
-      // for lastAnimationTimerId
-      // otherwise ML model will sart crashing
-      // from corrupted data from not ready webcam
-      if (lastAnimationTimerId > -1) {
-        cancelAnimationFrame(lastAnimationTimerId);
-      }
+      stopEstimation?.();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [webcamId]);
 
   // HERE: handle game logic events driven by poses
   const onResults = (results: Results) => {
+    resultsListener.current?.(results);
     if (webCamAndCanvasAreInit()) {
       doPredictionsCanvasSetup();
       drawPose(canvasRef, results);
@@ -152,6 +156,7 @@ const PoseDetWebcam = ({ sizeProps, styleProps }: PoseDetWebcamProps) => {
       }
       webcamRef={webcamRef}
       canvasRef={canvasRef}
+      onCameraError={onCameraError}
     />
   );
 };

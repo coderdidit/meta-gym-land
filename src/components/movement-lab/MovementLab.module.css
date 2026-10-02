@@ -1,0 +1,253 @@
+.page {
+  max-width: 1440px;
+  margin: 28px auto 60px;
+  padding: 0 28px;
+  color: #193d35;
+}
+.heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+.heading h1 {
+  font: 600 44px "Source Serif Pro", Georgia, serif;
+  margin: 0 0 6px;
+}
+.heading p {
+  margin: 0;
+}
+.eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  font-weight: 700;
+  margin-bottom: 8px !important;
+  color: #587b70;
+}
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 260px;
+  gap: 24px;
+  align-items: start;
+}
+.game {
+  border: 1px solid #cbded5;
+  border-radius: 20px;
+  overflow: hidden;
+  background: #f4f8f3;
+  box-shadow: 0 12px 35px #193d3510;
+}
+.hud {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 18px 24px;
+  background: white;
+  border-bottom: 1px solid #dce8e0;
+}
+.hud small {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+}
+.hud strong {
+  display: block;
+  font-size: 28px;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.2;
+}
+.hud strong span {
+  font-size: 16px;
+}
+.field {
+  position: relative;
+  background: radial-gradient(ellipse at center, #fffdf0, #e9f2ed);
+}
+.field svg {
+  display: block;
+  width: 100%;
+  aspect-ratio: 5 / 3;
+  touch-action: none;
+}
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: #eff6efdd;
+}
+.passive {
+  pointer-events: none;
+  background: #eff6ef99;
+}
+.intro {
+  max-width: 450px;
+  text-align: center;
+}
+.intro h2,
+.notice h2 {
+  font: 600 40px "Source Serif Pro", Georgia, serif;
+  margin: 14px 0;
+}
+.intro p {
+  font-size: 16px;
+  line-height: 1.6;
+  margin: 12px 0 20px;
+}
+.intro small {
+  display: block;
+  margin: 18px auto 0;
+  max-width: 330px;
+  line-height: 1.5;
+}
+.pill {
+  display: inline-block;
+  background: #dfebe1;
+  border-radius: 30px;
+  padding: 7px 14px;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+}
+.page button {
+  border: 1px solid #bdcec4;
+  background: white;
+  color: #193d35;
+  border-radius: 10px;
+  padding: 10px 14px;
+  cursor: pointer;
+  font: inherit;
+}
+.page button:hover:not(:disabled) {
+  background: #e6efe8;
+}
+.page button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.page button:focus-visible,
+.page select:focus-visible {
+  outline: 3px solid #e5a83c;
+  outline-offset: 3px;
+}
+.page .primary {
+  background: #087e68;
+  color: white;
+  border-color: #087e68;
+  padding: 12px 22px;
+}
+.page .primary:hover:not(:disabled) {
+  background: #096451;
+}
+.intro > button + button {
+  margin-left: 10px;
+}
+.notice {
+  text-align: center;
+  background: #f9fcf7ed;
+  padding: 18px 28px;
+  border-radius: 14px;
+}
+.footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 20px;
+  font-size: 12px;
+  border-top: 1px solid #dce8e0;
+}
+.settings {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.settings h2 {
+  font: 600 24px "Source Serif Pro", Georgia, serif;
+  margin: 0;
+}
+.settings label {
+  font-size: 12px;
+  font-weight: 700;
+}
+.settings select {
+  width: 100%;
+  border: 1px solid #bdcec4;
+  background: white;
+  border-radius: 8px;
+  padding: 10px;
+  color: #193d35;
+}
+.settings p {
+  font-size: 13px;
+  line-height: 1.5;
+  margin: 0;
+}
+.settings .small {
+  font-size: 11px;
+  color: #587267;
+}
+.status {
+  background: #edf4eb;
+  padding: 12px;
+  border-radius: 8px;
+}
+.note {
+  border-top: 1px solid #dce8e0;
+  padding-top: 16px;
+  margin-top: 8px;
+}
+.note p {
+  margin-top: 6px;
+}
+.ratings {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+.ratings button {
+  font-size: 12px;
+  padding: 6px 10px;
+}
+.ratings button[aria-pressed="true"] {
+  background: #193d35;
+  color: white;
+}
+@media (max-width: 1000px) {
+  .layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .settings {
+    max-width: 500px;
+  }
+  .page {
+    padding: 0 16px;
+  }
+}
+@media (max-width: 600px) {
+  .heading {
+    align-items: start;
+    flex-direction: column;
+  }
+  .field svg {
+    min-height: 340px;
+  }
+  .intro h2,
+  .notice h2 {
+    font-size: 28px;
+  }
+  .intro p {
+    font-size: 13px;
+  }
+  .hud {
+    padding: 12px;
+  }
+  .hud strong {
+    font-size: 22px;
+  }
+  .footer {
+    flex-wrap: wrap;
+  }
+}

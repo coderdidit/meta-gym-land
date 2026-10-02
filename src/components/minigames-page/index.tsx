@@ -34,6 +34,11 @@ const MiniGamesPage = () => {
       <section className={pageStyles.description}>
         Progress with unlocked games to unlock the locked ones
       </section>
+      <p>
+        <Link to="/arena">
+          Try Arena: dodge, block and strike in a body-controlled battle
+        </Link>
+      </p>
       <section className={pageStyles.gamesSection}>
         <div className={pageStyles.games}>
           <div

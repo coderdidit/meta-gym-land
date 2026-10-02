@@ -1,0 +1,244 @@
+.page {
+  max-width: 1500px;
+  margin: 26px auto 60px;
+  padding: 0 24px;
+  color: #243d46;
+}
+.heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 22px;
+}
+.heading span {
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  font-weight: 700;
+  color: #628187;
+}
+.heading h1 {
+  font: 700 46px "Source Serif Pro", Georgia, serif;
+  margin: 3px 0;
+}
+.heading p {
+  margin: 0;
+}
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 255px;
+  gap: 24px;
+  align-items: start;
+}
+.game {
+  overflow: hidden;
+  border-radius: 16px;
+  background: #112b3b;
+  box-shadow: 0 16px 40px #1930441c;
+}
+.hud {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 18px 24px;
+  color: #f7ebd7;
+  border-bottom: 1px solid #45616c;
+}
+.hud small {
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  display: block;
+  color: #a8c8c7;
+}
+.hud b {
+  font-size: 24px;
+  font-variant-numeric: tabular-nums;
+}
+.stage {
+  position: relative;
+  aspect-ratio: 5/3;
+}
+.canvas {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+.canvas canvas {
+  display: block;
+}
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: #0a1a29b8;
+}
+.panel {
+  text-align: center;
+  max-width: 540px;
+  padding: 24px;
+  color: #f7ebd7;
+  background: #142d3eef;
+  border: 1px solid #617978;
+  border-radius: 18px;
+}
+.panel h2 {
+  font: 600 36px "Source Serif Pro", Georgia, serif;
+  margin: 10px 0;
+}
+.panel p {
+  line-height: 1.5;
+  font-size: 14px;
+  margin: 12px 0;
+}
+.kicker {
+  color: #ffc779;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+}
+.page button {
+  font: inherit;
+  border: 1px solid #789296;
+  border-radius: 9px;
+  padding: 10px 14px;
+  color: #243d46;
+  background: #f4f7f5;
+  cursor: pointer;
+}
+.page button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+.page button:hover:not(:disabled) {
+  filter: brightness(0.93);
+}
+.page button:focus-visible,
+.page select:focus-visible {
+  outline: 3px solid #df9a30;
+  outline-offset: 3px;
+}
+.page .primary {
+  background: #ffc779;
+  border-color: #ffc779;
+  color: #142d3e;
+  font-weight: 700;
+}
+.panel > button + button {
+  margin-left: 8px;
+}
+.status {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 22px;
+  color: #a8c8c7;
+  font-size: 11px;
+  border-top: 1px solid #45616c;
+}
+.settings {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.settings h2 {
+  font: 600 23px "Source Serif Pro", Georgia, serif;
+  margin: 0;
+}
+.settings label {
+  font-size: 12px;
+  font-weight: 700;
+}
+.settings select {
+  padding: 10px;
+  width: 100%;
+  background: white;
+  color: #243d46;
+  border: 1px solid #bdcece;
+  border-radius: 8px;
+}
+.settings p {
+  font-size: 12px;
+  line-height: 1.6;
+  margin: 0;
+}
+.controls {
+  padding: 16px;
+  background: #edf3f1;
+  border-radius: 12px;
+}
+.controls h3 {
+  font-size: 14px;
+  margin: 0 0 10px;
+}
+.controls p + p {
+  margin-top: 10px;
+}
+.controls b {
+  display: block;
+}
+.muted {
+  opacity: 0.7;
+}
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin: 12px 0;
+}
+.stats span {
+  font-size: 12px;
+}
+.stats b {
+  display: block;
+  font-size: 24px;
+  color: #43d9bf;
+}
+.buttons,
+.ratings {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.ratings button {
+  font-size: 12px;
+  padding: 5px 10px;
+}
+.ratings button[aria-pressed="true"] {
+  background: #43d9bf;
+}
+@media (max-width: 1050px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+  .settings {
+    max-width: 500px;
+  }
+}
+@media (max-width: 700px) {
+  .hud {
+    flex-wrap: wrap;
+    padding: 12px;
+  }
+  .hud b {
+    font-size: 18px;
+  }
+  .stage {
+    min-height: 470px;
+  }
+  .panel {
+    padding: 16px;
+  }
+  .panel h2 {
+    font-size: 27px;
+  }
+  .heading {
+    align-items: start;
+    gap: 12px;
+  }
+  .heading h1 {
+    font-size: 36px;
+  }
+}

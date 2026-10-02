@@ -3,9 +3,7 @@ import { isInDebug } from "dev-utils/debug";
 import Webcam from "react-webcam";
 import { WindowWithProps } from "window-with-props";
 
-export { startPoseEstimationLoop, lastAnimationTimerId };
-
-let lastAnimationTimerId = -1;
+export { startPoseEstimationLoop };
 
 type startPoseEstimationLoopParams = {
   poseDetector: MglPoseDetector;
@@ -13,6 +11,9 @@ type startPoseEstimationLoopParams = {
   window: WindowWithProps;
 };
 const startPoseEstimationLoop = (params: startPoseEstimationLoopParams) => {
+  let stopped = false;
+  let frameId = -1;
+  let retryTimer: ReturnType<typeof setTimeout> | undefined;
   const targetFps = 15;
   const oneSecondMillis = 100;
   const interval = oneSecondMillis / targetFps;
@@ -21,6 +22,7 @@ const startPoseEstimationLoop = (params: startPoseEstimationLoopParams) => {
   const { poseDetector, webcamRef, window } = params;
   // function executed in the loop
   const runPoseEstimation = async () => {
+    if (stopped) return;
     const currentCallTimestamp = Date.now();
     const timeElapsed = currentCallTimestamp - lastPoseEstimationCall;
     // wait ~1 second if webcam was switched
@@ -35,6 +37,7 @@ const startPoseEstimationLoop = (params: startPoseEstimationLoopParams) => {
         poseDetector,
         webcamRef,
       });
+      if (stopped) return;
 
       if (poseEstimationError) {
         // reset pose detector
@@ -46,19 +49,24 @@ const startPoseEstimationLoop = (params: startPoseEstimationLoopParams) => {
             `and waiting for ${waitMillis / 1000} seconds before next call`,
           { poseEstimationError },
         );
-        setTimeout(() => {
-          lastAnimationTimerId = requestAnimationFrame(runPoseEstimation);
+        retryTimer = setTimeout(() => {
+          if (!stopped) frameId = requestAnimationFrame(runPoseEstimation);
         }, waitMillis);
         return;
       }
     }
 
     // keep the loop
-    lastAnimationTimerId = requestAnimationFrame(runPoseEstimation);
+    frameId = requestAnimationFrame(runPoseEstimation);
   };
 
   // start the loop
-  requestAnimationFrame(runPoseEstimation);
+  frameId = requestAnimationFrame(runPoseEstimation);
+  return () => {
+    stopped = true;
+    cancelAnimationFrame(frameId);
+    clearTimeout(retryTimer);
+  };
 };
 
 type sendVideoToPoseDetectorParams = {

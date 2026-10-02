@@ -13,6 +13,7 @@ export interface PoseDetWebcamInnerProps {
   styleProps: any;
   webcamRef: any;
   canvasRef: any;
+  onCameraError?: () => void;
 }
 
 export class PoseDetWebcamInner extends Component<
@@ -45,6 +46,7 @@ export class PoseDetWebcamInner extends Component<
               return (d as { exact?: string })?.exact ?? "default";
             })()}
             audio={false}
+            onUserMediaError={this.props.onCameraError}
             videoConstraints={videoConstraints}
             imageSmoothing={true}
             mirrored={true}

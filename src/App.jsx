@@ -24,6 +24,8 @@ import PlaySetupPage from "components/Play/PlaySetupPage";
 import { MiniGamesPage } from "components/minigames-page";
 import { ProgressPage } from "components/user-progrees";
 import styles from "./App.module.css";
+import MovementLab from "./components/movement-lab/MovementLab";
+import Arena from "./components/movement-lab/Arena";
 
 const { Header } = Layout;
 
@@ -45,6 +47,8 @@ const App = () => {
             <Routes>
               <Route index element={<Home />} />
               <Route path="minigames" element={<MiniGamesPage />} />
+              <Route path="movement-lab" element={<MovementLab />} />
+              <Route path="arena" element={<Arena />} />
               <Route path="player-progress" element={<ProgressPage />} />
               <Route path="demo-avatar" element={<DemoAvatar />} />
               <Route
